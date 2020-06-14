@@ -7,14 +7,21 @@ from rest_framework.response import Response
 
 from accounts.models import (
                         JournalEntry,
-                        MANAGEMENT_JOURNAL_ENTRY_TYPES
+                        MANAGEMENT_JOURNAL_ENTRY_TYPES,
+                        Transaction
                     )
 from accounts.permissions import LAJournalEntryReadPermission
 from accounts.serializers import (
                     RetrieveJournalEntrySerializer,
                     CreateJournalEntrySerializer,
-                    UpdateJournalEntrySerializer
+                    UpdateJournalEntrySerializer,
+                    TransactionReadOnlySerilizer
                 )
+
+class TransactionViewSet(viewsets.ModelViewSet):
+
+    serializer_class = TransactionReadOnlySerilizer
+    queryset = Transaction.objects.all()
 
 
 class JournalEntryViewSet(viewsets.ModelViewSet):

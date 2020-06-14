@@ -13,6 +13,7 @@ from accounts.apis import (
                     BillViewset,
                     BillLineViewset,
                     BillPaymentViewset,
+                    TransactionViewSet,
                 )
 
 router = routers.DefaultRouter()
@@ -30,6 +31,8 @@ router.register(r'book-keepers', BookkeeperViewset)
 router.register(r'my-bills', BillViewset)
 router.register(r'bill-lines', BillLineViewset)
 router.register(r'bill-payments', BillPaymentViewset)
+router.register(r'transactions', TransactionViewSet)
+
 
 
 

@@ -8,6 +8,12 @@ from drf_extra_fields.fields import Base64FileField
 
 # import magic
 
+class TransactionReadOnlySerilizer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Transaction
+        fields = "__all__"
+
 class ReceiptFileField(Base64FileField):
     ALLOWED_TYPES = ['xlsx', 'xls', 'docx', 'doc', 'pdf', 'txt']
 

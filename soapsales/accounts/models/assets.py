@@ -4,7 +4,6 @@ from functools import reduce
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
-import accounting
 from calendar import monthrange
 from .journalize import JournalEntry
 
