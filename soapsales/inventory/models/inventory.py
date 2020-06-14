@@ -51,13 +51,6 @@ class InventoryItem(models.Model):
                             )
 
 
-    def save(self, *args, **kwargs):
-        #Strange bug where active is defaulting to false
-        if self.pk is None:
-            self.active =True
-
-        return super().save(*args, **kwargs)
-
     def __getattribute__(self, name):
         try:
             return super().__getattribute__(name)
@@ -180,6 +173,133 @@ class ProductComponent(models.Model):
     margin = models.DecimalField(max_digits=16, decimal_places=2, default=0)
     markup = models.DecimalField(max_digits=16, decimal_places=2, default=0)
     sku = models.CharField(max_length=16, blank=True)
+
+
+    def quantity_on_date(self, date):
+        # '''
+        # Starts with current quantity
+        # going back subtract the received invetory
+        # add the sold inventory
+        # return the result
+        # i.e.
+        #     on_date = current - orders( + debit notes ) + sold(- credit notes) + scrapped inventory
+        # '''
+        current_quantity = self.inventoryitem.quantity
+        print('Current: ', current_quantity)
+        total_orders = OrderItem.objects.filter(
+            Q(order__date__gte=date) &
+            Q(order__date__lte=datetime.date.today()) &
+            Q(item=self.inventoryitem)
+        ).exclude(order__status="draft")
+
+        ordered_quantity = sum([i.received - i.returned_quantity \
+                for i in total_orders])
+
+        # will eventually replace with dispatch data
+        total_sales = InvoiceLine.objects.filter(
+            Q(invoice__date__gte=date) &
+            Q(invoice__date__lte=datetime.date.today()) &
+            Q(product__product=self.inventoryitem) &
+            Q(invoice__draft=False) &
+            Q(
+                Q(invoice__status="paid") |
+                Q(invoice__status="invoice") |
+                Q(invoice__status="paid-partially")
+            )
+        )
+
+        sold_quantity = sum(
+            [(i.product.quantity - D(i.product.returned_quantity)) \
+                for i in total_sales])
+
+
+        return D(current_quantity) + sold_quantity - D(ordered_quantity)
+
+    @property
+    def parent(self):
+        return InventoryItem.objects.get(product_component=self)
+
+    @property
+    def unit_sales_price(self):
+        if self.pricing_method == 0:
+            return self.direct_price
+        elif self.pricing_method == 1:
+            return D(self.parent.unit_purchase_price / D(1 - self.margin))
+        else:
+            return D(self.parent.unit_purchase_price * D(1 + self.markup))
+
+
+    @property
+    def unit_value(self):
+        '''the value of inventory on a per item basis'''
+        if self.inventoryitem.quantity  == 0 or self.stock_value == 0:
+            return self.inventoryitem.unit_purchase_price
+        return self.stock_value / D(self.inventoryitem.quantity)
+
+    @property
+    def stock_value(self):
+        '''.
+        averaging- calculating the overall stock value on the average of all
+        the values for the quantity in stock.
+        '''
+        current_quantity = self.parent.quantity
+        cummulative_quantity = 0
+        orders_with_items_in_stock = []
+        partial_orders = False
+
+        if current_quantity == 0:
+            return 0
+
+        #getting the latest orderitems in order of date ordered
+        order_items = inventory.models.OrderItem.objects.filter(
+            Q(item=self.parent) &
+            Q(
+                Q(order__status="order") |
+                Q(order__status="received-partially") |
+                Q(order__status="received")
+            )).order_by("order__date").reverse()
+
+        #iterate over items
+        for item in order_items:
+            # orders for which cumulative ordered quantities are less than
+            # inventory in hand are considered
+            if (item.quantity + cummulative_quantity) < current_quantity:
+                orders_with_items_in_stock.append(item)
+                cummulative_quantity += item.quantity
+
+
+            else:
+                if cummulative_quantity < current_quantity:
+                    partial_orders = True
+                    orders_with_items_in_stock.append(item)
+
+                else:
+                    break
+
+
+        cumulative_value = D(0)
+        if not partial_orders:
+            for item in orders_with_items_in_stock:
+                cumulative_value += D(item.quantity) * item.order_price
+
+        else:
+            for item in orders_with_items_in_stock[:-1]:
+                cumulative_value += D(item.quantity) * item.order_price
+
+            remainder = current_quantity - cummulative_quantity
+            cumulative_value += D(remainder) * \
+                orders_with_items_in_stock[-1].order_price
+
+        return cumulative_value
+
+
+    @property
+    def sales_to_date(self):
+        items = invoicing.models.ProductLineComponent.objects.filter(
+            product=self.inventoryitem)
+        total_sales = sum(
+            [(item.invoiceline.subtotal - item.invoiceline.tax_) for item in items])
+        return total_sales
 
 
 

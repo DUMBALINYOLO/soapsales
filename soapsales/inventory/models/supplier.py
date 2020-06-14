@@ -10,21 +10,29 @@ from django.db.models import Q
 from .inventory import InventoryItem
 from .inventory_management import StockReceipt
 from .order import Order
+from accounts.models import Account
 
 
 class Supplier(models.Model):
-    '''The businesses and individuals that provide the organization with
-    products it will sell. Basic features include contact details address and
-    contact people.
-    The account of the supplier is for instances when orders are made on credit.'''
-    # # one or the other
     name = models.CharField(max_length=230)
     is_organization = models.BooleanField(default=False)
     is_individual = models.BooleanField(default=False)
+    account = models.ForeignKey(
+                            'accounts.Account',
+                            on_delete=models.SET_NULL,
+                            blank=True,
+                            null=True
+                        )
+    business_address = models.TextField(blank=True)
+    website = models.CharField(max_length=255, blank=True)
+    bp_number = models.CharField(max_length=64, blank=True)
+    email=models.CharField(max_length=128, blank=True)
+    phone = models.CharField(max_length=32, blank=True)
+    contact_person = models.CharField(max_length=230, blank=True)
 
-    #TODO
-    # ADD MORE FIELDS LIKE CONTACT, ADDRESS, EMAIL, CONTACTPERSON
 
+    def __str__(self):
+        return self.name
 
     @property
     def products(self):
@@ -63,3 +71,22 @@ class Supplier(models.Model):
             return total_days / fully_received
 
         return 0
+
+    def create_account(self):
+        if self.account is None:
+            n_suppliers = Supplier.objects.all().count()
+            #will overwrite if error occurs
+            self.account = Account.objects.create(
+                name= "Vendor: %s" % self.name,
+                id = 2100 + n_suppliers + 1, # the + 1 for the default supplier
+                initial_balance = 0,
+                order  = 2,
+                is_active = False,
+                is_contra = False,
+                description = 'Account which represents debt owed to a Vendor',
+            )
+
+    def save(self, *args, **kwargs):
+        if self.account is None:
+            self.create_account()
+        super(Supplier, self).save(*args, **kwargs)

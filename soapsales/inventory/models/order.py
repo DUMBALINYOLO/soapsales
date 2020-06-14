@@ -7,6 +7,7 @@ from django.db import models
 from django.db.models import Q
 
 
+
 from .warehouse import (
                         StorageMedia,
                         WareHouseItem
@@ -22,7 +23,8 @@ from .debit_note import DebitNoteLine
 class Order(models.Model):
     '''
     The record of all purchase orders for inventory of items that
-    will eventually be sold. Contains the necessary data to update
+    will eventually be sold or relied upon for the smooth running of the business.
+    Contains the necessary data to update
     inventory and update the Purchases Journal.
     An aggregate with the OrderItem class.
     A cash order creates a transaction creation.

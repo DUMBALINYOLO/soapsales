@@ -25,6 +25,8 @@ SECRET_KEY = '&jo#@5d#8pqi8^930g56vd2*ux6q$(93()zm-yem1ou-7@u_m@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+DEFAULT_CURRENCY = 'ZAR'
+
 ALLOWED_HOSTS = []
 
 
@@ -37,11 +39,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sales',
+    # 'sales',
+    'rest_framework',
+    'django_filters',
+    'six',
+    'mptt',
+    'django_prices',
+    'simple_history',
     'inventory',
     'manufacture',
-    'employees'
+    'invoicing',
+    'basedata',
+    'employees',
+    'accounts',
+    'stock',
 ]
+
+AUTH_USER_MODEL = 'employees.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'soapsales.urls'

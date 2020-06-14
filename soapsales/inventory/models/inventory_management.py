@@ -1,5 +1,8 @@
 from django.db import models
 from django.db.models import Q
+from basedata.models import InvenTreeTree
+from .inventory import InventoryItem
+from accounts.models import Account
 
 
 class InventoryController(models.Model):
@@ -36,11 +39,13 @@ class UnitOfMeasure(models.Model):
 
 
 class Category(models.Model):
-    '''Used to organize inventory'''
+    # '''Used to organize inventory'''
     name = models.CharField(max_length=64)
     parent = models.ForeignKey('inventory.Category', on_delete=models.SET_NULL, null=True, blank=True)
     description = models.TextField(default="")
 
+    # def get_absolute_url(self):
+    #     return reverse("inventory:category-detail", kwargs={"pk": self.pk})
 
 
     def __str__(self):
@@ -49,17 +54,10 @@ class Category(models.Model):
     @property
     def items(self):
         #deprecating
-        '''
-         Here you can simple group your Inventory Items
-        '''
-        from .inventory import InventoryItem
         return InventoryItem.objects.filter(category=self)
 
     @property
     def children(self):
-        '''
-         Its a recursie field that is used to refference children of a certain parent category
-        '''
         return Category.objects.filter(parent=self)
 
     @property
@@ -72,12 +70,41 @@ class Category(models.Model):
                 pk=self.pk)
 
 
+
 class OrderPayment(models.Model):
     date = models.DateField()
     amount = models.DecimalField(max_digits=16,decimal_places=2)
     order = models.ForeignKey('inventory.Order', on_delete=models.SET_NULL,
         null=True)
     comments = models.TextField()
+
+    entry = models.ForeignKey('accounts.JournalEntry',
+        on_delete=models.SET_NULL,
+        blank=True, null=True)
+
+
+
+    def create_entry(self, comments=""):
+        if self.entry:
+            return
+        j = JournalEntry.objects.create(
+                memo= 'Auto generated journal entry from order payment.' \
+                    if comments == "" else comments,
+                date=self.date,
+                creator = self.order.issuing_inventory_controller.employee.user,
+                is_approved = True,
+                entry_type = entry_type.JournalEntryTypes.REGULAR,
+            )
+
+        j.simple_entry(
+            self.amount,
+            Account.objects.get(name='CASH_IN_ACCOUNT'),#cash in checking account
+            self.order.supplier.account,
+        )
+
+        if not self.entry:
+            self.entry = j
+            self.save()
 
 
 class StockReceipt(models.Model):

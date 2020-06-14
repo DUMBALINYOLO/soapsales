@@ -29,7 +29,9 @@ for and root cause analysis to be performed
 time is managed as part of shifts that organize the employees working on them
 and the production schedule that is followed by the machine.
 
-when a production order is generated the process products are evaluated and a suggested process is generated. that process is then used to update the production schedule. once a process is scheduled, its status page is updated.
+when a production order is generated the
+process products are evaluated and a suggested process is generated. that process is
+then used to update the production schedule. once a process is scheduled, its status page is updated.
 
 
 he makes foam rubbers
@@ -61,7 +63,7 @@ multistage process
 class ProductionOrder(models.Model):
     date = models.DateField()
     due = models.DateField()
-    customer = models.ForeignKey('sales.Customer', on_delete=models.SET_NULL,
+    customer = models.ForeignKey('invoicing.Customer', on_delete=models.SET_NULL,
         blank=True, null=True)
     product = models.ForeignKey('inventory.InventoryItem', on_delete=models.SET_NULL, null=True)
     process = models.ForeignKey('manufacture.Process', on_delete=models.SET_NULL, null=True)
@@ -199,6 +201,10 @@ class BillOfMaterials(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def bill_lines(self):
+        return self.billofmaterialsline_set.all()
+
 class BillOfMaterialsLine(models.Model):
     bill = models.ForeignKey('manufacture.BillOfMaterials', on_delete=models.SET_NULL, null=True)
     type = models.PositiveSmallIntegerField(choices=[
@@ -232,12 +238,10 @@ class ProcessMachine(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     date_commissioned = models.DateField()
-
     machine_group = models.ForeignKey(
         'manufacture.ProcessMachineGroup',
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True)
+        on_delete=models.PROTECT,
+        )
 
     def __str__(self):
         return self.name
