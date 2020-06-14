@@ -1,0 +1,3 @@
+# soapsales
+
+DJANGO-REACT ERP FOR A SMALL BUSINESS
