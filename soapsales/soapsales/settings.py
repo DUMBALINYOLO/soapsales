@@ -75,7 +75,7 @@ ROOT_URLCONF = 'soapsales.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -156,16 +156,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication'
-    ),
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.AllowAny',
+#     ),
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.TokenAuthentication',
+#     ),
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication'
+#     ),
+# }
 
 CORS_ORIGIN_ALLOW_ALL = True
