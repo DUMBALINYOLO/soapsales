@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import alert from './alert';
-import auth from './auth';
+import taxes from './taxes';
+
+
 
 export default combineReducers({
-    alert,
-    auth
+    taxes
+
 });
