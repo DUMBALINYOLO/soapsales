@@ -7,7 +7,7 @@ class Navbar extends Component {
 	render(){
 		return (
 			<NavWrapper className="navbar navbar-expand-sm bg-secondary navbar-dark px-sm-5">
-				<Link to="/" >
+				<Link to="/sidebar" >
 					<span className="fas fa-home navbar-brand">Mel'Cin</span>
 				</Link>
 				<ul className="navbar-nav align-items-center">

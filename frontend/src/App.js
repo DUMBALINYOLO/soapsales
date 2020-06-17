@@ -12,6 +12,7 @@ import ShoppingBasket from './components/Products/Basket';
 import Taxes from './components/taxes/Taxes';
 import TaxForm from './components/taxes/TaxForm';
 
+import Sidebar from "./components/sidebar/Sidebar";
 
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
 						<Route path='/taxes' component={Taxes} />
 						<Route path='/create-tax' component={TaxForm} />
 						<Route path='/shopping-basket' component={ShoppingBasket} />
+						<Route exact path='/sidebar' component={Sidebar} />
 						<Route component={Default} />
 					</Switch>
 				</Fragment>
