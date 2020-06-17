@@ -1,14 +1,16 @@
 import React,  {Component} from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-import {ButtonContainer} from '../assets/button'
+import {ButtonContainer} from '../assets/button';
+// import Alerts from '../alerts/Alert'
 
 class Navbar extends Component {
 	render(){
 		return (
 			<NavWrapper className="navbar navbar-expand-sm bg-secondary navbar-dark px-sm-5">
+
 				<Link to="/" >
-					<span className="fas fa-home navbar-brand">Mel'Cin</span>
+					<span className="fas fa-home navbar-brand">SOAPSALES</span>
 				</Link>
 				<ul className="navbar-nav align-items-center">
 					<li className="nav-item ml-5">
@@ -25,6 +27,17 @@ class Navbar extends Component {
 						<Link to="/create-tax" className="nav-link">Create-Tax</Link>
 					</li>
 				</ul>
+				<ul className="navbar-nav align-items-center">
+					<li className="nav-item ml-5">
+						<Link to="/currency" className="nav-link">Currencies</Link>
+					</li>
+				</ul>
+				<ul className="navbar-nav align-items-center">
+					<li className="nav-item ml-5">
+						<Link to="/create-currency" className="nav-link">Create-Currency</Link>
+					</li>
+				</ul>
+
 
 				<Link to="/shopping-basket" className='ml-auto'>
 					<ButtonContainer>

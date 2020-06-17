@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_TAXES, DELETE_TAX, ADD_TAX } from './types';
+import { GET_TAXES, DELETE_TAX, ADD_TAX, GET_ERRORS } from './types';
 
 
 // Get Taxes
@@ -34,5 +34,15 @@ export const addTax = (tax) => dispatch => {
                 type: ADD_TAX,
                 payload: res.data
             });
-        }).catch(err => console.log(err))
-}
+        }).catch(err =>{
+            const errors = {
+                msg: err.response.data,
+                status: err.response.status
+
+        }
+        dispatch({
+            type: GET_ERRORS,
+            payload: errors
+        });
+    });
+};
