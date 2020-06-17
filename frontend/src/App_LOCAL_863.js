@@ -16,7 +16,6 @@ import TaxForm from './components/taxes/TaxForm';
 import Currencies from './components/currencies/Currencies';
 import CurrencyForm from './components/currencies/CurrencyForm';
 
-import Sidebar from "./components/sidebar/Sidebar";
 
 //Alert Options
 const alertOptions = {
@@ -28,7 +27,6 @@ class App extends Component {
 	render(){
 		return (
 			<Provider store={store}>
-<<<<<<< HEAD
 				<AlertProvider template={AlertTemplate} {...alertOptions} >
 					<Fragment>
 						<Navbar />
@@ -43,19 +41,6 @@ class App extends Component {
 						</Switch>
 					</Fragment>
 				</AlertProvider>
-=======
-				<Fragment>
-					<Navbar />
-					<Switch>
-						<Route exact path='/' component={BaseProductList} />
-						<Route path='/taxes' component={Taxes} />
-						<Route path='/create-tax' component={TaxForm} />
-						<Route path='/shopping-basket' component={ShoppingBasket} />
-						<Route exact path='/sidebar' component={Sidebar} />
-						<Route component={Default} />
-					</Switch>
-				</Fragment>
->>>>>>> 2c35aa45d72b5e4d33abd105db158385f58ef866
 			</Provider>
 		);
 	}
