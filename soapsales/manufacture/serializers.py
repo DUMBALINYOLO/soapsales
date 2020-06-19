@@ -115,17 +115,6 @@ class WasteGenerationReportSerializer(serializers.ModelSerializer):
             'recorded_by',
         ]
 
-class BillOfMaterialsSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = BillOfMaterials
-        fields = [
-            "id",
-            'name',
-            "description",
-        ]
-
-
 class BillOfMaterialsLineSerializer(serializers.ModelSerializer):
 
 
@@ -140,6 +129,53 @@ class BillOfMaterialsLineSerializer(serializers.ModelSerializer):
             'quantity',
             'unit'
         ]
+
+
+class BillOfMaterialsCreateSerializer(serializers.ModelSerializer):
+    bill_lines = BillOfMaterialsLineSerializer(many=True, write_only=True)
+
+    class Meta:
+        model = BillOfMaterials
+        fields = [
+            'name',
+            "description",
+            'bill_lines',
+        ]
+
+    def create(self, validated_data):
+        bill_lines = validated_data.pop('bill_lines', [])
+        bill = BillOfMaterials.objects.create(**validated_data)
+        for bill_line_dict in bill_lines:
+            bill_line_dict['bill'] = bill
+            BillOfMaterialsLine.objects.create(**bill_line_dict)
+        return bill
+
+
+class BillOfMaterialsListSerializer(serializers.ModelSerializer):
+    
+
+    class Meta:
+        model = BillOfMaterials
+        fields = [
+            'id',
+            'name',
+            'description',
+            
+        ]
+
+
+class BillOfMaterialsDetailSerializer(serializers.ModelSerializer):
+    bill_lines = BillOfMaterialsLineSerializer(many=True, read_only=True)
+    class Meta:
+        model = BillOfMaterials
+        fields = [
+            'id',
+            'name',
+            'description',
+            'bill_lines'
+        ]
+
+
 
 class ProcessMachineSerializer(serializers.ModelSerializer):
     class Meta:

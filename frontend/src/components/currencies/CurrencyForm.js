@@ -49,7 +49,7 @@ export class CurrencyForm extends Component{
                   <input
                     className="form-control"
                     type="text"
-                    name="rate"
+                    name="symbol"
                     onChange={this.onChange}
                     value={symbol}
                   />

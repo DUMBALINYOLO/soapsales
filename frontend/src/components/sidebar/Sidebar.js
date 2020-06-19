@@ -7,7 +7,7 @@ const Sidebar = props => {
         <div className="wrapper">
         	<div className="top_navbar">
         		<div className="logo">
-        			<Link to="#">Melcin</Link>
+        			<Link to="#">SOAPSALES</Link>
         		</div>
         		<div className="top_menu">
         			<div className="home_link">
@@ -56,6 +56,30 @@ const Sidebar = props => {
         		              <span className="list">Taxes</span>
         		            </Link>
         		          </li>
+                          <li>
+                            <Link to="/currency">
+                              <span className="icon"><i className="fas fa-map-marked-alt"></i></span>
+                              <span className="list">Currency</span>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to="/create-currency">
+                              <span className="icon"><i className="fas fa-map-marked-alt"></i></span>
+                              <span className="list">Create-Currency</span>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to="/accounts">
+                              <span className="icon"><i className="fas fa-map-marked-alt"></i></span>
+                              <span className="list">Accounts</span>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to="/create-account">
+                              <span className="icon"><i className="fas fa-map-marked-alt"></i></span>
+                              <span className="list">Create-Account</span>
+                            </Link>
+                          </li>
         		        </ul>
 
         		        <div className="hamburger">

@@ -2,12 +2,6 @@ from rest_framework import serializers
 from inventory.models import *
 
 
-class OrderItemCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = OrderItem
-        fields = "__all__"
-
-
 class OrderItemListSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
@@ -22,18 +16,51 @@ class OrderItemListSerializer(serializers.ModelSerializer):
             'received',
             'fully_received',
             'received_total',
-            'subtotal',
         ]
+
+
+class OrderItemCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OrderItem
+        fields = '__all__'
 
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
+    items = OrderItemCreateSerializer(many=True, write_only=True)
     class Meta:
         model = Order
-        fields = "__all__"
+        fields = [
+            'validated_by',
+            'expected_receipt_day',
+            'date',
+            'due',
+            'supplier',
+            'supplier_invoice_number',
+            'bill_to',
+            'ship_to',
+            'tax',
+            'tracking_number',
+            'notes',
+            'status',
+            'received_to_date',
+            'issuing_inventory_controller',
+            'items',
+        ]
+
+    def create(self, validated_data):
+        items = validated_data.pop('items', [])
+        order = Order.objects.create(**validated_data)
+        for item_dict in items:
+            item_dict['order'] = order
+            OrderItem.objects.create(**item_dict)
+        return order
 
 
-class OrderSerializer(serializers.ModelSerializer):
+class OrderDetailSerializer(serializers.ModelSerializer):
+    items = OrderItemListSerializer(many=True, read_only=True)
+    
     class Meta:
         model = Order
         fields = [
@@ -52,8 +79,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'status',
             'received_to_date',
             'issuing_inventory_controller',
-            'entry',
-            'entries',
+
             'shipping_cost_entries',
 
             # @property model methods
@@ -77,6 +103,20 @@ class OrderSerializer(serializers.ModelSerializer):
         ]
 
 
+class OrderListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Order
+        fields = [
+            'id',
+            'status',
+            'supplier',
+            'tracking_number',
+            'received_to_date'
+
+        ]
+
+
 class OrderPaymentSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -89,5 +129,6 @@ class OrderPaymentSerializer(serializers.ModelSerializer):
             'comments',
             'entry',
         ]
+
 
 

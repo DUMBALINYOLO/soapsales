@@ -8,14 +8,12 @@ class Navbar extends Component {
 	render(){
 		return (
 			<NavWrapper className="navbar navbar-expand-sm bg-secondary navbar-dark px-sm-5">
-<<<<<<< HEAD
 
-				<Link to="/" >
-					<span className="fas fa-home navbar-brand">SOAPSALES</span>
-=======
+
+				
+
 				<Link to="/sidebar" >
-					<span className="fas fa-home navbar-brand">Mel'Cin</span>
->>>>>>> 2c35aa45d72b5e4d33abd105db158385f58ef866
+					<span className="fas fa-home navbar-brand">SOAPSALES</span>
 				</Link>
 				<ul className="navbar-nav align-items-center">
 					<li className="nav-item ml-5">

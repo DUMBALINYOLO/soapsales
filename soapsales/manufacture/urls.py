@@ -10,7 +10,6 @@ from manufacture.apis import (
                     ProcessProductViewSet,
                     WasteGenerationReportViewSet,
                     BillOfMaterialsViewSet,
-                    BillOfMaterialsLineViewSet
                 )
 
 
@@ -20,10 +19,12 @@ router.register(r'process-machines', ProcessMachineViewset)
 router.register(r'process-machine-group', ProcessMachineGroupViewset)
 router.register(r'process', ProcessViewSet)
 router.register(r'process-rates', ProcessRateViewSet)
+router.register(r'production-orders', ProductionOrderViewSet)
 router.register(r'products', ProductViewSet)
+router.register(r'process-products', ProcessProductViewSet)
 router.register(r'waste-generation-reports', WasteGenerationReportViewSet)
 router.register(r'bills-of-materials', BillOfMaterialsViewSet)
-router.register(r'bills-of-materials-line', BillOfMaterialsLineViewSet)
+
 
 
 urlpatterns = router.urls

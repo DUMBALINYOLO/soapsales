@@ -7,8 +7,10 @@ from manufacture.serializers import (
                         ProductSerializer,
                         ProcessProductSerializer,
                         WasteGenerationReportSerializer,
-                        BillOfMaterialsSerializer,
-                        BillOfMaterialsLineSerializer
+                        BillOfMaterialsCreateSerializer,
+                        BillOfMaterialsListSerializer,
+                        BillOfMaterialsDetailSerializer
+                       
                     )
 
 
@@ -39,10 +41,14 @@ class WasteGenerationReportViewSet(ModelViewSet):
     queryset = WasteGenerationReport.objects.all()
 
 class BillOfMaterialsViewSet(ModelViewSet):
-    serializer_class = BillOfMaterialsSerializer
     queryset = BillOfMaterials.objects.all()
 
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return BillOfMaterialsListSerializer
+        elif self.action == 'retrieve':
+            return BillOfMaterialsDetailSerializer
+        else:
+            return BillOfMaterialsCreateSerializer
 
-class BillOfMaterialsLineViewSet(ModelViewSet):
-    serializer_class = BillOfMaterialsLineSerializer
-    queryset = BillOfMaterialsLine.objects.all()
+

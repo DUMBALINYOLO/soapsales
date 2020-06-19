@@ -3,7 +3,6 @@ from rest_framework.viewsets import ModelViewSet
 from accounts.models import *
 from accounts.serializers import (
                         BillSerializer,
-                        BillLineSerializer,
                         BillPaymentSerializer,
                         BillCreateSerializer
                     )
@@ -19,11 +18,6 @@ class BillViewset(ModelViewSet):
             return BillCreateSerializer
         return BillSerializer
 
-
-
-class BillLineViewset(ModelViewSet):
-    queryset = BillLine.objects.all()
-    serializer_class = BillLineSerializer
 
 
 class BillPaymentViewset(ModelViewSet):

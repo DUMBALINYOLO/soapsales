@@ -6,7 +6,8 @@ from inventory.apis import (
                     UnitOfMeasureViewset,
                     CategoryViewset,
                     DebitNoteViewSet,
-                    DebitNoteLineViewSet
+                    OrderViewSet,
+                    OrderPaymentViewSet
                 )
 
 router = routers.DefaultRouter()
@@ -17,6 +18,7 @@ router.register(r'inventory-categories', CategoryViewset )
 router.register(r'unit-of-measure', UnitOfMeasureViewset)
 router.register(r'inventory-contollers', InventoryControllerViewset)
 router.register(r'debit-note',  DebitNoteViewSet)
-router.register(r'debit-note-line', DebitNoteLineViewSet)
+router.register(r'orders',  OrderViewSet)
+router.register(r'orderpayments',  OrderPaymentViewSet)
 
 urlpatterns = router.urls

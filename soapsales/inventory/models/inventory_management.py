@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import Q
 from basedata.models import InvenTreeTree
 from .inventory import InventoryItem
-from accounts.models import Account
+from accounts.models import Account, JournalEntry
 
 
 class InventoryController(models.Model):
@@ -83,6 +83,11 @@ class OrderPayment(models.Model):
         blank=True, null=True)
 
 
+    def save(self, *args, **kwargs):
+        if self.entry is None:
+            self.create_entry()
+        super(OrderPayment, self).save(*args, **kwargs)
+
 
     def create_entry(self, comments=""):
         if self.entry:
@@ -93,7 +98,6 @@ class OrderPayment(models.Model):
                 date=self.date,
                 creator = self.order.issuing_inventory_controller.employee.user,
                 is_approved = True,
-                entry_type = entry_type.JournalEntryTypes.REGULAR,
             )
 
         j.simple_entry(
@@ -104,7 +108,6 @@ class OrderPayment(models.Model):
 
         if not self.entry:
             self.entry = j
-            self.save()
 
 
 class StockReceipt(models.Model):
@@ -135,6 +138,7 @@ class StockReceipt(models.Model):
         super(StockReceipt, self).save(*args, **kwargs)
         self.order.received_to_date = self.order.received_total
         self.order.save()
+        
 
 class StockReceiptLine(models.Model):
     receipt = models.ForeignKey('inventory.StockReceipt'
