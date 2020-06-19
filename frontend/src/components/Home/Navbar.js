@@ -27,7 +27,17 @@ class Navbar extends Component {
 				</ul>
 				<ul className="navbar-nav align-items-center">
 					<li className="nav-item ml-5">
-						<Link to="/create-tax" className="nav-link">Create-Tax</Link>
+						<Link to="/process" className="nav-link">Create-Tax</Link>
+					</li>
+				</ul>
+				<ul className="navbar-nav align-items-center">
+					<li className="nav-item ml-5">
+						<Link to="/process-form" className="nav-link">Process</Link>
+					</li>
+				</ul>
+				<ul className="navbar-nav align-items-center">
+					<li className="nav-item ml-5">
+						<Link to="/waste-report" className="nav-link">Create Process</Link>
 					</li>
 				</ul>
 				<ul className="navbar-nav align-items-center">
