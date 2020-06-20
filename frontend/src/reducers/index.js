@@ -6,18 +6,6 @@ import errors from './errors';
 import bookkeepers from './bookkeepers';
 import accounttypes from './accounttypes';
 import accounts from './accounts';
-
-
-
-
-export default combineReducers({
-    taxes,
-    errors,
-    currencies,
-    bookkeepers,
-    accounttypes,
-    accounts,
-=======
 import products from "./products";
 import processMachines from "./processMachines";
 import processGroups from "./processGroups";
@@ -41,6 +29,11 @@ export default combineReducers({
     process,
     assets,
     transactions,
->>>>>>> Stashed changes
+    taxes,
+    errors,
+    currencies,
+    bookkeepers,
+    accounttypes,
+    accounts,
 
 });

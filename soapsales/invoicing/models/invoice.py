@@ -16,6 +16,7 @@ from invoicing.models.credit_note import CreditNoteLine
 from django.shortcuts import reverse
 from inventory.models import InventoryController
 from stock.models  import ProcessedProduct
+from .config import SalesConfig
 
 class Invoice(SoftDeletionModel):
     '''An invoice is a document that represents a sale. Because of the complexity of the object,
@@ -232,7 +233,7 @@ class Invoice(SoftDeletionModel):
 
     def set_quote_invoice_number(self):
         '''This method is called when the invoice is created to follow the numbering sequence stored in the sales config '''
-        config = inv_models.SalesConfig.objects.first()
+        config = SalesConfig.objects.first()
         if self.is_quotation:
             if self.quotation_number is None:
                 self.quotation_number = config.next_quotation_number
@@ -399,7 +400,7 @@ class InvoiceLine(models.Model):
     @property
     def subtotal(self):
         '''Returns the value of the line after the discount and before taxes'''
-        return self.nominal_price - self.discount_total
+        return self.product.nominal_price - self.discount_total
 
     @property
     def total(self):
@@ -412,7 +413,7 @@ class InvoiceLine(models.Model):
     @property
     def discount_total(self):
         '''Returns the value subtracted from the nominal price due to a discount'''
-        return D(self.nominal_price) * (D(self.discount) / D(100.0))
+        return D(self.product.nominal_price) * (D(self.discount) / D(100.0))
 
     @property
     def tax_(self):
