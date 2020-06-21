@@ -27,7 +27,7 @@ class CreditNoteCreateSerializer(serializers.ModelSerializer):
 		fields = [
 			'date',
 			'invoice',
-			'comment',
+			'comments',
 			'returned_products',
 		]
 
@@ -48,11 +48,9 @@ class CreditNoteDetailSerializer(serializers.ModelSerializer):
 			'id',
 			'date',
 			'invoice',
-			'comment',
+			'comments',
 			'returned_products',
 			'returned_total',
 			'total',
 			'tax_amount'
 		]
-
-

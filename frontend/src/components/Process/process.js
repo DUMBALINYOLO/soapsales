@@ -36,6 +36,7 @@ class Process extends Component {
                     <tbody>
                         { this.props.process.map(process =>(
                             <tr key={process.id}>
+                                <td>{ process.id }</td>
                                 <td>{ process.parent_process }</td>
                                 <td>{ process.process_equipment }</td>
                                 <td>{process.name}</td>
