@@ -4,16 +4,13 @@ import styled from 'styled-components';
 import {ButtonContainer} from '../assets/button';
 // import Alerts from '../alerts/Alert'
 
+
 class Navbar extends Component {
 	render(){
 		return (
 			<NavWrapper className="navbar navbar-expand-sm bg-secondary navbar-dark px-sm-5">
-
-
-				
-
 				<Link to="/sidebar" >
-					<span className="fas fa-home navbar-brand">SOAPSALES</span>
+					<span className="navbar-brand">User Dashboard</span>
 				</Link>
 				<ul className="navbar-nav align-items-center">
 					<li className="nav-item ml-5">
