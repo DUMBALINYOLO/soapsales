@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./styled.css";
 
 
+
 const Sidebar =() => {
     return (
         <>
@@ -13,7 +14,7 @@ const Sidebar =() => {
           <div className="collapse navbar-collapse" id="myNavbar">
             <div className="container-fluid">
               <div className="row">
-                <div className="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
+                <div className="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top scrollbar" id="style-1">
                   <ul className="navbar-nav flex-column mt-4">
                     <li className="nav-item pb-3">
                         <Link to="#" className="nav-link text-white p-3 mb-2 current">
@@ -21,88 +22,491 @@ const Sidebar =() => {
                     </li>
                     <ul className="list-unstyled components">
                         <li className="active pb-3">
+                        <h3 className="mb-2 text-white"><i class="fas fa-file-alt text-light fa-lg mr-3"></i>Accounting</h3>
                             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
-                            <i className="fas fa-file-alt text-light text-white fa-lg mr-3"></i>Accounting</a>
+                            <i className="mr-3"></i>Accounts</a>
                             <ul className="collapse list-unstyled mt-3 text-center" id="homeSubmenu">
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 1</Link>
+                                    <Link to="/account-form" className="text-white p-3 mb-2">Create</Link>
                                 </li>
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 2</Link>
+                                    <Link to="/accounts" className="text-white p-3 mb-2">Views</Link>
                                 </li>
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 3</Link>
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#typesSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Account Types</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="typesSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/accounttype-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/accounttypes" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#assetSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Assets</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="assetSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/asset-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/assets" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#confSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Account Config</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="confSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/accountingConfigForm" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/accountingConfig" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#taxSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Taxes</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="taxSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/create-tax" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/taxes" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#curSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Currency</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="curSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/currency-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/currencies" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#bkSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Book Keepers</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="bkSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/bookkeeper-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/bookkeepers" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#billSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Bills</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="billSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/billForm" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/bills" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#traSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Transactions</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="traSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/transactions" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
                                 </li>
                             </ul>
                         </li>
                         <li className="text-white p-3 mb-2">
+                            <h3 className="mb-2 text-white"><i class="fas fa-folder text-light fa-lg mr-3"></i>Inventory</h3>
                             <a href="#inventorySubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
-                            <i className="fas fa-folder text-light fa-lg mr-3"></i>Inventory</a>
+                            <i className="mr-3"></i>Inventory Category</a>
                             <ul className="collapse list-unstyled mt-3 text-center" id="inventorySubmenu">
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 1</Link>
+                                    <Link to="/inventorycategory-form" className="text-white p-3 mb-2">Create</Link>
                                 </li>
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 2</Link>
+                                    <Link to="/inventorycategory" className="text-white p-3 mb-2">Views</Link>
                                 </li>
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 3</Link>
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#uniSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Unit Measure</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="uniSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/unitmeasure-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/unitmeasure" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#invSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Inventory Controllers</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="invSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/inventorycontroller-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/inventorycontrollers" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#dbSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Debit Notes</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="dbSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/debitnote-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/debitnotes" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#odSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Orders</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="odSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/order-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/orders" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#opSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Order Payments</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="opSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/orderpayment-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/orderpayments" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#invtSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Inventory Items</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="invtSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">View</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
                                 </li>
                             </ul>
                         </li>
                         <li className="text-white p-3 mb-2">
+                            <h3 className="mb-2 text-white"><i class="fas fa-table text-light fa-lg mr-3"></i>Manufacture</h3>
                             <a href="#manuSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
-                            <i className="fas fa-sticky-note text-light fa-lg mr-3"></i>Manufacture</a>
+                            <i className="mr-3"></i>Process Machines</a>
                             <ul className="collapse list-unstyled mt-3 text-center" id="manuSubmenu">
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 1</Link>
+                                    <Link to="/processMachineForm" className="text-white p-3 mb-2">Create</Link>
                                 </li>
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 2</Link>
+                                    <Link to="/processMachines" className="text-white p-3 mb-2">Views</Link>
                                 </li>
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 3</Link>
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#pgSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Process Groups</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="pgSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/processGroupForm" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/processGroups" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#procSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Process</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="procSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/process-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/process" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#prSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Process Rate</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="prSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/process-rate-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/process-rate" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#proSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Products</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="proSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/productsForm" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/products" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#ppSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Process Products</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="ppSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/processproduct-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/processproducts" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#waSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Waste Reports</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="waSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/waste-report" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/waste" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#dblSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Bill Materials</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="dblSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/billMaterialForm" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/billMaterials" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
                                 </li>
                             </ul>
                         </li>
                         <li className="text-white p-3 mb-2">
+                            <h3 className="mb-2 text-white"><i class="fas fa-shopping-cart text-light fa-lg mr-3"></i>Sales</h3>
                             <a href="#salesSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
-                            <i className="fas fa-shopping-cart text-light fa-lg mr-3"></i>Sales</a>
+                            <i className="mr-3"></i>Credit Notes</a>
                             <ul className="collapse list-unstyled mt-3 text-center" id="salesSubmenu">
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 1</Link>
+                                    <Link to="/creditnote-form" className="text-white p-3 mb-2">Create</Link>
                                 </li>
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 2</Link>
+                                    <Link to="/creditnotes" className="text-white p-3 mb-2">Views</Link>
                                 </li>
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 3</Link>
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#cusSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Customers</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="cusSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/customer-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/customers" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#pySubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Payments</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="pySubmenu">
+                                <li className="pb-3">
+                                    <Link to="/payment-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/payments" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#srSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>sales Rep</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="srSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/salesrep-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/salesrep" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#vcSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Invoices</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="vcSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/invoice-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/invoices" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#plSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Product Lines</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="plSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/productline-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/productlines" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
                                 </li>
                             </ul>
                         </li>
                         <li className="text-white p-3 mb-2">
+                            <h3 className="mb-2 text-white"><i class="fas fa-truck text-light fa-lg mr-3"></i>Stock</h3>
                             <a href="#stockSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
-                            <i className="fas fa-truck text-light fa-lg mr-3"></i>Stock</a>
+                            <i className="mr-3"></i>Pricing Groups</a>
                             <ul className="collapse list-unstyled mt-3 text-center" id="stockSubmenu">
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 1</Link>
+                                    <Link to="/princinggroup-form" className="text-white p-3 mb-2">Create</Link>
                                 </li>
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 2</Link>
+                                    <Link to="/pricinggroup" className="text-white p-3 mb-2">Views</Link>
                                 </li>
                                 <li className="pb-3">
-                                    <Link to="#" className="text-white p-3 mb-2">Home 3</Link>
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active pb-3 mb-2">
+                            <a href="#ppcSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">
+                            <i className="mr-3"></i>Processed Products</a>
+                            <ul className="collapse list-unstyled mt-3 text-center" id="ppcSubmenu">
+                                <li className="pb-3">
+                                    <Link to="/processproduct-form" className="text-white p-3 mb-2">Create</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/processproducts" className="text-white p-3 mb-2">Views</Link>
+                                </li>
+                                <li className="pb-3">
+                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
                                 </li>
                             </ul>
                         </li>
                     </ul>
 
                     <li className="nav-item"><Link to="#" className="nav-link text-white p-3 mb-2 sidebar-link"><i className="fas fa-envelope text-light fa-lg mr-3"></i>Inbox</Link></li>
-                    <li className="nav-item"><Link to="#" className="nav-link text-white p-3 mb-2 sidebar-link"><i className="fas fa-shopping-cart text-light fa-lg mr-3"></i>Sales</Link></li>
                     <li className="nav-item"><Link to="#" className="nav-link text-white p-3 mb-2 sidebar-link"><i className="fas fa-chart-line text-light fa-lg mr-3"></i>Analytics</Link></li>
-                    <li className="nav-item"><Link to="#" className="nav-link text-white p-3 mb-2 sidebar-link"><i className="fas fa-chart-bar text-light fa-lg mr-3"></i>Charts</Link></li>
-                    <li className="nav-item"><Link to="#" className="nav-link text-white p-3 mb-2 sidebar-link"><i className="fas fa-table text-light fa-lg mr-3"></i>Tables</Link></li>
-                    <li className="nav-item"><Link to="#" className="nav-link text-white p-3 mb-2 sidebar-link"><i className="fas fa-wrench text-light fa-lg mr-3"></i>Settings</Link></li>
                     <li className="nav-item"><Link to="#" className="nav-link text-white p-3 mb-2 sidebar-link"><i className="fas fa-file-alt text-light fa-lg mr-3"></i>Documentation</Link></li>
                   </ul>
                 </div>

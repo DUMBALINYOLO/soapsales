@@ -12,7 +12,7 @@ class BaseProductList extends Component {
 				<div className='py-5'>
 					<div className="container">
 						<div className="row">
-							<ProductTitle name="our" title="products"/>
+							<ProductTitle name="our" title="accounting system"/>
 						</div>
 					</div>
 				</div>

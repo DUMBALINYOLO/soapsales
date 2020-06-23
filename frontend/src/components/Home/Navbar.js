@@ -1,9 +1,6 @@
 import React,  {Component} from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-import {ButtonContainer} from '../assets/button';
-// import Alerts from '../alerts/Alert'
-
 
 class Navbar extends Component {
 	render(){
@@ -12,50 +9,11 @@ class Navbar extends Component {
 				<Link to="/sidebar" >
 					<span className="navbar-brand">User Dashboard</span>
 				</Link>
-				<ul className="navbar-nav align-items-center">
-					<li className="nav-item ml-5">
-						<Link to="/" className="nav-link">Products</Link>
-					</li>
-				</ul>
-				<ul className="navbar-nav align-items-center">
-					<li className="nav-item ml-5">
-						<Link to="/taxes" className="nav-link">Taxes</Link>
-					</li>
-				</ul>
-				<ul className="navbar-nav align-items-center">
-					<li className="nav-item ml-5">
-						<Link to="/process" className="nav-link">Create-Tax</Link>
-					</li>
-				</ul>
-				<ul className="navbar-nav align-items-center">
-					<li className="nav-item ml-5">
-						<Link to="/process-form" className="nav-link">Process</Link>
-					</li>
-				</ul>
-				<ul className="navbar-nav align-items-center">
-					<li className="nav-item ml-5">
-						<Link to="/waste-report" className="nav-link">Create Process</Link>
-					</li>
-				</ul>
-				<ul className="navbar-nav align-items-center">
-					<li className="nav-item ml-5">
-						<Link to="/currency" className="nav-link">Currencies</Link>
-					</li>
-				</ul>
-				<ul className="navbar-nav align-items-center">
-					<li className="nav-item ml-5">
-						<Link to="/create-currency" className="nav-link">Create-Currency</Link>
-					</li>
-				</ul>
-
-
-				<Link to="/shopping-basket" className='ml-auto'>
-					<ButtonContainer>
-						<span className="mr-2">
-							<i className="fas fa-cart-plus"/>
-						</span>
-						BASKET
-					</ButtonContainer>
+				<Link to="/login" className='ml-auto'>
+					<span className="mr-2">
+						<i className="fas fa-user"/>
+					</span>
+					Login
 				</Link>
 			</NavWrapper>
 		);
@@ -69,7 +27,7 @@ const NavWrapper = styled.nav`
 	background-color: 4B0082 !important;
 	.navlink{
 		color : FFD700 !important;
-		font-size: 1.3em !important;
+		font-size: 2.1em !important;
 		text-transform: uppercase !important;
 	}
 `
