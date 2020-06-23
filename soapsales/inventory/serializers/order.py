@@ -1,8 +1,18 @@
 from rest_framework import serializers
 from inventory.models import *
 
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
+
 
 class OrderItemListSerializer(serializers.ModelSerializer):
+    order = StringSerializer()
+    item = StringSerializer()
+    unit = StringSerializer()
+
+
     class Meta:
         model = OrderItem
         fields = [
@@ -29,6 +39,7 @@ class OrderItemCreateSerializer(serializers.ModelSerializer):
 
 class OrderCreateSerializer(serializers.ModelSerializer):
     items = OrderItemCreateSerializer(many=True, write_only=True)
+
     class Meta:
         model = Order
         fields = [
@@ -60,6 +71,11 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 
 class OrderDetailSerializer(serializers.ModelSerializer):
     items = OrderItemListSerializer(many=True, read_only=True)
+    validated_by = StringSerializer()
+    supplier = StringSerializer()
+    ship_to = StringSerializer()
+    issuing_inventory_controller = StringSerializer()
+
     
     class Meta:
         model = Order
@@ -104,6 +120,9 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 
 
 class OrderListSerializer(serializers.ModelSerializer):
+    supplier = StringSerializer()
+    
+
 
     class Meta:
         model = Order
@@ -114,6 +133,22 @@ class OrderListSerializer(serializers.ModelSerializer):
             'tracking_number',
             'received_to_date'
 
+        ]
+
+
+class OrderPaymentCreateSerializer(serializers.ModelSerializer):
+    order = StringSerializer()
+    entry = StringSerializer()
+
+    class Meta:
+        model = OrderPayment
+        fields = [
+            'id',
+            'date',
+            'amount',
+            'order',
+            'comments',
+            'entry',
         ]
 
 

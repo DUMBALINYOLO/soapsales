@@ -25,3 +25,12 @@ body{
 .text-bright{
     color: #483D8B;
 }
+
+/*@import "~bootstrap/scss/bootstrap";*/
+
+.thebuli{
+    border-collapse:separate;
+    width:400px;
+    border-spacing:10px;
+}
+

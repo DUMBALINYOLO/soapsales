@@ -1,7 +1,14 @@
 from rest_framework import serializers
 from invoicing.models import Payment
 
+
+class StringSerializer(serializers.StringRelatedField):
+
+    def to_internal_value(self, value):
+        return value
+
 class PaymentListSerializer(serializers.ModelSerializer):
+	invoice = StringSerializer()
 
 	class Meta:
 
@@ -10,6 +17,7 @@ class PaymentListSerializer(serializers.ModelSerializer):
 
 
 class PaymentCreateSerializer(serializers.ModelSerializer):
+
 
 	class Meta:
 
@@ -26,6 +34,8 @@ class PaymentCreateSerializer(serializers.ModelSerializer):
 		]
 
 class PaymentDetailSerializer(serializers.ModelSerializer):
+	invoice = StringSerializer()
+	sales_rep = StringSerializer()
 
 	class Meta:
 

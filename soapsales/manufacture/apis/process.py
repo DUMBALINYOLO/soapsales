@@ -2,26 +2,36 @@ from rest_framework.viewsets import ModelViewSet
 from manufacture.models import *
 from manufacture.serializers import (
                         ProcessSerializer,
+                        ProcessCreateSerializer,
                         ProductionOrderSerializer,
+                        ProductionOrderCreateSerializer,
                         ProcessRateSerializer,
                         ProductSerializer,
                         ProcessProductSerializer,
                         WasteGenerationReportSerializer,
                         BillOfMaterialsCreateSerializer,
                         BillOfMaterialsListSerializer,
-                        BillOfMaterialsDetailSerializer
+                        BillOfMaterialsDetailSerializer,
                        
                     )
 
 
 class ProcessViewSet(ModelViewSet):
-    serializer_class = ProcessSerializer
     queryset = Process.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in ['list', 'retrieve']:
+            return ProcessSerializer
+        return  ProcessCreateSerializer
 
 
 class ProductionOrderViewSet(ModelViewSet):
-    serializer_class = ProductionOrderSerializer
     queryset = ProductionOrder.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ProductionOrderSerializer
+        return  ProductionOrderCreateSerializer
 
 class ProcessRateViewSet(ModelViewSet):
     serializer_class = ProcessRateSerializer

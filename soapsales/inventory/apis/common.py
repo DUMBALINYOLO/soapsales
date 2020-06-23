@@ -10,7 +10,8 @@ from inventory.serializers import (
 						InventoryControllerSerializer,
 						UnitOfMeasureSerializer,
 						CategorySerializer,
-						CategoryCreateSerializer
+						CategoryCreateSerializer,
+						InventoryControllerCreateSerializer
 					)
 
 # class InventorySettingsViewset(viewsets.ModelViewSet):
@@ -22,6 +23,14 @@ class InventoryControllerViewset(viewsets.ModelViewSet):
 	queryset = InventoryController.objects.all()
 	serializer_class = InventoryControllerSerializer
 
+	def get_serializer_class(self):
+		if self.action == 'create':
+		    return InventoryControllerCreateSerializer
+		return InventoryControllerSerializer
+
+
+	InventoryControllerCreateSerializer
+
 
 class UnitOfMeasureViewset(viewsets.ModelViewSet):
 	queryset = UnitOfMeasure.objects.all()
@@ -32,6 +41,6 @@ class CategoryViewset(viewsets.ModelViewSet):
 	serializer_class = CategorySerializer
 
 	def get_serializer_class(self):
-		if self.action == 'create' and 'put':
+		if self.action == 'create':
 		    return CategoryCreateSerializer
 		return CategorySerializer

@@ -2,18 +2,29 @@ from rest_framework import serializers
 from accounts.models import Asset
 
 
+
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
+
 class CreateAssetsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Asset
-        exclude = ['entry']
+        exclude = ['entry',]
+
+class AssetsListSerializer(serializers.ModelSerializer):
+    credit_account = StringSerializer()
+
+    class Meta:
+        model = Asset
+        fields = ['id', 'name', 'category']
+        
 
 
-
-
-class AssetsSerializer(serializers.ModelSerializer):
-    # created_by = EmployeeSerializer(many=True) yet to fix this with creation of employees ser
-    # depreciation_for_month = serializers.SerializerMethodField()
-    account = serializers.ReadOnlyField()
+class AssetDetailSerializer(serializers.ModelSerializer):
+    credit_account = StringSerializer()
+    credit_by = StringSerializer()
     depreciation_account = serializers.ReadOnlyField()
     salvage_date = serializers.ReadOnlyField()
     _timedelta = serializers.ReadOnlyField()
@@ -39,7 +50,6 @@ class AssetsSerializer(serializers.ModelSerializer):
             'salvage_value',
             'created_by',
             # property model methods
-            'account',
             'depreciation_account',
             'salvage_date',
             '_timedelta',

@@ -18,7 +18,7 @@ class ProductSerializer(serializers.ModelSerializer):
 		model = InventoryItem
 		fields = ['id', 'type', 'name']
 
-class ListSupplierSerializer(serializers.ModelSerializer):
+class SupplierDetailSerializer(serializers.ModelSerializer):
 	products = ProductSerializer(many=True, read_only=True)
 	consumables = ProductSerializer(many=True, read_only=True)
 	equipment = ProductSerializer(many=True, read_only=True)
@@ -40,4 +40,25 @@ class ListSupplierSerializer(serializers.ModelSerializer):
 			    'products',
 			    'consumables',
 			    'equipment'
+		]
+
+class CreateSupplierSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Supplier
+		exclude = ('account')
+
+
+class ListSupplierSerializer(serializers.ModelSerializer):
+
+
+	class Meta:
+		model = Supplier
+		fields = [
+				'id',
+				'name',
+			    'bp_number',
+			    'email',
+			    'phone', 
+			    'contact_person',
 		]

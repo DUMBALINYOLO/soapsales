@@ -6,8 +6,14 @@ from inventory.models import (
 
 
 
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
 class DebitNoteLineSerializer(serializers.ModelSerializer):
     returned_value = serializers.ReadOnlyField(read_only=True)
+    item = StringSerializer()
+
     class Meta:
         model = DebitNoteLine
         fields = [
@@ -19,9 +25,23 @@ class DebitNoteLineSerializer(serializers.ModelSerializer):
             'returned_value',
         ]
 
+class DebitNoteLineCreateSerializer(serializers.ModelSerializer):
+    
+
+    class Meta:
+        model = DebitNoteLine
+        fields = [
+            'id',
+            'item',
+            'note',
+            'quantity',
+
+        ]
+
 
 class DebitNoteCreateSerializer(serializers.ModelSerializer):
-    lines = DebitNoteLineSerializer(many=True, write_only=True)
+    lines = DebitNoteLineCreateSerializer(many=True, write_only=True)
+
 
     class Meta:
         model = DebitNote
@@ -42,6 +62,7 @@ class DebitNoteCreateSerializer(serializers.ModelSerializer):
 
 
 class DebitNoteListSerializer(serializers.ModelSerializer):
+    order = StringSerializer()
 
     class Meta:
         model = DebitNote
@@ -51,6 +72,7 @@ class DebitNoteListSerializer(serializers.ModelSerializer):
 
 class DebitNoteDetailSerializer(serializers.ModelSerializer):
     returned_items = DebitNoteLineSerializer(many=True, read_only=True)
+    order = StringSerializer()
 
     class Meta:
         model = DebitNote

@@ -1,7 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Table from 'react-bootstrap/Table'
 import { getTaxes, deleteTax } from '..//../actions/taxes';
+
 
 
 class Taxes extends Component {
@@ -19,24 +21,27 @@ class Taxes extends Component {
 		return (
 			<Fragment>
                 <h1>TAXES</h1>
-                <table className="table table-striped">
-                    <thead>
-                        <th>ID</th>
-                        <th>NAME</th>
-                        <th>RATE</th>
-                        <th />
-                    </thead>
-                    <tbody>
-                        { this.props.taxes.map(tax =>(
-                            <tr key={tax.id}>
-                                <td>{ tax.id }</td>
-                                <td>{ tax.name }</td>
-                                <td>{ tax.rate }</td>
-                                <td><button onClick={this.props.deleteTax.bind(this, tax.id)} className="btn btn-danger btn-sm">Delete</button></td>
-                            </tr>
-                        )) }
-                    </tbody>
-                </table>
+                <div className='thebuli'>
+                    <Table striped bordered hover variant="dark">
+                        <thead>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>RATE</th>
+                            <th />
+                        </thead>
+                        <tbody>
+                            { this.props.taxes.map(tax =>(
+                                <tr key={tax.id}>
+                                    <td>{ tax.id }</td>
+                                    <td>{ tax.name }</td>
+                                    <td>{ tax.rate }</td>
+                                    <td><button onClick={this.props.deleteTax.bind(this, tax.id)} className="btn btn-danger btn-sm">Delete</button></td>
+                                </tr>
+                            )) }
+                        </tbody>
+                    </Table>
+                </div>
+                
 			</Fragment>
 		);
 	}

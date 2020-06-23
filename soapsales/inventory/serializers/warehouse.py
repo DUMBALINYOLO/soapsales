@@ -8,7 +8,13 @@ from inventory.models import (
 	)
 
 
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
+
 class WareHouseItemCreateSerializer(serializers.ModelSerializer):
+
 
 	class Meta:
 		model = WareHouseItem
@@ -16,6 +22,10 @@ class WareHouseItemCreateSerializer(serializers.ModelSerializer):
 
 
 class WareHouseItemListSerializer(serializers.ModelSerializer):
+	item = StringSerializer()
+	processed_item = StringSerializer()
+	location = StringSerializer()
+
 	class Meta:
 		model = WareHouseItem
 		fields = [
@@ -36,27 +46,47 @@ class WareHouseCreateSerializer(serializers.ModelSerializer):
 
 
 class WareHouseListSerializer(serializers.ModelSerializer):
-
+	inventory_controller = StringSerializer()
 
 	class Meta:
 		model = WareHouse
 		fields = [
 			'id',
 			'name',
-		    'address',
-		    'description',
 		    'inventory_controller',
-		    'length',
-		    'width',
-		    'height',
-		    'last_inventory_check_date',
 		    'item_count',
 		    'total_item_quantity',
 		]
 
 
+class WareHouseDetailSerializer(serializers.ModelSerializer):
+	inventory_controller = StringSerializer()
+
+	class Meta:
+		model = WareHouse
+		fields = [
+			'id',
+			'name',
+		    'inventory_controller',
+		    'item_count',
+		    'total_item_quantity',
+		    'address', 
+		    'description',
+		    'inventory_controller',
+		    'length',
+		    'width',
+		    'height',
+		    'last_inventory_check_date'
+
+		]
+
+
+
 class StorageMediaListSerializer(serializers.ModelSerializer):
 	children = RecursiveField(many=True)
+	warehouse = StringSerializer()
+	location = StringSerializer()
+
 
 	class Meta:
 		model = StorageMedia

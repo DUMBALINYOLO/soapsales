@@ -1,6 +1,10 @@
 from rest_framework import serializers
 from accounts.models import *
 
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
 
 class BillLineSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,6 +19,7 @@ class BillLineSerializer(serializers.ModelSerializer):
 
 class BillCreateSerializer(serializers.ModelSerializer):
     lines = BillLineSerializer(many=True, write_only=True)
+
 
     class Meta:
         model = Bill
@@ -37,7 +42,8 @@ class BillCreateSerializer(serializers.ModelSerializer):
         
 
 class BillSerializer(serializers.ModelSerializer):
-    # entry = JournalEntrySerializer()
+    vendor = StringSerializer()
+    entry = StringSerializer()
 
     class Meta:
         model = Bill
@@ -55,6 +61,11 @@ class BillSerializer(serializers.ModelSerializer):
 
 
 class BillPaymentSerializer(serializers.ModelSerializer):
+    account = StringSerializer()
+    bill = StringSerializer()
+
+
+
     class Meta:
         model = BillPayment
         fields = [
@@ -64,5 +75,22 @@ class BillPaymentSerializer(serializers.ModelSerializer):
             'bill',
             'amount',
             'memo',
-            'entry'
+        ]
+
+
+class BillPaymentCreateSerializer(serializers.ModelSerializer):
+    account = StringSerializer()
+    bill = StringSerializer()
+
+
+
+    class Meta:
+        model = BillPayment
+        fields = [
+            'id',
+            'date',
+            'account',
+            'bill',
+            'amount',
+            'memo',
         ]

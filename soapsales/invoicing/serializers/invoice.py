@@ -6,13 +6,25 @@ from invoicing.models import (
 						)
 
 
+class StringSerializer(serializers.StringRelatedField):
+
+    def to_internal_value(self, value):
+        return value
+
+
 class InvoiceLineCreateSerializer(serializers.ModelSerializer):
+
+
+
 	class Meta:
 		model = InvoiceLine
 		fields = ['invoice', 'product', 'line_type', 'tax', 'discount']
 
 
 class QuotationLineListSerializer(serializers.ModelSerializer):
+	invoice = StringSerializer()
+	tax = StringSerializer()
+	product = StringSerializer()
 
 	class Meta:
 		model = InvoiceLine
@@ -20,6 +32,9 @@ class QuotationLineListSerializer(serializers.ModelSerializer):
 
 
 class InvoiceLineListSerializer(serializers.ModelSerializer):
+	invoice = StringSerializer()
+	tax = StringSerializer()
+	product = StringSerializer()
 
 	class Meta:
 		model = InvoiceLine
@@ -35,6 +50,7 @@ class InvoiceLineListSerializer(serializers.ModelSerializer):
 
 
 class QuotationListSerializer(serializers.ModelSerializer):
+	customer = StringSerializer()
 
 	class Meta:
 		model = Invoice
@@ -75,6 +91,9 @@ class QuotationCreateSerializer(serializers.ModelSerializer):
 
 class QuotationDetailSerializer(serializers.ModelSerializer):
 	lines = QuotationLineListSerializer(many=True, read_only=True)
+	customer = StringSerializer()
+	salesperson = StringSerializer()
+	ship_from = StringSerializer()
 
 	class Meta:
 		model = Invoice
@@ -97,6 +116,7 @@ class QuotationDetailSerializer(serializers.ModelSerializer):
 
 
 class InvoiceListSerializer(serializers.ModelSerializer):
+	customer = StringSerializer()
 
 	class Meta:
 		model = Invoice
@@ -106,6 +126,7 @@ class InvoiceListSerializer(serializers.ModelSerializer):
 
 class InvoiceCreateSerializer(serializers.ModelSerializer):
 	lines = InvoiceLineCreateSerializer(many=True, write_only=True)
+
 
 	class Meta:
 		model = Invoice
@@ -137,6 +158,9 @@ class InvoiceCreateSerializer(serializers.ModelSerializer):
 
 class InvoiceDetailSerializer(serializers.ModelSerializer):
 	lines = InvoiceLineListSerializer(many=True, read_only=True)
+	customer = StringSerializer()
+	salesperson = StringSerializer()
+	ship_from = StringSerializer()
 
 	class Meta:
 		model = Invoice

@@ -10,7 +10,15 @@ from inventory.models import (
                     InventoryScrappingRecordLine
                 )
 
+
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
+
 class StockReceiptSerializer(serializers.ModelSerializer):
+    order = StringSerializer()
+    receipt_by = StringSerializer()
 
     class Meta:
         model = StockReceipt
@@ -24,6 +32,8 @@ class StockReceiptSerializer(serializers.ModelSerializer):
         ]
 
 class StockReceiptLineSerializer(serializers.ModelSerializer):
+    order_item = StringSerializer()
+
     class Meta:
         model = StockReceiptLine
         fields = [
@@ -37,6 +47,11 @@ class StockReceiptLineSerializer(serializers.ModelSerializer):
 
 
 class InventoryCheckSerializer(serializers.ModelSerializer):
+    adjusted_by = StringSerializer()
+    warehouse = StringSerializer()
+
+
+
     class Meta:
         model = InventoryCheck
         fields = [
@@ -49,6 +64,8 @@ class InventoryCheckSerializer(serializers.ModelSerializer):
         ]
 
 class StockAdjustmentSerializer(serializers.ModelSerializer):
+    inventory_check = StringSerializer()
+    warehouse_item = StringSerializer()
 
     class Meta:
         model = StockAdjustment

@@ -5,7 +5,13 @@ from invoicing.models import (
 	)
 
 
-class CrediNoteLineSrializer(serializers.ModelSerializer):
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
+
+class CrediNoteLineSerializer(serializers.ModelSerializer):
+
 	class Meta:
 		model = CreditNoteLine
 		fields = "__all__"
@@ -13,6 +19,8 @@ class CrediNoteLineSrializer(serializers.ModelSerializer):
 
 
 class CreditNoteListSerializer(serializers.ModelSerializer):
+	invoice = StringSerializer()
+	entry = StringSerializer()
 
 	class Meta:
 		model = CreditNote
@@ -20,7 +28,8 @@ class CreditNoteListSerializer(serializers.ModelSerializer):
 
 
 class CreditNoteCreateSerializer(serializers.ModelSerializer):
-	returned_products = CrediNoteLineSrializer(many=True, write_only=True)
+	returned_products = CrediNoteLineSerializer(many=True, write_only=True)
+
 
 	class Meta:
 		model = CreditNote
@@ -40,7 +49,9 @@ class CreditNoteCreateSerializer(serializers.ModelSerializer):
 		return note
 
 class CreditNoteDetailSerializer(serializers.ModelSerializer):
-	returned_products = CrediNoteLineSrializer(many=True, read_only=True)
+	returned_products = CreditNoteListSerializer(many=True, read_only=True)
+	invoice = StringSerializer()
+
 
 	class Meta:
 		model = CreditNote

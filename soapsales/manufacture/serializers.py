@@ -3,9 +3,14 @@ from rest_framework_recursive.fields import RecursiveField
 from manufacture.models import *
 
 
+class StringSerializer(serializers.StringRelatedField):
 
+    def to_internal_value(self, value):
+        return value
 
 class ProductionOrderSerializer(serializers.ModelSerializer):
+    customer = StringSerializer()
+    process = StringSerializer()
 
     class Meta:
         model = ProductionOrder
@@ -17,8 +22,25 @@ class ProductionOrderSerializer(serializers.ModelSerializer):
         ]
 
 
+class ProductionOrderCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProductionOrder
+        fields = [
+            "id",
+            "due",
+            "customer",
+            'process',
+        ]
+
+
+
 class ProcessSerializer(serializers.ModelSerializer):
     # children = serializers.ListField()
+    customer = StringSerializer()
+    process = StringSerializer()
+
+
     class Meta:
         model = Process
         fields = [
@@ -38,6 +60,26 @@ class ProcessSerializer(serializers.ModelSerializer):
             'child_processes',
             'is_subprocess'
 
+        ]
+
+class ProcessCreateSerializer(serializers.ModelSerializer):
+    # children = serializers.ListField()
+    customer = StringSerializer()
+    process = StringSerializer()
+
+
+    class Meta:
+        model = Process
+        fields = [
+            "parent_process",
+            "process_equipment",
+            'name',
+            'description',
+            'bill_of_materials',
+            'type', # display this
+            'duration',
+            'rate',
+            'product_list',
         ]
 
 class ProcessRateSerializer(serializers.ModelSerializer):

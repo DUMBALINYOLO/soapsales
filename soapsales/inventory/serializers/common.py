@@ -3,6 +3,10 @@ from rest_framework_recursive.fields import RecursiveField
 from inventory.models import *
 
 
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
 
 # class InventorySettingsSerializer(serializers.ModelSerializer):
 #
@@ -26,6 +30,13 @@ from inventory.models import *
 #         ]
 
 class InventoryControllerSerializer(serializers.ModelSerializer):
+    employee = StringSerializer()
+    class Meta:
+        model = InventoryController
+        fields = "__all__"
+
+class InventoryControllerCreateSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = InventoryController
         fields = "__all__"

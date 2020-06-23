@@ -3,6 +3,12 @@ from accounts.models import Account, AccountType
 from accounts.utils import format_currency
 
 
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
+
+
 class AccountTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = AccountType
@@ -16,6 +22,7 @@ class InActiveAccountSerializer(serializers.ModelSerializer):
 
 
 class RetrieveAccountTypeSerializer(AccountTypeSerializer):
+    
     category = serializers.SerializerMethodField()
     classification = serializers.SerializerMethodField()
 
@@ -30,6 +37,8 @@ ACCOUNT_BASE_FIELDS = ('id', 'account_type', 'name', 'description', 'initial_bal
 
 
 class AccountSerializer(serializers.ModelSerializer):
+    # account_type = StringSerializer() 
+
     class Meta:
         model = Account
         fields = ACCOUNT_BASE_FIELDS

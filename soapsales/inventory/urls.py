@@ -8,7 +8,9 @@ from inventory.apis import (
                     DebitNoteViewSet,
                     OrderViewSet,
                     OrderPaymentViewSet,
-                    InventoryItemViewSet
+                    InventoryItemViewSet,
+                    ProductComponentViewSet,
+                    EquipmentComponentViewSet
                 )
 
 router = routers.DefaultRouter()
@@ -22,5 +24,7 @@ router.register(r'debit-note',  DebitNoteViewSet)
 router.register(r'orders',  OrderViewSet)
 router.register(r'orderpayments',  OrderPaymentViewSet)
 router.register(r'inventoryitem',  InventoryItemViewSet)
+router.register(r'product-components',  ProductComponentViewSet)
+router.register(r'equipment-components',  EquipmentComponentViewSet)
 
 urlpatterns = router.urls

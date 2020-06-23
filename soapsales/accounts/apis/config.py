@@ -12,7 +12,8 @@ from accounts.serializers import(
     AccountingSettingsSerializer,
     TaxSerializer,
     CurrencySerializer,
-    BookkeeperSerializer
+    BookkeeperCreateSerializer,
+    BookkeeperListSerializer,
 )
 
 
@@ -24,6 +25,9 @@ class AccountingSettingsViewset(viewsets.ModelViewSet):
 class TaxViewset(viewsets.ModelViewSet):
     queryset = Tax.objects.all()
     serializer_class = TaxSerializer
+    paginate_by = 10
+    paginate_by_param = 'page_size'
+    max_paginate_by = 100
 
 class CurrencyViewset(viewsets.ModelViewSet):
     queryset = Currency.objects.all()
@@ -31,4 +35,9 @@ class CurrencyViewset(viewsets.ModelViewSet):
 
 class BookkeeperViewset(viewsets.ModelViewSet):
     queryset = Bookkeeper.objects.all()
-    serializer_class = BookkeeperSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return BookkeeperCreateSerializer
+        return BookkeeperListSerializer
+    

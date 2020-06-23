@@ -1,9 +1,20 @@
 import axios from 'axios';
-import { GET_TAXES, DELETE_TAX, ADD_TAX, GET_ERRORS } from './types';
+import { 
+        GET_TAXES, 
+        DELETE_TAX, 
+        ADD_TAX, GET_ERRORS 
+    } from './types';
 
 
 // Get Taxes
-export const getTaxes = () => dispatch => {
+export const getTaxes = () => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    }
+    const body = JSON.stringify
+
     axios.get('http://localhost:8000/api/accounting/taxes/')
         .then(res => {
             dispatch({

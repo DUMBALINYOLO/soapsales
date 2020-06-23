@@ -1,8 +1,14 @@
 from rest_framework import serializers
 from invoicing.models import SalesRepresentative
 
+class StringSerializer(serializers.StringRelatedField):
+
+    def to_internal_value(self, value):
+        return value
+
 
 class SalesRepresentativeListSerialaizer(serializers.ModelSerializer):
+	employee = StringSerializer()
 
 	class Meta:
 		model = SalesRepresentative
@@ -22,6 +28,7 @@ class SalesRepresentativeCreateSerialaizer(serializers.ModelSerializer):
 		
 
 class SalesRepresentativeDetailSerialaizer(serializers.ModelSerializer):
+	employee = StringSerializer()
 
 	class Meta:
 		model = SalesRepresentative

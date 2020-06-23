@@ -4,7 +4,8 @@ from accounts.models import *
 from accounts.serializers import (
                         BillSerializer,
                         BillPaymentSerializer,
-                        BillCreateSerializer
+                        BillCreateSerializer,
+                        BillPaymentCreateSerializer
                     )
 
 
@@ -22,4 +23,9 @@ class BillViewset(ModelViewSet):
 
 class BillPaymentViewset(ModelViewSet):
     queryset = BillPayment.objects.all()
-    serializer_class = BillPaymentSerializer
+    
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return BillPaymentCreateSerializer
+        return  BillPaymentSerializer

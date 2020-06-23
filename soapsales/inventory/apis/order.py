@@ -6,7 +6,8 @@ from inventory.serializers import (
                     OrderCreateSerializer,
                     OrderDetailSerializer,
                     OrderListSerializer,
-                    OrderPaymentSerializer
+                    OrderPaymentSerializer,
+                    OrderPaymentCreateSerializer
     )
 
 
@@ -15,7 +16,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
 
     def get_serializer_class(self):
-        if self.action == 'list' or 'destroy':
+        if self.action == 'list':
             return OrderListSerializer
         elif self.action == 'retrieve':
             return OrderDetailSerializer
@@ -38,6 +39,12 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 class OrderPaymentViewSet(viewsets.ModelViewSet):
     queryset = OrderPayment.objects.all()
-    serializer_class = OrderPaymentSerializer
+
+
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return OrderPaymentCreateSerializer
+        return OrderPaymentSerializer
 
     

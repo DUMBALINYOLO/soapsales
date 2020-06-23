@@ -2,6 +2,11 @@ from rest_framework import serializers
 from invoicing.models import Customer, Invoice
 
 
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
+
 
 class InvoiceSerializer(serializers.ModelSerializer):
 
@@ -38,6 +43,7 @@ class CustomerCreateSerializer(serializers.ModelSerializer):
 class CustomerDetailSerializer(serializers.ModelSerializer):
 	invoices = InvoiceSerializer(many=True, read_only=True)
 	credit_invoices = InvoiceSerializer(many=True, read_only=True)
+	account = StringSerializer()
 
 	class Meta:
 		model = Customer
@@ -48,6 +54,7 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
 			'billing_address',
 			'banking_details',
 			'website',
+			'account',
 			'bp_number',
 			'email',
 			'phone'

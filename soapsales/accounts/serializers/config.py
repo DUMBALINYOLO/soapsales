@@ -2,6 +2,12 @@ from rest_framework import serializers
 from accounts.models import *
 from employees.models import Employee
 
+class StringSerializer(serializers.StringRelatedField):
+
+    def to_internal_value(self, value):
+        return value
+
+
 
 class TaxSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,6 +19,8 @@ class TaxSerializer(serializers.ModelSerializer):
         ]
 
 class AccountingSettingsSerializer(serializers.ModelSerializer):
+
+
     class Meta:
         model = AccountingSettings
         fields = [
@@ -23,6 +31,8 @@ class AccountingSettingsSerializer(serializers.ModelSerializer):
             'equipment_capitalization_limit',
             'is_configured',
         ]
+
+
 
 
 class CurrencySerializer(serializers.ModelSerializer):
@@ -40,8 +50,22 @@ class EmployeeSerializer(serializers.ModelSerializer):
         fields = ['id', 'username']
 
 
-class BookkeeperSerializer(serializers.ModelSerializer):
-    # employee = EmployeeSerializer(many=False)
+class BookkeeperListSerializer(serializers.ModelSerializer):
+    employee = StringSerializer()
+    
+
+    class Meta:
+        model = Bookkeeper
+        fields = [
+                'id',
+                'employee',
+                'can_create_journals',
+                'can_create_orders_and_invoices',
+                'can_record_expenses',
+                'can_record_assets',
+        ]
+
+class BookkeeperCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Bookkeeper

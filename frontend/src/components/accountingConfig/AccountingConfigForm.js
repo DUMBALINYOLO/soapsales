@@ -90,7 +90,7 @@ export class AccountingConfigForm extends Component{
                   <input
                     className="form-control"
                     type="date"
-                    name="equipment capitalization period"
+                    name="equipment_capitalization_period"
                     onChange={this.onChange}
                     value={equipment_capitalization_period}
                   />
