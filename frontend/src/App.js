@@ -12,8 +12,8 @@ import Default from './components/Home/Default';
 import BaseProductList from './components/Products/BaseProductList';
 import ShoppingBasket from './components/Products/Basket';
 
-import Taxes from './components/taxes/Taxes';
-import TaxForm from './components/taxes/TaxForm';
+// import Taxes from './components/taxes/Taxes';
+// import TaxForm from './components/taxes/TaxForm';
 
 import Currencies from './components/currencies/Currencies';
 import CurrencyForm from './components/currencies/CurrencyForm';
@@ -120,8 +120,6 @@ class App extends Component {
 						<Navbar />
 						<Switch>
 							<Route exact path='/' component={BaseProductList} />
-							<Route path='/taxes' component={Taxes} />
-							<Route path='/create-tax' component={TaxForm} />
 							<Route path='/shopping-basket' component={ShoppingBasket} />
 							<Route exact path='/products' component={Products} />
 							<Route exact path='/productsForm' component={ProductForm} />

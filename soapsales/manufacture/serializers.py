@@ -96,9 +96,15 @@ class ProcessRateSerializer(serializers.ModelSerializer):
             'unit_time_string'
         ]
 
+class ProcessProductListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProcessProduct
+        fields = ['id','name' ]
+
 class ProductSerializer(serializers.ModelSerializer):
-    products = serializers.SerializerMethodField()
-    products_attributes = serializers.ReadOnlyField()
+    products = ProcessProductListSerializer(many=True, read_only=True)
+    
 
     class Meta:
         model = Product
@@ -108,14 +114,14 @@ class ProductSerializer(serializers.ModelSerializer):
             "description", # display_this
 
             #getter methods
-            'products_attributes',
+            # 'products_attributes',
 
             #model method
             'products'
         ]
 
-    def get_products(self, obj):
-        return obj.products()
+    # def get_products(self, obj):
+    #     return obj.products()
 
 
 class ProcessProductSerializer(serializers.ModelSerializer):

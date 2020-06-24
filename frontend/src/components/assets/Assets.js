@@ -31,7 +31,7 @@ class Assets extends Component {
                         <th>DEPRECIATION METHOD</th>
                         <th>SALVAGE VALUE</th>
                         <th>CREDIT ACCOUNT</th>
-                        <th>CREDITED BY</th>
+                        <th>CREATED BY</th>
                         <th />
                     </thead>
                     <tbody>
@@ -47,7 +47,7 @@ class Assets extends Component {
                                 <td>{asset.depreciation_method}</td>
                                 <td>{asset.salvage_value}</td>
                                 <td>{asset.credit_account}</td>
-                                <td>{asset.cedited_by}</td>
+                                <td>{asset.created_by}</td>
                                 <td><button onClick={this.props.deleteAsset.bind(this, asset.id)} className="btn btn-danger btn-sm">Delete</button></td>
                             </tr>
                         )) }

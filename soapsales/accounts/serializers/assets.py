@@ -15,16 +15,24 @@ class CreateAssetsSerializer(serializers.ModelSerializer):
 
 class AssetsListSerializer(serializers.ModelSerializer):
     credit_account = StringSerializer()
+    category = serializers.SerializerMethodField()
 
     class Meta:
         model = Asset
         fields = ['id', 'name', 'category']
+
+
+    def get_category(self, obj):
+        return obj.get_category_display()
+
         
 
 
 class AssetDetailSerializer(serializers.ModelSerializer):
+    category = serializers.SerializerMethodField()
+    depreciation_method = serializers.SerializerMethodField()
     credit_account = StringSerializer()
-    credit_by = StringSerializer()
+    created_by = StringSerializer()
     depreciation_account = serializers.ReadOnlyField()
     salvage_date = serializers.ReadOnlyField()
     _timedelta = serializers.ReadOnlyField()
@@ -61,5 +69,11 @@ class AssetDetailSerializer(serializers.ModelSerializer):
             # model methods
 
         ]
+
+    def get_category(self, obj):
+        return obj.get_category_display()
+
+    def get_depreciation_method(self, obj):
+        return obj.get_depreciation_method_display()
 
 

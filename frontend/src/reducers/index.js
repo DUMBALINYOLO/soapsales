@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import taxes from './taxes';
+// import taxes from './taxes';
 import currencies from './currencies';
 import errors from './errors';
 import bookkeepers from './bookkeepers';
@@ -36,7 +36,7 @@ import payments from "./payments";
 
 
 export default combineReducers({
-    taxes,
+    // taxes,
     accounts,
     accountingConfig,
     currencies,

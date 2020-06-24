@@ -20,6 +20,7 @@ from .debit_note import DebitNoteLine
 # equipment orders. Each order has its own entries
 
 
+
 class Order(models.Model):
     '''
     The record of all purchase orders for inventory of items that

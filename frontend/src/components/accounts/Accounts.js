@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Table from 'react-bootstrap/Table'
 import { getAccounts, deleteAccount } from '..//../actions/accounts';
 
 
@@ -19,7 +20,7 @@ class Accounts extends Component {
         return (
             <Fragment>
                 <h1>ACCOUNTS</h1>
-                <table className="table table-striped">
+                <Table striped bordered hover variant="dark">
                     <thead>
                         <th>ID</th>
                         <th>ACCOUNT-TYPE</th>
@@ -45,7 +46,7 @@ class Accounts extends Component {
                             </tr>
                         )) }
                     </tbody>
-                </table>
+                </Table>
             </Fragment>
         );
     }

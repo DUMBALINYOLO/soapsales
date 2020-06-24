@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { ADD_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT } from './types';
+import { accountsURL } from '../constants';
 
 
 // Get Taxes
 export const getAccounts = () => dispatch => {
-    axios.get('http://localhost:8000/api/accounting/accounts/')
+    axios.get(accountsURL)
         .then(res => {
             dispatch({
                 type: GET_ACCOUNTS ,

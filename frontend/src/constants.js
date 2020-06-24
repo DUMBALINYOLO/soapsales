@@ -6,4 +6,6 @@ const apiURL = "/api"
 const endpoint = `${localhost}${apiURL}`
 
 export const taxesURL = `${endpoint}/accounting/taxes/`
+export const accountsURL = `${endpoint}/accounting/accounts`
+
 
