@@ -1,4 +1,4 @@
-import { GET_PROCESSGROUPS, DELETE_PROCESSGROUP, ADD_PROCESSGROUP  } from "../actions/types.js";
+import { GET_PROCESSGROUPS, DELETE_PROCESSGROUP, ADD_PROCESSGROUP  } from "../types/processgroupTypes";
 
 const initialState = {
     processGroups: []

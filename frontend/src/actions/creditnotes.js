@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ADD_CREDITNOTE, GET_CREDITNOTES, DELETE_CREDITNOTE } from './types';
+import { ADD_CREDITNOTE, GET_CREDITNOTES, DELETE_CREDITNOTE } from '../types/creditnoteTypes';
+import { creditnoteURL } from '../constants';
 
 
 // Get
 export const getCreditnotes = () => dispatch => {
-    axios.get('http://localhost:8000/api/sales/creditnote/')
+    axios.get(creditnoteURL)
         .then(res => {
             dispatch({
                 type: GET_CREDITNOTES,
@@ -16,7 +17,7 @@ export const getCreditnotes = () => dispatch => {
 //Delete
 
 export const deleteCreditnote = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/sales/creditnote/${id}/`)
+    axios.delete(creditnoteURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_CREDITNOTE,
@@ -29,7 +30,7 @@ export const deleteCreditnote = (id) => dispatch => {
 // Add
 // Get
 export const addCreditnote = creditnote => dispatch => {
-    axios.post('http://localhost:8000/api/sales/creditnote/', creditnote)
+    axios.post(creditnoteURL, creditnote)
         .then(res => {
             dispatch({
                 type: ADD_CREDITNOTE,

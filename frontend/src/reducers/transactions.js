@@ -1,4 +1,4 @@
-import { GET_TRANSACTIONS, DELETE_TRANSACTION  } from '../actions/types.js';
+import { GET_TRANSACTIONS, DELETE_TRANSACTION  } from '../types/transactionTypes';
 
 const initialState = {
     transactions: []

@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { GET_BOOKKEEPERS, DELETE_BOOKKEEPER, ADD_BOOKKEEPER} from './types';
+import { GET_BOOKKEEPERS, DELETE_BOOKKEEPER, ADD_BOOKKEEPER} from '../types/bookkeeperTypes.js';
+import { bookkeepersURL } from '../constants';
 
 
-// Get Taxes
+// Get 
 export const getBookkeepers = () => dispatch => {
-    axios.get('http://localhost:8000/api/accounting/bookkeepers/')
+    axios.get(bookkeepersURL)
         .then(res => {
             dispatch({
                 type: GET_BOOKKEEPERS,
@@ -13,10 +14,10 @@ export const getBookkeepers = () => dispatch => {
         }).catch(err => console.log(err))
 }
 
-//Delete Taxes
+//Delete
 
 export const deleteBookkeeper = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/accounting/bookkeepers/${id}/`)
+    axios.delete(bookkeepersURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_BOOKKEEPER,
@@ -26,10 +27,10 @@ export const deleteBookkeeper = (id) => dispatch => {
 }
 
 
-// Add Taxes
-// Get Taxes
+// Add
+// Get
 export const addBookkeeper = bookkeeper => dispatch => {
-    axios.post('http://localhost:8000/api/accounting/bookkeepers/', bookkeeper)
+    axios.post(bookkeepersURL, bookkeeper)
         .then(res => {
             dispatch({
                 type: ADD_BOOKKEEPER,

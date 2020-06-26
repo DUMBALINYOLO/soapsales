@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { GET_PROCESSMACHINES, DELETE_PROCESSMACHINE, ADD_PROCESSMACHINE } from './types';
+import { GET_PROCESSMACHINES, DELETE_PROCESSMACHINE, ADD_PROCESSMACHINE } from '../types/processmachineTypes';
+import { processmachineURL } from '../constants';
 
 
 // Get
 export const getProcessMachines = () => dispatch => {
-    axios.get('http://localhost:8000/api/manufacture/process-machines/')
+    axios.get(processmachineURL)
         .then(res => {
             dispatch({
                 type: GET_PROCESSMACHINES,
@@ -16,7 +17,7 @@ export const getProcessMachines = () => dispatch => {
 //Delete
 
 export const deleteProcessMachine = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/manufacture/process-machines/${id}/`)
+    axios.delete(processmachineURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_PROCESSMACHINE,
@@ -28,7 +29,7 @@ export const deleteProcessMachine = (id) => dispatch => {
 
 // Add
 export const addProcessMachine = (processMachine) => dispatch => {
-    axios.post('http://localhost:8000/api/manufacture/process-machines/', processMachine)
+    axios.post(processmachineURL, processMachine)
         .then(res => {
             dispatch({
                 type: ADD_PROCESSMACHINE,

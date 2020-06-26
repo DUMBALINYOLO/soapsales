@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ADD_UNITMEASURE, GET_UNITMEASURES, DELETE_UNITMEASURE } from './types';
+import { ADD_UNITMEASURE, GET_UNITMEASURES, DELETE_UNITMEASURE } from '../types/unitmeasureTypes';
+import { unitmeasureURL } from '../constants';
 
 
 // Get
 export const getUnitmeasures = () => dispatch => {
-    axios.get('http://localhost:8000/api/inventory/unit-of-measure/')
+    axios.get(unitmeasureURL)
         .then(res => {
             dispatch({
                 type: GET_UNITMEASURES ,
@@ -16,7 +17,7 @@ export const getUnitmeasures = () => dispatch => {
 //Delete
 
 export const deleteUnitmeasure = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/inventory/unit-of-measure/${id}/`)
+    axios.delete(unitmeasureURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_UNITMEASURE,
@@ -29,7 +30,7 @@ export const deleteUnitmeasure = (id) => dispatch => {
 // Add
 // Get
 export const addUnitmeasure = unitmeasure => dispatch => {
-    axios.post('http://localhost:8000/api/inventory/unit-of-measure/', unitmeasure)
+    axios.post(unitmeasureURL, unitmeasure)
         .then(res => {
             dispatch({
                 type: ADD_UNITMEASURE,

@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ADD_PAYMENT, GET_PAYMENTS, DELETE_PAYMENT } from './types';
+import { ADD_PAYMENT, GET_PAYMENTS, DELETE_PAYMENT } from '../types/paymentTypes';
+import { paymentsURL } from '../constants';
 
 
 // Get
 export const getPayments = () => dispatch => {
-    axios.get('http://localhost:8000/api/sales/payments/')
+    axios.get(paymentsURL)
         .then(res => {
             dispatch({
                 type: GET_PAYMENTS ,
@@ -16,7 +17,7 @@ export const getPayments = () => dispatch => {
 //Delete
 
 export const deletePayment = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/sales/payments/${id}/`)
+    axios.delete(paymentsURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_PAYMENT,
@@ -29,7 +30,7 @@ export const deletePayment = (id) => dispatch => {
 // Add
 // Get
 export const addPayment = payment => dispatch => {
-    axios.post('http://localhost:8000/api/sales/payments/', payment)
+    axios.post(paymentsURL, payment)
         .then(res => {
             dispatch({
                 type: ADD_PAYMENT,

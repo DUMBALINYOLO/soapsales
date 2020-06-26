@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { GET_PRICINGGROUPS, DELETE_PRICINGGROUP, ADD_PRICINGGROUP } from './types';
+import { GET_PRICINGGROUPS, DELETE_PRICINGGROUP, ADD_PRICINGGROUP } from '../types/pricinggroupTypes';
+import { pricinggroupsURL } from '../constants';
 
 
 // Get
 export const getPricinggroups = () => dispatch => {
-    axios.get('http://localhost:8000/api/stock/pricing-groups/')
+    axios.get(pricinggroupsURL)
         .then(res => {
             dispatch({
                 type: GET_PRICINGGROUPS,
@@ -16,7 +17,7 @@ export const getPricinggroups = () => dispatch => {
 //Delete
 
 export const deletePricinggroup = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/stock/pricing-groups/${id}/`)
+    axios.delete(pricinggroupsURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_PRICINGGROUP,
@@ -28,7 +29,7 @@ export const deletePricinggroup = (id) => dispatch => {
 
 // Add
 export const addPricinggroup = (pricinggroup) => dispatch => {
-    axios.post('http://localhost:8000/api/stock/pricing-groups/', pricinggroup)
+    axios.post(pricinggroupsURL, pricinggroup)
         .then(res => {
             dispatch({
                 type: ADD_PRICINGGROUP,

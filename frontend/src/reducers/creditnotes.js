@@ -1,4 +1,4 @@
-import { ADD_CREDITNOTE, GET_CREDITNOTES , DELETE_CREDITNOTE } from '../actions/types.js';
+import { ADD_CREDITNOTE, GET_CREDITNOTES , DELETE_CREDITNOTE } from '../types/creditnoteTypes';
 
 const initialState = {
     creditnotes: []

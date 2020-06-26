@@ -1,10 +1,14 @@
 import axios from 'axios';
-import { GET_BILLS, DELETE_BILL, ADD_BILL } from './types';
-
+import {
+    GET_BILLS,
+    ADD_BILL,
+    DELETE_BILL,
+} from "../types/billTypes";
+import { billsURL } from '../constants';
 
 // Get
 export const getBills = () => dispatch => {
-    axios.get('http://localhost:8000/api/manufacture/bills-of-materials/')
+    axios.get(billsURL)
         .then(res => {
             dispatch({
                 type: GET_BILLS,
@@ -16,7 +20,7 @@ export const getBills = () => dispatch => {
 //Delete
 
 export const deleteBill = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/manufacture/bills-of-materials/${id}/`)
+    axios.delete(billsURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_BILL,
@@ -28,7 +32,7 @@ export const deleteBill = (id) => dispatch => {
 
 // Add
 export const addBill = (bill) => dispatch => {
-    axios.post('http://localhost:8000/api/manufacture/bills-of-materials/', bill)
+    axios.post(billsURL, bill)
         .then(res => {
             dispatch({
                 type: ADD_BILL,

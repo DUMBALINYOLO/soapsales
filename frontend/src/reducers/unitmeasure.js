@@ -1,4 +1,4 @@
-import { GET_UNITMEASURES, DELETE_UNITMEASURE, ADD_UNITMEASURE  } from '../actions/types.js';
+import { GET_UNITMEASURES, DELETE_UNITMEASURE, ADD_UNITMEASURE  } from '../types/unitmeasureTypes';
 
 const initialState = {
     unitmeasures: []

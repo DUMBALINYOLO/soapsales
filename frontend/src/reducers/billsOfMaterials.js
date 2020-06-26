@@ -1,4 +1,6 @@
-import { GET_BILLS, DELETE_BILL, ADD_BILL  } from "../actions/types.js";
+import {
+    GET_BILLS, ADD_BILL, DELETE_BILL
+} from "../types/billTypes";
 
 const initialState = {
     bills: []
@@ -15,12 +17,12 @@ export default function(state = initialState, action){
         case DELETE_BILL:
             return {
                 ...state,
-                bills: state.bills.filter(bills => bills.id !== action.payload)
+                bill: state.bills.filter(bill => bill.id !== action.payload)
             };
         case ADD_BILL:
             return {
                 ...state,
-                bills: [...state.bill, action.payload]
+                bill: [...state.bills, action.payload]
             }
         default:
             return state;

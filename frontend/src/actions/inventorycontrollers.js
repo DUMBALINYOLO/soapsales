@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ADD_INVENTORYCONTROLLER, GET_INVENTORYCONTROLLERS, DELETE_INVENTORYCONTROLLER } from './types';
+import { ADD_INVENTORYCONTROLLER, GET_INVENTORYCONTROLLERS, DELETE_INVENTORYCONTROLLER } from '../types/inventorycontrollerTypes';
+import { inventorycontrollerURL } from '../constants';
 
 
 // Get
 export const getInventorycontrollers = () => dispatch => {
-    axios.get('http://localhost:8000/api/inventory/inventory-controllers/')
+    axios.get(inventorycontrollerURL)
         .then(res => {
             dispatch({
                 type: GET_INVENTORYCONTROLLERS,
@@ -16,7 +17,7 @@ export const getInventorycontrollers = () => dispatch => {
 //Delete
 
 export const deleteInventorycontroller = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/inventory/inventory-controllers/${id}/`)
+    axios.delete(inventorycontrollerURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_INVENTORYCONTROLLER,
@@ -29,7 +30,7 @@ export const deleteInventorycontroller = (id) => dispatch => {
 // Add
 // Get
 export const addInventorycontroller = inventorycontroller => dispatch => {
-    axios.post('http://localhost:8000/api/inventory/inventory-controllers/', inventorycontroller)
+    axios.post(inventorycontrollerURL, inventorycontroller)
         .then(res => {
             dispatch({
                 type: ADD_INVENTORYCONTROLLER,

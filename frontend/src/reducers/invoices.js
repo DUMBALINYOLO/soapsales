@@ -1,4 +1,4 @@
-import { ADD_INVOICE, GET_INVOICES , DELETE_INVOICE } from '../actions/types.js';
+import { ADD_INVOICE, GET_INVOICES , DELETE_INVOICE } from '../types/invoiceTypes';
 
 const initialState = {
     invoices: []

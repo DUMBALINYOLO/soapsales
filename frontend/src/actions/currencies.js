@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { GET_CURRENCIES, DELETE_CURRENCY, ADD_CURRENCY} from './types';
+import { GET_CURRENCIES, DELETE_CURRENCY, ADD_CURRENCY} from '../types/currencyTypes';
+import { currenciesURL } from '../constants';
 
 
 // Get Taxes
 export const getCurrencies = () => dispatch => {
-    axios.get('http://localhost:8000/api/accounting/currencies/')
+    axios.get(currenciesURL)
         .then(res => {
             dispatch({
                 type: GET_CURRENCIES,
@@ -16,7 +17,7 @@ export const getCurrencies = () => dispatch => {
 //Delete Taxes
 
 export const deleteCurrency = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/accounting/currencies/${id}/`)
+    axios.delete(currenciesURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_CURRENCY,
@@ -29,7 +30,7 @@ export const deleteCurrency = (id) => dispatch => {
 // Add Taxes
 // Get Taxes
 export const addCurrency = currency => dispatch => {
-    axios.post('http://localhost:8000/api/accounting/currencies/', currency)
+    axios.post(currenciesURL, currency)
         .then(res => {
             dispatch({
                 type: ADD_CURRENCY,

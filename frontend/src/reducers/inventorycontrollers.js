@@ -1,4 +1,4 @@
-import { ADD_INVENTORYCONTROLLER, GET_INVENTORYCONTROLLERS , DELETE_INVENTORYCONTROLLER } from '../actions/types.js';
+import { ADD_INVENTORYCONTROLLER, GET_INVENTORYCONTROLLERS , DELETE_INVENTORYCONTROLLER } from '../types/inventorycontrollerTypes';
 
 const initialState = {
     inventorycontrollers: []

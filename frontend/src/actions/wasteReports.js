@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { GET_WASTEREPORTS, DELETE_WASTEREPORT, ADD_WASTEREPORT } from './types';
+import { GET_WASTEREPORTS, DELETE_WASTEREPORT, ADD_WASTEREPORT } from '../types/wastereportTypes';
+import { wastereportURL } from '../constants';
 
 
 // Get
 export const getWasteReports = () => dispatch => {
-    axios.get('http://localhost:8000/api/manufacture/waste-generation-reports/')
+    axios.get(wastereportURL)
         .then(res => {
             dispatch({
                 type: GET_WASTEREPORTS,
@@ -16,7 +17,7 @@ export const getWasteReports = () => dispatch => {
 //Delete
 
 export const deleteWasteReport = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/manufacture/waste-generation-reports/${id}/`)
+    axios.delete(wastereportURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_WASTEREPORT,
@@ -28,7 +29,7 @@ export const deleteWasteReport = (id) => dispatch => {
 
 // Add
 export const addWasteReport = (waste) => dispatch => {
-    axios.post('http://localhost:8000/api/manufacture/waste-generation-reports/', waste)
+    axios.post(wastereportURL, waste)
         .then(res => {
             dispatch({
                 type: ADD_WASTEREPORT,

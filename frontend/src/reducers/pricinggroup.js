@@ -1,4 +1,4 @@
-import { ADD_PRICINGGROUP, GET_PRICINGGROUPS , DELETE_PRICINGGROUP } from '../actions/types.js';
+import { ADD_PRICINGGROUP, GET_PRICINGGROUPS , DELETE_PRICINGGROUP } from '../types/pricinggroupTypes';
 
 const initialState = {
     pricinggroups: []

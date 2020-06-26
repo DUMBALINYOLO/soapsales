@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ADD_INVOICE, GET_INVOICES, DELETE_INVOICE } from './types';
+import { ADD_INVOICE, GET_INVOICES, DELETE_INVOICE } from '../types/invoiceTypes';
+import { invoicesURL } from '../constants';
 
 
 // Get
 export const getInvoices = () => dispatch => {
-    axios.get('http://localhost:8000/api/sales/invoices/')
+    axios.get(invoicesURL)
         .then(res => {
             dispatch({
                 type: GET_INVOICES,
@@ -16,7 +17,7 @@ export const getInvoices = () => dispatch => {
 //Delete
 
 export const deleteInvoice = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/sales/invoices/${id}/`)
+    axios.delete(invoicesURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_INVOICE,
@@ -29,7 +30,7 @@ export const deleteInvoice = (id) => dispatch => {
 // Add
 // Get
 export const addInvoice = invoice => dispatch => {
-    axios.post('http://localhost:8000/api/sales/invoices/', invoice)
+    axios.post(invoicesURL, invoice)
         .then(res => {
             dispatch({
                 type: ADD_INVOICE,

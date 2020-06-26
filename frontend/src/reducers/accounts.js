@@ -1,4 +1,4 @@
-import { ADD_ACCOUNT, GET_ACCOUNTS , DELETE_ACCOUNT } from '../actions/types.js';
+import { ADD_ACCOUNT, GET_ACCOUNTS , DELETE_ACCOUNT } from '../types/accountTypes';
 
 const initialState = {
     accounts: []

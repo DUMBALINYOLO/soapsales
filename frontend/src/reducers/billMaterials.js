@@ -1,4 +1,4 @@
-import { GET_BILLMATERIALS, DELETE_BILLMATERIAL, ADD_BILLMATERIAL  } from "../actions/types.js";
+import { GET_BILLMATERIALS, DELETE_BILLMATERIAL, ADD_BILLMATERIAL  } from "../types/billmaterialTypes";
 
 const initialState = {
     billMaterials: []

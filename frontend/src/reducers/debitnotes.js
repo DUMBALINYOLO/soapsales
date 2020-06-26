@@ -1,4 +1,4 @@
-import { ADD_DEBITNOTE, GET_DEBITNOTES , DELETE_DEBITNOTE } from '../actions/types.js';
+import { ADD_DEBITNOTE, GET_DEBITNOTES , DELETE_DEBITNOTE } from '../types/debitnoteTypes';
 
 const initialState = {
     debitnotes: []

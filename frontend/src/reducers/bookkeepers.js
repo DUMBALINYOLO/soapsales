@@ -1,4 +1,4 @@
-import { GET_BOOKKEEPERS, DELETE_BOOKKEEPER, ADD_BOOKKEEPER  } from '../actions/types.js';
+import { GET_BOOKKEEPERS, DELETE_BOOKKEEPER, ADD_BOOKKEEPER  } from '../types/bookkeeperTypes';
 
 const initialState = {
     bookkeepers: []

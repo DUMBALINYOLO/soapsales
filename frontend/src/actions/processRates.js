@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { GET_PROCESSRATES, DELETE_PROCESSRATE, ADD_PROCESSRATE } from './types';
+import { GET_PROCESSRATES, DELETE_PROCESSRATE, ADD_PROCESSRATE } from '../types/processrateTypes';
+import { processrateURL } from '../constants';
 
 
 // Get
 export const getProcessRates = () => dispatch => {
-    axios.get('http://localhost:8000/api/manufacture/process-rates/')
+    axios.get(processrateURL)
         .then(res => {
             dispatch({
                 type: GET_PROCESSRATES,
@@ -16,7 +17,7 @@ export const getProcessRates = () => dispatch => {
 //Delete
 
 export const deleteProcessRate = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/manufacture/process-rates/${id}/`)
+    axios.delete(processrateURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_PROCESSRATE,
@@ -28,7 +29,7 @@ export const deleteProcessRate = (id) => dispatch => {
 
 // Add
 export const addProcessRate = (processRate) => dispatch => {
-    axios.post('http://localhost:8000/api/manufacture/process-rates/', processRate)
+    axios.post(processrateURL, processRate)
         .then(res => {
             dispatch({
                 type: ADD_PROCESSRATE,

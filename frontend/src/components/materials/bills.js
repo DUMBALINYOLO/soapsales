@@ -27,12 +27,12 @@ class Bills extends Component {
                         <th />
                     </thead>
                     <tbody>
-                        { this.props.bills.map(bills =>(
-                            <tr key={bills.id}>
-                                <td>{ bills.id }</td>
-                                <td>{ bills.name }</td>
-                                <td>{bills.description}</td>
-                                <td><button onClick={this.props.deleteBill.bind(this, bills.id)} className="btn btn-danger btn-sm">Delete</button></td>
+                        { this.props.bills.map(bill =>(
+                            <tr key={bill.id}>
+                                <td>{ bill.id }</td>
+                                <td>{ bill.name }</td>
+                                <td>{bill.description}</td>
+                                <td><button onClick={this.props.deleteBill.bind(this, bill.id)} className="btn btn-danger btn-sm">Delete</button></td>
                             </tr>
                         )) }
                     </tbody>
@@ -43,7 +43,7 @@ class Bills extends Component {
 }
 
 const mapStateToProps = state =>({
-    bills: state.bills.bills
+    bills:state.bills.bills
 })
 
 export default connect(mapStateToProps, { getBills, deleteBill} ) (Bills);

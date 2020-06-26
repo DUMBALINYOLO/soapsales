@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ADD_DEBITNOTE, GET_DEBITNOTES, DELETE_DEBITNOTE } from './types';
+import { ADD_DEBITNOTE, GET_DEBITNOTES, DELETE_DEBITNOTE } from '../types/debitnoteTypes';
+import { debitnoteURL } from '../constants';
 
 
 // Get
 export const getDebitnotes = () => dispatch => {
-    axios.get('http://localhost:8000/api/inventory/debit-note/')
+    axios.get(debitnoteURL)
         .then(res => {
             dispatch({
                 type: GET_DEBITNOTES,
@@ -16,7 +17,7 @@ export const getDebitnotes = () => dispatch => {
 //Delete
 
 export const deleteDebitnote = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/inventory/debit-note/${id}/`)
+    axios.delete(debitnoteURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_DEBITNOTE,
@@ -29,7 +30,7 @@ export const deleteDebitnote = (id) => dispatch => {
 // Add
 // Get
 export const addDebitnote = debitnote => dispatch => {
-    axios.post('http://localhost:8000/api/inventory/debit-note/', debitnote)
+    axios.post(debitnoteURL, debitnote)
         .then(res => {
             dispatch({
                 type: ADD_DEBITNOTE,

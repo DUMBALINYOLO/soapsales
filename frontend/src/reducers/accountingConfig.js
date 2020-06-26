@@ -1,4 +1,4 @@
-import { ADD_ACCOUNTINGCONFIG, GET_ACCOUNTINGCONFIG , DELETE_ACCOUNTINGCONFIG } from '../actions/types.js';
+import { ADD_ACCOUNTINGCONFIG, GET_ACCOUNTINGCONFIG , DELETE_ACCOUNTINGCONFIG } from '../types/accountingconfigTypes';
 
 const initialState = {
     accountingConfig: []
