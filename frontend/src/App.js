@@ -4,17 +4,13 @@ import {Provider} from 'react-redux';
 import store from './store';
 import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
-
+import 'antd/dist/antd.css';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Home/Navbar';
 import Default from './components/Home/Default';
-import BaseProductList from './components/Products/BaseProductList';
-import ShoppingBasket from './components/Products/Basket';
 
 // import Taxes from './components/taxes/Taxes';
 // import TaxForm from './components/taxes/TaxForm';
-
 import Currencies from './components/currencies/Currencies';
 import CurrencyForm from './components/currencies/CurrencyForm';
 
@@ -29,6 +25,7 @@ import OrderForm from './components/orders/OrderForm';
 
 import Invoice from './components/invoices/Invoices';
 import InvoiceForm from './components/invoices/InvoiceForm';
+
 
 import Salesrep from './components/salesreps/Salesrep';
 import SalesrepForm from './components/salesreps/SalesrepForm';
@@ -101,9 +98,12 @@ import InventorycategoryForm from './components/inventorycategory/Inventorycateg
 
 import Processproduct from "./components/processedproducts/Processedproduct";
 import ProcessproductForm from './components/processedproducts/ProcessedproductForm';
-
+import MainTab from './components/tabs/MainTab';
+// import Tafula from './components/tabletest/Tafula';
+import Mali from './components/tabletest/Mali';
 
 import Sidebar from "./components/sidebar/Sidebar";
+
 
 //Alert Options
 const alertOptions = {
@@ -119,8 +119,6 @@ class App extends Component {
 					<Fragment>
 						<Navbar />
 						<Switch>
-							<Route exact path='/' component={BaseProductList} />
-							<Route path='/shopping-basket' component={ShoppingBasket} />
 							<Route exact path='/products' component={Products} />
 							<Route exact path='/productsForm' component={ProductForm} />
 							<Route exact path='/processMachines' component={ProcessMachines} />
@@ -130,6 +128,8 @@ class App extends Component {
 							<Route exact path='/billMaterials' component={BillMaterials} />
 							<Route exact path='/billMaterialForm' component={BillMaterialForm} />
 							<Route exact path='/bills' component={Bills} />
+							<Route exact path='/tab' component={MainTab} />
+							<Route exact path='/mali' component={Mali} />
 							<Route exact path='/billForm' component={BillForm} />
 							<Route exact path='/waste' component={WasteReports} />
 							<Route exact path='/waste-report' component={WasteReportForm} />
@@ -141,7 +141,6 @@ class App extends Component {
 							<Route exact path='/asset-form' component={AssetForm} />
 							<Route exact path='/processproducts' component={Processproduct} />
 							<Route exact path='/processproduct-form' component={ProcessproductForm} />
-
 							<Route exact path='/sidebar' component={Sidebar} />
 							<Route exact path='/products' component={Products} />
 							<Route exact path='/productsForm' component={ProductForm} />
@@ -194,7 +193,6 @@ class App extends Component {
 							<Route exact path='/payment-form' component={PaymentForm} />
 							<Route exact path='/salesrep' component={Salesrep} />
 							<Route exact path='/salesrep-form' component={SalesrepForm} />
-
 							<Route exact path='/invoices' component={Invoice} />
 							<Route exact path='/invoice-form' component={InvoiceForm} />
 							<Route exact path='/productlines' component={Productline} />

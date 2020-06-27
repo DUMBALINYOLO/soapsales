@@ -1,21 +1,28 @@
-import React,  {Component} from 'react';
-import {Link} from 'react-router-dom';
-import styled from 'styled-components';
+import React,  {Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import { Layout, Menu, Breadcrumb } from 'antd';
+
+
 
 class Navbar extends Component {
 	render(){
+		const { Header, Content, Footer } = Layout;
+
 		return (
-			<NavWrapper className="navbar navbar-expand-sm bg-secondary navbar-dark px-sm-5">
-				<Link to="/sidebar" >
-					<span className="navbar-brand">User Dashboard</span>
-				</Link>
-				<Link to="/login" className='ml-auto'>
-					<span className="mr-2">
-						<i className="fas fa-user"/>
-					</span>
-					Login
-				</Link>
-			</NavWrapper>
+			<Fragment>
+				<Layout className="layout" >
+				    <Header>
+				      <div className="logo" />
+				      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+					      <Menu.Item key="1"><Link to='/mali'>Table Test</Link></Menu.Item>
+					      <Menu.Item key="2">Currencies</Menu.Item>
+					      <Menu.Item key="3">Test 3</Menu.Item>
+				      </Menu>
+				    </Header>
+				    <Footer style={{ textAlign: 'center' }}>SoapSales System</Footer>
+				</Layout>
+					
+			</Fragment>
 		);
 	}
 }
@@ -23,11 +30,4 @@ class Navbar extends Component {
 export default Navbar;
 
 
-const NavWrapper = styled.nav`
-	background-color: 4B0082 !important;
-	.navlink{
-		color : FFD700 !important;
-		font-size: 2.1em !important;
-		text-transform: uppercase !important;
-	}
-`
+

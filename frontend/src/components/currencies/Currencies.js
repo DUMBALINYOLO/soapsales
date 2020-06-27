@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { getCurrencies, deleteCurrency } from '..//../actions/currencies';
 
 
+
 class Currencies extends Component {
     static propTypes = {
         currencies : PropTypes.array.isRequired,

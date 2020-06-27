@@ -1,26 +1,27 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Table from 'react-bootstrap/Table'
+
 import { getAccounts, deleteAccount } from '..//../actions/accounts';
 
 
 class Accounts extends Component {
-    static propTypes = {
-        accounts : PropTypes.array.isRequired,
-        getAccounts: PropTypes.func.isRequired,
-        deleteAccount: PropTypes.func.isRequired,
-    };
+    // static propTypes = {
+    //     accounts : PropTypes.array.isRequired,
+    //     getAccounts: PropTypes.func.isRequired,
+    //     deleteAccount: PropTypes.func.isRequired,
+    // };
 
     componentDidMount(){
         this.props.getAccounts();
     }
+    
 
     render(){
         return (
             <Fragment>
                 <h1>ACCOUNTS</h1>
-                <Table striped bordered hover variant="dark">
+                 <table className="table table-striped">
                     <thead>
                         <th>ID</th>
                         <th>ACCOUNT-TYPE</th>
@@ -46,7 +47,7 @@ class Accounts extends Component {
                             </tr>
                         )) }
                     </tbody>
-                </Table>
+                </table>
             </Fragment>
         );
     }
