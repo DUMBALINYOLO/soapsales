@@ -1,4 +1,4 @@
-import { ADD_ORDER, GET_ORDERS , DELETE_ORDER } from '../actions/types.js';
+import { ADD_ORDER, GET_ORDERS , DELETE_ORDER } from '../types/orderTypes';
 
 const initialState = {
     orders: []

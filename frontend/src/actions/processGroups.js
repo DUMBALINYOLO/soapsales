@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { GET_PROCESSGROUPS, DELETE_PROCESSGROUP, ADD_PROCESSGROUP } from './types';
+import { GET_PROCESSGROUPS, DELETE_PROCESSGROUP, ADD_PROCESSGROUP } from '../types/processgroupTypes';
+import { processgroupURL } from '../constants';
 
 
 // Get
 export const getProcessGroups = () => dispatch => {
-    axios.get('http://localhost:8000/api/manufacture/process-machine-group/')
+    axios.get(processgroupURL)
         .then(res => {
             dispatch({
                 type: GET_PROCESSGROUPS,
@@ -16,7 +17,7 @@ export const getProcessGroups = () => dispatch => {
 //Delete
 
 export const deleteProcessGroup = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/manufacture/process-machine-group/${id}/`)
+    axios.delete(processgroupURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_PROCESSGROUP,
@@ -28,7 +29,7 @@ export const deleteProcessGroup = (id) => dispatch => {
 
 // Add
 export const addProcessGroup = (processGroup) => dispatch => {
-    axios.post('http://localhost:8000/api/manufacture/process-machine-group/', processGroup)
+    axios.post(processgroupURL, processGroup)
         .then(res => {
             dispatch({
                 type: ADD_PROCESSGROUP,

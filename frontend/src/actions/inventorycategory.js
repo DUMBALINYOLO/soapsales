@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ADD_INVENTORYCATEGORY, GET_INVENTORYCATEGORIES, DELETE_INVENTORYCATEGORY } from './types';
+import { ADD_INVENTORYCATEGORY, GET_INVENTORYCATEGORIES, DELETE_INVENTORYCATEGORY } from '../types/inventorycategoryTypes';
+import { inventorycategoryURL } from '../constants';
 
 
 // Get
 export const getInventorycategories = () => dispatch => {
-    axios.get('http://localhost:8000/api/inventory/inventory-categories/')
+    axios.get(inventorycategoryURL)
         .then(res => {
             dispatch({
                 type: GET_INVENTORYCATEGORIES,
@@ -16,7 +17,7 @@ export const getInventorycategories = () => dispatch => {
 //Delete
 
 export const deleteInventorycategory = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/inventory/inventory-categories/${id}/`)
+    axios.delete(inventorycategoryURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_INVENTORYCATEGORY,
@@ -29,7 +30,7 @@ export const deleteInventorycategory = (id) => dispatch => {
 // Add
 // Get
 export const addInventorycategory = inventorycategory => dispatch => {
-    axios.post('http://localhost:8000/api/inventory/inventory-categories/', inventorycategory)
+    axios.post(inventorycategoryURL, inventorycategory)
         .then(res => {
             dispatch({
                 type: ADD_INVENTORYCATEGORY,

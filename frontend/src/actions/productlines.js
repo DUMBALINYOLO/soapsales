@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { GET_PRODUCTLINES, DELETE_PRODUCTLINE, ADD_PRODUCTLINE } from './types';
+import { GET_PRODUCTLINES, DELETE_PRODUCTLINE, ADD_PRODUCTLINE } from '../types/productlineTypes';
+import { productlineURL } from '../constants';
 
 
 // Get
 export const getProductlines = () => dispatch => {
-    axios.get('http://localhost:8000/api/sales/productlinecomponent/')
+    axios.get(productlineURL)
         .then(res => {
             dispatch({
                 type: GET_PRODUCTLINES,
@@ -16,7 +17,7 @@ export const getProductlines = () => dispatch => {
 //Delete
 
 export const deleteProductline = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/sales/productlinecomponent/${id}/`)
+    axios.delete(productlineURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_PRODUCTLINE,
@@ -28,7 +29,7 @@ export const deleteProductline = (id) => dispatch => {
 
 // Add
 export const addProductline = (productline) => dispatch => {
-    axios.post('http://localhost:8000/api/sales/productlinecomponent/', productline)
+    axios.post(productlineURL, productline)
         .then(res => {
             dispatch({
                 type: ADD_PRODUCTLINE,

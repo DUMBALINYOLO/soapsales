@@ -1,4 +1,4 @@
-import { ADD_PAYMENT, GET_PAYMENTS , DELETE_PAYMENT } from '../actions/types.js';
+import { ADD_PAYMENT, GET_PAYMENTS , DELETE_PAYMENT } from '../types/paymentTypes';
 
 const initialState = {
     payments: []

@@ -1,4 +1,4 @@
-import { GET_PRODUCTLINES, DELETE_PRODUCTLINE, ADD_PRODUCTLINE  } from "../actions/types.js";
+import { GET_PRODUCTLINES, DELETE_PRODUCTLINE, ADD_PRODUCTLINE  } from "../types/productlineTypes";
 
 const initialState = {
     productlines: []

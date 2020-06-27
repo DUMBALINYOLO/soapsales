@@ -1,4 +1,4 @@
-import { ADD_ACCOUNT_TYPE, GET_ACCOUNT_TYPES , DELETE_ACCOUNT_TYPE } from '../actions/types.js';
+import { ADD_ACCOUNT_TYPE, GET_ACCOUNT_TYPES , DELETE_ACCOUNT_TYPE } from '../types/accounttypeTypes';
 
 const initialState = {
     accounttypes: []

@@ -1,4 +1,4 @@
-import { ADD_SALESREP, GET_SALESREPS, DELETE_SALESREP } from '../actions/types.js';
+import { ADD_SALESREP, GET_SALESREPS, DELETE_SALESREP } from '../types/salesrepTypes';
 
 const initialState = {
     salesreps: []

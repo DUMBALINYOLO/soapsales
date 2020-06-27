@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ADD_SALESREP, GET_SALESREPS, DELETE_SALESREP } from './types';
+import { ADD_SALESREP, GET_SALESREPS, DELETE_SALESREP } from '../types/salesrepTypes';
+import { salesrepURL } from '../constants';
 
 
 // Get
 export const getSalesreps = () => dispatch => {
-    axios.get('http://localhost:8000/api/sales/sales-reps/')
+    axios.get(salesrepURL)
         .then(res => {
             dispatch({
                 type: GET_SALESREPS ,
@@ -16,7 +17,7 @@ export const getSalesreps = () => dispatch => {
 //Delete
 
 export const deleteSalesrep = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/sales/sales-reps/${id}/`)
+    axios.delete(salesrepURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_SALESREP,
@@ -29,7 +30,7 @@ export const deleteSalesrep = (id) => dispatch => {
 // Add
 // Get
 export const addSalesrep = salesrep => dispatch => {
-    axios.post('http://localhost:8000/api/sales/sales-reps/', salesrep)
+    axios.post(salesrepURL, salesrep)
         .then(res => {
             dispatch({
                 type: ADD_SALESREP,

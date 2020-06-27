@@ -1,4 +1,4 @@
-import { GET_PROCESSMACHINES, DELETE_PROCESSMACHINE, ADD_PROCESSMACHINE  } from "../actions/types.js";
+import { GET_PROCESSMACHINES, DELETE_PROCESSMACHINE, ADD_PROCESSMACHINE  } from "../types/processmachineTypes";
 
 const initialState = {
     processMachines: []

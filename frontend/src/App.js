@@ -60,6 +60,8 @@ import AccountForm from './components/accounts/AccountForm';
 
 import Products from "./components/Products/products";
 import ProductForm from './components/Products/productForm';
+import ProductDetails from "./components/Products/details";
+
 
 import Productline from "./components/productline/Productline";
 import ProductlineForm from './components/productline/ProductlineForm';
@@ -121,6 +123,8 @@ class App extends Component {
 						<Switch>
 							<Route exact path='/products' component={Products} />
 							<Route exact path='/productsForm' component={ProductForm} />
+							<Route exact path='/productdetails' component={ProductDetails} />
+
 							<Route exact path='/processMachines' component={ProcessMachines} />
 							<Route exact path='/processMachineForm' component={ProcessMachineForm} />
 							<Route exact path='/processGroups' component={ProcessGroups} />

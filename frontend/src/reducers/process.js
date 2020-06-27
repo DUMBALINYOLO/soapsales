@@ -1,4 +1,4 @@
-import { GET_PROCESS, DELETE_PROCESS, ADD_PROCESS  } from "../actions/types.js";
+import { GET_PROCESS, DELETE_PROCESS, ADD_PROCESS  } from "../types/processTypes";
 
 const initialState = {
     process: []

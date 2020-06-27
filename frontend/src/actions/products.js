@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { GET_PRODUCTS, DELETE_PRODUCT, ADD_PRODUCT } from './types';
+import { GET_PRODUCTS, DELETE_PRODUCT, ADD_PRODUCT, DETAIL_PRODUCT  } from "../types/productTypes";
+import { productsURL } from '../constants';
 
 
 // Get
 export const getProducts = () => dispatch => {
-    axios.get('http://localhost:8000/api/manufacture/products/')
+    axios.get(productsURL)
         .then(res => {
             dispatch({
                 type: GET_PRODUCTS,
@@ -13,10 +14,22 @@ export const getProducts = () => dispatch => {
         }).catch(err => console.log(err))
 }
 
+//Details
+
+export const detailsProduct = (id) => dispatch => {
+    axios.get(productsURL, id)
+        .then(res => {
+            dispatch({
+                type: DETAIL_PRODUCT,
+                payload: id
+            });
+        }).catch(err => console.log(err))
+}
+
 //Delete
 
 export const deleteProduct = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/manufacture/products/${id}/`)
+    axios.delete(productsURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_PRODUCT,
@@ -28,7 +41,7 @@ export const deleteProduct = (id) => dispatch => {
 
 // Add
 export const addProduct = (product) => dispatch => {
-    axios.post('http://localhost:8000/api/manufacture/products/', product)
+    axios.post(productsURL, product)
         .then(res => {
             dispatch({
                 type: ADD_PRODUCT,

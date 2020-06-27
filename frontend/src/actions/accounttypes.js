@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ADD_ACCOUNT_TYPE, GET_ACCOUNT_TYPES, DELETE_ACCOUNT_TYPE } from './types';
+import { ADD_ACCOUNT_TYPE, GET_ACCOUNT_TYPES, DELETE_ACCOUNT_TYPE } from '../types/accounttypeTypes';
+import { accounttypesURL } from '../constants';
 
 
-// Get Taxes
+// Get
 export const getAccountTypes = () => dispatch => {
-    axios.get('http://localhost:8000/api/accounting/accounttypes/')
+    axios.get(accounttypesURL)
         .then(res => {
             dispatch({
                 type: GET_ACCOUNT_TYPES ,
@@ -13,10 +14,10 @@ export const getAccountTypes = () => dispatch => {
         }).catch(err => console.log(err))
 }
 
-//Delete Taxes
+//Delete
 
 export const deleteAccountType = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/accounting/accounttypes/${id}/`)
+    axios.delete(accounttypesURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_ACCOUNT_TYPE,
@@ -26,10 +27,10 @@ export const deleteAccountType = (id) => dispatch => {
 }
 
 
-// Add Taxes
-// Get Taxes
+// Add 
+// Get
 export const addAccountType = accounttype => dispatch => {
-    axios.post('http://localhost:8000/api/accounting/accounttypes/', accounttype)
+    axios.post(accounttypesURL, accounttype)
         .then(res => {
             dispatch({
                 type: ADD_ACCOUNT_TYPE,

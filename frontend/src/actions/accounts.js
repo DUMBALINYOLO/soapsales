@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { ADD_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT } from './types';
+import { ADD_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT } from '../types/accountTypes';
 import { accountsURL } from '../constants';
 
 
-// Get Taxes
+// Get
 export const getAccounts = () => dispatch => {
     axios.get(accountsURL)
         .then(res => {
@@ -14,10 +14,10 @@ export const getAccounts = () => dispatch => {
         }).catch(err => console.log(err))
 }
 
-//Delete Taxes
+//Delete
 
 export const deleteAccount = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/accounting/accounts/${id}/`)
+    axios.delete(accountsURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_ACCOUNT,
@@ -27,10 +27,10 @@ export const deleteAccount = (id) => dispatch => {
 }
 
 
-// Add Taxes
-// Get Taxes
+// Add
+// Get
 export const addAccount = account => dispatch => {
-    axios.post('http://localhost:8000/api/accounting/accounts/', account)
+    axios.post(accountsURL, account)
         .then(res => {
             dispatch({
                 type: ADD_ACCOUNT,

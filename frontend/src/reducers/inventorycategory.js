@@ -1,4 +1,4 @@
-import { ADD_INVENTORYCATEGORY, GET_INVENTORYCATEGORIES , DELETE_INVENTORYCATEGORY } from '../actions/types.js';
+import { ADD_INVENTORYCATEGORY, GET_INVENTORYCATEGORIES , DELETE_INVENTORYCATEGORY } from '../types/inventorycategoryTypes';
 
 const initialState = {
     inventorycategories: []

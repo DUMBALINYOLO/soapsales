@@ -1,4 +1,4 @@
-import { GET_WASTEREPORTS, DELETE_WASTEREPORT, ADD_WASTEREPORT  } from "../actions/types.js";
+import { GET_WASTEREPORTS, DELETE_WASTEREPORT, ADD_WASTEREPORT  } from "../types/wastereportTypes";
 
 const initialState = {
     wasteReports: []

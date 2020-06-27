@@ -332,7 +332,7 @@ const Sidebar =() => {
                                     <Link to="/products" className="text-white p-3 mb-2">Views</Link>
                                 </li>
                                 <li className="pb-3">
-                                    <Link to="/" className="text-white p-3 mb-2">Details</Link>
+                                    <Link to="/productdetails" className="text-white p-3 mb-2">Details</Link>
                                 </li>
                             </ul>
                         </li>

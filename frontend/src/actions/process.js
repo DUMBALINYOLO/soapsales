@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { GET_PROCESS, DELETE_PROCESS, ADD_PROCESS } from './types';
+import { GET_PROCESS, DELETE_PROCESS, ADD_PROCESS } from '../types/processTypes';
+import { processURL } from '../constants';
 
 
 // Get
 export const getProcess = () => dispatch => {
-    axios.get('http://localhost:8000/api/manufacture/process/')
+    axios.get(processURL)
         .then(res => {
             dispatch({
                 type: GET_PROCESS,
@@ -16,7 +17,7 @@ export const getProcess = () => dispatch => {
 //Delete
 
 export const deleteProcess = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/manufacture/process/${id}/`)
+    axios.delete(processURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_PROCESS,
@@ -28,7 +29,7 @@ export const deleteProcess = (id) => dispatch => {
 
 // Add
 export const addProcess = (process) => dispatch => {
-    axios.post('http://localhost:8000/api/manufacture/process/', process)
+    axios.post(processURL, process)
         .then(res => {
             dispatch({
                 type: ADD_PROCESS,

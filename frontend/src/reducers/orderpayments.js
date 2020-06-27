@@ -1,4 +1,4 @@
-import { ADD_ORDERPAYMENT, GET_ORDERPAYMENTS , DELETE_ORDERPAYMENT } from '../actions/types.js';
+import { ADD_ORDERPAYMENT, GET_ORDERPAYMENTS , DELETE_ORDERPAYMENT } from '../types/orderpaymentTypes';
 
 const initialState = {
     orderpayments: []

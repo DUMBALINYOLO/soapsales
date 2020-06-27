@@ -1,4 +1,4 @@
-import { GET_CURRENCIES, DELETE_CURRENCY, ADD_CURRENCY  } from '../actions/types.js';
+import { GET_CURRENCIES, DELETE_CURRENCY, ADD_CURRENCY  } from '../types/currencyTypes';
 
 const initialState = {
     currencies: []

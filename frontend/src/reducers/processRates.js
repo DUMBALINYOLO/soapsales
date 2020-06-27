@@ -1,4 +1,4 @@
-import { GET_PROCESSRATES, DELETE_PROCESSRATE, ADD_PROCESSRATE  } from "../actions/types.js";
+import { GET_PROCESSRATES, DELETE_PROCESSRATE, ADD_PROCESSRATE  } from "../types/processrateTypes";
 
 const initialState = {
     processRates: []

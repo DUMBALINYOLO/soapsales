@@ -1,4 +1,4 @@
-import { GET_ASSETS, DELETE_ASSET, ADD_ASSET  } from "../actions/types.js";
+import { GET_ASSETS, DELETE_ASSET, ADD_ASSET  } from "../types/assetTypes";
 
 const initialState = {
     assets: []

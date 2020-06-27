@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ADD_ORDER, GET_ORDERS, DELETE_ORDER } from './types';
+import { ADD_ORDER, GET_ORDERS, DELETE_ORDER } from '../types/orderTypes';
+import { ordersURL } from '../constants';
 
 
 // Get
 export const getOrders = () => dispatch => {
-    axios.get('http://localhost:8000/api/inventory/orders/')
+    axios.get(ordersURL)
         .then(res => {
             dispatch({
                 type: GET_ORDERS ,
@@ -16,7 +17,7 @@ export const getOrders = () => dispatch => {
 //Delete
 
 export const deleteOrder = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/inventory/orders/${id}/`)
+    axios.delete(ordersURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_ORDER,
@@ -29,7 +30,7 @@ export const deleteOrder = (id) => dispatch => {
 // Add
 // Get
 export const addOrder = order => dispatch => {
-    axios.post('http://localhost:8000/api/inventory/orders/', order)
+    axios.post(ordersURL, order)
         .then(res => {
             dispatch({
                 type: ADD_ORDER,

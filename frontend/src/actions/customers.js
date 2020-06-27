@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ADD_CUSTOMER, GET_CUSTOMERS, DELETE_CUSTOMER } from './types';
+import { ADD_CUSTOMER, GET_CUSTOMERS, DELETE_CUSTOMER } from '../types/customerTypes';
+import { customersURL } from '../constants';
 
 
 // Get
 export const getCustomers = () => dispatch => {
-    axios.get('http://localhost:8000/api/sales/customers/')
+    axios.get(customersURL)
         .then(res => {
             dispatch({
                 type: GET_CUSTOMERS,
@@ -16,7 +17,7 @@ export const getCustomers = () => dispatch => {
 //Delete
 
 export const deleteCustomer = (id) => dispatch => {
-    axios.delete(`http://localhost:8000/api/sales/customers/${id}/`)
+    axios.delete(customersURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_CUSTOMER,
@@ -29,7 +30,7 @@ export const deleteCustomer = (id) => dispatch => {
 // Add
 // Get
 export const addCustomer = customer => dispatch => {
-    axios.post('http://localhost:8000/api/sales/customers/', customer)
+    axios.post(customersURL, customer)
         .then(res => {
             dispatch({
                 type: ADD_CUSTOMER,
