@@ -14,7 +14,7 @@ class Navbar extends Component {
 				    <Header>
 				      <div className="logo" />
 				      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-					      <Menu.Item key="1"><Link to='/mali'>Table Test</Link></Menu.Item>
+					      <Menu.Item key="1"><Link to='/dash'>Side Kick</Link></Menu.Item>
 					      <Menu.Item key="2">Currencies</Menu.Item>
 					      <Menu.Item key="3">Test 3</Menu.Item>
 				      </Menu>
