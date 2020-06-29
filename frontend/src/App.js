@@ -13,6 +13,7 @@ import Home from './components/Home/Home';
 import Default from './components/Home/Default';
 
 import Alerts from './components/alerts/Alert';
+import Content from "./dashboard/Content";
 // import Taxes from './components/taxes/Taxes';
 // import TaxForm from './components/taxes/TaxForm';
 import Currencies from './components/currencies/Currencies';
@@ -23,6 +24,9 @@ import BookkeeperForm from './components/bookkeepers/BookkeeperForm';
 
 import AccountTypes from './components/accounttypes/AccountTypes';
 import AccountTypeForm from './components/accounttypes/AccountTypeForm';
+
+import Form from './components/accounts/Form';
+
 
 import Orders from './components/orders/Orders';
 import OrderForm from './components/orders/OrderForm';
@@ -114,6 +118,8 @@ import PrivateRoute from "./components/common/PrivateRoute";
 
 
 
+
+
 //Alert Options
 const alertOptions = {
 	timeout: 3000,
@@ -136,6 +142,7 @@ class App extends Component {
 						< Alerts />
 						<Switch>
 							<Route exact path='/' component={Home} />
+							<PrivateRoute exact path='/dashboard' component={Dashboard} />
 							<PrivateRoute exact path='/products' component={Products} />
 							<PrivateRoute exact path='/productsForm' component={ProductForm} />
 							<PrivateRoute exact path='/productdetails' component={ProductDetails} />
@@ -217,7 +224,7 @@ class App extends Component {
 							<PrivateRoute exact path='/invoice-form' component={InvoiceForm} />
 							<PrivateRoute exact path='/productlines' component={Productline} />
 							<PrivateRoute exact path='/productline-form' component={ProductlineForm} />
-							<PrivateRoute component={Default} />
+							<Route component={Default} />
 						</Switch>
 					</Fragment>
 				</AlertProvider>

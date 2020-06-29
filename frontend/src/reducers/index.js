@@ -13,13 +13,16 @@ import products from "./products";
 import processMachines from "./processMachines";
 import processGroups from "./processGroups";
 import billMaterials from "./billMaterials";
-import bills from "./billsOfMaterials";
+import bills from "./bills";
+import billpayments from "./billpayments";
 import wasteReports from "./wasteReports";
 import processRates from "./processRates";
 import process from "./process";
 import processproducts from "./processedproducts.js";
 import assets from "./assets";
 import transactions from "./transactions";
+import inventoryitems from  "./inventoryitems";
+import equipmentcomponents from "./equipmentcomponents";
 
 import productlines from "./productlines";
 import accountingConfig from "./accountingConfig";
@@ -45,6 +48,10 @@ export default combineReducers({
     currencies,
     customers,
     errors,
+    bills,
+    //equipmemtcomponents,
+    billpayments,
+    inventoryitems,
     salesrep,
     bookkeepers,
     pricinggroup,
