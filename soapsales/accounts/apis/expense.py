@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import permissions
 from accounts.models import *
 from accounts.serializers import (
                         BillSerializer,
@@ -12,7 +13,10 @@ from accounts.serializers import (
 
 class BillViewset(ModelViewSet):
     queryset = Bill.objects.all()
-    serializer_class = BillSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
 
     def get_serializer_class(self):
         if self.action == 'create':
@@ -23,7 +27,9 @@ class BillViewset(ModelViewSet):
 
 class BillPaymentViewset(ModelViewSet):
     queryset = BillPayment.objects.all()
-    
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]    
 
     def get_serializer_class(self):
         if self.action == 'create':

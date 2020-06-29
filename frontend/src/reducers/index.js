@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 // import taxes from './taxes';
+import auth from './auth';
 import currencies from './currencies';
 import errors from './errors';
 import bookkeepers from './bookkeepers';
@@ -32,11 +33,13 @@ import pricinggroup from "./pricinggroup";
 import creditnotes from "./creditnotes";
 import customers from "./customers";
 import payments from "./payments";
+import messages from "./messages";
 
 
 
 export default combineReducers({
     // taxes,
+    auth,
     accounts,
     accountingConfig,
     currencies,
@@ -67,5 +70,6 @@ export default combineReducers({
     assets,
     transactions,
     payments,
+    messages,
 
 });

@@ -1,5 +1,7 @@
 asgiref==3.2.7
 Babel==2.8.0
+cffi==1.14.0
+cryptography==2.9.2
 Django==3.0.7
 django-cors-headers==3.2.1
 django-extra-fields==2.0.5
@@ -8,6 +10,7 @@ django-js-asset==1.2.2
 django-mptt==0.11.0
 django-polymorphic==2.1.2
 django-prices==2.2.0
+django-rest-knox==4.1.0
 django-simple-history==2.10.0
 djangorestframework==3.11.0
 djangorestframework-recursive==0.1.2
@@ -17,6 +20,7 @@ Markdown==3.2.2
 Pillow==7.1.2
 prices==1.0.0
 psycopg2==2.8.5
+pycparser==2.20
 pytz==2020.1
 satchless==1.2.0
 six==1.15.0

@@ -2,10 +2,9 @@ from decimal import *
 from django.db.models import Model
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.permissions import AllowAny, DjangoModelPermissions
 from rest_framework.response import Response
 from accounts.models import (
                         JournalEntryTypes,
@@ -37,6 +36,9 @@ from accounts.serializers import (
 class AccountTypeViewSet(viewsets.ModelViewSet):
     queryset = AccountType.objects.all()
     serializer_class = AccountTypeSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
     def get_serializer_class(self):
         if self.request.method != 'GET':
@@ -46,6 +48,9 @@ class AccountTypeViewSet(viewsets.ModelViewSet):
 
 class InActiveAccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.filter(account_type__isnull=True)
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
     serializer_class = InActiveAccountSerializer
 
 
@@ -62,7 +67,9 @@ class AccountViewSet(viewsets.ModelViewSet):
     }
     ordering_fields = ('name', 'account_type__name', 'account_type__category', 'account_type__order', 'order',)
     serializer_class = AccountSerializer
-    # permission_classes = (DjangoModelPermissions,)
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
     def get_serializer_class(self):
         if self.request.method != 'GET':

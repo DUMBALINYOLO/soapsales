@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.generics import ListAPIView
+from rest_framework import permissions
 from inventory.serializers import (
 				InventoryItemListSerializer,
 				InventoryItemCreateSerializer,
@@ -13,6 +13,9 @@ from inventory.models import *
 
 class InventoryItemViewSet(ModelViewSet):
 	queryset = InventoryItem.objects.all()
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
     
 
 	def get_serializer_class(self):
@@ -25,12 +28,18 @@ class InventoryItemViewSet(ModelViewSet):
 class ProductComponentViewSet(ModelViewSet):
 	queryset = ProductComponent.objects.all()
 	serializer_class = ProductComponentSerializer
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 
 
 class EquipmentComponentViewSet(ModelViewSet):
 	queryset = EquipmentComponent.objects.all()
 	serializer_class = EquipmentComponentSerializer
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 
 

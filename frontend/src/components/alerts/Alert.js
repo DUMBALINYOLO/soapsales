@@ -1,31 +1,34 @@
 import React, { Component, Fragment } from 'react';
-import  { withAlert } from 'react-alert';
+import { withAlert } from 'react-alert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-
-
 export class Alerts extends Component {
-	static propTypes ={
-		error: PropTypes.object.isRequired,
-	}
-	componentDidUpdate(prevProps){
-		const { error, alert } = this.props;
-		if(error !== prevProps.error){
-			if(error.msg.name) alert.error(`Name: ${error.msg.name.join()} `);
-			if(error.msg.rate) alert.error(`Rate: ${error.msg.rate.join()}`);
-		}
-	}
+  static propTypes = {
+    error: PropTypes.object.isRequired,
+    message: PropTypes.object.isRequired,
+  };
 
-	render(){
-		return(
-			<Fragment />
-		);
-	}
+  componentDidUpdate(prevProps) {
+    const { error, alert, message } = this.props;
+    if (error !== prevProps.error) {
+      if (error.msg.name) alert.error(`Name: ${error.msg.name.join()}`);
+      if (error.msg.rate) alert.error(`Rate: ${error.msg.rate.join()}`);
+    }
+
+    if (message !== prevProps.message) {
+      if (message.taxDeleted) alert.success(message.taxDeleted);
+    }
+  }
+
+  render() {
+    return <Fragment />;
+  }
 }
 
-const mapStateToProps = state => ({
-	error: state.errors
+const mapStateToProps = (state) => ({
+  error: state.errors,
+  message: state.messages,
 });
 
-export default connect(mapStateToProps)(withAlert(Alerts));
+export default connect(mapStateToProps)(withAlert()(Alerts));

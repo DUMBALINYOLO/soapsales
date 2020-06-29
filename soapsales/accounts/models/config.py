@@ -42,7 +42,7 @@ class Bookkeeper(SoftDeletionModel):
 
 
     def __str__(self):
-        return self.employee.username
+        return f'{self.employee.first_name} {self.employee.last_name} {self.employee.id}'
 
 
 class Tax(SoftDeletionModel):

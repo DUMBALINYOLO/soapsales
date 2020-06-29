@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_filters',
     'six',
     'mptt',
+    'knox',
     'django_prices',
     'simple_history',
     'inventory',
@@ -56,7 +57,7 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-AUTH_USER_MODEL = 'employees.User'
+
 
 MIDDLEWARE =[
     'corsheaders.middleware.CorsMiddleware',
@@ -156,17 +157,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.AllowAny',
-#     ),
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.TokenAuthentication',
-#     ),
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication'
-#     ),
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+       'knox.auth.TokenAuthentication',
+    ),
+}
 
 REST_FRAMEWORK = {
     'PAGINATE_BY': 10,                 # Default to 10

@@ -33,8 +33,10 @@ class StockDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = ProcessedProduct.objects.all()
     serializer_class = ProcessedProductSerializer
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     lookup_field = 'id'
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 
 # class StockFilter(FilterSet):
@@ -59,7 +61,9 @@ class StockList(generics.ListCreateAPIView):
 
     queryset = ProcessedProduct.objects.all()
     serializer_class = ProcessedProductSerializer
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
     filter_backends = (DjangoFilterBackend,)
     # filter_class = StockFilter
 
@@ -68,7 +72,9 @@ class StocktakeEndpoint(generics.UpdateAPIView):
 
     queryset = ProcessedProduct.objects.all()
     serializer_class = StockQuantitySerializer
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
     def update(self, request, *args, **kwargs):
         object = self.get_object()
@@ -83,7 +89,9 @@ class AddStockEndpoint(generics.UpdateAPIView):
 
     queryset = ProcessedProduct.objects.all()
     serializer_class = StockQuantitySerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
     def update(self, request, *args, **kwargs):
         object = self.get_object()
@@ -98,11 +106,17 @@ class AddStockEndpoint(generics.UpdateAPIView):
 class SalesGroupViewSet(viewsets.ModelViewSet):
     queryset = SalesGroup.objects.all()
     serializer_class = SalesGroupSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 
 class ProcessedProductComponentViewSet(viewsets.ModelViewSet):
     queryset = ProcessedProductComponent.objects.all()
     serializer_class = ProcessedProductComponentSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 
 

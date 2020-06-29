@@ -32,6 +32,7 @@ class Thebuli extends Component {
 
 
 
+
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
 
         //filters
@@ -39,13 +40,19 @@ class Thebuli extends Component {
         this.filterDate = this.filterDate.bind(this);       //custom filter function
     }
 
+    static propTypes = {
+        accounts : PropTypes.array.isRequired,
+        getAccounts: PropTypes.func.isRequired,
+    
+    };
+
     componentDidMount() {
         this.props.getAccounts();
     }
 
     renderHeader() {
         return (
-            <div>
+            <div >
                 List of Accounts
                 <div  className="p-datatable-globalfilter-container">
                     <div style={{textAlign:'left'}}><Button type="button" icon="pi pi-external-link" iconPos="left" label="EXPORT TO CSV" onClick={this.export}></Button></div>;
@@ -112,6 +119,7 @@ class Thebuli extends Component {
         return date.getFullYear() + '-' + month + '-' + day;
     }
 
+
     render() {
         
         const header = this.renderHeader();
@@ -121,19 +129,20 @@ class Thebuli extends Component {
         return (
             <div className="datatable-doc-demo">
                 <DataTable ref={(el) => this.dt = el} value={this.props.accounts}
+                    style={{backgroundColor: '#4c6b75'}}
                     header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                     selection={this.state.selectedAccounts} onSelectionChange={e => this.setState({selectedAccounts: e.value})}
                     paginator rows={10} emptyMessage="No Accounts found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
-                    <Column selectionMode="multiple" style={{width:'3em'}}/>
-                    <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" />
-                    <Column field="account-type" header="Account Type" sortable filter filterPlaceholder="Search by AccountType" />
-                    <Column field="name" header="Name" sortable filter filterPlaceholder="Search by name" />
-                    <Column field="initial_balance" header="Initial-Balance" sortable filter filterPlaceholder="Search by Initial-Balance" />
-                    <Column field="balance" header="Balance" sortable filter filterPlaceholder="Search by Balance" />
-                    <Column field="created_date" header="Created-Date" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
-                    <Column field="order" header="Order" sortable filter filterPlaceholder="Search by Order" />
-                    <Column body={this.actionBodyTemplate} headerStyle={{width: '8em', textAlign: 'center'}} bodyStyle={{textAlign: 'center', overflow: 'visible'}} />
+                    <Column selectionMode="multiple" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="account-type" header="Account Type" sortable filter filterPlaceholder="Search by AccountType" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="name" header="Name" sortable filter filterPlaceholder="Search by name" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="initial_balance" header="Initial-Balance" sortable filter filterPlaceholder="Search by Initial-Balance" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="balance" header="Balance" sortable filter filterPlaceholder="Search by Balance" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="created_date" header="Created-Date" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="order" header="Order" sortable filter filterPlaceholder="Search by Order" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column body={this.actionBodyTemplate} headerStyle={{width: '8em', textAlign: 'center', backgroundColor: '#4c6b75'}} bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4c6b75'}} />
                 </DataTable>
             </div>
         );

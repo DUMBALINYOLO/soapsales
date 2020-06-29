@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { createMessage } from './messages';
 import { 
         GET_TAXES, 
         DELETE_TAX, 
@@ -29,6 +30,7 @@ export const getTaxes = () => async dispatch => {
 export const deleteTax = (id) => dispatch => {
     axios.delete(`http://localhost:8000/api/accounting/taxes/${id}/`)
         .then(res => {
+            dispatch(createMessage({ taxDeleted: 'Tax Deleted' }))
             dispatch({
                 type: DELETE_TAX,
                 payload: id

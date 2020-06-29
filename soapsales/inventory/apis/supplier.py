@@ -1,6 +1,6 @@
 
 
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from inventory.models import Supplier
 from inventory.serializers import (
 			CreateSupplierSerializer,
@@ -10,8 +10,11 @@ from inventory.serializers import (
 
 class SupplierViewSet(viewsets.ModelViewSet):
 	queryset = Supplier.objects.all()
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 	def get_serializer_class(self):
-		if self.action == 'create' and 'put':
+		if self.action in ['create', 'put']:
 		    return CreateSupplierSerializer
 		return ListSupplierSerializer

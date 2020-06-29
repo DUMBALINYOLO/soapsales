@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from inventory.models import (
 					# InventorySettings,
 					InventoryController,
@@ -22,6 +22,9 @@ from inventory.serializers import (
 class InventoryControllerViewset(viewsets.ModelViewSet):
 	queryset = InventoryController.objects.all()
 	serializer_class = InventoryControllerSerializer
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 	def get_serializer_class(self):
 		if self.action == 'create':
@@ -29,16 +32,19 @@ class InventoryControllerViewset(viewsets.ModelViewSet):
 		return InventoryControllerSerializer
 
 
-	InventoryControllerCreateSerializer
-
-
 class UnitOfMeasureViewset(viewsets.ModelViewSet):
 	queryset = UnitOfMeasure.objects.all()
 	serializer_class = UnitOfMeasureSerializer
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 class CategoryViewset(viewsets.ModelViewSet):
 	queryset = Category.objects.filter(parent__isnull=True)
 	serializer_class = CategorySerializer
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 	def get_serializer_class(self):
 		if self.action == 'create':

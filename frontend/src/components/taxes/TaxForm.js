@@ -17,10 +17,10 @@ export class TaxForm extends Component{
       const { name, rate } = this.state;
       const tax = { name, rate};
       this.props.addTax(tax);
-      // this.setState({
-      //   name: '',
-      //   rate: '',
-      // });
+      this.setState({
+        name: '',
+        rate: '',
+      });
     };
 
     static propTypes = {

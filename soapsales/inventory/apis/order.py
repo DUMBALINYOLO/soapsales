@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from inventory.models import *
@@ -14,6 +14,9 @@ from inventory.serializers import (
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -39,7 +42,9 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 class OrderPaymentViewSet(viewsets.ModelViewSet):
     queryset = OrderPayment.objects.all()
-
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 
     def get_serializer_class(self):

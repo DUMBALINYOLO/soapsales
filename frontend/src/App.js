@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import {HashRouter as Router} from 'react-router-dom';
 import {Switch, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import store from './store';
@@ -8,10 +9,10 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import './App.css';
-// import Navbar from './components/Home/Navbar';
+import Home from './components/Home/Home';
 import Default from './components/Home/Default';
 
-
+import Alerts from './components/alerts/Alert';
 // import Taxes from './components/taxes/Taxes';
 // import TaxForm from './components/taxes/TaxForm';
 import Currencies from './components/currencies/Currencies';
@@ -86,7 +87,7 @@ import WasteReportForm from './components/wastes/wasteForm';
 
 import ProcessRates from "./components/processrate/processRates";
 import ProcessRateForm from './components/processrate/processRateForm';
-
+import { loadUser } from "./actions/auth";
 import Process from "./components/Process/process";
 import ProcessForm from './components/Process/processForm';
 
@@ -103,13 +104,14 @@ import InventorycategoryForm from './components/inventorycategory/Inventorycateg
 
 import Processproduct from "./components/processedproducts/Processedproduct";
 import ProcessproductForm from './components/processedproducts/ProcessedproductForm';
-import MainTab from './components/tabs/MainTab';
 import Mali from './components/table/Mali';
 import Thebuli from './components/table/Thebuli';
+import MainTab from './components/configurations/MainConfig';
+// import Sidebar from "./components/sidebar/Sidebar";
+import Register from "./components/employees/Register";
+import Login from "./components/employees/Login";
+import PrivateRoute from "./components/common/PrivateRoute";
 
-
-
-import Sidebar from "./components/sidebar/Sidebar";
 
 
 //Alert Options
@@ -119,95 +121,103 @@ const alertOptions = {
 }
 
 class App extends Component {
+	componentDidMount(){
+		store.dispatch(loadUser());
+	}
+
+
+
 	render(){
 		return (
 			<Provider store={store}>
 				<AlertProvider template={AlertTemplate} {...alertOptions} >
 					<Fragment>
-						
+						< Home />
+						< Alerts />
 						<Switch>
-							<Route exact path='/products' component={Products} />
-							<Route exact path='/productsForm' component={ProductForm} />
-							<Route exact path='/productdetails' component={ProductDetails} />
-
-							<Route exact path='/processMachines' component={ProcessMachines} />
-							<Route exact path='/processMachineForm' component={ProcessMachineForm} />
-							<Route exact path='/processGroups' component={ProcessGroups} />
-							<Route exact path='/processGroupForm' component={ProcessGroupForm} />
-							<Route exact path='/billMaterials' component={BillMaterials} />
-							<Route exact path='/billMaterialForm' component={BillMaterialForm} />
-							<Route exact path='/bills' component={Bills} />
-							<Route exact path='/mali' component={Mali} />
+							<Route exact path='/' component={Home} />
+							<PrivateRoute exact path='/products' component={Products} />
+							<PrivateRoute exact path='/productsForm' component={ProductForm} />
+							<PrivateRoute exact path='/productdetails' component={ProductDetails} />
+							<PrivateRoute exact path='/processMachines' component={ProcessMachines} />
+							<PrivateRoute exact path='/processMachineForm' component={ProcessMachineForm} />
+							<PrivateRoute exact path='/processGroups' component={ProcessGroups} />
+							<PrivateRoute exact path='/processGroupForm' component={ProcessGroupForm} />
+							<PrivateRoute exact path='/billMaterials' component={BillMaterials} />
+							<PrivateRoute exact path='/billMaterialForm' component={BillMaterialForm} />
+							<PrivateRoute exact path='/bills' component={Bills} />
+							<PrivateRoute exact path='/mali' component={Mali} />
 							<Route exact path='/table' component={Thebuli} />
-							<Route exact path='/billForm' component={BillForm} />
-							<Route exact path='/waste' component={WasteReports} />
-							<Route exact path='/waste-report' component={WasteReportForm} />
-							<Route exact path='/process-rate' component={ProcessRates} />
-							<Route exact path='/process-rate-form' component={ProcessRateForm} />
-							<Route exact path='/process' component={Process} />
-							<Route exact path='/process-form' component={ProcessForm} />
-							<Route exact path='/assets' component={Assets} />
-							<Route exact path='/asset-form' component={AssetForm} />
-							<Route exact path='/processproducts' component={Processproduct} />
-							<Route exact path='/processproduct-form' component={ProcessproductForm} />
-							<Route exact path='/sidebar' component={Sidebar} />
-							<Route exact path='/products' component={Products} />
-							<Route exact path='/productsForm' component={ProductForm} />
-							<Route exact path='/processMachines' component={ProcessMachines} />
-							<Route exact path='/processMachineForm' component={ProcessMachineForm} />
-							<Route exact path='/processGroups' component={ProcessGroups} />
-							<Route exact path='/processGroupForm' component={ProcessGroupForm} />
-							<Route exact path='/billMaterials' component={BillMaterials} />
-							<Route exact path='/billMaterialForm' component={BillMaterialForm} />
-							<Route exact path='/bills' component={Bills} />
-							<Route exact path='/billForm' component={BillForm} />
-							<Route exact path='/waste' component={WasteReports} />
-							<Route exact path='/waste-report' component={WasteReportForm} />
-							<Route exact path='/process-rate' component={ProcessRates} />
-							<Route exact path='/process-rate-form' component={ProcessRateForm} />
-							<Route exact path='/process' component={Process} />
-							<Route exact path='/process-form' component={ProcessForm} />
-							<Route exact path='/assets' component={Assets} />
-							<Route exact path='/asset-form' component={AssetForm} />
-							<Route exact path='/transactions' component={Transactions} />
-							<Route exact path='/currencies' component={Currencies} />
-							<Route exact path='/currency-form' component={CurrencyForm} />
-							<Route exact path='/bookkeepers' component={Bookkeepers} />
-							<Route exact path='/bookkeeper-form' component={BookkeeperForm} />
-							<Route exact path='/accounttypes' component={AccountTypes} />
-							<Route exact path='/accounttype-form' component={AccountTypeForm} />
-							<Route exact path='/accounts' component={Accounts} />
-							<Route exact path='/account-form' component={AccountForm} />
-							<Route exact path='/accountingConfig' component={AccountingConfig} />
-							<Route exact path='/accountingConfig-form' component={AccountingConfigForm} />
-							<Route exact path='/debitnotes' component={Debitnotes} />
-							<Route exact path='/debitnote-form' component={DebitnotesForm} />
-							<Route exact path='/creditnotes' component={Creditnotes} />
-							<Route exact path='/creditnote-form' component={CreditnotesForm} />
-							<Route exact path='/orders' component={Orders} />
-							<Route exact path='/order-form' component={OrderForm} />
-							<Route exact path='/orderpayments' component={Orderpayments} />
-							<Route exact path='/orderpayment-form' component={OrderpaymentForm} />
-							<Route exact path='/inventorycontrollers' component={Inventorycontroller} />
-							<Route exact path='/inventorycontroller-form' component={InventorycontrollerForm} />
-							<Route exact path='/unitmeasure' component={Unitmeasure} />
-							<Route exact path='/unitmeasure-form' component={UnitmeasureForm} />
-							<Route exact path='/inventorycategory' component={Inventorycategory} />
-							<Route exact path='/inventorycategory-form' component={InventorycategoryForm} />
-							<Route exact path='/pricinggroup' component={Pricinggroup} />
-							<Route exact path='/pricinggroup-form' component={PricinggroupForm} />
-							<Route exact path='/customers' component={Customers} />
-							<Route exact path='/customer-form' component={CustomerForm} />
-							<Route exact path='/payments' component={Payments} />
-							<Route exact path='/payment-form' component={PaymentForm} />
-							<Route exact path='/salesrep' component={Salesrep} />
-							<Route exact path='/salesrep-form' component={SalesrepForm} />
-							<Route exact path='/invoices' component={Invoice} />
-							<Route exact path='/invoice-form' component={InvoiceForm} />
-							<Route exact path='/productlines' component={Productline} />
-							<Route exact path='/productline-form' component={ProductlineForm} />
-
-							<Route component={Default} />
+							<PrivateRoute exact path='/tab' component={MainTab} />
+							<PrivateRoute exact path='/billForm' component={BillForm} />
+							<PrivateRoute exact path='/waste' component={WasteReports} />
+							<PrivateRoute exact path='/waste-report' component={WasteReportForm} />
+							<PrivateRoute exact path='/process-rate' component={ProcessRates} />
+							<PrivateRoute exact path='/process-rate-form' component={ProcessRateForm} />
+							<PrivateRoute exact path='/process' component={Process} />
+							<PrivateRoute exact path='/process-form' component={ProcessForm} />
+							<PrivateRoute exact path='/assets' component={Assets} />
+							<PrivateRoute exact path='/asset-form' component={AssetForm} />
+							<PrivateRoute exact path='/processproducts' component={Processproduct} />
+							<PrivateRoute exact path='/processproduct-form' component={ProcessproductForm} />
+							<PrivateRoute exact path='/products' component={Products} />
+							<PrivateRoute exact path='/productsForm' component={ProductForm} />
+							<PrivateRoute exact path='/processMachines' component={ProcessMachines} />
+							<PrivateRoute exact path='/processMachineForm' component={ProcessMachineForm} />
+							<PrivateRoute exact path='/processGroups' component={ProcessGroups} />
+							<PrivateRoute exact path='/processGroupForm' component={ProcessGroupForm} />
+							<PrivateRoute exact path='/billMaterials' component={BillMaterials} />
+							<PrivateRoute exact path='/billMaterialForm' component={BillMaterialForm} />
+							<PrivateRoute exact path='/bills' component={Bills} />
+							<PrivateRoute exact path='/billForm' component={BillForm} />
+							<PrivateRoute exact path='/waste' component={WasteReports} />
+							<PrivateRoute exact path='/waste-report' component={WasteReportForm} />
+							<PrivateRoute exact path='/process-rate' component={ProcessRates} />
+							<PrivateRoute exact path='/process-rate-form' component={ProcessRateForm} />
+							<PrivateRoute exact path='/process' component={Process} />
+							<PrivateRoute exact path='/process-form' component={ProcessForm} />
+							<PrivateRoute exact path='/assets' component={Assets} />
+							<PrivateRoute exact path='/asset-form' component={AssetForm} />
+							<PrivateRoute exact path='/transactions' component={Transactions} />
+							<PrivateRoute exact path='/currencies' component={Currencies} />
+							<PrivateRoute exact path='/currency-form' component={CurrencyForm} />
+							<PrivateRoute exact path='/bookkeepers' component={Bookkeepers} />
+							<PrivateRoute exact path='/bookkeeper-form' component={BookkeeperForm} />
+							<PrivateRoute exact path='/accounttypes' component={AccountTypes} />
+							<PrivateRoute exact path='/accounttype-form' component={AccountTypeForm} />
+							<PrivateRoute exact path='/accounts' component={Accounts} />
+							<PrivateRoute exact path='/account-form' component={AccountForm} />
+							<PrivateRoute exact path='/accountingConfig' component={AccountingConfig} />
+							<PrivateRoute exact path='/accountingConfig-form' component={AccountingConfigForm} />
+							<PrivateRoute exact path='/debitnotes' component={Debitnotes} />
+							<PrivateRoute exact path='/debitnote-form' component={DebitnotesForm} />
+							<PrivateRoute exact path='/creditnotes' component={Creditnotes} />
+							<PrivateRoute exact path='/creditnote-form' component={CreditnotesForm} />
+							<PrivateRoute exact path='/orders' component={Orders} />
+							<PrivateRoute exact path='/order-form' component={OrderForm} />
+							<PrivateRoute exact path='/orderpayments' component={Orderpayments} />
+							<PrivateRoute exact path='/orderpayment-form' component={OrderpaymentForm} />
+							<PrivateRoute exact path='/inventorycontrollers' component={Inventorycontroller} />
+							<PrivateRoute exact path='/inventorycontroller-form' component={InventorycontrollerForm} />
+							<PrivateRoute exact path='/unitmeasure' component={Unitmeasure} />
+							<PrivateRoute exact path='/unitmeasure-form' component={UnitmeasureForm} />
+							<PrivateRoute exact path='/inventorycategory' component={Inventorycategory} />
+							<PrivateRoute exact path='/inventorycategory-form' component={InventorycategoryForm} />
+							<PrivateRoute exact path='/pricinggroup' component={Pricinggroup} />
+							<PrivateRoute exact path='/pricinggroup-form' component={PricinggroupForm} />
+							<PrivateRoute exact path='/customers' component={Customers} />
+							<PrivateRoute exact path='/customer-form' component={CustomerForm} />
+							<PrivateRoute exact path='/payments' component={Payments} />
+							<PrivateRoute exact path='/payment-form' component={PaymentForm} />
+							<PrivateRoute exact path='/salesrep' component={Salesrep} />
+							<PrivateRoute exact path='/salesrep-form' component={SalesrepForm} />
+							<PrivateRoute exact path='/invoices' component={Invoice} />
+							<Route exact path='/register' component={Register} />
+							<Route exact path='/login' component={Login} />
+							<PrivateRoute exact path='/invoice-form' component={InvoiceForm} />
+							<PrivateRoute exact path='/productlines' component={Productline} />
+							<PrivateRoute exact path='/productline-form' component={ProductlineForm} />
+							<PrivateRoute component={Default} />
 						</Switch>
 					</Fragment>
 				</AlertProvider>

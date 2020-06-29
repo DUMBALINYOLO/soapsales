@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from invoicing.models import SalesRepresentative
 from invoicing.serializers import(
 						SalesRepresentativeListSerialaizer,
@@ -9,6 +9,9 @@ from invoicing.serializers import(
 
 class SalesRepresentativeViewSet(viewsets.ModelViewSet):
 	queryset = SalesRepresentative.objects.all()
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 
 	def get_serializer_class(self):

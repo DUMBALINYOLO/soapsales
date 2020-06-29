@@ -1,13 +1,18 @@
-import React from "react";
+import React,  {Component, Fragment } from 'react';
 
 
-const Home = (props) => {
-    return (
-        <div>
-            <h3>Welcome to Mel'Cin Fair</h3>
-        </div>
-    );
-};
 
+
+class Home extends Component {
+	render(){
+
+
+		return (
+			<Fragment>
+				<h1>HOME OF SALES</h1>
+			</Fragment>
+		);
+	}
+}
 
 export default Home;

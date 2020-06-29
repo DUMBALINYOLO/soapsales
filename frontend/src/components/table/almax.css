@@ -31,7 +31,7 @@ body {
 
 .datatable-doc-demo{
     border-radius: 2px;
-    background-color: #cc7621;
+    background-color: #3f404f;
     padding: 0.25em 0.5em;
     text-transform: uppercase;
     font-weight: 700;
@@ -122,7 +122,7 @@ body {
 }
 
 .datatable-doc-demo .p-datatable-customers {
-	background-color: #cc7621;
+	background-color: #209bc4;
 }
 
 

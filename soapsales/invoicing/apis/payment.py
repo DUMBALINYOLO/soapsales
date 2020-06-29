@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from invoicing.models import Payment
 from invoicing.serializers import(
 						PaymentListSerializer,
@@ -9,6 +9,9 @@ from invoicing.serializers import(
 
 class PaymentViewSet(viewsets.ModelViewSet):
 	queryset = Payment.objects.all()
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 
 	def get_serializer_class(self):

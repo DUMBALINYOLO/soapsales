@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router} from 'react-router-dom';
 import './index.css';
 import App from './App';
+import {HashRouter as Router} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-        <App />
-    </Router>
+  <div>
+	  <Router>
+	    <App />
+	  </Router>
+  </div>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,4 +1,4 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework import permissions, viewsets
 from rest_framework import status
 from accounts.models import *
 from accounts.serializers import (
@@ -7,8 +7,11 @@ from accounts.serializers import (
 				AssetsListSerializer
 			)
 
-class AssetViewSet(ModelViewSet):
+class AssetViewSet(viewsets.ModelViewSet):
 	queryset = Asset.objects.all()
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 	lookup_field = 'id'
 
 	def get_serializer_class(self):

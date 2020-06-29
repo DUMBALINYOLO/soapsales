@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter
-from rest_framework.permissions import DjangoModelPermissions
+from rest_framework import permissions
 from rest_framework.response import Response
 
 from accounts.models import (
@@ -19,9 +19,12 @@ from accounts.serializers import (
                 )
 
 class TransactionViewSet(viewsets.ModelViewSet):
-
     serializer_class = TransactionReadOnlySerilizer
     queryset = Transaction.objects.all()
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
 
 
 class JournalEntryViewSet(viewsets.ModelViewSet):
@@ -34,8 +37,12 @@ class JournalEntryViewSet(viewsets.ModelViewSet):
         'creator__username': ['icontains'],
         'is_approved': ['exact']
     }
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
     serializer_class = RetrieveJournalEntrySerializer
-    # permission_classes = (DjangoModelPermissions, LAJournalEntryReadPermission,)
+   
 
     def options(self, request, *args, **kwargs):
         meta = self.metadata_class()

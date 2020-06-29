@@ -23,7 +23,7 @@ class SalesRepresentative(SoftDeletionModel):
 
 
     def __str__(self):
-        return self.employee.first_name + ' ' + self.employee.last_name
+        return f'{self.employee.first_name} {self.employee.last_name} {self.employee.id}'
 
     def sales(self, start, end):
         '''

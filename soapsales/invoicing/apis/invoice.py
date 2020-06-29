@@ -1,4 +1,4 @@
-from rest_framework import viewsets 
+from rest_framework import viewsets, permissions
 from invoicing.models import (
 							Invoice,
 							InvoiceLine,
@@ -19,6 +19,9 @@ from invoicing.serializers import (
 
 class QuotationViewSet(viewsets.ModelViewSet):
 	queryset = Invoice.objects.filter(status='quotation')
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 	def get_serializer_class(self):
 		if self.action == 'list':
@@ -30,6 +33,9 @@ class QuotationViewSet(viewsets.ModelViewSet):
 
 class InvoiceViewSet(viewsets.ModelViewSet):
 	queryset = Invoice.objects.exclude(status='quotation')
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 	def get_serializer_class(self):
 		if self.action == 'list':
@@ -42,6 +48,9 @@ class InvoiceViewSet(viewsets.ModelViewSet):
 
 class ProductLineComponentViewSet(viewsets.ModelViewSet):
 	queryset = ProductLineComponent.objects.all()
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 	def get_serializer_class(self):
 		if self.action == 'list':

@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from invoicing.models import CreditNote
 from invoicing.serializers import(
 							CreditNoteListSerializer,
@@ -9,6 +9,9 @@ from invoicing.serializers import(
 
 class CreditNoteViewSet(viewsets.ModelViewSet):
 	queryset = CreditNote.objects.all()
+	permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 
 	def get_serializer_class(self):

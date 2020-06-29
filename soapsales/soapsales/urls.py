@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 # from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
-    path('api-auth/', include('rest_framework.urls')),
+    # path('api-auth/', include('rest_framework.urls')),
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('admin/', admin.site.urls),
@@ -17,4 +17,5 @@ urlpatterns = [
     re_path(r'api/inventory/', include('inventory.urls')),
     re_path(r'api/stock/', include('stock.urls')),
     re_path(r'api/sales/', include('invoicing.urls')),
+    path('api/employees/', include('employees.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
