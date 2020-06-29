@@ -5,7 +5,8 @@ import {
 	USER_LOADED , 
 	AUTH_ERROR,
 	LOGIN_SUCCESS,
-	LOGIN_FAIL
+	LOGIN_FAIL,
+	LOGOUT_SUCCESS
 } from '../types/privateTypes';
 
 
@@ -13,22 +14,7 @@ export const loadUser = () => (dispatch, getState) =>{
 	//User Loading
 	dispatch({ type: USER_LOADING });
 
-	// Get Toke from State
-	const token = getState().auth.token;
-
-	//headers 
-	const config = {
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	}
-	//if token, add to headers config
-
-	if(token){
-		config.headers['Authorization'] = `Token ${token}`;
-	}
-
-	axios.get('http://localhost:8000/api/employees/auth/user', config)
+	axios.get('http://localhost:8000/api/employees/auth/user/', tokenConfig(getState))
 		.then(res =>{
 			dispatch({
 				type: USER_LOADED,
@@ -40,7 +26,7 @@ export const loadUser = () => (dispatch, getState) =>{
 				type: AUTH_ERROR
 			});
 		});
-}
+};
 
 
 export const login = (username, password) => dispatch =>{
@@ -70,7 +56,56 @@ export const login = (username, password) => dispatch =>{
 				type: LOGIN_FAIL
 			});
 		});
+};
+
+//LOGOUT USER 
+export const logout = () => (dispatch, getState) =>{
+
+	axios.post('http://localhost:8000/api/employees/auth/logout/', null, tokenConfig(getState))
+		.then(res =>{
+			dispatch({
+				type: LOGOUT_SUCCESS,
+			});
+		}).catch(err =>{
+			dispatch(returnErrors(err.response.data, err.response.status));
+		});
+};
+
+
+
+//setup config with token 
+
+export const tokenConfig = getState =>{
+	// Get Toke from State
+	const token = getState().auth.token;
+
+	//headers 
+	const config = {
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}
+	//if token, add to headers config
+
+	if(token){
+		config.headers['Authorization'] = `Token ${token}`;
+	}
+
+	return config;
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

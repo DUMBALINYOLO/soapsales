@@ -5,9 +5,8 @@ export class AppFooter extends Component {
     render() {
         return  (
             <div className="layout-footer">
-                <span className="footer-text" style={{'marginRight': '5px'}}>Melcin</span>
-                <img src="assets/layout/images/logo.svg" alt="" width="80"/>
-                <span className="footer-text" style={{'marginLeft': '5px'}}>Fair</span>
+                <span className="footer-text" style={{'marginRight': '5px'}}>Soapsales</span>
+                <span className="footer-text" style={{'marginLeft': '5px'}}>Company</span>
             </div>
         );
     }

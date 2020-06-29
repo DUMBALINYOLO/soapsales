@@ -142,7 +142,7 @@ class App extends Component {
 						< Alerts />
 						<Switch>
 							<Route exact path='/' component={Home} />
-							<PrivateRoute exact path='/dashboard' component={Dashboard} />
+							<PrivateRoute exact path='/dashboard' component={Content} />
 							<PrivateRoute exact path='/products' component={Products} />
 							<PrivateRoute exact path='/productsForm' component={ProductForm} />
 							<PrivateRoute exact path='/productdetails' component={ProductDetails} />
