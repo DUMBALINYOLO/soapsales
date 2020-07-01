@@ -14,21 +14,24 @@ import {Calendar} from 'primereact/calendar';
 import {MultiSelect} from 'primereact/multiselect';
 import {ProgressBar} from 'primereact/progressbar';
 import classNames from 'classnames';
-import { getInvoices} from '..//../actions/invoices';
+import { getBillMaterials} from '..//../actions/billmaterials';
 import "./form.css";
 
 
-class Invoice extends Component {
+class BillMaterials extends Component {
 
     constructor() {
         super();
         this.state = {
-            invoices : null,
+            billmaterials: null,
             globalFilter: null,
             dateFilter: null,
-            selectedInvoices: null,
+            selectedBillMaterials: null,
 
         };
+
+
+
 
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
 
@@ -38,19 +41,19 @@ class Invoice extends Component {
     }
 
     static propTypes = {
-        invoices : PropTypes.array.isRequired,
-        getInvoices: PropTypes.func.isRequired,
+        billmaterials : PropTypes.array.isRequired,
+        getBillMaterials: PropTypes.func.isRequired,
 
     };
 
     componentDidMount() {
-        this.props.getInvoices();
+        this.props.getBillMaterials();
     }
 
     renderHeader() {
         return (
             <div >
-                List of Invoices
+                List of Bill Of Materials
                 <div  className="p-datatable-globalfilter-container">
                     <div style={{textAlign:'left'}}><Button type="button" icon="pi pi-external-link" iconPos="left" label="EXPORT TO CSV" onClick={this.export}></Button></div>;
                     <InputText type="search" onInput={(e) => this.setState({globalFilter: e.target.value})} placeholder="Global Search" />
@@ -125,17 +128,16 @@ class Invoice extends Component {
 
         return (
             <div className="datatable-doc-demo">
-                <DataTable ref={(el) => this.dt = el} value={this.props.invoices}
+                <DataTable ref={(el) => this.dt = el} value={this.props.billmaterials}
                     style={{backgroundColor: '#4c6b75'}}
                     header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
-                    selection={this.state.selectedInvoices} onSelectionChange={e => this.setState({selectedInvoices: e.value})}
+                    selection={this.state.selectedBillMaterials} onSelectionChange={e => this.setState({selectedBillMaterials: e.value})}
                     paginator rows={10} emptyMessage="No Accounts found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                     <Column selectionMode="multiple" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="invoice_number" header="Invoice Number" sortable filter filterPlaceholder="Search by Inovice Number" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="customer" header="Customer" sortable filter filterPlaceholder="Search by Customer" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="purchase_order_number" header="Order Number" sortable filter filterPlaceholder="Search by Order Number" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="name" header="Name" sortable filter filterPlaceholder="Search by Name" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="description" header="Description" sortable filter filterPlaceholder="Search by Description" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column body={this.actionBodyTemplate} headerStyle={{width: '8em', textAlign: 'center', backgroundColor: '#4c6b75'}} bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4c6b75'}} />
                 </DataTable>
             </div>
@@ -144,7 +146,7 @@ class Invoice extends Component {
 }
 
 const mapStateToProps = state =>({
-    invoices: state.invoices.invoices
+    billmaterials: state.billmaterials.billmaterials
 })
 
-export default connect(mapStateToProps, {getInvoices} ) (Invoice);
+export default connect(mapStateToProps, {getBillMaterials} ) (BillMaterials);

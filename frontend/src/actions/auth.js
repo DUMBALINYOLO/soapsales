@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { returnErrors } from './messages';
-import { 
-	USER_LOADING, 
-	USER_LOADED , 
+import {
+	USER_LOADING,
+	USER_LOADED ,
 	AUTH_ERROR,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
@@ -31,7 +31,7 @@ export const loadUser = () => (dispatch, getState) =>{
 
 export const login = (username, password) => dispatch =>{
 
-	//headers 
+	//headers
 	const config = {
 		headers: {
 			'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ export const login = (username, password) => dispatch =>{
 		});
 };
 
-//LOGOUT USER 
+//LOGOUT USER
 export const logout = () => (dispatch, getState) =>{
 
 	axios.post('http://localhost:8000/api/employees/auth/logout/', null, tokenConfig(getState))
@@ -73,16 +73,16 @@ export const logout = () => (dispatch, getState) =>{
 
 
 
-//setup config with token 
+//setup config with token
 
 export const tokenConfig = getState =>{
 	// Get Toke from State
 	const token = getState().auth.token;
 
-	//headers 
+	//headers
 	const config = {
 		headers: {
-			'Content-Type': 'application/json'
+			"Content-Type": "application/json"
 		}
 	}
 	//if token, add to headers config
@@ -94,18 +94,3 @@ export const tokenConfig = getState =>{
 	return config;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { ADD_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT } from '../types/accountTypes';
 import { accountsURL } from '../constants';
-
+import { tokenConfig } from "./auth";
 
 // Get
-export const getAccounts = () => dispatch => {
-    axios.get(accountsURL)
+export const getAccounts = () =>(dispatch, getState)=> {
+    axios.get(accountsURL, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_ACCOUNTS ,
@@ -16,8 +16,8 @@ export const getAccounts = () => dispatch => {
 
 //Delete
 
-export const deleteAccount = (id) => dispatch => {
-    axios.delete(accountsURL, id)
+export const deleteAccount = (id) => (dispatch, getState) => {
+    axios.delete(accountsURL, id, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: DELETE_ACCOUNT,

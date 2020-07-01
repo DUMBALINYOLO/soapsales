@@ -28,8 +28,8 @@ export const deleteProcessMachine = (id) => dispatch => {
 
 
 // Add
-export const addProcessMachine = (processMachine) => dispatch => {
-    axios.post(processmachineURL, processMachine)
+export const addProcessMachine = (processmachine) => dispatch => {
+    axios.post(processmachineURL, processmachine)
         .then(res => {
             dispatch({
                 type: ADD_PROCESSMACHINE,

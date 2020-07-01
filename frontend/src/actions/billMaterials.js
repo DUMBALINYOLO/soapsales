@@ -28,8 +28,8 @@ export const deleteBillMaterial = (id) => dispatch => {
 
 
 // Add
-export const addBillMaterial = (billMaterial) => dispatch => {
-    axios.post(billmaterialURL, billMaterial)
+export const addBillMaterial = (billmaterial) => dispatch => {
+    axios.post(billmaterialURL, billmaterial)
         .then(res => {
             dispatch({
                 type: ADD_BILLMATERIAL,

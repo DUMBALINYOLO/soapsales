@@ -75,16 +75,12 @@ import Productline from "./components/productline/Productline";
 import ProductlineForm from './components/productline/ProductlineForm';
 
 import ProcessMachines from "./components/machines/processMachines";
-import ProcessMachineForm from './components/machines/processMachineForm';
 
 import ProcessGroups from "./components/machinegroup/processGroups";
 import ProcessGroupForm from './components/machinegroup/processGroupForm';
 
 import BillMaterials from "./components/materialline/billMaterials";
-import BillMaterialForm from './components/materialline/billMaterialForm';
 
-import Bills from "./components/materials/bills";
-import BillForm from './components/materials/billForm';
 
 import WasteReports from "./components/wastes/wasteReports";
 import WasteReportForm from './components/wastes/wasteForm';
@@ -116,9 +112,11 @@ import Register from "./components/employees/Register";
 import Login from "./components/employees/Login";
 import PrivateRoute from "./components/common/PrivateRoute";
 
-
-
-
+import Journals from "./components/journals/Journals";
+import BillPayments from "./components/billpayment/Billpayments";
+import Inventoryitems from "./components/inventoryitem/Inventoryitems";
+import Productionorders from "./components/productionorder/Productionorders";
+import Processproducts from "./components/processproduct/Processproduct";
 
 //Alert Options
 const alertOptions = {
@@ -130,7 +128,6 @@ class App extends Component {
 	componentDidMount(){
 		store.dispatch(loadUser());
 	}
-
 
 
 	render(){
@@ -147,16 +144,14 @@ class App extends Component {
 							<PrivateRoute exact path='/productsForm' component={ProductForm} />
 							<PrivateRoute exact path='/productdetails' component={ProductDetails} />
 							<PrivateRoute exact path='/processMachines' component={ProcessMachines} />
-							<PrivateRoute exact path='/processMachineForm' component={ProcessMachineForm} />
 							<PrivateRoute exact path='/processGroups' component={ProcessGroups} />
 							<PrivateRoute exact path='/processGroupForm' component={ProcessGroupForm} />
-							<PrivateRoute exact path='/billMaterials' component={BillMaterials} />
-							<PrivateRoute exact path='/billMaterialForm' component={BillMaterialForm} />
-							<PrivateRoute exact path='/bills' component={Bills} />
+							<PrivateRoute exact path='/billmaterials' component={BillMaterials} />
+							<PrivateRoute exact path='/billpayments' component={BillPayments} />
 							<PrivateRoute exact path='/mali' component={Mali} />
 							<Route exact path='/table' component={Thebuli} />
+							<PrivateRoute exact path='/journals' component={Journals} />
 							<PrivateRoute exact path='/tab' component={MainTab} />
-							<PrivateRoute exact path='/billForm' component={BillForm} />
 							<PrivateRoute exact path='/waste' component={WasteReports} />
 							<PrivateRoute exact path='/waste-report' component={WasteReportForm} />
 							<PrivateRoute exact path='/process-rate' component={ProcessRates} />
@@ -168,18 +163,14 @@ class App extends Component {
 							<PrivateRoute exact path='/processproducts' component={Processproduct} />
 							<PrivateRoute exact path='/processproduct-form' component={ProcessproductForm} />
 							<PrivateRoute exact path='/products' component={Products} />
+							<PrivateRoute exact path='/productionorders' component={Productionorders} />
 							<PrivateRoute exact path='/productsForm' component={ProductForm} />
-							<PrivateRoute exact path='/processMachines' component={ProcessMachines} />
-							<PrivateRoute exact path='/processMachineForm' component={ProcessMachineForm} />
-							<PrivateRoute exact path='/processGroups' component={ProcessGroups} />
+							<PrivateRoute exact path='/processmachines' component={ProcessMachines} />
+							<PrivateRoute exact path='/processgroups' component={ProcessGroups} />
 							<PrivateRoute exact path='/processGroupForm' component={ProcessGroupForm} />
-							<PrivateRoute exact path='/billMaterials' component={BillMaterials} />
-							<PrivateRoute exact path='/billMaterialForm' component={BillMaterialForm} />
-							<PrivateRoute exact path='/bills' component={Bills} />
-							<PrivateRoute exact path='/billForm' component={BillForm} />
 							<PrivateRoute exact path='/waste' component={WasteReports} />
 							<PrivateRoute exact path='/waste-report' component={WasteReportForm} />
-							<PrivateRoute exact path='/process-rate' component={ProcessRates} />
+							<PrivateRoute exact path='/processrates' component={ProcessRates} />
 							<PrivateRoute exact path='/process-rate-form' component={ProcessRateForm} />
 							<PrivateRoute exact path='/process' component={Process} />
 							<PrivateRoute exact path='/process-form' component={ProcessForm} />
@@ -209,20 +200,22 @@ class App extends Component {
 							<PrivateRoute exact path='/unitmeasure' component={Unitmeasure} />
 							<PrivateRoute exact path='/unitmeasure-form' component={UnitmeasureForm} />
 							<PrivateRoute exact path='/inventorycategory' component={Inventorycategory} />
+							<PrivateRoute exact path='/inventoryitems' component={Inventoryitems} />
 							<PrivateRoute exact path='/inventorycategory-form' component={InventorycategoryForm} />
-							<PrivateRoute exact path='/pricinggroup' component={Pricinggroup} />
+							<PrivateRoute exact path='/pricinggroups' component={Pricinggroup} />
 							<PrivateRoute exact path='/pricinggroup-form' component={PricinggroupForm} />
 							<PrivateRoute exact path='/customers' component={Customers} />
 							<PrivateRoute exact path='/customer-form' component={CustomerForm} />
 							<PrivateRoute exact path='/payments' component={Payments} />
 							<PrivateRoute exact path='/payment-form' component={PaymentForm} />
-							<PrivateRoute exact path='/salesrep' component={Salesrep} />
+							<PrivateRoute exact path='/sales-rep' component={Salesrep} />
 							<PrivateRoute exact path='/salesrep-form' component={SalesrepForm} />
 							<PrivateRoute exact path='/invoices' component={Invoice} />
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/login' component={Login} />
 							<PrivateRoute exact path='/invoice-form' component={InvoiceForm} />
 							<PrivateRoute exact path='/productlines' component={Productline} />
+							<PrivateRoute exact path='/processproducts' component={Processproducts} />
 							<PrivateRoute exact path='/productline-form' component={ProductlineForm} />
 							<Route component={Default} />
 						</Switch>

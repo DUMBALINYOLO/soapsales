@@ -7,7 +7,7 @@ import bookkeepers from './bookkeepers';
 import accounttypes from './accounttypes';
 import accounts from './accounts';
 import salesrep from "./salesrep";
-
+import journals from "./journals"
 import invoices from "./invoices";
 import products from "./products";
 import processMachines from "./processMachines";
@@ -18,19 +18,21 @@ import billpayments from "./billpayments";
 import wasteReports from "./wasteReports";
 import processRates from "./processRates";
 import process from "./process";
-import processproducts from "./processedproducts.js";
+import processedproducts from "./processedproducts.js";
 import assets from "./assets";
 import transactions from "./transactions";
 import inventoryitems from  "./inventoryitems";
 import equipmentcomponents from "./equipmentcomponents";
 
+import processproducts from "./processproducts";
+import productionorders from "./productionorders";
 import productlines from "./productlines";
 import accountingConfig from "./accountingConfig";
 import debitnotes from "./debitnotes";
 import orders from "./orders";
 import orderpayments from "./orderpayments";
 import inventorycontrollers from "./inventorycontrollers";
-import unitmeasure from "./unitmeasure";
+import unitmeasures from "./unitmeasures";
 import inventorycategory from "./inventorycategory";
 import pricinggroup from "./pricinggroup";
 import creditnotes from "./creditnotes";
@@ -55,18 +57,21 @@ export default combineReducers({
     inventoryitems,
     salesrep,
     bookkeepers,
+    processproducts,
     pricinggroup,
     accounttypes,
     inventorycontrollers,
     inventorycategory,
     debitnotes,
+    journals,
     creditnotes,
     products,
+    productionorders,
     productlines,
     processproducts,
     orders,
     invoices,
-    unitmeasure,
+    unitmeasures,
     orderpayments,
     processMachines,
     processGroups,

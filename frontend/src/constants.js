@@ -35,3 +35,10 @@ export const salesrepURL= `${endpoint}/sales/sales-reps/`
 export const transactionURL= `${endpoint}/accounting/transactions/`
 export const unitmeasureURL= `${endpoint}/inventory/unit-of-measure/`
 export const wastereportURL= `${endpoint}/manufacture/waste-generation-reports/`
+
+export const billpaymentsURL = `${endpoint}/accounting/bill-payments/`
+export const journalURL = `${endpoint}/accounting/journal-entries/`
+export const inventoryitemURL = `${endpoint}/inventory/inventoryitem/`
+export const equipmentcomponentURL = `${endpoint}/inventory/equipment-components/`
+export const productionorderURL = `${endpoint}/manufacture/production-orders/`
+export const processproductsURL= `${endpoint}/manufacture/process-products/`

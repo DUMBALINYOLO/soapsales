@@ -1,55 +1,155 @@
-import React, {Component, Fragment} from 'react';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getProcessproducts, deleteProcessproduct } from "../../actions/processedproducts";
+import {DataTable} from 'primereact/datatable';
+import {Column} from 'primereact/column';
+import {InputText} from 'primereact/inputtext';
+import {Button} from 'primereact/button';
+import {Dropdown} from 'primereact/dropdown';
+import {Calendar} from 'primereact/calendar';
+import {MultiSelect} from 'primereact/multiselect';
+import {ProgressBar} from 'primereact/progressbar';
+import classNames from 'classnames';
+import { getProcessproducts} from '..//../actions/processedproducts';
+import "./form.css";
 
 
 class Processproduct extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            processproducts: null,
+            globalFilter: null,
+            dateFilter: null,
+            selectedProcessproducts: null,
+
+        };
+
+
+
+
+        this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
+
+        //filters
+
+        this.filterDate = this.filterDate.bind(this);       //custom filter function
+    }
+
     static propTypes = {
         processproducts : PropTypes.array.isRequired,
         getProcessproducts: PropTypes.func.isRequired,
-        deleteProcessproduct: PropTypes.func.isRequired,
+
     };
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.getProcessproducts();
     }
 
-	render(){
-		return (
-			<Fragment>
-                <h1>PROCESSED PRODUCT COMPONENTS</h1>
-                <table className="table table-striped">
-                    <thead>
-                        <th>ID</th>
-                        <th>DIRECT PRICE</th>
-                        <th>MARGIN</th>
-                        <th>MARKUP</th>
-                        <th>SKU</th>
-                        <th>PRICING METHOD</th>
-                        <th />
-                    </thead>
-                    <tbody>
-                        { this.props.processproducts.map(processproduct =>(
-                            <tr key={processproduct.id}>
-                                <td>{ processproduct.id }</td>
-                                <td>{ processproduct.direct_price }</td>
-                                <td>{ processproduct.margin }</td>
-                                <td>{processproduct.markup}</td>
-                                <td>{ processproduct.sku }</td>
-                                <td>{processproduct.pricing_method}</td>
-                                <td><button onClick={this.props.deleteProcessproduct.bind(this, processproduct.id)} className="btn btn-danger btn-sm">Delete</button></td>
-                            </tr>
-                        )) }
-                    </tbody>
-                </table>
-			</Fragment>
-		);
-	}
+    renderHeader() {
+        return (
+            <div >
+                List of Processed Products
+                <div  className="p-datatable-globalfilter-container">
+                    <div style={{textAlign:'left'}}><Button type="button" icon="pi pi-external-link" iconPos="left" label="EXPORT TO CSV" onClick={this.export}></Button></div>;
+                    <InputText type="search" onInput={(e) => this.setState({globalFilter: e.target.value})} placeholder="Global Search" />
+                </div>
+            </div>
+        );
+    }
+
+    activityBodyTemplate(rowData) {
+        return <ProgressBar value={rowData.activity} showValue={false} />;
+    }
+
+    actionBodyTemplate() {
+        return (
+            <Button type="button" icon="pi pi-cog" className="p-button-secondary"></Button>
+        );
+    }
+
+
+    renderDateFilter() {
+        return (
+            <Calendar value={this.state.dateFilter} onChange={this.onDateFilterChange} placeholder="Registration Date" dateFormat="yy-mm-dd" className="p-column-filter" />
+        );
+    }
+
+    onDateFilterChange(event) {
+        if (event.value !== null)
+            this.dt.filter(this.formatDate(event.value), 'date', 'equals');
+        else
+            this.dt.filter(null, 'date', 'equals');
+
+        this.setState({dateFilter: event.value});
+    }
+
+    filterDate(value, filter) {
+        if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+            return true;
+        }
+
+        if (value === undefined || value === null) {
+            return false;
+        }
+
+        return value === this.formatDate(filter);
+    }
+
+    export() {
+        this.dt.exportCSV();
+    }
+
+    formatDate(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        if (month < 10) {
+            month = '0' + month;
+        }
+
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        return date.getFullYear() + '-' + month + '-' + day;
+    }
+
+
+    render() {
+
+        const header = this.renderHeader();
+        const dateFilter = this.renderDateFilter();
+
+
+        return (
+            <div className="datatable-doc-demo">
+                <DataTable ref={(el) => this.dt = el} value={this.props.processproducts}
+                    style={{backgroundColor: '#4c6b75'}}
+                    header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
+                    selection={this.state.selectedProcessproducts} onSelectionChange={e => this.setState({selectedProcessproducts: e.value})}
+                    paginator rows={10} emptyMessage="No Accounts found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
+                    <Column selectionMode="multiple" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="direct_price" header="Direct Price" sortable filter filterPlaceholder="Search by Direct Price" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="margin" header="Margin" sortable filter filterPlaceholder="Search by Margin" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="markup" header="Markup" sortable filter filterPlaceholder="Search by Markup" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="sku" header="Sku" sortable filter filterPlaceholder="Search by Sku" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="pricing_method" header="Pricing Method" sortable filter filterPlaceholder="Search by Pricing Method" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column body={this.actionBodyTemplate} headerStyle={{width: '8em', textAlign: 'center', backgroundColor: '#4c6b75'}} bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4c6b75'}} />
+                </DataTable>
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = state =>({
     processproducts: state.processproducts.processproducts
 })
 
-export default connect(mapStateToProps, { getProcessproducts, deleteProcessproduct} ) (Processproduct);
+export default connect(mapStateToProps, {getProcessproducts} ) (Processproduct);
