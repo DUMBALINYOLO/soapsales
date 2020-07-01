@@ -67,9 +67,9 @@ class AccountViewSet(viewsets.ModelViewSet):
     }
     ordering_fields = ('name', 'account_type__name', 'account_type__category', 'account_type__order', 'order',)
     serializer_class = AccountSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
     def get_serializer_class(self):
         if self.request.method != 'GET':

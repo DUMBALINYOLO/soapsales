@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { ADD_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT } from '../types/accountTypes';
+import { 
+    ADD_ACCOUNT, 
+    GET_ACCOUNTS, 
+    DELETE_ACCOUNT,
+    GET_ACCOUNT
+
+} from '../types/accountTypes';
 import { accountsURL } from '../constants';
 
 
@@ -38,3 +44,26 @@ export const addAccount = account => dispatch => {
             });
         }).catch(err => console.log(err))
 }
+
+
+export const getAccount = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/accounting/accounts/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_ACCOUNT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
+}
+
+
+
+
+
+
+
+
+
+
+

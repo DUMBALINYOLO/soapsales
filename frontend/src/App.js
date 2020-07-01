@@ -66,6 +66,7 @@ import AccountingConfigForm from './components/accountingConfig/AccountingConfig
 import Accounts from './components/accounts/Accounts';
 import AccountForm from './components/accounts/AccountForm';
 
+
 import Products from "./components/Products/products";
 import ProductForm from './components/Products/productForm';
 import ProductDetails from "./components/Products/details";
@@ -115,6 +116,7 @@ import MainTab from './components/configurations/MainConfig';
 import Register from "./components/employees/Register";
 import Login from "./components/employees/Login";
 import PrivateRoute from "./components/common/PrivateRoute";
+import AccountDetail from "./components/accounts/AccountDetail";
 
 
 
@@ -193,6 +195,7 @@ class App extends Component {
 							<PrivateRoute exact path='/accounttypes' component={AccountTypes} />
 							<PrivateRoute exact path='/accounttype-form' component={AccountTypeForm} />
 							<PrivateRoute exact path='/accounts' component={Accounts} />
+							<Route exact path='/account-detail/:id' component={AccountDetail} />
 							<PrivateRoute exact path='/account-form' component={AccountForm} />
 							<PrivateRoute exact path='/accountingConfig' component={AccountingConfig} />
 							<PrivateRoute exact path='/accountingConfig-form' component={AccountingConfigForm} />
