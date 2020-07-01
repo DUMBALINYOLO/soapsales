@@ -15,18 +15,21 @@ export const loadUser = () => (dispatch, getState) =>{
 	dispatch({ type: USER_LOADING });
 
 	axios.get('http://localhost:8000/api/employees/auth/user/', tokenConfig(getState))
-		.then(res =>{
-			dispatch({
-				type: USER_LOADED,
-				payload: res.data
-			});
-		}).catch(err =>{
-			dispatch(returnErrors(err.response.data, err.response.status));
-			dispatch({
-				type: AUTH_ERROR
-			});
+		.then((res) => {
+	      dispatch({
+	        type: USER_LOADED,
+	        payload: res.data,
+	      });
+	      
+	    }).catch((err) => {
+		      dispatch(returnErrors(err.response.data, err.response.status));
+		      dispatch({
+		        type: AUTH_ERROR,
+		    });
 		});
 };
+
+
 
 
 export const login = (username, password) => dispatch =>{
