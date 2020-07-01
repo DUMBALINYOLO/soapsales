@@ -43,7 +43,7 @@ class Thebuli extends Component {
     static propTypes = {
         accounts : PropTypes.array.isRequired,
         getAccounts: PropTypes.func.isRequired,
-    
+
     };
 
     componentDidMount() {
@@ -121,7 +121,7 @@ class Thebuli extends Component {
 
 
     render() {
-        
+
         const header = this.renderHeader();
         const dateFilter = this.renderDateFilter();
 
@@ -136,7 +136,7 @@ class Thebuli extends Component {
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                     <Column selectionMode="multiple" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="account-type" header="Account Type" sortable filter filterPlaceholder="Search by AccountType" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="account_type" header="Account Type" sortable filter filterPlaceholder="Search by AccountType" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="name" header="Name" sortable filter filterPlaceholder="Search by name" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="initial_balance" header="Initial-Balance" sortable filter filterPlaceholder="Search by Initial-Balance" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="balance" header="Balance" sortable filter filterPlaceholder="Search by Balance" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
@@ -148,7 +148,7 @@ class Thebuli extends Component {
         );
     }
 }
-                
+
 const mapStateToProps = state =>({
     accounts: state.accounts.accounts
 })

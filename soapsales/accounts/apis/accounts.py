@@ -41,10 +41,9 @@ class AccountTypeViewSet(viewsets.ModelViewSet):
     ]
 
     def get_serializer_class(self):
-        if self.request.method != 'GET':
-            return super(AccountTypeViewSet, self).get_serializer_class()
-
-        return RetrieveAccountTypeSerializer
+        if self.action in ['list', 'retrieve']:
+            return RetrieveAccountSerializer
+        return AccountSerializer
 
 class InActiveAccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.filter(account_type__isnull=True)

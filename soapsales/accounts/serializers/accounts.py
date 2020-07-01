@@ -22,7 +22,7 @@ class InActiveAccountSerializer(serializers.ModelSerializer):
 
 
 class RetrieveAccountTypeSerializer(AccountTypeSerializer):
-    
+
     category = serializers.SerializerMethodField()
     classification = serializers.SerializerMethodField()
 
@@ -37,7 +37,6 @@ ACCOUNT_BASE_FIELDS = ('id', 'account_type', 'name', 'description', 'initial_bal
 
 
 class AccountSerializer(serializers.ModelSerializer):
-    # account_type = StringSerializer() 
 
     class Meta:
         model = Account
@@ -50,12 +49,15 @@ class AccountSerializer(serializers.ModelSerializer):
         return super(AccountSerializer, self).update(instance, validated_data)
 
 
+
+
+
 class RetrieveAccountSerializer(AccountSerializer):
+    account_type = StringSerializer()
     class Meta:
         model = Account
         fields = ACCOUNT_BASE_FIELDS + ( 'balance',)
 
-    account_type = RetrieveAccountTypeSerializer()
     balance = serializers.SerializerMethodField()
 
     def get_balance(self, obj):
