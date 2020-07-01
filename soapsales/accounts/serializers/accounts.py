@@ -33,7 +33,7 @@ class RetrieveAccountTypeSerializer(AccountTypeSerializer):
         return obj.get_classification_display()
 
 
-ACCOUNT_BASE_FIELDS = ('id', 'account_type', 'name', 'description', 'initial_balance', 'created_date', 'is_active', 'is_contra', 'order',)
+ACCOUNT_BASE_FIELDS = ('id', 'account_type', 'name', 'description', 'initial_balance', 'is_active', 'is_contra', 'order',)
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -53,10 +53,11 @@ class AccountSerializer(serializers.ModelSerializer):
 
 
 class RetrieveAccountSerializer(AccountSerializer):
+    created_date = serializers.DateTimeField(format="%d-%m-%Y")
     account_type = StringSerializer()
     class Meta:
         model = Account
-        fields = ACCOUNT_BASE_FIELDS + ( 'balance',)
+        fields = ACCOUNT_BASE_FIELDS + ( 'balance', 'created_date')
 
     balance = serializers.SerializerMethodField()
 
