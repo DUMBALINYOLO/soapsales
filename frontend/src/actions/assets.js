@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ASSETS, DELETE_ASSET, ADD_ASSET } from '../types/assetTypes';
+import { GET_ASSETS, GET_ASSET, DELETE_ASSET, ADD_ASSET } from '../types/assetTypes';
 import { assetsURL } from '../constants';
 import { tokenConfig } from './auth';
 
@@ -37,4 +37,15 @@ export const addAsset = (asset) => (dispatch, getState) => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getAsset = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/accounting/assets/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_ASSET,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

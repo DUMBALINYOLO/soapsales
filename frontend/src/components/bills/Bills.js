@@ -138,7 +138,7 @@ class Bills extends Component {
                     <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="date" header="Date" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="vendor" header="Vendor" sortable filter filterPlaceholder="Search by Vendor" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="Reference" header="Reference" sortable filter filterPlaceholder="Search by Reference" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="reference" header="Reference" sortable filter filterPlaceholder="Search by Reference" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="due" header="Due" sortable filter filterPlaceholder="Search by Due" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="memo" header="Memo" sortable filter filterPlaceholder="Search by Memo" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="entry" header="Entry" sortable filter filterPlaceholder="Search by Entry" style={{width:'3em', backgroundColor: '#4c6b75'}}/>

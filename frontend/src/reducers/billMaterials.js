@@ -1,7 +1,9 @@
-import { GET_BILLMATERIALS, DELETE_BILLMATERIAL, ADD_BILLMATERIAL  } from "../types/billmaterialTypes";
+import { GET_BILLMATERIALS, GET_BILLMATERIAL, DELETE_BILLMATERIAL, ADD_BILLMATERIAL  } from "../types/billmaterialTypes";
 
 const initialState = {
-    billMaterials: []
+    billmaterials: [],
+    billmaterial: [],
+    loading: false
 }
 
 
@@ -10,18 +12,23 @@ export default function(state = initialState, action){
         case GET_BILLMATERIALS:
             return {
                 ...state,
-                billMaterials: action.payload
+                billmaterials: action.payload
             };
         case DELETE_BILLMATERIAL:
             return {
                 ...state,
-                billMaterial: state.billMaterials.filter(billMaterial => billMaterial.id !== action.payload)
+                billmaterial: state.billmaterials.filter(billmaterial => billmaterial.id !== action.payload)
             };
         case ADD_BILLMATERIAL:
             return {
                 ...state,
-                billMaterials: [...state.billMaterials, action.payload]
-            }
+                billmaterials: [...state.billmaterials, action.payload]
+            };
+        case GET_BILLMATERIAL:
+            return {
+                ...state,
+                billmaterial: action.payload
+            };
         default:
             return state;
     }

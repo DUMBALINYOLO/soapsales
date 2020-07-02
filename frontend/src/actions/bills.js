@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
     GET_BILLS,
+    GET_BILL,
     ADD_BILL,
     DELETE_BILL,
 } from "../types/billTypes";
@@ -39,4 +40,15 @@ export const addBill = (bill) => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getBill = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/accounting/bills/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_BILL,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

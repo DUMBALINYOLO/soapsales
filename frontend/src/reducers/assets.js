@@ -1,7 +1,9 @@
-import { GET_ASSETS, DELETE_ASSET, ADD_ASSET  } from "../types/assetTypes";
+import { GET_ASSETS, GET_ASSET, DELETE_ASSET, ADD_ASSET  } from "../types/assetTypes";
 
 const initialState = {
-    assets: []
+    assets: [],
+    asset: [],
+    loading: false
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 assets: [...state.asset, action.payload]
-            }
+            };
+        case GET_ASSET:
+            return {
+                ...state,
+                asset: action.payload
+            };
         default:
             return state;
     }

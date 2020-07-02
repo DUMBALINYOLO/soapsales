@@ -12,7 +12,7 @@ import invoices from "./invoices";
 import products from "./products";
 import processMachines from "./processMachines";
 import processGroups from "./processGroups";
-import billMaterials from "./billMaterials";
+import billmaterials from "./billmaterials";
 import bills from "./bills";
 import billpayments from "./billpayments";
 import wasteReports from "./wasteReports";
@@ -75,7 +75,7 @@ export default combineReducers({
     orderpayments,
     processMachines,
     processGroups,
-    billMaterials,
+    billmaterials,
     bills,
     wasteReports,
     processRates,
