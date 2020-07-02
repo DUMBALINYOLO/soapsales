@@ -1,7 +1,9 @@
-import { ADD_ACCOUNTINGCONFIG, GET_ACCOUNTINGCONFIG , DELETE_ACCOUNTINGCONFIG } from '../types/accountingconfigTypes';
+import { ADD_ACCOUNTINGCONFIG, GET_ACCOUNTINGCONFIG, GET_ACCOUNTCONFIG, DELETE_ACCOUNTINGCONFIG } from '../types/accountingconfigTypes';
 
 const initialState = {
-    accountingConfig: []
+    accountingConfig: [],
+    accountconfig: [],
+    loading: false
 }
 
 
@@ -21,8 +23,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 accountingConfig: [...state.accountingConfig, action.payload]
-            }
+            };
+        case GET_ACCOUNTCONFIG:
+            return {
+                ...state,
+                accountconfig:action.payload
+                };
         default:
             return state;
+
     }
 }

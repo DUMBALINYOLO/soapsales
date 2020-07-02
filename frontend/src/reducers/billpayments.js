@@ -1,8 +1,11 @@
-import { ADD_BILLPAYMENT, GET_BILLPAYMENTS , DELETE_BILLPAYMENT } from '../types/billpaymentTypes';
+import { ADD_BILLPAYMENT, GET_BILLPAYMENTS, GET_BILLPAYMENT, DELETE_BILLPAYMENT } from '../types/billpaymentTypes';
 
 const initialState = {
-    billpayments: []
+    billpayments: [],
+    billpayment: [],
+    loading: false
 }
+
 
 
 export default function(state = initialState, action){
@@ -21,7 +24,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 billpayments: [...state.billpayments, action.payload]
-            }
+            };
+        case GET_BILLPAYMENT:
+            return {
+                ...state,
+                billpayment: action.payload
+            };
         default:
             return state;
     }

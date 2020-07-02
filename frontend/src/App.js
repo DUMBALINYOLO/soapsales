@@ -24,6 +24,8 @@ import BookkeeperForm from './components/bookkeepers/BookkeeperForm';
 
 import AccountTypes from './components/accounttypes/AccountTypes';
 import AccountTypeForm from './components/accounttypes/AccountTypeForm';
+import AccountTypeDetail from './components/accounttypes/AccountTypeDetail';
+
 
 import Form from './components/accounts/Form';
 
@@ -62,6 +64,8 @@ import CreditnotesForm from './components/creditnotes/CreditnoteForm';
 
 import AccountingConfig from './components/accountingConfig/AccountingConfig';
 import AccountingConfigForm from './components/accountingConfig/AccountingConfigForm';
+import AccountConfigDetail from "./components/accountingConfig/AccountingDetail";
+
 
 import Accounts from './components/accounts/Accounts';
 import AccountForm from './components/accounts/AccountForm';
@@ -80,7 +84,8 @@ import ProcessMachines from "./components/machines/processMachines";
 import ProcessGroups from "./components/machinegroup/processGroups";
 import ProcessGroupForm from './components/machinegroup/processGroupForm';
 
-import BillMaterials from "./components/materialline/billMaterials";
+import BillMaterials from "./components/billmaterials/billMaterials";
+import BillMaterialDetail from "./components/billmaterials/billMaterialDetail";
 
 
 import WasteReports from "./components/wastes/wasteReports";
@@ -94,6 +99,8 @@ import ProcessForm from './components/Process/processForm';
 
 import Assets from "./components/assets/Assets";
 import AssetForm from './components/assets/AssetForm';
+import AssetDetail from "./components/assets/AssetDetail";
+
 
 import Transactions from "./components/transactions/Transactions";
 
@@ -115,10 +122,16 @@ import PrivateRoute from "./components/common/PrivateRoute";
 import AccountDetail from "./components/accounts/AccountDetail";
 
 import Journals from "./components/journals/Journals";
+
 import BillPayments from "./components/billpayment/Billpayments";
+import BillPaymentDetail from "./components/billpayment/BillpaymentDetail";
+
+import Bills from "./components/bills/Bills";
+import BillDetail from "./components/bills/BillDetail";
 import Inventoryitems from "./components/inventoryitem/Inventoryitems";
 import Productionorders from "./components/productionorder/Productionorders";
 import Processproducts from "./components/processproduct/Processproduct";
+
 
 //Alert Options
 const alertOptions = {
@@ -149,7 +162,13 @@ class App extends Component {
 							<PrivateRoute exact path='/processGroups' component={ProcessGroups} />
 							<PrivateRoute exact path='/processGroupForm' component={ProcessGroupForm} />
 							<PrivateRoute exact path='/billmaterials' component={BillMaterials} />
+							<Route exact path='/billmaterial-detail/:id' component={BillMaterialDetail} />
 							<PrivateRoute exact path='/billpayments' component={BillPayments} />
+							<PrivateRoute exact path='/bills' component={Bills} />
+
+							<Route exact path='/bill-detail/:id' component={BillDetail} />
+
+							<Route exact path='/billpayment-detail/:id' component={BillPaymentDetail} />
 							<PrivateRoute exact path='/mali' component={Mali} />
 							<Route exact path='/table' component={Thebuli} />
 							<PrivateRoute exact path='/journals' component={Journals} />
@@ -162,6 +181,7 @@ class App extends Component {
 							<PrivateRoute exact path='/process-form' component={ProcessForm} />
 							<PrivateRoute exact path='/assets' component={Assets} />
 							<PrivateRoute exact path='/asset-form' component={AssetForm} />
+							<Route exact path='/asset-detail/:id' component={AssetDetail} />
 							<PrivateRoute exact path='/processproducts' component={Processproduct} />
 							<PrivateRoute exact path='/processproduct-form' component={ProcessproductForm} />
 							<PrivateRoute exact path='/products' component={Products} />
@@ -185,11 +205,13 @@ class App extends Component {
 							<PrivateRoute exact path='/bookkeeper-form' component={BookkeeperForm} />
 							<PrivateRoute exact path='/accounttypes' component={AccountTypes} />
 							<PrivateRoute exact path='/accounttype-form' component={AccountTypeForm} />
+							<Route exact path='/accounttype-detail/:id' component={AccountTypeDetail} />
 							<PrivateRoute exact path='/accounts' component={Accounts} />
 							<Route exact path='/account-detail/:id' component={AccountDetail} />
 							<PrivateRoute exact path='/account-form' component={AccountForm} />
 							<PrivateRoute exact path='/accountingConfig' component={AccountingConfig} />
 							<PrivateRoute exact path='/accountingConfig-form' component={AccountingConfigForm} />
+							<Route exact path='/accountconfig-detail/:id' component={AccountConfigDetail} />
 							<PrivateRoute exact path='/debitnotes' component={Debitnotes} />
 							<PrivateRoute exact path='/debitnote-form' component={DebitnotesForm} />
 							<PrivateRoute exact path='/creditnotes' component={Creditnotes} />

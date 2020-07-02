@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_BILLPAYMENT, GET_BILLPAYMENTS, DELETE_BILLPAYMENT } from '../types/billpaymentTypes';
+import { ADD_BILLPAYMENT, GET_BILLPAYMENTS, GET_BILLPAYMENT, DELETE_BILLPAYMENT } from '../types/billpaymentTypes';
 import { billpaymentsURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addBillpayment = billpayment => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getBillpayment = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/accounting/bill-payments/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_BILLPAYMENT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

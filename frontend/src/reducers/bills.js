@@ -1,9 +1,11 @@
 import {
-    GET_BILLS, ADD_BILL, DELETE_BILL
+    GET_BILLS, GET_BILL, ADD_BILL, DELETE_BILL
 } from "../types/billTypes";
 
 const initialState = {
-    bills: []
+    bills: [],
+    bill: [],
+    loading: false
 }
 
 
@@ -23,7 +25,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 bill: [...state.bills, action.payload]
-            }
+            };
+        case GET_BILL:
+            return {
+                ...state,
+                bill: action.payload
+            };
         default:
             return state;
     }

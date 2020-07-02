@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_ACCOUNTINGCONFIG, GET_ACCOUNTINGCONFIG, DELETE_ACCOUNTINGCONFIG } from '../types/accountingconfigTypes';
+import { ADD_ACCOUNTINGCONFIG, GET_ACCOUNTINGCONFIG, GET_ACCOUNTCONFIG, DELETE_ACCOUNTINGCONFIG } from '../types/accountingconfigTypes';
 import { accountingConfigURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addAccountingConfig = accountingConfig => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getAccountConfig = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/accounting/accounting-configuration/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_ACCOUNTCONFIG,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

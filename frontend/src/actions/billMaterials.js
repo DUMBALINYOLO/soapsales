@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_BILLMATERIALS, DELETE_BILLMATERIAL, ADD_BILLMATERIAL } from '../types/billmaterialTypes';
+import { GET_BILLMATERIALS, GET_BILLMATERIAL, DELETE_BILLMATERIAL, ADD_BILLMATERIAL } from '../types/billmaterialTypes';
 import { billmaterialURL } from '../constants';
 
 
@@ -36,4 +36,15 @@ export const addBillMaterial = (billmaterial) => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getBillMaterial = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/manufacture/bills-of-materials/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_BILLMATERIAL,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }
