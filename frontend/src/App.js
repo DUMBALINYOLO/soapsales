@@ -80,7 +80,7 @@ import ProcessMachines from "./components/machines/processMachines";
 import ProcessGroups from "./components/machinegroup/processGroups";
 import ProcessGroupForm from './components/machinegroup/processGroupForm';
 
-import BillMaterials from "./components/materialline/billMaterials";
+import BillMaterials from "./components/billmaterials/billMaterials";
 
 
 import WasteReports from "./components/wastes/wasteReports";
