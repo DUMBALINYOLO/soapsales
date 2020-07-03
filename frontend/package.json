@@ -13,6 +13,7 @@
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "classnames": "^2.2.6",
+    "formik": "^2.1.4",
     "formol": "^2.8.3",
     "fullcalendar": "^5.1.0",
     "node-sass": "^4.14.1",

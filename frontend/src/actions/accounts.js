@@ -35,7 +35,9 @@ export const deleteAccount = (id) => (dispatch, getState) => {
 
 // Add
 // Get
-export const addAccount = account => dispatch => {
+
+
+export const addAccount = (account) => dispatch => {
     axios.post(accountsURL, account)
         .then(res => {
             dispatch({

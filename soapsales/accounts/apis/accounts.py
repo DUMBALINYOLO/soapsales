@@ -36,14 +36,14 @@ from accounts.serializers import (
 class AccountTypeViewSet(viewsets.ModelViewSet):
     queryset = AccountType.objects.all()
     serializer_class = AccountTypeSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
-    def get_serializer_class(self):
-        if self.action in ['list', 'retrieve']:
-            return RetrieveAccountSerializer
-        return AccountSerializer
+    # def get_serializer_class(self):
+    #     if self.action in ['list', 'retrieve']:
+    #         return RetrieveAccountSerializer
+    #     return AccountSerializer
 
 class InActiveAccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.filter(account_type__isnull=True)

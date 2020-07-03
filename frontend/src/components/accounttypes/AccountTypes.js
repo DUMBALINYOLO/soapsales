@@ -33,6 +33,7 @@ class AccountTypes extends Component {
 
 
 
+
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
 
         //filters

@@ -2,51 +2,73 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addAccount } from '..//../actions/accounts';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { accounttypesURL } from '../../constants';
+import { getAccountTypes} from '..//../actions/accounttypes';
+import {Dropdown} from 'primereact/dropdown';
+
+
+
+
 
 export class AccountForm extends Component{
-    state = {
-        account_type: '',
-        name: '',
-        description: '',
-        initial_balance: '',
-        is_active: '',
-        is_contra: '',
-        order: '',
+  constructor(props, context) {
+      super(props, context)
+      this.state = {
+          account_type: '',
+          name: '',
+          description: '',
+          initial_balance: '',
+          is_active: '',
+          is_contra: '',
+          order: '',
+          selectedAccountType: null,
+
+      }
     }
 
 
+  // onAccountTypeChange(e) {
+  //       this.setState({selectedAccountType: e.value});
+  //   }
 
 
-    onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
-    onSubmit = (e) => {
-      e.preventDefault();
-      const { 
-        account_type,
-        name,
-        description,
-        initial_balance,
-        is_active,
-        is_contra,
-        order 
-      } = this.state;
+  onSubmit = (e) => {
+    e.preventDefault();
+    const { 
+      account_type,
+      name,
+      description,
+      initial_balance,
+      is_active,
+      is_contra,
+      order 
+    } = this.state;
 
-      const account = { 
-        account_type,
-        name,
-        description,
-        initial_balance,
-        is_active,
-        is_contra,
-        order 
-      };
-
-      this.props.addAccount(account);
-
+    const account = { 
+      account_type,
+      name,
+      description,
+      initial_balance,
+      is_active,
+      is_contra,
+      order 
     };
+
+    this.props.addAccount(account);
+
+  };
 
     static propTypes = {
         addAccount: PropTypes.func.isRequired,
+        getAccountTypes: PropTypes.func.isRequired,
+
+    }
+
+    componentDidMount() {
+      this.props.getAccountTypes()
     }
 
 
@@ -60,28 +82,16 @@ export class AccountForm extends Component{
           is_contra,
           order 
         } = this.state;
+        const { inputValue } = this.state;
+        
 
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add An Account</h2>
               <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <label>Account Type</label>
-                  <input
-                    className="form-control"
-                    type="select"
-                    name="account_type"
-                    onChange={this.onChange}
-                    value={account_type}
-                  />
-                </div>
 
-                <div class="form-group">
-                  <label >Account-Type</label>
-                  <select class="form-control">
-                    <option selected>{account_type}</option>
-                    <option>{account_type}</option>
-                  </select>
+                <div className="form-group">
+                  <Dropdown optionValue="account_type.id" inputId="account_type.id" value={account_type.id} options={this.props.accounttypes} onChange={this.onChange} placeholder="Select AcoountType" optionLabel="name"/>
                 </div>
                 <div className="form-group">
                   <label>Name</label>
@@ -158,4 +168,10 @@ export class AccountForm extends Component{
     }
 }
 
-export default connect(null, { addAccount })(AccountForm);
+
+const mapStateToProps = state =>({
+    accounttypes: state.accounttypes.accounttypes
+})
+
+
+export default connect(mapStateToProps, {getAccountTypes, addAccount})(AccountForm);

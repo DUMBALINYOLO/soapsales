@@ -4,8 +4,8 @@ import { accounttypesURL } from '../constants';
 
 
 // Get
-export const getAccountTypes = () => dispatch => {
-    axios.get(accounttypesURL)
+export const getAccountTypes = (input = '') => async(dispatch) => {
+    await axios.get(accounttypesURL)
         .then(res => {
             dispatch({
                 type: GET_ACCOUNT_TYPES ,
@@ -13,6 +13,9 @@ export const getAccountTypes = () => dispatch => {
             });
         }).catch(err => console.log(err))
 }
+
+
+
 
 //Delete
 
