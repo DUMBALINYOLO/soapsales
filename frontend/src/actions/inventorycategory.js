@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_INVENTORYCATEGORY, GET_INVENTORYCATEGORIES, DELETE_INVENTORYCATEGORY } from '../types/inventorycategoryTypes';
+import { ADD_INVENTORYCATEGORY, GET_INVENTORYCATEGORIES, GET_INVENTORYCATEGORY, DELETE_INVENTORYCATEGORY } from '../types/inventorycategoryTypes';
 import { inventorycategoryURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addInventorycategory = inventorycategory => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getInventorycategory = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/inventory/inventory-categories/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_INVENTORYCATEGORY,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

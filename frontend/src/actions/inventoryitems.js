@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_INVENTORYITEM, GET_INVENTORYITEMS, DELETE_INVENTORYITEM } from '../types/inventoryitemTypes';
+import { ADD_INVENTORYITEM, GET_INVENTORYITEMS, GET_INVENTORYITEM, DELETE_INVENTORYITEM } from '../types/inventoryitemTypes';
 import { inventoryitemURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addInventoryitem = inventoryitem => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getInventoryitem = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/inventory/inventoryitem/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_INVENTORYITEM,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

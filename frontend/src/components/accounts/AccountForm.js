@@ -37,24 +37,24 @@ export class AccountForm extends Component{
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { 
+    const {
       account_type,
       name,
       description,
       initial_balance,
       is_active,
       is_contra,
-      order 
+      order
     } = this.state;
 
-    const account = { 
+    const account = {
       account_type,
       name,
       description,
       initial_balance,
       is_active,
       is_contra,
-      order 
+      order
     };
 
     this.props.addAccount(account);
@@ -73,17 +73,17 @@ export class AccountForm extends Component{
 
 
     render() {
-        const {  
+        const {
           account_type,
           name,
           description,
           initial_balance,
           is_active,
           is_contra,
-          order 
+          order
         } = this.state;
         const { inputValue } = this.state;
-        
+
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -91,7 +91,7 @@ export class AccountForm extends Component{
               <form onSubmit={this.onSubmit}>
 
                 <div className="form-group">
-                  <Dropdown optionValue="account_type.id" inputId="account_type.id" value={account_type.id} options={this.props.accounttypes} onChange={this.onChange} placeholder="Select AcoountType" optionLabel="name"/>
+                  <Dropdown optionValue="account_type.id" inputId="account_type" value={this.state.selectedAccountType} options={this.props.accounttypes} onChange={this.onChange} placeholder="Select AcoountType" optionLabel="name"/>
                 </div>
                 <div className="form-group">
                   <label>Name</label>

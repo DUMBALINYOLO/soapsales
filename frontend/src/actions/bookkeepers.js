@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { GET_BOOKKEEPERS, DELETE_BOOKKEEPER, ADD_BOOKKEEPER} from '../types/bookkeeperTypes.js';
+import { GET_BOOKKEEPERS, GET_BOOKKEEPER, DELETE_BOOKKEEPER, ADD_BOOKKEEPER} from '../types/bookkeeperTypes.js';
 import { bookkeepersURL } from '../constants';
 
 
-// Get 
+// Get
 export const getBookkeepers = () => dispatch => {
     axios.get(bookkeepersURL)
         .then(res => {
@@ -37,4 +37,15 @@ export const addBookkeeper = bookkeeper => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getBookkeeper = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/accounting/bookkeepers/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_BOOKKEEPER,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

@@ -1,9 +1,10 @@
-import { ADD_PAYMENT, GET_PAYMENTS , DELETE_PAYMENT } from '../types/paymentTypes';
+import { ADD_PAYMENT, GET_PAYMENTS, GET_PAYMENT, DELETE_PAYMENT } from '../types/paymentTypes';
 
 const initialState = {
-    payments: []
+    payments: [],
+    payment: [],
+    loading: false,
 }
-
 
 export default function(state = initialState, action){
     switch(action.type){
@@ -21,7 +22,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 payment: [...state.payments, action.payload]
-            }
+            };
+        case GET_PAYMENT:
+            return {
+                ...state,
+                payment: action.payload
+            };
         default:
             return state;
     }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PRICINGGROUPS, DELETE_PRICINGGROUP, ADD_PRICINGGROUP } from '../types/pricinggroupTypes';
+import { GET_PRICINGGROUPS, GET_PRICINGGROUP, DELETE_PRICINGGROUP, ADD_PRICINGGROUP } from '../types/pricinggroupTypes';
 import { pricinggroupsURL } from '../constants';
 
 
@@ -36,4 +36,15 @@ export const addPricinggroup = (pricinggroup) => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getPricinggroup = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/stock/pricing-groups/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_PRICINGGROUP,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

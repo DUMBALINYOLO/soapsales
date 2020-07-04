@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_CREDITNOTE, GET_CREDITNOTES, DELETE_CREDITNOTE } from '../types/creditnoteTypes';
+import { ADD_CREDITNOTE, GET_CREDITNOTES, GET_CREDITNOTE, DELETE_CREDITNOTE } from '../types/creditnoteTypes';
 import { creditnoteURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addCreditnote = creditnote => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getCreditnote = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/sales/creditnote/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_CREDITNOTE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { createMessage } from './messages';
-import { 
-        GET_TAXES, 
-        DELETE_TAX, 
-        ADD_TAX, GET_ERRORS 
+import {
+        GET_TAXES,
+        GET_TAXE, 
+        DELETE_TAX,
+        ADD_TAX, GET_ERRORS
     } from './types';
 
 
@@ -59,3 +60,14 @@ export const addTax = (tax) => dispatch => {
         });
     });
 };
+
+export const getTax = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/accounting/taxes/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_TAX,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
+}

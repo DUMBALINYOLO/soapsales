@@ -1,9 +1,10 @@
-import { ADD_CREDITNOTE, GET_CREDITNOTES , DELETE_CREDITNOTE } from '../types/creditnoteTypes';
+import { ADD_CREDITNOTE, GET_CREDITNOTES, GET_CREDITNOTE, DELETE_CREDITNOTE } from '../types/creditnoteTypes';
 
 const initialState = {
-    creditnotes: []
+    creditnotes: [],
+    creditnote: [],
+    loading: false
 }
-
 
 export default function(state = initialState, action){
     switch(action.type){
@@ -21,7 +22,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 creditnote: [...state.creditnotes, action.payload]
-            }
+            };
+        case GET_CREDITNOTE:
+            return {
+                ...state,
+                creditnote: action.payload
+            };
         default:
             return state;
     }

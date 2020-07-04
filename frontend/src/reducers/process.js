@@ -1,16 +1,18 @@
-import { GET_PROCESS, DELETE_PROCESS, ADD_PROCESS  } from "../types/processTypes";
+import { GET_PROCESSES, GET_PROCESS, DELETE_PROCESS, ADD_PROCESS  } from "../types/processTypes";
 
 const initialState = {
-    process: []
+    processes: [],
+    process: [],
+    loading: false
 }
 
 
 export default function(state = initialState, action){
     switch(action.type){
-        case GET_PROCESS:
+        case GET_PROCESSES:
             return {
                 ...state,
-                process: action.payload
+                processes: action.payload
             };
         case DELETE_PROCESS:
             return {
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 process: [...state.process, action.payload]
-            }
+            };
+        case GET_PROCESS:
+            return {
+                ...state,
+                process: action.payload
+            };
         default:
             return state;
     }

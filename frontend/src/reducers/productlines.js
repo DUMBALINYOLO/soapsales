@@ -1,7 +1,9 @@
-import { GET_PRODUCTLINES, DELETE_PRODUCTLINE, ADD_PRODUCTLINE  } from "../types/productlineTypes";
+import { GET_PRODUCTLINES, GET_PRODUCTLINE, DELETE_PRODUCTLINE, ADD_PRODUCTLINE  } from "../types/productlineTypes";
 
 const initialState = {
-    productlines: []
+    productlines: [],
+    productline: [],
+    loading: false
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 productline: [...state.productlines, action.payload]
-            }
+            };
+        case GET_PRODUCTLINE:
+            return {
+                ...state,
+                productline: action.payload
+            };
         default:
             return state;
     }

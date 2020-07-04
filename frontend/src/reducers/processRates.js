@@ -1,7 +1,9 @@
-import { GET_PROCESSRATES, DELETE_PROCESSRATE, ADD_PROCESSRATE  } from "../types/processrateTypes";
+import { GET_PROCESSRATES, GET_PROCESSRATE, DELETE_PROCESSRATE, ADD_PROCESSRATE  } from "../types/processrateTypes";
 
 const initialState = {
-    processRates: []
+    processrates: [],
+    processrate: [],
+    loading: false
 }
 
 
@@ -10,18 +12,23 @@ export default function(state = initialState, action){
         case GET_PROCESSRATES:
             return {
                 ...state,
-                processRates: action.payload
+                processrates: action.payload
             };
         case DELETE_PROCESSRATE:
             return {
                 ...state,
-                processRate: state.processRates.filter(processRate => processRate.id !== action.payload)
+                processrate: state.processRates.filter(processRate => processRate.id !== action.payload)
             };
         case ADD_PROCESSRATE:
             return {
                 ...state,
-                processRates: [...state.processRates, action.payload]
-            }
+                processrates: [...state.processRates, action.payload]
+            };
+        case GET_PROCESSRATE:
+            return {
+                ...state,
+                processrate: action.payload
+            };
         default:
             return state;
     }

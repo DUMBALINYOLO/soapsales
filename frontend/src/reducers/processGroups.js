@@ -1,7 +1,9 @@
-import { GET_PROCESSGROUPS, DELETE_PROCESSGROUP, ADD_PROCESSGROUP  } from "../types/processgroupTypes";
+import { GET_PROCESSGROUPS, GET_PROCESSGROUP, DELETE_PROCESSGROUP, ADD_PROCESSGROUP  } from "../types/processgroupTypes";
 
 const initialState = {
-    processGroups: []
+    processgroups: [],
+    processgroup: [],
+    loading: false,
 }
 
 
@@ -10,7 +12,7 @@ export default function(state = initialState, action){
         case GET_PROCESSGROUPS:
             return {
                 ...state,
-                processGroups: action.payload
+                processgroups: action.payload
             };
         case DELETE_PROCESSGROUP:
             return {
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 processGroups: [...state.processGroups, action.payload]
-            }
+            };
+        case GET_PROCESSGROUP:
+            return {
+                ...state,
+                processgroup: action.payload
+            };
         default:
             return state;
     }

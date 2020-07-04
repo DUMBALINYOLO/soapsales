@@ -129,7 +129,7 @@ class Content extends Component {
                         items: [
                             {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/account-form'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accounts'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/account-detail/:id'},
 
                         ]
                     },
@@ -138,7 +138,7 @@ class Content extends Component {
                         items: [
                             {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accounttypes'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/accounttype-detail/:id'},
 
                         ]
                     },
@@ -147,7 +147,7 @@ class Content extends Component {
                         items: [
                             {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/journals'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/journal-detail/:id'},
 
                         ]
                     },
@@ -156,7 +156,7 @@ class Content extends Component {
                         items: [
                             {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/assets'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/asset-detail/:id'},
 
                         ]
                     },
@@ -165,7 +165,7 @@ class Content extends Component {
                         items: [
                             {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accountingConfig'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/accountconfig-detail/:id'},
 
                         ]
                     },
@@ -174,7 +174,7 @@ class Content extends Component {
                         items: [
                             {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/taxes'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/'},
 
                         ]
                     },

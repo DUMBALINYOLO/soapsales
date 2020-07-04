@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_DEBITNOTE, GET_DEBITNOTES, DELETE_DEBITNOTE } from '../types/debitnoteTypes';
+import { ADD_DEBITNOTE, GET_DEBITNOTES, GET_DEBITNOTE, DELETE_DEBITNOTE } from '../types/debitnoteTypes';
 import { debitnoteURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addDebitnote = debitnote => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getDebitnote = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/inventory/debit-note/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_DEBITNOTE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

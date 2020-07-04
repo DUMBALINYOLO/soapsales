@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_TRANSACTIONS, DELETE_TRANSACTION } from '../types/transactionTypes';
+import { GET_TRANSACTIONS, GET_TRANSACTION, DELETE_TRANSACTION } from '../types/transactionTypes';
 import { transactionURL } from '../constants';
 
 
@@ -24,4 +24,15 @@ export const deleteTransaction = (id) => dispatch => {
                 payload: id
             });
         }).catch(err => console.log(err))
+}
+
+export const getTransaction = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/accounting/transactions/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_TRANSACTION,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

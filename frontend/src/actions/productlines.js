@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PRODUCTLINES, DELETE_PRODUCTLINE, ADD_PRODUCTLINE } from '../types/productlineTypes';
+import { GET_PRODUCTLINES, GET_PRODUCTLINE, DELETE_PRODUCTLINE, ADD_PRODUCTLINE } from '../types/productlineTypes';
 import { productlineURL } from '../constants';
 
 
@@ -36,4 +36,15 @@ export const addProductline = (productline) => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getProductline = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/sales/productlinecomponent/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_PRODUCTLINE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

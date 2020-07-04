@@ -14,8 +14,9 @@ import {Calendar} from 'primereact/calendar';
 import {MultiSelect} from 'primereact/multiselect';
 import {ProgressBar} from 'primereact/progressbar';
 import classNames from 'classnames';
-import { getBillMaterials} from '..//../actions/billMaterials';
+import { getBillMaterials} from '..//../actions/billmaterials';
 import "./form.css";
+
 
 
 class BillMaterials extends Component {

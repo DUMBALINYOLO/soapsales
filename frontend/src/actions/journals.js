@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
     GET_JOURNALS,
+    GET_JOURNAL,
     ADD_JOURNAL,
     DELETE_JOURNAL,
 } from "../types/journalTypes";
@@ -39,4 +40,15 @@ export const addJournals = (journal) => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getJournal = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/accounting/journal-entries/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_JOURNAL,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

@@ -11,13 +11,13 @@ import journals from "./journals"
 import invoices from "./invoices";
 import products from "./products";
 import processMachines from "./processMachines";
-import processGroups from "./processGroups";
 import billmaterials from "./billmaterials";
+import processgroups from "./processgroups";
 import bills from "./bills";
 import billpayments from "./billpayments";
-import wasteReports from "./wasteReports";
-import processRates from "./processRates";
-import process from "./process";
+import wastereports from "./wasteReports";
+import processrates from "./processRates";
+import processes from "./process";
 import processedproducts from "./processedproducts.js";
 import assets from "./assets";
 import transactions from "./transactions";
@@ -74,12 +74,12 @@ export default combineReducers({
     unitmeasures,
     orderpayments,
     processMachines,
-    processGroups,
+    processgroups,
     billmaterials,
     bills,
-    wasteReports,
-    processRates,
-    process,
+    wastereports,
+    processrates,
+    processes,
     assets,
     transactions,
     payments,

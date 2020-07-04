@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_CUSTOMER, GET_CUSTOMERS, DELETE_CUSTOMER } from '../types/customerTypes';
+import { ADD_CUSTOMER, GET_CUSTOMERS, GET_CUSTOMER, DELETE_CUSTOMER } from '../types/customerTypes';
 import { customersURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addCustomer = customer => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getCustomer = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/sales/customers/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_CUSTOMER,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

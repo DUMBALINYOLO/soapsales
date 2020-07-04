@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_PAYMENT, GET_PAYMENTS, DELETE_PAYMENT } from '../types/paymentTypes';
+import { ADD_PAYMENT, GET_PAYMENTS, GET_PAYMENT, DELETE_PAYMENT } from '../types/paymentTypes';
 import { paymentsURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addPayment = payment => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getPayment = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/sales/payments/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_PAYMENT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

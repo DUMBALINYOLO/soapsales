@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PROCESSGROUPS, DELETE_PROCESSGROUP, ADD_PROCESSGROUP } from '../types/processgroupTypes';
+import { GET_PROCESSGROUPS, GET_PROCESSGROUP, DELETE_PROCESSGROUP, ADD_PROCESSGROUP } from '../types/processgroupTypes';
 import { processgroupURL } from '../constants';
 
 
@@ -36,4 +36,15 @@ export const addProcessGroup = (processGroup) => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getProcessGroup = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/manufacture/process-machine-group/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_PROCESSGROUP,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

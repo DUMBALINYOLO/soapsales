@@ -1,7 +1,9 @@
-import { GET_PROCESSMACHINES, DELETE_PROCESSMACHINE, ADD_PROCESSMACHINE  } from "../types/processmachineTypes";
+import { GET_PROCESSMACHINES, GET_PROCESSMACHINE, DELETE_PROCESSMACHINE, ADD_PROCESSMACHINE  } from "../types/processmachineTypes";
 
 const initialState = {
-    processMachines: []
+    processmachines: [],
+    processmachine: [],
+    loading: false,
 }
 
 
@@ -10,7 +12,7 @@ export default function(state = initialState, action){
         case GET_PROCESSMACHINES:
             return {
                 ...state,
-                processMachines: action.payload
+                processmachines: action.payload
             };
         case DELETE_PROCESSMACHINE:
             return {
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 processMachines: [...state.processMachines, action.payload]
-            }
+            };
+        case GET_PROCESSMACHINE:
+            return {
+                ...state,
+                processmachine: action.payload
+            };
         default:
             return state;
     }

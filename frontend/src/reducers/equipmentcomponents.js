@@ -1,9 +1,10 @@
-import { ADD_EQUIPMENTCOMPONENT, GET_EQUIPMENTCOMPONENTS , DELETE_EQUIPMENTCOMPONENT } from '../types/equipmentcomponentTypes';
+import { ADD_EQUIPMENTCOMPONENT, GET_EQUIPMENTCOMPONENTS, GET_EQUIPMENTCOMPONENT, DELETE_EQUIPMENTCOMPONENT } from '../types/equipmentcomponentTypes';
 
 const initialState = {
-    equipmentcomponents: []
+    equipmentcomponents: [],
+    equipmentcomponent: [],
+    loading: false
 }
-
 
 export default function(state = initialState, action){
     switch(action.type){
@@ -21,7 +22,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 equipmentcomponent: [...state.equipmentcomponents, action.payload]
-            }
+            };
+        case GET_EQUIPMENTCOMPONENT:
+            return {
+                ...state,
+                equipmentcomponent: action.payload
+            };
         default:
             return state;
     }

@@ -14,53 +14,64 @@ import Default from './components/Home/Default';
 
 import Alerts from './components/alerts/Alert';
 import Content from "./dashboard/Content";
+
 // import Taxes from './components/taxes/Taxes';
 // import TaxForm from './components/taxes/TaxForm';
+// import TaxDetail from './components/taxes/TaxDetail';
+
 import Currencies from './components/currencies/Currencies';
 import CurrencyForm from './components/currencies/CurrencyForm';
+import CurrencyDetail from './components/currencies/CurrencyDetail';
 
 import Bookkeepers from './components/bookkeepers/Bookkeepers';
 import BookkeeperForm from './components/bookkeepers/BookkeeperForm';
+import BookkeeperDetail from './components/bookkeepers/BookkeeperDetail';
 
 import AccountTypes from './components/accounttypes/AccountTypes';
 import AccountTypeForm from './components/accounttypes/AccountTypeForm';
 import AccountTypeDetail from './components/accounttypes/AccountTypeDetail';
 
-
 import Form from './components/accounts/Form';
-
 
 import Orders from './components/orders/Orders';
 import OrderForm from './components/orders/OrderForm';
+import OrderDetail from './components/orders/OrderDetail';
 
 import Invoice from './components/invoices/Invoices';
 import InvoiceForm from './components/invoices/InvoiceForm';
-
+import InvoiceDetail from './components/invoices/InvoiceDetail';
 
 import Salesrep from './components/salesreps/Salesrep';
 import SalesrepForm from './components/salesreps/SalesrepForm';
+import SalesrepDetail from './components/salesreps/SalesrepDetail';
 
 import Customers from './components/customers/Customers';
 import CustomerForm from './components/customers/CustomerForm';
+import CustomerDetail from './components/customers/CustomerDetail';
 
 import Pricinggroup from './components/pricinggroups/Pricinggroup';
 import PricinggroupForm from './components/pricinggroups/PricinggroupForm';
+import PricinggroupDetail from './components/pricinggroups/PricinggroupDetail';
 
 import Unitmeasure from './components/unitmeasure/Unitmeasure';
 import UnitmeasureForm from './components/unitmeasure/UnitmeasureForm';
+import UnitmeasureDetail from './components/unitmeasure/UnitmeasureDetail';
 
 import Orderpayments from './components/orderpayments/Orderpayments';
 import OrderpaymentForm from './components/orderpayments/OrderpaymentForm';
+import OrderpaymentDetail from './components/orderpayments/OrderpaymentDetail';
 
 import Payments from './components/payments/Payments';
 import PaymentForm from './components/payments/PaymentForm';
+import PaymentDetail from './components/payments/PaymentDetail';
 
 import Debitnotes from './components/debitnotes/Debitnotes';
 import DebitnotesForm from './components/debitnotes/DebitnoteForm';
+import DebitnoteDetail from './components/debitnotes/DebitnoteDetail';
 
 import Creditnotes from './components/creditnotes/Creditnotes';
 import CreditnotesForm from './components/creditnotes/CreditnoteForm';
-
+import CreditnoteDetail from './components/creditnotes/CreditnoteDetail';
 
 import AccountingConfig from './components/accountingConfig/AccountingConfig';
 import AccountingConfigForm from './components/accountingConfig/AccountingConfigForm';
@@ -69,20 +80,24 @@ import AccountConfigDetail from "./components/accountingConfig/AccountingDetail"
 
 import Accounts from './components/accounts/Accounts';
 import AccountForm from './components/accounts/AccountForm';
+import AccountDetail from './components/accounts/AccountDetail';
 
 
 import Products from "./components/Products/products";
 import ProductForm from './components/Products/productForm';
-import ProductDetails from "./components/Products/details";
+import ProductDetail from "./components/Products/ProductDetail";
 
 
 import Productline from "./components/productline/Productline";
 import ProductlineForm from './components/productline/ProductlineForm';
+import ProductlineDetail from "./components/productline/ProductlineDetail";
 
 import ProcessMachines from "./components/machines/processMachines";
+import ProcessMachineDetail from "./components/machines/processMachineDetail";
 
 import ProcessGroups from "./components/machinegroup/processGroups";
 import ProcessGroupForm from './components/machinegroup/processGroupForm';
+import ProcessGroupDetail from "./components/machinegroup/processGroupDetail";
 
 
 
@@ -90,31 +105,39 @@ import ProcessGroupForm from './components/machinegroup/processGroupForm';
 import BillMaterials from "./components/billmaterials/billMaterials";
 import BillMaterialDetail from "./components/billmaterials/billMaterialDetail";
 
-
 import WasteReports from "./components/wastes/wasteReports";
 import WasteReportForm from './components/wastes/wasteForm';
+import WasteReportDetail from "./components/wastes/wasteReportDetail";
 
 import ProcessRates from "./components/processrate/processRates";
 import ProcessRateForm from './components/processrate/processRateForm';
+import ProcessRateDetail from "./components/processrate/processRateDetail";
+
 import { loadUser } from "./actions/auth";
+
 import Process from "./components/Process/process";
 import ProcessForm from './components/Process/processForm';
+import ProcessDetail from "./components/Process/processDetail";
 
 import Assets from "./components/assets/Assets";
 import AssetForm from './components/assets/AssetForm';
 import AssetDetail from "./components/assets/AssetDetail";
 
-
 import Transactions from "./components/transactions/Transactions";
+import TransactionDetail from "./components/transactions/TransactionDetail";
 
 import Inventorycontroller from './components/inventorycontrollers/Inventorycontroller';
 import InventorycontrollerForm from './components/inventorycontrollers/InventorycontrollerForm';
+import InventorycontrollerDetail from './components/inventorycontrollers/InventorycontrollerDetail';
 
 import Inventorycategory from './components/inventorycategory/Inventorycategory';
 import InventorycategoryForm from './components/inventorycategory/InventorycategoryForm';
+import InventorycategoryDetail from './components/inventorycategory/InventorycategoryDetail';
 
 import Processproduct from "./components/processedproducts/Processedproduct";
 import ProcessproductForm from './components/processedproducts/ProcessedproductForm';
+import ProcessedproductDetail from "./components/processedproducts/ProcessedproductDetail";
+
 import Mali from './components/table/Mali';
 import Thebuli from './components/table/Thebuli';
 import MainTab from './components/configurations/MainConfig';
@@ -122,18 +145,27 @@ import MainTab from './components/configurations/MainConfig';
 import Register from "./components/employees/Register";
 import Login from "./components/employees/Login";
 import PrivateRoute from "./components/common/PrivateRoute";
-import AccountDetail from "./components/accounts/AccountDetail";
 
 import Journals from "./components/journals/Journals";
+import JournalDetail from "./components/journals/JournalDetail";
 
 import BillPayments from "./components/billpayment/Billpayments";
 import BillPaymentDetail from "./components/billpayment/BillpaymentDetail";
 
 import Bills from "./components/bills/Bills";
 import BillDetail from "./components/bills/BillDetail";
+
+import EquipmentComponents from "./components/equipmentcomponent/equipmentcomponents";
+import EquipmentComponentDetail from "./components/equipmentcomponent/equipmentcomponentDetail";
+
 import Inventoryitems from "./components/inventoryitem/Inventoryitems";
+import InventoryitemDetail from "./components/inventoryitem/InventoryitemDetail";
+
 import Productionorders from "./components/productionorder/Productionorders";
+import ProductionorderDetail from "./components/productionorder/ProductionorderDetail";
+
 import Processproducts from "./components/processproduct/Processproduct";
+import ProcessproductDetail from "./components/processproduct/ProcessproductDetail";
 
 
 //Alert Options
@@ -160,7 +192,6 @@ class App extends Component {
 							<Route exact path='/dashboard' component={Content} />
 							<Route exact path='/products' component={Products} />
 							<Route exact path='/productsForm' component={ProductForm} />
-							<Route exact path='/productdetails' component={ProductDetails} />
 							<Route exact path='/processMachines' component={ProcessMachines} />
 							<Route exact path='/processGroups' component={ProcessGroups} />
 							<Route exact path='/processGroupForm' component={ProcessGroupForm} />
@@ -169,7 +200,6 @@ class App extends Component {
 							<Route exact path='/billpayments' component={BillPayments} />
 							<Route exact path='/bills' component={Bills} />
 
-							<Route exact path='/bill-detail/:id' component={BillDetail} />
 
 							<Route exact path='/billpayment-detail/:id' component={BillPaymentDetail} />
 							<Route exact path='/mali' component={Mali} />
@@ -245,6 +275,7 @@ class App extends Component {
 							<Route exact path='/productlines' component={Productline} />
 							<Route exact path='/processproducts' component={Processproducts} />
 							<Route exact path='/productline-form' component={ProductlineForm} />
+
 							<Route component={Default} />
 						</Switch>
 					</Fragment>

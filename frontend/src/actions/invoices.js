@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_INVOICE, GET_INVOICES, DELETE_INVOICE } from '../types/invoiceTypes';
+import { ADD_INVOICE, GET_INVOICES, GET_INVOICE, DELETE_INVOICE } from '../types/invoiceTypes';
 import { invoicesURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addInvoice = invoice => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getInvoice = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/sales/invoices/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_INVOICE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }
