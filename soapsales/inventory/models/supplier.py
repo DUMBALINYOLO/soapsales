@@ -73,20 +73,22 @@ class Supplier(models.Model):
         return 0
 
     def create_account(self):
-        if self.account is None:
-            n_suppliers = Supplier.objects.all().count()
-            #will overwrite if error occurs
-            self.account = Account.objects.create(
-                name= "Vendor: %s" % self.name,
-                id = 2100 + n_suppliers + 1, # the + 1 for the default supplier
-                initial_balance = 0,
-                order  = 2,
-                is_active = False,
-                is_contra = False,
-                description = 'Account which represents debt owed to a Vendor',
-            )
+        n_suppliers = Supplier.objects.all().count() 
+        #will overwrite if error occurs
+        self.account = Account.objects.create(
+            name= "Vendor: %s" % self.name,
+            id = 2100 + n_suppliers + 1, # the + 1 for the default supplier
+            initial_balance = 0,
+            order  = 2,
+            is_active = False,
+            is_contra = False,
+            description = 'Account which represents debt owed to a Vendor',
+        )
 
     def save(self, *args, **kwargs):
         if self.account is None:
             self.create_account()
         super(Supplier, self).save(*args, **kwargs)
+
+
+

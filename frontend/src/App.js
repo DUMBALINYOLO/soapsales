@@ -80,7 +80,7 @@ import Productline from "./components/productline/Productline";
 import ProductlineForm from './components/productline/ProductlineForm';
 
 import ProcessMachines from "./components/machines/processMachines";
-
+import ProcessMachineForm from "./components/machines/processMachineForm";
 import ProcessGroups from "./components/machinegroup/processGroups";
 import ProcessGroupForm from './components/machinegroup/processGroupForm';
 
@@ -162,8 +162,9 @@ class App extends Component {
 							<Route exact path='/productsForm' component={ProductForm} />
 							<Route exact path='/productdetails' component={ProductDetails} />
 							<Route exact path='/processMachines' component={ProcessMachines} />
+							<Route exact path='/process-machine-create' component={ProcessMachineForm} />
 							<Route exact path='/processGroups' component={ProcessGroups} />
-							<Route exact path='/processGroupForm' component={ProcessGroupForm} />
+							<Route exact path='/process-machine-group-create' component={ProcessGroupForm} />
 							<Route exact path='/billmaterials' component={BillMaterials} />
 							<Route exact path='/billmaterial-detail/:id' component={BillMaterialDetail} />
 							<Route exact path='/billpayments' component={BillPayments} />

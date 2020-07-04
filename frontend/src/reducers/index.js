@@ -11,7 +11,7 @@ import journals from "./journals"
 import invoices from "./invoices";
 import products from "./products";
 import processMachines from "./processMachines";
-import processGroups from "./processGroups";
+import processgroups from "./processgroups";
 import billmaterials from "./billmaterials";
 import bills from "./bills";
 import billpayments from "./billpayments";
@@ -74,7 +74,7 @@ export default combineReducers({
     unitmeasures,
     orderpayments,
     processMachines,
-    processGroups,
+    processgroups,
     billmaterials,
     bills,
     wasteReports,

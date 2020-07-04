@@ -24,18 +24,18 @@ from inventory.models import UnitOfMeasure
 class ProcessMachineViewset(ModelViewSet):
     queryset = ProcessMachine.objects.all() # call prefetch related in the Model Manager
     serializer_class = ProcessMachineSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
 
 
 class ProcessMachineGroupViewset(ModelViewSet):
     queryset = ProcessMachineGroup.objects.all() # call prefetch related in the Model Manager
     serializer_class = ProcessMachineGroupSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
     def get_serializer_class(self):
         if self.action == 'create':

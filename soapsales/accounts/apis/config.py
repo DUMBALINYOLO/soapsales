@@ -37,9 +37,9 @@ class TaxViewset(viewsets.ModelViewSet):
 class CurrencyViewset(viewsets.ModelViewSet):
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
 
 class BookkeeperViewset(viewsets.ModelViewSet):

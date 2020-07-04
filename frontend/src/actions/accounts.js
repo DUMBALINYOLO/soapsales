@@ -10,20 +10,33 @@ import { accountsURL } from '../constants';
 import { tokenConfig } from "./auth";
 
 // Get
-export const getAccounts = () =>(dispatch, getState)=> {
-    axios.get(accountsURL, tokenConfig(getState))
+// export const getAccounts = () =>(dispatch, getState)=> {
+//     axios.get(accountsURL, tokenConfig(getState))
+//         .then(res => {
+//             dispatch({
+//                 type: GET_ACCOUNTS ,
+//                 payload: res.data
+//             });
+//         }).catch(err => console.log(err))
+
+// }
+
+export const getAccounts = () => dispatch => {
+    axios.get(accountsURL)
         .then(res => {
             dispatch({
-                type: GET_ACCOUNTS ,
+                type: GET_ACCOUNTS,
                 payload: res.data
             });
         }).catch(err => console.log(err))
 }
 
+
 //Delete
 
-export const deleteAccount = (id) => (dispatch, getState) => {
-    axios.delete(accountsURL, id, tokenConfig(getState))
+
+export const deleteAccount = (id) => dispatch => {
+    axios.delete(accountsURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_ACCOUNT,
@@ -31,6 +44,7 @@ export const deleteAccount = (id) => (dispatch, getState) => {
             });
         }).catch(err => console.log(err))
 }
+
 
 
 // Add
