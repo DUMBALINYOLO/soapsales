@@ -136,11 +136,7 @@ class Customers extends Component {
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                     <Column selectionMode="multiple" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="is_organization" header="Is Organization" sortable filter filterPlaceholder="Search by Is Organization" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="billing_address" header="Billing Address" sortable filter filterPlaceholder="Search by Billing Address" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="banking_details" header="Banking Details" sortable filter filterPlaceholder="Search by Banking Details" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="website" header="Website" sortable filter filterPlaceholder="Search by Website" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="bp_number" header="Bp Number" sortable filter filterPlaceholder="Search by Bp Number" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
+                    <Column field="name" header="Name" sortable filter filterPlaceholder="Search by Name" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="email" header="Email" sortable filter filterPlaceholder="Search by Email" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="phone" header="Phone" sortable filter filterPlaceholder="Search by Phone" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column body={this.actionBodyTemplate} headerStyle={{width: '8em', textAlign: 'center', backgroundColor: '#4c6b75'}} bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4c6b75'}} />

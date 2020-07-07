@@ -45,6 +45,7 @@ class ProcessGroups extends Component {
 
     componentDidMount() {
         this.props.getProcessGroups();
+        console.log(this.props.processgroups)
     }
 
     renderHeader() {
@@ -134,7 +135,6 @@ class ProcessGroups extends Component {
                     <Column selectionMode="multiple" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column field="name" header="name" sortable filter filterPlaceholder="Search by Name" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="machines" header="Machines" sortable filter filterPlaceholder="Search by Machines" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
                     <Column body={this.actionBodyTemplate} headerStyle={{width: '8em', textAlign: 'center', backgroundColor: '#4c6b75'}} bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4c6b75'}} />
                 </DataTable>
             </div>

@@ -23,15 +23,35 @@ class DebitnoteDetail extends Component {
 		const { debitnote } = this.props;
 
         return (
-        	<Fragment>
-	            <div>
-	            	<h1 style={{color: "white"}}>Debit Note Details</h1>
-	            	<h1>ID: { debitnote.id } </h1>
-                    <h1>DATE: { debitnote.date } </h1>
-                    <h1>ORDER: { debitnote.order } </h1>
-                    <h1>ENTRY: {debitnote.entry}</h1>
+			<div className="container py-5">
+				<div className="row justify-content-center">
+					<div className="col-10 mx-auto text-center text-slanted text-blue my-5">
+						<h1>Debit Note Details</h1>
+					</div>
+				</div>
+				<div className="row">
+				<div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					ID: <span className="text-uppercase">{ debitnote.id }</span>
+					</h4>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					ORDER: <span className="text-uppercase">{ debitnote.order }</span>
+					</h4>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					RETURNED ITEMS: <span className="text-uppercase">{debitnote.returned_items}</span>
+					</h4>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					RETURNED TOTALS: <span className="text-uppercase">{ debitnote.returned_total }</span>
+					</h4>
+					<p className="text-capitalize font-weight-bold mt-3 mb-0">
+					COMMENTS :</p>
+					<p className="text-muted lead">{debitnote.comments }</p>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					Date: <span className="text-uppercase">{debitnote.date}</span>
+					</h4>
 	            </div>
-            </Fragment>
+	            </div>
+            </div>
         );
     }
 }

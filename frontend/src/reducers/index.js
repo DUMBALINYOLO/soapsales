@@ -6,7 +6,7 @@ import errors from './errors';
 import bookkeepers from './bookkeepers';
 import accounttypes from './accounttypes';
 import accounts from './accounts';
-import salesrep from "./salesrep";
+import salesreps from "./salesreps";
 import journals from "./journals"
 import invoices from "./invoices";
 import products from "./products";
@@ -16,7 +16,7 @@ import processgroups from "./processgroups";
 import bills from "./bills";
 import billpayments from "./billpayments";
 import wastereports from "./wasteReports";
-import processrates from "./processRates";
+import processrates from "./processrates";
 import processes from "./process";
 import processedproducts from "./processedproducts.js";
 import assets from "./assets";
@@ -55,7 +55,7 @@ export default combineReducers({
     //equipmemtcomponents,
     billpayments,
     inventoryitems,
-    salesrep,
+    salesreps,
     bookkeepers,
     processproducts,
     pricinggroup,

@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {ProgressSpinner} from 'primereact/progressspinner';
 import { getAccountType } from '..//../actions/accounttypes';
-
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import './index.css';
+import {Card} from 'primereact/card';
+import {Button} from 'primereact/button';
 
 
 
@@ -21,19 +27,25 @@ class AccountTypeDetail extends Component {
 
 	render() {
 		const { accounttype } = this.props;
+		const footer = (
+            <span>
+                <Button label="Edit" icon="pi pi-pencil" style={{marginRight: '3.5em'}} className="p-button-warning p-button-rounded" />
+                <Button label="Delete" icon="pi pi-trash" className="p-button-danger p-button-rounded" />
+            </span>
+        );
 
         return (
-        	<Fragment>
-	            <div>
-	            	<h1 style={{color: "white"}}>Account Types</h1>
-	            	<h1>ID: { accounttype.id } </h1>
-                    <h1>CATEGORY: { accounttype.category } </h1>
-                    <h1>CLASSIFICATION: { accounttype.classification } </h1>
-                    <h1>NAME: { accounttype.name } </h1>
-                    <h1>ORDER: { accounttype.order } </h1>
-                    <h1>STARTING NUMBER: { accounttype.starting_number } </h1>
-	            </div>
-            </Fragment>
+			<div className="main">
+                <Card style={{color: '#666699',width: '400px', borderRadius: '25px', height: '500px', padding: '20px'}} footer={footer}>
+					<h2 style={{textShadow: "2px 2px teal"}}>Account Types Details</h2>
+					<div style={{margin: '1em', fontSize: '14px'}}>ID: { accounttype.id }</div>
+					<div style={{margin: '2em'}}>CATEGORY: { accounttype.category }</div>
+					<div  style={{margin: '2em'}}>CLASSIFICATION: { accounttype.classification }</div>
+					<div style={{margin: '2em'}}>NAME: { accounttype.name }</div>
+					<div style={{margin: '2em'}}>ORDER: { accounttype.order }</div>
+					<div style={{margin: '2em'}}>STARTING NUMBER: { accounttype.starting_number }</div>
+                </Card>
+            </div>
         );
     }
 }

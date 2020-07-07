@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+
 from django.db import models
 '''
 A manufacturing process has involves the transformation of
@@ -237,10 +238,10 @@ class ProcessMachineGroup(models.Model):
 class ProcessMachine(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    date_commissioned = models.DateField()
+    date_commissioned = models.DateTimeField(auto_now_add=True)
     machine_group = models.ForeignKey(
         'manufacture.ProcessMachineGroup',
-        on_delete=models.PROTECT,
+        on_delete=models.PROTECT
         )
 
     def __str__(self):

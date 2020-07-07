@@ -17,11 +17,12 @@ import Content from "./dashboard/Content";
 
 // import Taxes from './components/taxes/Taxes';
 // import TaxForm from './components/taxes/TaxForm';
-// import TaxDetail from './components/taxes/TaxDetail';
+//import TaxDetail from './components/taxes/TaxDetail';
 
 import Currencies from './components/currencies/Currencies';
 import CurrencyForm from './components/currencies/CurrencyForm';
 import CurrencyDetail from './components/currencies/CurrencyDetail';
+
 
 import Bookkeepers from './components/bookkeepers/Bookkeepers';
 import BookkeeperForm from './components/bookkeepers/BookkeeperForm';
@@ -31,7 +32,8 @@ import AccountTypes from './components/accounttypes/AccountTypes';
 import AccountTypeForm from './components/accounttypes/AccountTypeForm';
 import AccountTypeDetail from './components/accounttypes/AccountTypeDetail';
 
-import Form from './components/accounts/Form';
+import Form from './components/accounts/testForm';
+
 
 import Orders from './components/orders/Orders';
 import OrderForm from './components/orders/OrderForm';
@@ -95,6 +97,7 @@ import ProductlineDetail from "./components/productline/ProductlineDetail";
 import ProcessMachines from "./components/machines/processMachines";
 import ProcessMachineDetail from "./components/machines/processMachineDetail";
 
+import ProcessMachineForm from "./components/machines/processMachineForm";
 import ProcessGroups from "./components/machinegroup/processGroups";
 import ProcessGroupForm from './components/machinegroup/processGroupForm';
 import ProcessGroupDetail from "./components/machinegroup/processGroupDetail";
@@ -189,12 +192,15 @@ class App extends Component {
 						< Alerts />
 						<Switch>
 							<Route exact path='/' component={Home} />
+							<Route exact path='/form' component={Form} />
+
 							<Route exact path='/dashboard' component={Content} />
 							<Route exact path='/products' component={Products} />
 							<Route exact path='/productsForm' component={ProductForm} />
 							<Route exact path='/processMachines' component={ProcessMachines} />
+							<Route exact path='/process-machine-create' component={ProcessMachineForm} />
 							<Route exact path='/processGroups' component={ProcessGroups} />
-							<Route exact path='/processGroupForm' component={ProcessGroupForm} />
+							<Route exact path='/process-machine-group-create' component={ProcessGroupForm} />
 							<Route exact path='/billmaterials' component={BillMaterials} />
 							<Route exact path='/billmaterial-detail/:id' component={BillMaterialDetail} />
 							<Route exact path='/billpayments' component={BillPayments} />
@@ -219,6 +225,8 @@ class App extends Component {
 							<Route exact path='/processproduct-form' component={ProcessproductForm} />
 							<Route exact path='/products' component={Products} />
 							<Route exact path='/productionorders' component={Productionorders} />
+							<Route exact path='/product-detail/:id' component={ProductDetail} />
+
 							<Route exact path='/productsForm' component={ProductForm} />
 							<Route exact path='/processmachines' component={ProcessMachines} />
 							<Route exact path='/processgroups' component={ProcessGroups} />
@@ -234,6 +242,8 @@ class App extends Component {
 							<Route exact path='/transactions' component={Transactions} />
 							<Route exact path='/currencies' component={Currencies} />
 							<Route exact path='/currency-form' component={CurrencyForm} />
+							<Route exact path='/currency-detail/:id' component={CurrencyDetail} />
+
 							<Route exact path='/bookkeepers' component={Bookkeepers} />
 							<Route exact path='/bookkeeper-form' component={BookkeeperForm} />
 							<Route exact path='/accounttypes' component={AccountTypes} />
@@ -249,6 +259,8 @@ class App extends Component {
 							<Route exact path='/debitnote-form' component={DebitnotesForm} />
 							<Route exact path='/creditnotes' component={Creditnotes} />
 							<Route exact path='/creditnote-form' component={CreditnotesForm} />
+							<Route exact path='/creditnote-detail/:id' component={CreditnoteDetail} />
+
 							<Route exact path='/orders' component={Orders} />
 							<Route exact path='/order-form' component={OrderForm} />
 							<Route exact path='/orderpayments' component={Orderpayments} />
@@ -268,6 +280,8 @@ class App extends Component {
 							<Route exact path='/payment-form' component={PaymentForm} />
 							<Route exact path='/sales-rep' component={Salesrep} />
 							<Route exact path='/salesrep-form' component={SalesrepForm} />
+							<Route exact path='/salesrep-detail/:id' component={SalesrepDetail} />
+
 							<Route exact path='/invoices' component={Invoice} />
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/login' component={Login} />

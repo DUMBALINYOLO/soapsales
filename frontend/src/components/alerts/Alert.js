@@ -14,6 +14,14 @@ export class Alerts extends Component {
     if (error !== prevProps.error) {
       if (error.msg.name) alert.error(`Name: ${error.msg.name.join()}`);
       if (error.msg.rate) alert.error(`Rate: ${error.msg.rate.join()}`);
+      if (error.msg.account_type) alert.error(`Accouttype: ${error.msg.account_type.join()}`);
+      if (error.msg.name) alert.error(`Name: ${error.msg.name.join()}`);
+      if (error.msg.description) alert.error(`Description: ${error.msg.description.join()}`);
+      if (error.msg.initial_balance) alert.error(`Initial Balance: ${error.msg.initial_balance.join()}`);
+      if (error.msg.is_active) alert.error(`Is Active: ${error.msg.is_active.join()}`);
+      if (error.msg.is_contra) alert.error(`Is Contra: ${error.msg.is_contra.join()}`);
+      if (error.msg.order) alert.error(`Order: ${error.msg.order.join()}`);
+
       if (error.msg.non_field_errors) alert.error(error.msg.non_field_errors.join());
     }
 

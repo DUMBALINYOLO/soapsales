@@ -23,17 +23,36 @@ class InventorycategoryDetail extends Component {
 		const { inventorycategory } = this.props;
 
         return (
-        	<Fragment>
-	            <div>
-	            	<h1 style={{color: "white"}}>Inventory Category Details</h1>
-	            	<h1>ID: { inventorycategory.id } </h1>
-                    <h1>NAME: { inventorycategory.name } </h1>
-                    <h1>PARENT: { inventorycategory.parent } </h1>
+			<div className="container py-5">
+				<div className="row justify-content-center">
+					<div className="col-10 mx-auto text-center text-slanted text-blue my-5">
+						<h1>Inventory Category Details</h1>
+					</div>
+				</div>
+				<div className="row">
+				<div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					ID: <span className="text-uppercase">{ inventorycategory.id }</span>
+					</h4>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					NAME: <span className="text-uppercase">{ inventorycategory.name }</span>
+					</h4>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					PARENT: <span className="text-uppercase">{ inventorycategory.parent }</span>
+					</h4>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					CHILDREN: <span className="text-uppercase">{ inventorycategory.children }</span>
+					</h4>
+					<p className="text-capitalize font-weight-bold mt-3 mb-0">
+					DESCRIPTION :</p>
+					<p className="text-muted lead">{inventorycategory.description }</p>
 	            </div>
-            </Fragment>
+	            </div>
+            </div>
         );
     }
 }
+
 
 
 const mapStateToProps = state =>({

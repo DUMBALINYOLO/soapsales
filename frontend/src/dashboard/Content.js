@@ -345,7 +345,7 @@ class Content extends Component {
                         items: [
                             {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/products'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/product-detail/:id'},
 
                         ]
                     },

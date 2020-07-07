@@ -39,12 +39,12 @@ class Customer(SoftDeletionModel):
         return self.name
 
     def create_customer_account(self):
-        n_customers = Customer.objects.all().count() + 1
+        n_customers = Customer.objects.all().count() 
         self.account = Account.objects.create(
                 name= "Customer: %s" % self.name,
                 initial_balance =0,
                 order  = 2,
-                id= 1100 + n_customers,
+                id= 1100 + n_customers + 20,
                 is_active = False,
                 is_contra = False,
                 description = 'Account which represents credit extended to a customer',
