@@ -34,6 +34,7 @@ export const productsURL= `${endpoint}/manufacture/products/`
 export const salesrepURL= `${endpoint}/sales/sales-reps/`
 export const transactionURL= `${endpoint}/accounting/transactions/`
 export const unitmeasureURL= `${endpoint}/inventory/unit-of-measure/`
+export const suppliersURL= `${endpoint}/inventory/suppliers/`
 export const wastereportURL= `${endpoint}/manufacture/waste-generation-reports/`
 
 export const billpaymentsURL = `${endpoint}/accounting/bill-payments/`

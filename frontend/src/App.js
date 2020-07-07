@@ -134,6 +134,8 @@ import BillDetail from "./components/bills/BillDetail";
 import Inventoryitems from "./components/inventoryitem/Inventoryitems";
 import Productionorders from "./components/productionorder/Productionorders";
 import Processproducts from "./components/processproduct/Processproduct";
+import InvoiceExample from "./components/nestedforms/NestedForm";
+import Dashboard from './dashboard/components/Dashboard';
 
 
 //Alert Options
@@ -153,11 +155,12 @@ class App extends Component {
 			<Provider store={store}>
 				<AlertProvider template={AlertTemplate} {...alertOptions} >
 					<Fragment>
-						< Home />
 						< Alerts />
 						<Switch>
 							<Route exact path='/' component={Home} />
 							<Route exact path='/dashboard' component={Content} />
+							<Route exact path='/dash-view' component={Dashboard} />
+							<Route exact path='/test-form' component={InvoiceExample} />
 							<Route exact path='/products' component={Products} />
 							<Route exact path='/productsForm' component={ProductForm} />
 							<Route exact path='/productdetails' component={ProductDetails} />

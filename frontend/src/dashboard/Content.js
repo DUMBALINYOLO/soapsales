@@ -83,7 +83,7 @@ class Content extends Component {
 
     createMenu() {
         this.menu = [
-            {label: 'Dashboard', icon: 'pi pi-fw pi-home', command: () => {window.location = '#/'}},
+            {label: 'Dashboard', icon: 'pi pi-fw pi-home', command: () => {window.location = '#/dash-view'}},
             {
                 label: 'Menu Modes', icon: 'pi pi-fw pi-cog',
                 items: [
@@ -512,9 +512,7 @@ class Content extends Component {
                     <AppMenu model={this.menu} onMenuItemClick={this.onMenuItemClick} />
                 </div>
 
-                <div className="layout-main">
-                    <Route exact path="/" component={Dashboard} />
-                </div>
+                <Dashboard />
 
                 <AppFooter />
 

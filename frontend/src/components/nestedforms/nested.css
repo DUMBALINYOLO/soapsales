@@ -1,0 +1,14 @@
+.box{
+  margin-bottom: 10px;
+}
+.btn-box {
+  margin-left: 10px;
+  width: 200px;
+  display: inline-block;
+}
+.ml10 {
+  margin-left: 10px;
+}
+.mr10 {
+  margin-right: 10px;
+}

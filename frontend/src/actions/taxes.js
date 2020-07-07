@@ -3,7 +3,8 @@ import { createMessage } from './messages';
 import { 
         GET_TAXES, 
         DELETE_TAX, 
-        ADD_TAX, GET_ERRORS 
+        ADD_TAX, 
+        GET_ERRORS 
     } from './types';
 
 
