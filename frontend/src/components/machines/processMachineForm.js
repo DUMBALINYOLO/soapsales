@@ -78,7 +78,6 @@ export class ProcessMachineForm extends Component{
                         options={this.props.processgroups}
                         onChange={this.onChange}
                         placeholder="Select Your Group"
-                        optionLabel="name"
                         showClear= {true}
                     />
                   </div>

@@ -8,7 +8,7 @@
 
 body{
     font-family: 'Oswald', sans-serif !important;
-    background: #140425 !important;
+    background: teal !important;
     color: grey !important;
 }
 
@@ -33,3 +33,17 @@ body{
     width:400px;
     border-spacing:10px;
 }
+
+.datatable-fancy-icons{
+    display: flex;
+}
+
+.fancy-icons{
+  width: 50px;
+  height: 50px;
+  margin: 0 5px;
+}
+
+/*.table-head{
+    background: #4EB08E;
+}*/

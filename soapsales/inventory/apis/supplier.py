@@ -10,9 +10,9 @@ from inventory.serializers import (
 
 class SupplierViewSet(viewsets.ModelViewSet):
 	queryset = Supplier.objects.all()
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 
 	def get_serializer_class(self):
 		if self.action in ['create', 'put']:

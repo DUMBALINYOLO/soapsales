@@ -13,9 +13,9 @@ from accounts.serializers import (
 
 class BillViewset(ModelViewSet):
     queryset = Bill.objects.all()
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
 
     def get_serializer_class(self):

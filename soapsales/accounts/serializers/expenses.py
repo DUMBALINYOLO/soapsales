@@ -18,7 +18,9 @@ class BillLineSerializer(serializers.ModelSerializer):
 
 
 class BillCreateSerializer(serializers.ModelSerializer):
-    lines = BillLineSerializer(many=True, write_only=True)
+    lines = BillLineSerializer(many=True, required=False, write_only=True)
+    date = serializers.DateField(format=None, input_formats=None)
+    due = serializers.DateField(format=None, input_formats=None)
 
 
     class Meta:

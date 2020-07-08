@@ -39,6 +39,7 @@ import creditnotes from "./creditnotes";
 import customers from "./customers";
 import payments from "./payments";
 import messages from "./messages";
+import suppliers from "./suppliers";
 
 
 
@@ -84,5 +85,6 @@ export default combineReducers({
     transactions,
     payments,
     messages,
+    suppliers,
 
 });

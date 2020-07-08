@@ -129,6 +129,7 @@ import AssetDetail from "./components/assets/AssetDetail";
 import Transactions from "./components/transactions/Transactions";
 import TransactionDetail from "./components/transactions/TransactionDetail";
 
+
 import Inventorycontroller from './components/inventorycontrollers/Inventorycontroller';
 import InventorycontrollerForm from './components/inventorycontrollers/InventorycontrollerForm';
 import InventorycontrollerDetail from './components/inventorycontrollers/InventorycontrollerDetail';
@@ -170,6 +171,9 @@ import ProductionorderDetail from "./components/productionorder/ProductionorderD
 import Processproducts from "./components/processproduct/Processproduct";
 import ProcessproductDetail from "./components/processproduct/ProcessproductDetail";
 
+import InvoiceExample from "./components/nestedforms/NestedForm";
+import Dashboard from './dashboard/components/Dashboard';
+
 
 //Alert Options
 const alertOptions = {
@@ -188,107 +192,130 @@ class App extends Component {
 			<Provider store={store}>
 				<AlertProvider template={AlertTemplate} {...alertOptions} >
 					<Fragment>
-						< Home />
 						< Alerts />
 						<Switch>
 							<Route exact path='/' component={Home} />
 							<Route exact path='/form' component={Form} />
 
 							<Route exact path='/dashboard' component={Content} />
-							<Route exact path='/products' component={Products} />
-							<Route exact path='/productsForm' component={ProductForm} />
-							<Route exact path='/processMachines' component={ProcessMachines} />
+							<Route exact path='/dash-view' component={Dashboard} />
+							<Route exact path='/test-form' component={InvoiceExample} />
+
+							<Route exact path='/processmachines' component={ProcessMachines} />
 							<Route exact path='/process-machine-create' component={ProcessMachineForm} />
-							<Route exact path='/processGroups' component={ProcessGroups} />
+
 							<Route exact path='/process-machine-group-create' component={ProcessGroupForm} />
+							<Route exact path='/processgroups' component={ProcessGroups} />
+
+
 							<Route exact path='/billmaterials' component={BillMaterials} />
 							<Route exact path='/billmaterial-detail/:id' component={BillMaterialDetail} />
-							<Route exact path='/billpayments' component={BillPayments} />
+
 							<Route exact path='/bills' component={Bills} />
 
 
+							<Route exact path='/billpayments' component={BillPayments} />
 							<Route exact path='/billpayment-detail/:id' component={BillPaymentDetail} />
+
 							<Route exact path='/mali' component={Mali} />
 							<Route exact path='/table' component={Thebuli} />
 							<Route exact path='/journals' component={Journals} />
 							<Route exact path='/tab' component={MainTab} />
-							<Route exact path='/waste' component={WasteReports} />
-							<Route exact path='/waste-report' component={WasteReportForm} />
+
 							<Route exact path='/process-rate' component={ProcessRates} />
 							<Route exact path='/process-rate-form' component={ProcessRateForm} />
-							<Route exact path='/process' component={Process} />
-							<Route exact path='/process-form' component={ProcessForm} />
+
+
 							<Route exact path='/assets' component={Assets} />
 							<Route exact path='/asset-form' component={AssetForm} />
 							<Route exact path='/asset-detail/:id' component={AssetDetail} />
+
 							<Route exact path='/processproducts' component={Processproduct} />
 							<Route exact path='/processproduct-form' component={ProcessproductForm} />
-							<Route exact path='/products' component={Products} />
-							<Route exact path='/productionorders' component={Productionorders} />
-							<Route exact path='/product-detail/:id' component={ProductDetail} />
 
+							<Route exact path='/productionorders' component={Productionorders} />
+
+							<Route exact path='/products' component={Products} />
+							<Route exact path='/product-detail/:id' component={ProductDetail} />
 							<Route exact path='/productsForm' component={ProductForm} />
-							<Route exact path='/processmachines' component={ProcessMachines} />
-							<Route exact path='/processgroups' component={ProcessGroups} />
-							<Route exact path='/processGroupForm' component={ProcessGroupForm} />
+
 							<Route exact path='/waste' component={WasteReports} />
 							<Route exact path='/waste-report' component={WasteReportForm} />
-							<Route exact path='/processrates' component={ProcessRates} />
-							<Route exact path='/process-rate-form' component={ProcessRateForm} />
+							<Route exact path='/waste-report-detail/:id' component={WasteReportDetail} />
+
 							<Route exact path='/process' component={Process} />
 							<Route exact path='/process-form' component={ProcessForm} />
-							<Route exact path='/assets' component={Assets} />
-							<Route exact path='/asset-form' component={AssetForm} />
+
 							<Route exact path='/transactions' component={Transactions} />
+
 							<Route exact path='/currencies' component={Currencies} />
 							<Route exact path='/currency-form' component={CurrencyForm} />
 							<Route exact path='/currency-detail/:id' component={CurrencyDetail} />
 
 							<Route exact path='/bookkeepers' component={Bookkeepers} />
 							<Route exact path='/bookkeeper-form' component={BookkeeperForm} />
+
 							<Route exact path='/accounttypes' component={AccountTypes} />
 							<Route exact path='/accounttype-form' component={AccountTypeForm} />
 							<Route exact path='/accounttype-detail/:id' component={AccountTypeDetail} />
+
 							<Route exact path='/accounts' component={Accounts} />
 							<Route exact path='/account-detail/:id' component={AccountDetail} />
 							<Route exact path='/account-form' component={AccountForm} />
+
 							<Route exact path='/accountingConfig' component={AccountingConfig} />
 							<Route exact path='/accountingConfig-form' component={AccountingConfigForm} />
 							<Route exact path='/accountconfig-detail/:id' component={AccountConfigDetail} />
+
 							<Route exact path='/debitnotes' component={Debitnotes} />
 							<Route exact path='/debitnote-form' component={DebitnotesForm} />
+
 							<Route exact path='/creditnotes' component={Creditnotes} />
 							<Route exact path='/creditnote-form' component={CreditnotesForm} />
 							<Route exact path='/creditnote-detail/:id' component={CreditnoteDetail} />
 
 							<Route exact path='/orders' component={Orders} />
 							<Route exact path='/order-form' component={OrderForm} />
+
 							<Route exact path='/orderpayments' component={Orderpayments} />
 							<Route exact path='/orderpayment-form' component={OrderpaymentForm} />
+
 							<Route exact path='/inventorycontrollers' component={Inventorycontroller} />
 							<Route exact path='/inventorycontroller-form' component={InventorycontrollerForm} />
+
 							<Route exact path='/unitmeasure' component={Unitmeasure} />
 							<Route exact path='/unitmeasure-form' component={UnitmeasureForm} />
+							<Route exact path='/unitmeasure-detail/:id' component={UnitmeasureDetail} />
+
 							<Route exact path='/inventorycategory' component={Inventorycategory} />
-							<Route exact path='/inventoryitems' component={Inventoryitems} />
 							<Route exact path='/inventorycategory-form' component={InventorycategoryForm} />
+
+							<Route exact path='/inventoryitems' component={Inventoryitems} />
+
 							<Route exact path='/pricinggroups' component={Pricinggroup} />
 							<Route exact path='/pricinggroup-form' component={PricinggroupForm} />
+
 							<Route exact path='/customers' component={Customers} />
 							<Route exact path='/customer-form' component={CustomerForm} />
+
 							<Route exact path='/payments' component={Payments} />
 							<Route exact path='/payment-form' component={PaymentForm} />
+
 							<Route exact path='/sales-rep' component={Salesrep} />
 							<Route exact path='/salesrep-form' component={SalesrepForm} />
 							<Route exact path='/salesrep-detail/:id' component={SalesrepDetail} />
 
 							<Route exact path='/invoices' component={Invoice} />
+							<Route exact path='/invoice-form' component={InvoiceForm} />
+
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/login' component={Login} />
-							<Route exact path='/invoice-form' component={InvoiceForm} />
+
 							<Route exact path='/productlines' component={Productline} />
-							<Route exact path='/processproducts' component={Processproducts} />
 							<Route exact path='/productline-form' component={ProductlineForm} />
+
+							<Route exact path='/processproducts' component={Processproducts} />
+
 
 							<Route component={Default} />
 						</Switch>
