@@ -1,8 +1,11 @@
-import { GET_BOOKKEEPERS, DELETE_BOOKKEEPER, ADD_BOOKKEEPER  } from '../types/bookkeeperTypes';
+import { GET_BOOKKEEPERS, GET_BOOKKEEPER, DELETE_BOOKKEEPER, ADD_BOOKKEEPER  } from '../types/bookkeeperTypes';
 
 const initialState = {
-    bookkeepers: []
+    bookkeepers: [],
+    bookkeeper: [],
+    loading: false
 }
+
 
 
 export default function(state = initialState, action){
@@ -21,7 +24,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 bookkeepers: [...state.bookkeepers, action.payload]
-            }
+            };
+        case GET_BOOKKEEPER:
+            return {
+                ...state,
+                bookkeeper: action.payload
+            };
         default:
             return state;
     }

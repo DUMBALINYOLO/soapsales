@@ -14,7 +14,7 @@ import {Calendar} from 'primereact/calendar';
 import {MultiSelect} from 'primereact/multiselect';
 import {ProgressBar} from 'primereact/progressbar';
 import classNames from 'classnames';
-import { getProcess} from '..//../actions/process';
+import { getProcesses} from '..//../actions/process';
 import "./form.css";
 
 
@@ -23,7 +23,7 @@ class Process extends Component {
     constructor() {
         super();
         this.state = {
-            process: null,
+            processes: null,
             globalFilter: null,
             dateFilter: null,
             selectedProcess: null,
@@ -41,13 +41,13 @@ class Process extends Component {
     }
 
     static propTypes = {
-        process : PropTypes.array.isRequired,
-        getProcess: PropTypes.func.isRequired,
+        processes : PropTypes.array.isRequired,
+        getProcesses: PropTypes.func.isRequired,
 
     };
 
     componentDidMount() {
-        this.props.getProcess();
+        this.props.getProcesses();
     }
 
     renderHeader() {
@@ -128,7 +128,7 @@ class Process extends Component {
 
         return (
             <div className="datatable-doc-demo">
-                <DataTable ref={(el) => this.dt = el} value={this.props.process}
+                <DataTable ref={(el) => this.dt = el} value={this.props.processes}
                     style={{backgroundColor: '#4c6b75'}}
                     header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                     selection={this.state.selectedProcess} onSelectionChange={e => this.setState({selectedProcess: e.value})}
@@ -152,7 +152,7 @@ class Process extends Component {
 }
 
 const mapStateToProps = state =>({
-    process: state.process.process
+    processes: state.processes.processes
 })
 
-export default connect(mapStateToProps, {getProcess} ) (Process);
+export default connect(mapStateToProps, {getProcesses} ) (Process);

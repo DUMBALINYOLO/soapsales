@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addProduct } from '..//../actions/products';
 import PropTypes from 'prop-types';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import {InputText} from 'primereact/inputtext';
+import {Button} from 'primereact/button';
+import {InputTextarea} from 'primereact/inputtextarea';
 
 export class ProductForm extends Component{
     state = {
@@ -30,9 +37,10 @@ export class ProductForm extends Component{
             <div className="card card-body mt-4 mb-4">
               <h2>Add Product</h2>
               <form onSubmit={this.onSubmit}>
-                <div className="form-group">
+              <div className="p-fluid p-formgrid p-grid">
+                <div className="p-field p-col-12 p-md-12">
                   <label>Name</label>
-                  <input
+                  <InputText
                     className="form-control"
                     type="text"
                     name="name"
@@ -40,9 +48,9 @@ export class ProductForm extends Component{
                     value={name}
                   />
                 </div>
-                <div className="form-group">
+                <div className="p-field p-col-12 p-md-12">
                   <label>Description</label>
-                  <input
+                  <InputTextarea
                     className="form-control"
                     type="text"
                     name="description"
@@ -51,11 +59,10 @@ export class ProductForm extends Component{
                   />
                 </div>
 
-                <div className="form-group">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
+                <div className="p-field p-col-12 p-md-6">
+                  <Button label="Submit" className="p-button-success p-button-rounded" />
                 </div>
+              </div>
              </form>
          </div>
         );

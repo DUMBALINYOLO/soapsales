@@ -2,12 +2,35 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUnitmeasure } from '..//../actions/unitmeasure';
 import PropTypes from 'prop-types';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import {InputText} from 'primereact/inputtext';
+import {Button} from 'primereact/button';
+import {Checkbox} from 'primereact/checkbox';
 
 export class UnitmeasureForm extends Component{
-    state = {
-        name: '',
-        eval_string: '',
-        is_derived: ''
+    constructor(props){
+        super(props);
+        this.state = {
+            name: '',
+            eval_string: '',
+            is_derived: true
+        }
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.handleDerived = this.handleDerived.bind(this);
+
+    }
+    handleDerived(event) {
+      const target = event.target;
+      const value = target.name === 'is_derived' ? target.checked : target.value;
+      const name = target.name;
+
+      this.setState({
+        [name]: value
+      });
     }
 
 
@@ -31,9 +54,10 @@ export class UnitmeasureForm extends Component{
             <div className="card card-body mt-4 mb-4">
               <h2>Add Unit Measure</h2>
               <form onSubmit={this.onSubmit}>
-                <div className="form-group">
+              <div className="p-fluid p-formgrid p-grid">
+                <div className="p-field p-col-12 p-md-6">
                   <label>Name</label>
-                  <input
+                  <InputText
                     className="form-control"
                     type="text"
                     name="name"
@@ -41,9 +65,9 @@ export class UnitmeasureForm extends Component{
                     value={name}
                   />
                 </div>
-                <div className="form-group">
+                <div className="p-field p-col-12 p-md-6">
                   <label>Eval String</label>
-                  <input
+                  <InputText
                     className="form-control"
                     type="number"
                     name="eval string"
@@ -51,23 +75,20 @@ export class UnitmeasureForm extends Component{
                     value={eval_string}
                   />
                 </div>
-                <div className="form-group">
-                  <label>Is Derived</label>
-                  <input
-                    className="form-control"
-                    type="number"
-                    name="is derived"
-                    onChange={this.onChange}
-                    value={is_derived}
-                  />
-                </div>
+                <label>
+                    Is Derived:
+                    <input
+                      name="is_derived"
+                      type="checkbox"
+                      checked={this.state.is_derived}
+                      onChange={this.handleDerived} />
+                  </label>
 
-                <div className="form-group">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
-                </div>
-             </form>
+                  <div className="p-field p-col-12 p-md-6">
+                    <Button label="Submit" className="p-button-success p-button-rounded" />
+                  </div>
+            </div>
+            </form>
          </div>
         );
     }

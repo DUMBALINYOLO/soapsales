@@ -1,9 +1,10 @@
-import { ADD_DEBITNOTE, GET_DEBITNOTES , DELETE_DEBITNOTE } from '../types/debitnoteTypes';
+import { ADD_DEBITNOTE, GET_DEBITNOTES, GET_DEBITNOTE, DELETE_DEBITNOTE } from '../types/debitnoteTypes';
 
 const initialState = {
-    debitnotes: []
+    debitnotes: [],
+    debitnote: [],
+    loading: false
 }
-
 
 export default function(state = initialState, action){
     switch(action.type){
@@ -21,7 +22,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 debitnote: [...state.debitnote, action.payload]
-            }
+            };
+        case GET_DEBITNOTE:
+            return {
+                ...state,
+                debitnotes: action.payload
+            };
         default:
             return state;
     }

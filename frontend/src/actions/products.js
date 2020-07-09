@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PRODUCTS, DELETE_PRODUCT, ADD_PRODUCT, DETAIL_PRODUCT  } from "../types/productTypes";
+import { GET_PRODUCTS, DELETE_PRODUCT, ADD_PRODUCT, GET_PRODUCT  } from "../types/productTypes";
 import { productsURL } from '../constants';
 
 
@@ -10,18 +10,6 @@ export const getProducts = () => dispatch => {
             dispatch({
                 type: GET_PRODUCTS,
                 payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
-
-//Details
-
-export const detailsProduct = (id) => dispatch => {
-    axios.get(productsURL, id)
-        .then(res => {
-            dispatch({
-                type: DETAIL_PRODUCT,
-                payload: id
             });
         }).catch(err => console.log(err))
 }
@@ -48,4 +36,15 @@ export const addProduct = (product) => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getProduct = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/manufacture/products/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_PRODUCT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

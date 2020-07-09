@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_WASTEREPORTS, DELETE_WASTEREPORT, ADD_WASTEREPORT } from '../types/wastereportTypes';
+import { GET_WASTEREPORTS, GET_WASTEREPORT, DELETE_WASTEREPORT, ADD_WASTEREPORT } from '../types/wastereportTypes';
 import { wastereportURL } from '../constants';
 
 
@@ -36,4 +36,15 @@ export const addWasteReport = (waste) => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getWasteReport = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/manufacture/waste-generation-reports/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_WASTEREPORT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

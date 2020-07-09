@@ -1,7 +1,9 @@
-import { ADD_ORDERPAYMENT, GET_ORDERPAYMENTS , DELETE_ORDERPAYMENT } from '../types/orderpaymentTypes';
+import { ADD_ORDERPAYMENT, GET_ORDERPAYMENTS, GET_ORDERPAYMENT, DELETE_ORDERPAYMENT } from '../types/orderpaymentTypes';
 
 const initialState = {
-    orderpayments: []
+    orderpayments: [],
+    orderpayment: [],
+    loading: false,
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 orderpayments: [...state.orderpayments, action.payload]
-            }
+            };
+        case GET_ORDERPAYMENT:
+            return {
+                ...state,
+                orderpayment: action.payload
+            };
         default:
             return state;
     }

@@ -1,7 +1,9 @@
-import { GET_WASTEREPORTS, DELETE_WASTEREPORT, ADD_WASTEREPORT  } from "../types/wastereportTypes";
+import { GET_WASTEREPORTS, GET_WASTEREPORT, DELETE_WASTEREPORT, ADD_WASTEREPORT  } from "../types/wastereportTypes";
 
 const initialState = {
-    wasteReports: []
+    wastereports: [],
+    wastereport: [],
+    loading: false
 }
 
 
@@ -10,18 +12,23 @@ export default function(state = initialState, action){
         case GET_WASTEREPORTS:
             return {
                 ...state,
-                wasteReports: action.payload
+                wastereports: action.payload
             };
         case DELETE_WASTEREPORT:
             return {
                 ...state,
-                wasteReport: state.wasteReports.filter(wasteReport => wasteReport.id !== action.payload)
+                wastereport: state.wastereports.filter(wastereport => wastereport.id !== action.payload)
             };
         case ADD_WASTEREPORT:
             return {
                 ...state,
-                wasteReports: [...state.wasteReports, action.payload]
-            }
+                wastereports: [...state.wastereports, action.payload]
+            };
+        case GET_WASTEREPORT:
+            return {
+                ...state,
+                wastereport: action.payload
+            };
         default:
             return state;
     }

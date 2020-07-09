@@ -1,7 +1,9 @@
-import { GET_PROCESSPRODUCTS, DELETE_PROCESSPRODUCT, ADD_PROCESSPRODUCT  } from "../types/processproductTypes";
+import { GET_PROCESSPRODUCTS, GET_PROCESSPRODUCT, DELETE_PROCESSPRODUCT, ADD_PROCESSPRODUCT  } from "../types/processproductTypes";
 
 const initialState = {
-    processproducts: []
+    processproducts: [],
+    processproduct: [],
+    loading: false
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 processproduct: [...state.processproducts, action.payload]
-            }
+            };
+        case GET_PROCESSPRODUCT:
+            return {
+                ...state,
+                processproduct: action.payload
+            };
         default:
             return state;
     }

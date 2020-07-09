@@ -1,7 +1,9 @@
-import { GET_CURRENCIES, DELETE_CURRENCY, ADD_CURRENCY  } from '../types/currencyTypes';
+import { GET_CURRENCIES, GET_CURRENCY, DELETE_CURRENCY, ADD_CURRENCY  } from '../types/currencyTypes';
 
 const initialState = {
-    currencies: []
+    currencies: [],
+    currency: [],
+    loading: false
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 currencies: [...state.currencies, action.payload]
-            }
+            };
+        case GET_CURRENCY:
+            return {
+                ...state,
+                currency: action.payload
+            };
         default:
             return state;
     }

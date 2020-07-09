@@ -1,7 +1,9 @@
-import { GET_PRODUCTIONORDERS, DELETE_PRODUCTIONORDER, ADD_PRODUCTIONORDER  } from "../types/productionorderTypes";
+import { GET_PRODUCTIONORDERS, GET_PRODUCTIONORDER, DELETE_PRODUCTIONORDER, ADD_PRODUCTIONORDER  } from "../types/productionorderTypes";
 
 const initialState = {
-    productionorders: []
+    productionorders: [],
+    productionorder: [],
+    loading: false
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 productionorder: [...state.productionorders, action.payload]
-            }
+            };
+        case GET_PRODUCTIONORDER:
+            return {
+                ...state,
+                productionorder: action.payload
+            };
         default:
             return state;
     }

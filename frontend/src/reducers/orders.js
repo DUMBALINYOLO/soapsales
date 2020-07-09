@@ -1,7 +1,9 @@
-import { ADD_ORDER, GET_ORDERS , DELETE_ORDER } from '../types/orderTypes';
+import { ADD_ORDER, GET_ORDERS, GET_ORDER, DELETE_ORDER } from '../types/orderTypes';
 
 const initialState = {
-    orders: []
+    orders: [],
+    order: [],
+    loading: false,
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 orders: [...state.orders, action.payload]
-            }
+            };
+        case GET_ORDER:
+            return {
+                ...state,
+                order: action.payload
+            };
         default:
             return state;
     }

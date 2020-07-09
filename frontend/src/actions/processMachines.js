@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PROCESSMACHINES, DELETE_PROCESSMACHINE, ADD_PROCESSMACHINE } from '../types/processmachineTypes';
+import { GET_PROCESSMACHINES, GET_PROCESSMACHINE, DELETE_PROCESSMACHINE, ADD_PROCESSMACHINE } from '../types/processmachineTypes';
 import { processmachineURL } from '../constants';
 
 
@@ -36,4 +36,15 @@ export const addProcessMachine = (processmachine) => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getProcessMachine = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/manufacture/process-machines/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_PROCESSMACHINE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_INVENTORYCONTROLLER, GET_INVENTORYCONTROLLERS, DELETE_INVENTORYCONTROLLER } from '../types/inventorycontrollerTypes';
+import { ADD_INVENTORYCONTROLLER, GET_INVENTORYCONTROLLERS, GET_INVENTORYCONTROLLER, DELETE_INVENTORYCONTROLLER } from '../types/inventorycontrollerTypes';
 import { inventorycontrollerURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addInventorycontroller = inventorycontroller => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getInventorycontroller = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/inventory/inventory-controllers/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_INVENTORYCONTROLLER,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

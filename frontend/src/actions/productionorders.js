@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PRODUCTIONORDERS, DELETE_PRODUCTIONORDER, ADD_PRODUCTIONORDER } from '../types/productionorderTypes';
+import { GET_PRODUCTIONORDERS, GET_PRODUCTIONORDER, DELETE_PRODUCTIONORDER, ADD_PRODUCTIONORDER } from '../types/productionorderTypes';
 import { productionorderURL } from '../constants';
 
 
@@ -36,4 +36,15 @@ export const addProductionorder = (productionorder) => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getProductionorder = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/manufacture/production-orders/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_PRODUCTIONORDER,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

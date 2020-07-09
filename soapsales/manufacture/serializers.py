@@ -36,9 +36,7 @@ class ProductionOrderCreateSerializer(serializers.ModelSerializer):
 
 
 class ProcessSerializer(serializers.ModelSerializer):
-    # children = serializers.ListField()
-    customer = StringSerializer()
-    process = StringSerializer()
+
 
 
     class Meta:
@@ -63,9 +61,6 @@ class ProcessSerializer(serializers.ModelSerializer):
         ]
 
 class ProcessCreateSerializer(serializers.ModelSerializer):
-    # children = serializers.ListField()
-    customer = StringSerializer()
-    process = StringSerializer()
 
 
     class Meta:
@@ -79,6 +74,7 @@ class ProcessCreateSerializer(serializers.ModelSerializer):
             'type', # display this
             'duration',
             'rate',
+
             'product_list',
         ]
 

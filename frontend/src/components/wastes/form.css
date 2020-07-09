@@ -1,4 +1,3 @@
-
 body {
     padding: .5em;
     font-family: "Open Sans", "Helvetica Neue", sans-serif;
@@ -154,4 +153,23 @@ body {
 .datatable-doc-demo .p-datatable.p-datatable-customers .p-dropdown-label:not(.p-placeholder) {
     text-transform: uppercase;
 }
-        
+
+.center-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.p-col-d {
+    display: table-cell;
+}
+.p-col-m {
+    display: none;
+}
+@media screen and (max-width: 1024px) {
+    .p-col-d {
+        display: none;
+    }
+    .p-col-m {
+        display: inline-block;
+    }
+}

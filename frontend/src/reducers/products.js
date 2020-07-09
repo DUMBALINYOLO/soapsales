@@ -1,9 +1,12 @@
-import { GET_PRODUCTS, DELETE_PRODUCT, ADD_PRODUCT, DETAIL_PRODUCT  } from "../types/productTypes";
+import { GET_PRODUCTS, DELETE_PRODUCT, ADD_PRODUCT, GET_PRODUCT  } from "../types/productTypes";
 
 
 const initialState = {
-    products: []
+    products: [],
+    product: [],
+    loading: false
 }
+
 export default function(state = initialState, action){
     switch(action.type){
         case GET_PRODUCTS:
@@ -11,10 +14,10 @@ export default function(state = initialState, action){
                 ...state,
                 products: action.payload
             };
-        case DETAIL_PRODUCT:
+        case GET_PRODUCT:
             return {
                 ...state,
-                product: state.products.filter(product => product.id !== action.payload)
+                product: action.payload
             };
         case DELETE_PRODUCT:
             return {

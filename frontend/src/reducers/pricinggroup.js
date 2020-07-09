@@ -1,7 +1,9 @@
-import { ADD_PRICINGGROUP, GET_PRICINGGROUPS , DELETE_PRICINGGROUP } from '../types/pricinggroupTypes';
+import { ADD_PRICINGGROUP, GET_PRICINGGROUPS, GET_PRICINGGROUP, DELETE_PRICINGGROUP } from '../types/pricinggroupTypes';
 
 const initialState = {
-    pricinggroups: []
+    pricinggroups: [],
+    pricinggroup: [],
+    loading: false
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 pricinggroup: [...state.pricinggroups, action.payload]
-            }
+            };
+        case GET_PRICINGGROUP:
+            return {
+                ...state,
+                pricinggroup: action.payload
+            };
         default:
             return state;
     }

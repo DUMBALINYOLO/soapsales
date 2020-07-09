@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addProcessMachine } from '../../actions/processMachines';
+import { addProcessMachine } from '../../actions/processmachines';
 import PropTypes from 'prop-types';
 import { getProcessGroups} from '..//../actions/processGroups';
 import {Dropdown} from 'primereact/dropdown';
@@ -68,24 +68,23 @@ export class ProcessMachineForm extends Component{
                     />
                   </div>
                   <div className="p-field p-col-12">
-                    <Dropdown 
+                    <Dropdown
                         id="statusInLineEdit"
-                        filter={true} 
-                        optionLabel="machine_group.name" 
-                        optionValue="machine_group.id" 
-                        inputId="machine_group.id" 
-                        value={machine_group.id } 
-                        options={this.props.processgroups} 
+                        filter={true}
+                        optionLabel="machine_group.name"
+                        optionValue="machine_group.id"
+                        inputId="machine_group.id"
+                        value={machine_group.id }
+                        options={this.props.processgroups}
                         onChange={this.onChange}
                         placeholder="Select Your Group"
-                        optionLabel="name"
                         showClear= {true}
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                       <Button label="Submit" className="p-button-success p-button-rounded" />
                   </div>
-                </div>                 
+                </div>
              </form>
          </div>
         );

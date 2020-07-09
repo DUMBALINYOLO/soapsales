@@ -1,3 +1,4 @@
 export const GET_SALESREPS = 'GET_SALESREPS';
 export const DELETE_SALESREP = 'DELETE_SALESREP';
 export const ADD_SALESREP = 'ADD_SALESREP';
+export const GET_SALESREP = 'GET_SALESREP';

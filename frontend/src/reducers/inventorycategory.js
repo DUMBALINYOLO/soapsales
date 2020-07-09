@@ -1,7 +1,9 @@
-import { ADD_INVENTORYCATEGORY, GET_INVENTORYCATEGORIES , DELETE_INVENTORYCATEGORY } from '../types/inventorycategoryTypes';
+import { ADD_INVENTORYCATEGORY, GET_INVENTORYCATEGORIES, GET_INVENTORYCATEGORY, DELETE_INVENTORYCATEGORY } from '../types/inventorycategoryTypes';
 
 const initialState = {
-    inventorycategories: []
+    inventorycategories: [],
+    inventorycategory: [],
+    loading: false,
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 inventorycategory: [...state.inventorycategories, action.payload]
-            }
+            };
+        case GET_INVENTORYCATEGORY:
+            return {
+                ...state,
+                inventorycategory: action.payload
+            };
         default:
             return state;
     }

@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { GET_PROCESS, DELETE_PROCESS, ADD_PROCESS } from '../types/processTypes';
+import { GET_PROCESSES, GET_PROCESS, DELETE_PROCESS, ADD_PROCESS } from '../types/processTypes';
 import { processURL } from '../constants';
 
 
 // Get
-export const getProcess = () => dispatch => {
+export const getProcesses = () => dispatch => {
     axios.get(processURL)
         .then(res => {
             dispatch({
-                type: GET_PROCESS,
+                type: GET_PROCESSES,
                 payload: res.data
             });
         }).catch(err => console.log(err))
@@ -36,4 +36,15 @@ export const addProcess = (process) => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getProcess = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/manufacture/process/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_PROCESS,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

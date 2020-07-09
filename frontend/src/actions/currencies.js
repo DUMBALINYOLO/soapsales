@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CURRENCIES, DELETE_CURRENCY, ADD_CURRENCY} from '../types/currencyTypes';
+import { GET_CURRENCIES, GET_CURRENCY, DELETE_CURRENCY, ADD_CURRENCY} from '../types/currencyTypes';
 import { currenciesURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addCurrency = currency => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getCurrency = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/accounting/currencies/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_CURRENCY,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

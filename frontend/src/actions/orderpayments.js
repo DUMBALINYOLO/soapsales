@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_ORDERPAYMENT, GET_ORDERPAYMENTS, DELETE_ORDERPAYMENT } from '../types/orderpaymentTypes';
+import { ADD_ORDERPAYMENT, GET_ORDERPAYMENTS, GET_ORDERPAYMENT, DELETE_ORDERPAYMENT } from '../types/orderpaymentTypes';
 import { orderpaymentsURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addOrderpayment = orderpayment => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getOrderpayment = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/inventory/orderpayments/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_ORDERPAYMENT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

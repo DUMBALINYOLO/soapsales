@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_UNITMEASURE, GET_UNITMEASURES, DELETE_UNITMEASURE } from '../types/unitmeasureTypes';
+import { ADD_UNITMEASURE, GET_UNITMEASURES, GET_UNITMEASURE, DELETE_UNITMEASURE } from '../types/unitmeasureTypes';
 import { unitmeasureURL } from '../constants';
 
 
@@ -38,4 +38,15 @@ export const addUnitmeasure = unitmeasure => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getUnitmeasure = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/inventory/unit-of-measure/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_UNITMEASURE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

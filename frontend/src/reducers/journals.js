@@ -1,9 +1,10 @@
-import { ADD_JOURNAL, GET_JOURNALS , DELETE_JOURNAL } from '../types/journalTypes';
+import { ADD_JOURNAL, GET_JOURNALS, GET_JOURNAL, DELETE_JOURNAL } from '../types/journalTypes';
 
 const initialState = {
-    journals: []
+    journals: [],
+    journal: [],
+    loading: false,
 }
-
 
 export default function(state = initialState, action){
     switch(action.type){
@@ -21,7 +22,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 journal: [...state.journal, action.payload]
-            }
+            };
+        case GET_JOURNAL:
+            return {
+                ...state,
+                journal: action.payload
+            };
         default:
             return state;
     }

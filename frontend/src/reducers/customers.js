@@ -1,7 +1,9 @@
-import { GET_CUSTOMERS, DELETE_CUSTOMER, ADD_CUSTOMER  } from '../types/customerTypes';
+import { GET_CUSTOMERS, GET_CUSTOMER, DELETE_CUSTOMER, ADD_CUSTOMER  } from '../types/customerTypes';
 
 const initialState = {
-    customers: []
+    customers: [],
+    customer: [],
+    loading: false
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 customer: [...state.customers, action.payload]
-            }
+            };
+        case GET_CUSTOMER:
+            return {
+                ...state,
+                customer: action.payload
+            };
         default:
             return state;
     }

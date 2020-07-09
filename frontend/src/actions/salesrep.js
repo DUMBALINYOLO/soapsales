@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_SALESREP, GET_SALESREPS, DELETE_SALESREP } from '../types/salesrepTypes';
+import { ADD_SALESREP, GET_SALESREPS, GET_SALESREP, DELETE_SALESREP } from '../types/salesrepTypes';
 import { salesrepURL } from '../constants';
 
 
@@ -37,4 +37,15 @@ export const addSalesrep = salesrep => dispatch => {
                 payload: res.data
             });
         }).catch(err => console.log(err))
+}
+
+export const getSalesrep = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/sales/sales-reps/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_SALESREP,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
 }

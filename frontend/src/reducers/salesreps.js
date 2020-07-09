@@ -1,7 +1,9 @@
-import { ADD_SALESREP, GET_SALESREPS, DELETE_SALESREP } from '../types/salesrepTypes';
+import { ADD_SALESREP, GET_SALESREPS, GET_SALESREP, DELETE_SALESREP } from '../types/salesrepTypes';
 
 const initialState = {
-    salesreps: []
+    salesreps: [],
+    salesrep: [],
+    loading: false
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 salesrep: [...state.salesreps, action.payload]
-            }
+            };
+        case GET_SALESREP:
+            return {
+                ...state,
+                salesrep: action.payload
+            };
         default:
             return state;
     }

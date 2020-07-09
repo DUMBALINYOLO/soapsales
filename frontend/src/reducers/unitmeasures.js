@@ -1,7 +1,9 @@
-import { GET_UNITMEASURES, DELETE_UNITMEASURE, ADD_UNITMEASURE  } from '../types/unitmeasureTypes';
+import { GET_UNITMEASURES, GET_UNITMEASURE, DELETE_UNITMEASURE, ADD_UNITMEASURE  } from '../types/unitmeasureTypes';
 
 const initialState = {
-    unitmeasures: []
+    unitmeasures: [],
+    unitmeasure: [],
+    loading: false
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 unitmeasure: [...state.unitmeasures, action.payload]
-            }
+            };
+        case GET_UNITMEASURE:
+            return {
+                ...state,
+                unitmeasure: action.payload
+            };
         default:
             return state;
     }

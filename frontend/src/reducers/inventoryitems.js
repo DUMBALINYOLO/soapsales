@@ -1,7 +1,9 @@
-import { ADD_INVENTORYITEM, GET_INVENTORYITEMS , DELETE_INVENTORYITEM } from '../types/inventoryitemTypes';
+import { ADD_INVENTORYITEM, GET_INVENTORYITEMS, GET_INVENTORYITEM, DELETE_INVENTORYITEM } from '../types/inventoryitemTypes';
 
 const initialState = {
-    inventoryitems: []
+    inventoryitems: [],
+    inventoryitem: [],
+    loading: false,
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 inventoryitem: [...state.inventoryitem, action.payload]
-            }
+            };
+        case GET_INVENTORYITEM:
+            return {
+                ...state,
+                inventoryitem: action.payload
+            };
         default:
             return state;
     }

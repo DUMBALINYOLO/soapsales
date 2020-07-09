@@ -1,7 +1,9 @@
-import { ADD_INVOICE, GET_INVOICES , DELETE_INVOICE } from '../types/invoiceTypes';
+import { ADD_INVOICE, GET_INVOICES, GET_INVOICE, DELETE_INVOICE } from '../types/invoiceTypes';
 
 const initialState = {
-    invoices: []
+    invoices: [],
+    invoice: [],
+    loading: false,
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 invoice: [...state.invoice, action.payload]
-            }
+            };
+        case GET_INVOICE:
+            return {
+                ...state,
+                invoice: action.payload
+            };
         default:
             return state;
     }

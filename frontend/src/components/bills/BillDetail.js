@@ -23,18 +23,38 @@ class BillDetail extends Component {
 		const { bill } = this.props;
 
         return (
-        	<Fragment>
-	            <div>
-	            	<h1 style={{color: "white"}}>Bill Details</h1>
-	            	<h1>ID: { bill.id } </h1>
-                    <h1>DATE: { bill.date } </h1>
-                    <h1>VENDOR: { bill.vendor } </h1>
-                    <h1>REFERENCE: { bill.reference } </h1>
-                    <h1>DUE: { bill.due } </h1>
-                    <h1>MEMO: { bill.memo } </h1>
-                    <h1>ENTRY: { bill.entry } </h1>
+			<div className="container py-5">
+				<div className="row justify-content-center">
+					<div className="col-10 mx-auto text-center text-slanted text-blue my-5">
+						<h1>Bill Payment Details</h1>
+					</div>
+				</div>
+				<div className="row">
+				<div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					ID: <span className="text-uppercase">{ bill.id }</span>
+					</h4>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					VENDOR: <span className="text-uppercase">{ bill.vendor }</span>
+					</h4>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					REFERENCE: <span className="text-uppercase">{ bill.reference }</span>
+					</h4>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					ENTRY: <span className="text-uppercase">{ bill.entry }</span>
+					</h4>
+					<p className="text-capitalize font-weight-bold mt-3 mb-0">
+					Memo :</p>
+					<p className="text-muted lead">{ bill.memo }</p>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					Date: <span className="text-uppercase">{bill.date}</span>
+					</h4>
+					<h4 className="text-title text-uppercase text-muted mt-3 mb-2">
+					Due: <span className="text-uppercase">{bill.due}</span>
+					</h4>
 	            </div>
-            </Fragment>
+	            </div>
+            </div>
         );
     }
 }

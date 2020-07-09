@@ -6,18 +6,18 @@ import errors from './errors';
 import bookkeepers from './bookkeepers';
 import accounttypes from './accounttypes';
 import accounts from './accounts';
-import salesrep from "./salesrep";
+import salesreps from "./salesreps";
 import journals from "./journals"
 import invoices from "./invoices";
 import products from "./products";
 import processMachines from "./processMachines";
-import processgroups from "./processgroups";
 import billmaterials from "./billmaterials";
+import processgroups from "./processgroups";
 import bills from "./bills";
 import billpayments from "./billpayments";
-import wasteReports from "./wasteReports";
-import processRates from "./processRates";
-import process from "./process";
+import wastereports from "./wasteReports";
+import processrates from "./processrates";
+import processes from "./process";
 import processedproducts from "./processedproducts.js";
 import assets from "./assets";
 import transactions from "./transactions";
@@ -56,7 +56,7 @@ export default combineReducers({
     //equipmemtcomponents,
     billpayments,
     inventoryitems,
-    salesrep,
+    salesreps,
     bookkeepers,
     processproducts,
     pricinggroup,
@@ -78,9 +78,9 @@ export default combineReducers({
     processgroups,
     billmaterials,
     bills,
-    wasteReports,
-    processRates,
-    process,
+    wastereports,
+    processrates,
+    processes,
     assets,
     transactions,
     payments,

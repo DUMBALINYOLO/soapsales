@@ -1,7 +1,9 @@
-import { ADD_INVENTORYCONTROLLER, GET_INVENTORYCONTROLLERS , DELETE_INVENTORYCONTROLLER } from '../types/inventorycontrollerTypes';
+import { ADD_INVENTORYCONTROLLER, GET_INVENTORYCONTROLLERS, GET_INVENTORYCONTROLLER, DELETE_INVENTORYCONTROLLER } from '../types/inventorycontrollerTypes';
 
 const initialState = {
-    inventorycontrollers: []
+    inventorycontrollers: [],
+    inventorycontroller: [],
+    loading: false,
 }
 
 
@@ -21,7 +23,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 inventorycontroller: [...state.inventorycontroller, action.payload]
-            }
+            };
+        case GET_INVENTORYCONTROLLER:
+            return {
+                ...state,
+                inventorycontroller: action.payload
+            };
         default:
             return state;
     }
