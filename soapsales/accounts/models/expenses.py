@@ -12,9 +12,9 @@ from .journalize import JournalEntry
 class Bill(models.Model):
     vendor = models.ForeignKey('inventory.Supplier',
         on_delete=models.SET_NULL, null=True)
-    date = models.DateField()
+    date = models.DateTimeField(auto_now_add=True)
     reference = models.CharField(max_length=255, blank=True)
-    due = models.DateField()
+    due = models.DateTimeField(auto_now_add=True)
     memo = models.TextField(blank=True)
     entry= models.ForeignKey('accounts.Journalentry',
         on_delete=models.SET_NULL,
@@ -28,7 +28,7 @@ class Bill(models.Model):
 
     @property
     def total(self):
-        return sum([i.amount for i in self.billline_set.all()])
+        return sum([i.amount for i in self.lines.all()])
 
     @property
     def total_payments(self):
@@ -40,7 +40,7 @@ class Bill(models.Model):
         settings = AccountingSettings.objects.first()
         j = JournalEntry.objects.create(
             id = (5000 + n_entries + 10) * 10,
-            date = self.date,
+            date = datetime.date.today(),
             memo =  "Bill for %s" % self.vendor,
             creator = settings.default_bookkeeper.employee,
             is_approved = True
@@ -48,7 +48,7 @@ class Bill(models.Model):
 
         j.credit(self.total, self.vendor.account)
 
-        for line in self.billline_set.all():
+        for line in self.lines.all():
             j.debit(line.amount,
                 line.debit_account)
 
@@ -57,7 +57,7 @@ class Bill(models.Model):
 
 
 class BillLine(models.Model):
-    bill = models.ForeignKey('accounts.Bill', on_delete=models.CASCADE)
+    bill = models.ForeignKey('accounts.Bill', related_name="lines", on_delete=models.SET_NULL, null=True)
     debit_account = models.ForeignKey('accounts.Account',
         on_delete=models.SET_NULL, null=True)
     amount = models.DecimalField(max_digits=16, decimal_places=2)

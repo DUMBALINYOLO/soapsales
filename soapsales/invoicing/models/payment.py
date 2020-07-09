@@ -59,7 +59,7 @@ class Payment(SoftDeletionModel):
         j = JournalEntry.objects.create(
                 memo= f'Journal entry for payment #{self.pk} from invoice #{self.invoice.invoice_number}.',
                 date=self.date,
-                creator = self.sales_rep.employee.user,
+                creator = self.sales_rep.employee,
                 is_approved = True
 
             )

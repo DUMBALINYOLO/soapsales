@@ -96,7 +96,7 @@ class OrderPayment(models.Model):
                 memo= 'Auto generated journal entry from order payment.' \
                     if comments == "" else comments,
                 date=self.date,
-                creator = self.order.issuing_inventory_controller.employee.user,
+                creator = self.order.issuing_inventory_controller.employee,
                 is_approved = True,
             )
 
@@ -141,8 +141,11 @@ class StockReceipt(models.Model):
         
 
 class StockReceiptLine(models.Model):
-    receipt = models.ForeignKey('inventory.StockReceipt'
-        ,on_delete=models.CASCADE)
+    receipt = models.ForeignKey(
+                        'inventory.StockReceipt'
+                        ,on_delete=models.CASCADE,
+                        related_name= 'lines'
+                        )  
     line = models.ForeignKey('inventory.OrderItem', on_delete=models.CASCADE)
     quantity = models.FloatField(default=0.0)
 
@@ -233,8 +236,12 @@ class TransferOrderLine(models.Model):
         on_delete=models.SET_NULL,
         null=True)
     quantity = models.FloatField()
-    transfer_order = models.ForeignKey('inventory.TransferOrder',
-        on_delete=models.SET_NULL, null=True)
+    transfer_order = models.ForeignKey(
+                                    'inventory.TransferOrder',
+                                    on_delete=models.SET_NULL, 
+                                    null=True,
+                                    related_name='lines'
+                                )
     moved_quantity = models.FloatField(default=0.0)
 
     def move(self, quantity, location=None):
@@ -276,7 +283,7 @@ class InventoryScrappingRecordLine(models.Model):
         null=True)
     quantity = models.FloatField()
     note = models.TextField(blank=True)
-    scrapping_record = models.ForeignKey('inventory.InventoryScrappingRecord', on_delete=models.SET_NULL, null=True)
+    scrapping_record = models.ForeignKey('inventory.InventoryScrappingRecord', related_name='lines', on_delete=models.SET_NULL, null=True)
 
     @property
     def scrapped_value(self):

@@ -21,9 +21,9 @@ from accounts.serializers import (
 class TransactionViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionReadOnlySerilizer
     queryset = Transaction.objects.all()
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
 
 
@@ -37,9 +37,9 @@ class JournalEntryViewSet(viewsets.ModelViewSet):
         'creator__username': ['icontains'],
         'is_approved': ['exact']
     }
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
     serializer_class = RetrieveJournalEntrySerializer
    

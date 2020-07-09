@@ -4,7 +4,7 @@ from invoicing.models import (
 							InvoiceLine,
 							ProductLineComponent,
 						)
-
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 class StringSerializer(serializers.StringRelatedField):
 
@@ -18,7 +18,7 @@ class InvoiceLineCreateSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = InvoiceLine
-		fields = ['invoice', 'product', 'line_type', 'tax', 'discount']
+		fields = ['pk' 'product', 'line_type', 'tax', 'discount']
 
 
 class QuotationLineListSerializer(serializers.ModelSerializer):
@@ -58,8 +58,8 @@ class QuotationListSerializer(serializers.ModelSerializer):
 
 
 
-class QuotationCreateSerializer(serializers.ModelSerializer):
-	lines = InvoiceLineCreateSerializer(many=True, write_only=True)
+class QuotationCreateSerializer(WritableNestedModelSerializer):
+	lines = InvoiceLineCreateSerializer(many=True)
 
 	class Meta:
 		model = Invoice
@@ -79,14 +79,6 @@ class QuotationCreateSerializer(serializers.ModelSerializer):
 
 		]
 
-
-	def create(self, validated_data):
-		lines = validated_data.pop('lines', [])
-		invoice = Invoice.objects.create(**validated_data)
-		for line in lines:
-			line_dict['invoice'] = invoice
-			InvoiceLine.objects.create(**line_dict)
-		return invoice
 
 
 class QuotationDetailSerializer(serializers.ModelSerializer):
@@ -124,8 +116,8 @@ class InvoiceListSerializer(serializers.ModelSerializer):
 
 
 
-class InvoiceCreateSerializer(serializers.ModelSerializer):
-	lines = InvoiceLineCreateSerializer(many=True, write_only=True)
+class InvoiceCreateSerializer(WritableNestedModelSerializer):
+	lines = InvoiceLineCreateSerializer(many=True)
 
 
 	class Meta:
@@ -147,13 +139,7 @@ class InvoiceCreateSerializer(serializers.ModelSerializer):
 		]
 
 
-	def create(self, validated_data):
-		lines = validated_data.pop('lines', [])
-		invoice = Invoice.objects.create(**validated_data)
-		for line in lines:
-			line_dict['invoice'] = invoice
-			InvoiceLine.objects.create(**line_dict)
-		return invoice
+
 
 
 class InvoiceDetailSerializer(serializers.ModelSerializer):

@@ -19,9 +19,22 @@ class BillViewset(ModelViewSet):
 
 
     def get_serializer_class(self):
-        if self.action == 'create':
+        if self.action in ['create', 'put']:
             return BillCreateSerializer
         return BillSerializer
+
+    # def create(self, request, *args, **kwargs):
+    #     serializer = BillCreateSerializer(data=request.data, context={"request": request}) # change here 
+    #     if serializer.is_valid():
+    #         print(serializer.validated_data)
+    #         serializer.save()
+    #         print(serializer.data)
+    #         return Response(serializer.data)
+    #     else:
+    #         print(serializer.errors)
+    #     return Response(serializer.errors)
+
+
 
 
 
@@ -32,6 +45,6 @@ class BillPaymentViewset(ModelViewSet):
     ]    
 
     def get_serializer_class(self):
-        if self.action == 'create':
+        if self.action in ['create', 'put']:
             return BillPaymentCreateSerializer
         return  BillPaymentSerializer

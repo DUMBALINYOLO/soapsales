@@ -125,7 +125,7 @@ class Invoice(SoftDeletionModel):
                 unit_price= data['unitPrice']
 
             )
-            line = self.invoiceline_set.create(
+            line = self.lines.create(
                 line_type=1,#product
                 product=component,
                 tax=tax,
@@ -137,7 +137,7 @@ class Invoice(SoftDeletionModel):
     def update_inventory(self):
         '''Removes inventory from the warehouse'''
         #called in views.py
-        for line in self.invoiceline_set.filter(product__isnull=False):
+        for line in self.lines.filter(product__isnull=False):
             #check if ship_from has the product in sufficient quantity
             self.ship_from.decrement_processed_item(line.product.product, line.quantity) #comming for you
 
@@ -145,7 +145,7 @@ class Invoice(SoftDeletionModel):
         '''Iterates over all the invoice lines and appends checks that indicate
             shortages. returns a list of these checks'''
         shortages = []
-        for line in self.invoiceline_set.filter(product__isnull=False):
+        for line in self.lines.filter(product__isnull=False):
             shortage = line.product.check_inventory()
             if shortage['quantity'] > 0:
                 shortages.append(shortage)
@@ -154,14 +154,14 @@ class Invoice(SoftDeletionModel):
         if len(shortages) > 0:
             qs = InventoryController.objects.all()
             if qs.exists():
-                usr = qs.first().employee.user
+                usr = qs.first().employee
         return shortages
 
     @property
     def cost_of_goods_sold(self):
         '''calculates the value of each line in the invoice and returns their
         sum'''
-        return sum([line.product.value for line in self.invoiceline_set.filter(
+        return sum([line.product.value for line in self.lines.filter(
             product__isnull=False)], D(0.0))
 
     @property
@@ -213,13 +213,13 @@ class Invoice(SoftDeletionModel):
     @property
     def tax_amount(self):
         '''The amount of tax paid on the invoice calculated as a total from each line'''
-        return sum([i.tax_ for i in self.invoiceline_set.all()])
+        return sum([i.tax_ for i in self.lines.all()])
 
     @property
     def subtotal(self):
         '''The total of the invoice minus tax including discounts'''
 
-        return sum([i.subtotal for i in self.invoiceline_set.all()])
+        return sum([i.subtotal for i in self.lines.all()])
 
     def __str__(self):
         return 'INV' + str(self.pk)
@@ -257,7 +257,7 @@ class Invoice(SoftDeletionModel):
         j = JournalEntry.objects.create(
                 memo= f'Journal entry for invoice #{self.invoice_number}.',
                 date=self.date,
-                creator = self.salesperson.employee.user,
+                creator = self.salesperson.employee,
                 is_approved = True,
             )
 
@@ -307,7 +307,7 @@ class Invoice(SoftDeletionModel):
     def returned_total(self):
         # '''returns the value of products returned to the warehouse'''
         return sum([
-            i.product.returned_value for i in self.invoiceline_set.all() \
+            i.product.returned_value for i in self.lines.all() \
                 if i.product ])
 
 
@@ -315,21 +315,21 @@ class Invoice(SoftDeletionModel):
     def sales_only(self):
         # '''returns true if all lines are product lines'''
         return all([True if line.product != None else False \
-            for line in self.invoiceline_set.all() ])
+            for line in self.lines.all() ])
 
 
     @property
     def service_only(self):
         # '''returns true if all lines are service lines'''
         return all([True if line.service != None else False \
-            for line in self.invoiceline_set.all() ])
+            for line in self.lines.all() ])
 
 
     @property
     def expense_only(self):
         # '''Checks if an invoice consists only of expense lines'''
         return all([True if line.product != None else False \
-            for line in self.invoiceline_set.all() ])
+            for line in self.lines.all() ])
 
     def save(self, *args, **kwargs):
         # '''Makes sure that every invoice and quotation is numbered.
@@ -343,10 +343,14 @@ class InvoiceLine(models.Model):
         (1, 'product'),
         (2, 'service'),
     ]
-    invoice = models.ForeignKey('invoicing.Invoice',
-        on_delete=models.SET_NULL,
-        null=True,
-        default=1)
+    invoice = models.ForeignKey(
+                            'invoicing.Invoice',
+                            on_delete=models.SET_NULL,
+                            null=True,
+                            default=1,
+                            related_name= 'lines'
+
+                        )
     product = models.OneToOneField('invoicing.ProductLineComponent',
         on_delete=models.SET_NULL,
         null=True, )

@@ -40,6 +40,7 @@ class AccountType(models.Model):
     def natural_key(self):
         return (self.name,)
 
+    @property 
     def is_debit(self):
         return True if (self.category == 0 or self.category == 4) else False
 
@@ -73,8 +74,8 @@ class Account(models.Model):
 
     def is_debit(self):
         if self.is_contra:
-            return not self.account_type.is_debit()
-        return self.account_type.is_debit()
+            return not self.account_type.is_debit
+        # return self.account_type.is_debit
 
     def account_number(self):
         return (self.account_type.order * NUM_ACCOUNTS_PER_ACCOUNT_TYPE) + self.order

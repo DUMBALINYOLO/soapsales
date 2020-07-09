@@ -47,9 +47,9 @@ class AccountTypeViewSet(viewsets.ModelViewSet):
 
 class InActiveAccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.filter(account_type__isnull=True)
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
     serializer_class = InActiveAccountSerializer
 
 

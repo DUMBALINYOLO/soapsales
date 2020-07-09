@@ -25,7 +25,6 @@ class AccountingSettingsSerializer(serializers.ModelSerializer):
         model = AccountingSettings
         fields = [
             'id',
-            'start_of_financial_year',
             'default_accounting_period',
             'default_bookkeeper',
             'equipment_capitalization_limit',

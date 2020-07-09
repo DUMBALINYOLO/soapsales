@@ -111,22 +111,22 @@ class Order(models.Model):
 
     @property
     def product_total(self):
-        return sum([i.subtotal for i in self.orderitem_set.filter(
+        return sum([i.subtotal for i in self.lines.filter(
             item_type = 1)])
 
     @property
     def equipment_total(self):
-        return sum([i.subtotal for i in self.orderitem_set.filter(
+        return sum([i.subtotal for i in self.lines.filter(
             item_type = 3)])
 
     @property
     def consumables_total(self):
-        return sum([i.subtotal for i in self.orderitem_set.filter(
+        return sum([i.subtotal for i in self.lines.filter(
             item_type = 2)])
 
     @property
     def items(self):
-        return self.orderitem_set.all()
+        return self.lines.all()
 
     @property
     def total(self):
@@ -139,7 +139,7 @@ class Order(models.Model):
 
     @property
     def subtotal(self):
-        return sum([i.subtotal for i in self.orderitem_set.all()])
+        return sum([i.subtotal for i in self.lines.all()])
 
     @property
     def tax_amount(self):
@@ -173,7 +173,7 @@ class Order(models.Model):
 
     @property
     def received_total(self):
-        return sum([i.received_total for i in self.orderitem_set.all()])
+        return sum([i.received_total for i in self.lines.all()])
 
     @property
     def fully_received(self):
@@ -185,7 +185,7 @@ class Order(models.Model):
     def percent_received(self):
         ordered_quantity = 0
         received_quantity = 0
-        items = self.orderitem_set.all()
+        items = self.lines.all()
         for item in items:
             ordered_quantity += item.quantity
             received_quantity += item.received
@@ -201,7 +201,7 @@ class Order(models.Model):
                         str(self.pk),
                     fully_received=True
                 )
-            for item in self.orderitem_set.all():
+            for item in self.lines.all():
                 item.receive(item.quantity, receipt=sr)
             self.status = 'received'
             self.save()
@@ -210,7 +210,7 @@ class Order(models.Model):
 
     @property
     def returned_total(self):
-        return sum([i.returned_value for i in self.orderitem_set.all()])
+        return sum([i.returned_value for i in self.lines.all()])
 
 class OrderItem(models.Model):
     '''
@@ -231,7 +231,8 @@ class OrderItem(models.Model):
     order = models.ForeignKey(
                             'inventory.Order',
                             on_delete=models.SET_NULL,
-                            null=True
+                            null=True,
+                            related_name='lines'
                         )
     item = models.ForeignKey(
                             'inventory.InventoryItem',

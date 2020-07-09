@@ -14,47 +14,7 @@ class TransactionReadOnlySerilizer(serializers.ModelSerializer):
         model = Transaction
         fields = "__all__"
 
-class ReceiptFileField(Base64FileField):
-    ALLOWED_TYPES = ['xlsx', 'xls', 'docx', 'doc', 'pdf', 'txt']
 
-    # def get_file_extension(self, filename, decoded_file):
-    #
-    #     file_type = magic.from_buffer(decoded_file)
-    #
-    #     if file_type == 'Microsoft Excel 2007+':
-    #         return 'xlsx'
-    #     elif file_type == 'Microsoft Word 2007+':
-    #         return 'docx'
-    #     elif 'Microsoft Excel' in file_type:
-    #         return 'xls'
-    #     elif 'Microsoft Word' in file_type or 'Microsoft Office Word' in file_type:
-    #         return 'doc'
-    #     elif 'PDF document' in file_type:
-    #         return 'pdf'
-    #     elif 'ASCII text' in file_type:
-    #         return 'txt'
-    #     else:
-    #         return None
-
-class ReceiptSerializer(serializers.ModelSerializer):
-    # class Meta:
-    #     model = Receipt
-    #     fields = ('file', 'original_filename')
-    #
-    # file = ReceiptFileField()
-    pass
-
-    def validate_original_filename(self, value):
-        name_parts = value.split('.')
-        if len(name_parts) < 2:
-            raise serializers.ValidationError('The file must have a name and an extension.')
-
-        extension = name_parts[-1]
-        if extension not in ReceiptFileField.ALLOWED_TYPES:
-            allowed_types = ','.join(ReceiptFileField.ALLOWED_TYPES)
-            raise serializers.ValidationError('The file must be one of the following types: ' + allowed_types)
-
-        return value
 
 
 class RetrieveTransactionSerializer(serializers.ModelSerializer):
@@ -89,7 +49,6 @@ class RetrieveJournalEntrySerializer(serializers.ModelSerializer):
         model = JournalEntry
         fields = ('id', 'date_created', 'date', 'entry_type', 'is_approved', 'memo', 'description', 'creator', 'transactions', 'receipts',)
 
-    receipts = ReceiptSerializer(many=True)
     transactions = RetrieveTransactionSerializer(many=True)
     # creator = UserSerializer()
     entry_type = serializers.SerializerMethodField()
@@ -101,11 +60,10 @@ class RetrieveJournalEntrySerializer(serializers.ModelSerializer):
 class CreateJournalEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = JournalEntry
-        fields = ('date', 'entry_type', 'description', 'transactions', 'receipts',)
+        fields = ('date', 'entry_type', 'description', 'transactions')
 
     transactions = CreateTransactionSerializer(many=True)
-    receipts = ReceiptSerializer(many=True)
-
+   
     def validate_transactions(self, value):
         if len(value) == 0:
             raise serializers.ValidationError('There must be at least one transaction in a journal entry.')
@@ -127,12 +85,9 @@ class CreateJournalEntrySerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         transactions = validated_data.pop('transactions')
-        receipts = validated_data.pop('receipts')
+
 
         journal_entry = JournalEntry.objects.create(**validated_data)
-
-        for receipt in receipts:
-            Receipt.objects.create(journal_entry=journal_entry, **receipt)
 
         for transaction in transactions:
             Transaction.objects.create(journal_entry=journal_entry, **transaction)

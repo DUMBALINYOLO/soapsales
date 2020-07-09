@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from inventory.models import *
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 class StringSerializer(serializers.StringRelatedField):
     def to_internal_value(self, value):
@@ -37,8 +38,8 @@ class OrderItemCreateSerializer(serializers.ModelSerializer):
 
 
 
-class OrderCreateSerializer(serializers.ModelSerializer):
-    items = OrderItemCreateSerializer(many=True, write_only=True)
+class OrderCreateSerializer(WritableNestedModelSerializer):
+    lines = OrderItemCreateSerializer(many=True)
 
     class Meta:
         model = Order
@@ -57,16 +58,10 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             'status',
             'received_to_date',
             'issuing_inventory_controller',
-            'items',
+            'lines',
         ]
 
-    def create(self, validated_data):
-        items = validated_data.pop('items', [])
-        order = Order.objects.create(**validated_data)
-        for item_dict in items:
-            item_dict['order'] = order
-            OrderItem.objects.create(**item_dict)
-        return order
+
 
 
 class OrderDetailSerializer(serializers.ModelSerializer):

@@ -20,17 +20,17 @@ from accounts.serializers import(
 class AccountingSettingsViewset(viewsets.ModelViewSet):
     queryset = AccountingSettings.objects.all()
     serializer_class = AccountingSettingsSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
 
 class TaxViewset(viewsets.ModelViewSet):
     queryset = Tax.objects.all()
     serializer_class = TaxSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
 
 
@@ -44,9 +44,9 @@ class CurrencyViewset(viewsets.ModelViewSet):
 
 class BookkeeperViewset(viewsets.ModelViewSet):
     queryset = Bookkeeper.objects.all()
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
 
     def get_serializer_class(self):

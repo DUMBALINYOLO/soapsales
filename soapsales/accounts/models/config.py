@@ -13,7 +13,6 @@ class AccountingSettings(SingletonModel):
         (1, "Monthly"),
         (2, "Weekly")
     ]
-    start_of_financial_year = models.DateField()
     default_accounting_period = models.PositiveSmallIntegerField(
         choices=ACCOUNTING_PERIODS, default=1)
 

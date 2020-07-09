@@ -24,9 +24,9 @@ class InvoiceExample extends Component {
     super(props);
     this.state = {
       vendor: '',
-      date: '',
+      // date: null,
       reference: '',
-      due: '',
+      // due: null,
       memo: '',
       vendors: [],
       formData: {},
@@ -82,9 +82,9 @@ class InvoiceExample extends Component {
       e.preventDefault();
       const { 
         vendor,
-        date,
+        // date,
         reference,
-        due,
+        // due,
         memo,
         lines
  
@@ -92,9 +92,9 @@ class InvoiceExample extends Component {
 
       const bill = { 
         vendor,
-        date,
+        // date,
         reference,
-        due,
+        // due,
         memo,
         lines, 
       };
@@ -104,9 +104,9 @@ class InvoiceExample extends Component {
       this.setState({
           lines: [],
           vendor: '',
-          date: '',
+          // date: null,
           reference: '',
-          due: '',
+          // due: null,
           memo: '',
 
         });
@@ -124,10 +124,10 @@ class InvoiceExample extends Component {
 
   render = () => {
     const {  
-        date,
+        // date,
         vendor,
         reference,
-        due,
+        // due,
         memo
     } = this.state;
 
@@ -151,30 +151,6 @@ class InvoiceExample extends Component {
         <h2>Add An Account</h2>
         <form onSubmit={this.onSubmit} onChange={this.handleChange}>
           <div className="p-fluid p-formgrid p-grid">
-            <div className="p-field p-col-12 p-md-6">
-              <label> Date</label>
-              <Calendar
-                showIcon={true}
-                className="form-control"
-                dateFormat="yy-mm-dd"
-                type="date"
-                name="date"
-                onChange={this.onChange}
-                value={date}
-              />
-            </div>
-            <div className="p-field p-col-12 p-md-6">
-              <label> Due</label>
-              <Calendar
-                showIcon={true}
-                className="form-control"
-                type="date"
-                dateFormat="yy-mm-dd"
-                name="due"
-                onChange={this.onChange}
-                value={due}
-              />
-            </div>
             <div className="p-field p-col-12 p-md-6">
               <label>Reference</label>
               <InputText

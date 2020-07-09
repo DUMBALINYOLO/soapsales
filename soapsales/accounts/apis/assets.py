@@ -9,9 +9,9 @@ from accounts.serializers import (
 
 class AssetViewSet(viewsets.ModelViewSet):
 	queryset = Asset.objects.all()
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 	lookup_field = 'id'
 
 	def get_serializer_class(self):

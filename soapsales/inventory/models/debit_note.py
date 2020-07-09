@@ -44,7 +44,7 @@ class DebitNote(models.Model):
 
     @property
     def returned_items(self):
-        return self.debitnoteline_set.all()
+        return self.lines.all()
 
     @property
     def returned_total(self):
@@ -69,7 +69,7 @@ class DebitNote(models.Model):
             memo="Auto generated journal entry from debit note",
             date=self.date,
             entry_type = entry_type.JournalEntryTypes.REGULAR,
-            creator = self.order.issuing_inventory_controller.employee.user,
+            creator = self.order.issuing_inventory_controller.employee,
             is_approved = True
         )
 
@@ -86,8 +86,12 @@ class DebitNote(models.Model):
 class DebitNoteLine(models.Model):
     item = models.ForeignKey('inventory.OrderItem', null=True,
         on_delete=models.SET_NULL)
-    note = models.ForeignKey('inventory.DebitNote', null=True,
-        on_delete = models.SET_NULL)
+    note = models.ForeignKey(
+                        'inventory.DebitNote', 
+                        null=True,
+                        on_delete = models.SET_NULL,
+                        related_name = 'lines'
+                    )
     quantity = models.FloatField()
 
     def __str__(self):

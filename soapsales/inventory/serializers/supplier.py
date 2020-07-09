@@ -46,7 +46,7 @@ class CreateSupplierSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Supplier
-		exclude = ('account')
+		exclude = ('account',)
 
 
 class ListSupplierSerializer(serializers.ModelSerializer):

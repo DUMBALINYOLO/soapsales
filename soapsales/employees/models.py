@@ -7,14 +7,11 @@ from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 
 
-class Employee(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Employee(User):
     GENDER_CHOICES = [('male','Male'),('female','Female')]
     employee_number = models.CharField(max_length=34)
     phone = models.CharField(max_length =16, blank=True, default="")
-    first_name = models.CharField(max_length =32)
     middle_name = models.CharField(max_length =32)
-    last_name = models.CharField(max_length =32)
     address = models.TextField(max_length =128, blank=True, default="")
     date_of_birth = models.DateField(null=True)
     id_number = models.CharField(max_length=64, blank=True)

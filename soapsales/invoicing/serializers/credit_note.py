@@ -3,6 +3,7 @@ from invoicing.models import (
 		CreditNote,
 		CreditNoteLine
 	)
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 
 class StringSerializer(serializers.StringRelatedField):
@@ -10,7 +11,7 @@ class StringSerializer(serializers.StringRelatedField):
         return value
 
 
-class CrediNoteLineSerializer(serializers.ModelSerializer):
+class CreditNoteLineSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = CreditNoteLine
@@ -27,8 +28,8 @@ class CreditNoteListSerializer(serializers.ModelSerializer):
 		fields = ['id', 'date', 'invoice', 'entry']
 
 
-class CreditNoteCreateSerializer(serializers.ModelSerializer):
-	returned_products = CrediNoteLineSerializer(many=True, write_only=True)
+class CreditNoteCreateSerializer(WritableNestedModelSerializer):
+	lines = CreditNoteLineSerializer(many=True)
 
 
 	class Meta:
@@ -37,16 +38,8 @@ class CreditNoteCreateSerializer(serializers.ModelSerializer):
 			'date',
 			'invoice',
 			'comments',
-			'returned_products',
+			'lines',
 		]
-
-	def create(self, validated_data):
-		returned_products = validated_data.pop('returned_products', [])
-		note = CreditNote.objects.create(**validated_data)
-		for returned_dict in returned_products:
-			returned_dict['note'] = note
-			CreditNoteLine.objects.create(**returned_dict)
-		return note
 
 class CreditNoteDetailSerializer(serializers.ModelSerializer):
 	returned_products = CreditNoteListSerializer(many=True, read_only=True)

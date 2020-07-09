@@ -3,6 +3,7 @@ from inventory.models import (
                         DebitNote,
                         DebitNoteLine
                     )
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 
 
@@ -31,34 +32,28 @@ class DebitNoteLineCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = DebitNoteLine
         fields = [
-            'id',
+            'pk',
             'item',
-            'note',
             'quantity',
 
         ]
 
 
-class DebitNoteCreateSerializer(serializers.ModelSerializer):
-    lines = DebitNoteLineCreateSerializer(many=True, write_only=True)
+class DebitNoteCreateSerializer(WritableNestedModelSerializer):
+    lines = DebitNoteLineCreateSerializer(many=True)
 
 
     class Meta:
         model = DebitNote
         fields = [
+            'pk'
             'date',
             'order',
             'comments',
             'lines',
         ]
 
-    def create(self, validated_data):
-        lines = validated_data.pop('lines', [])
-        note = DebitNote.objects.create(**validated_data)
-        for line_dict in lines:
-            line_dict['note'] = note
-            DebitNoteLine.objects.create(**line_dict)
-        return note
+
 
 
 class DebitNoteListSerializer(serializers.ModelSerializer):

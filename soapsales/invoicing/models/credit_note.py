@@ -42,7 +42,7 @@ class CreditNote(models.Model):
 
     @property
     def returned_products(self):
-        return self.creditnoteline_set.all()
+        return self.lines.all()
 
     @property
     def returned_total(self):
@@ -51,7 +51,7 @@ class CreditNote(models.Model):
     @property
     def tax_credit(self):
         return sum([(i.line.tax_) \
-            for i in self.creditnoteline_set.all() if i.line and i.line.tax] ,0)
+            for i in self.lines.all() if i.line and i.line.tax] ,0)
 
     @property
     def returned_total_with_tax(self):
@@ -74,7 +74,7 @@ class CreditNote(models.Model):
             memo=f"Journal entry for credit note #{self.pk}. From Invoice #{self.invoice.invoice_number}",
             date=self.date,
             is_approved = True,
-            creator = self.invoice.salesperson.employee.user
+            creator = self.invoice.salesperson.employee
         )
 
 
@@ -89,8 +89,12 @@ class CreditNote(models.Model):
 
 #TODO test
 class CreditNoteLine(models.Model):
-    note = models.ForeignKey('invoicing.CreditNote', null=True,
-            on_delete=models.SET_NULL)
+    note = models.ForeignKey(
+                        'invoicing.CreditNote', 
+                        null=True,
+                        on_delete=models.SET_NULL,
+                        related_name='lines'
+                        )
     line = models.ForeignKey('invoicing.InvoiceLine', null=True,
             on_delete=models.SET_NULL)
     quantity = models.FloatField()
