@@ -104,6 +104,8 @@ import ProcessGroupDetail from "./components/machinegroup/processGroupDetail";
 
 
 
+import BillMaterials from "./components/billmaterials/billMaterials";
+
 
 import BillMaterials from "./components/billmaterials/billMaterials";
 import BillMaterialDetail from "./components/billmaterials/billMaterialDetail";
