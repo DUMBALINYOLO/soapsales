@@ -22,6 +22,7 @@ import Content from "./dashboard/Content";
 import Currencies from './components/currencies/Currencies';
 import CurrencyForm from './components/currencies/CurrencyForm';
 import CurrencyDetail from './components/currencies/CurrencyDetail';
+import UpdateCurrency from './components/currencies/CurrencyUpdate';
 
 
 import Bookkeepers from './components/bookkeepers/Bookkeepers';
@@ -250,7 +251,8 @@ class App extends Component {
 
 							<Route exact path='/currencies' component={Currencies} />
 							<Route exact path='/currency-form' component={CurrencyForm} />
-							<Route exact path='/currency-detail/:id' component={CurrencyDetail} />
+							<Route exact path='/currencies/edit/:id' component={UpdateCurrency} />
+							<Route exact path='/currencies/:id' component={CurrencyDetail} />
 
 							<Route exact path='/bookkeepers' component={Bookkeepers} />
 							<Route exact path='/bookkeeper-form' component={BookkeeperForm} />

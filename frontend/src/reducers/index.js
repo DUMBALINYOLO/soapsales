@@ -40,6 +40,7 @@ import customers from "./customers";
 import payments from "./payments";
 import messages from "./messages";
 import suppliers from "./suppliers";
+import orderitems from "./orderitems";
 
 
 
@@ -86,5 +87,6 @@ export default combineReducers({
     payments,
     messages,
     suppliers,
+    orderitems,
 
 });

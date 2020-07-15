@@ -7,6 +7,7 @@ from invoicing.apis import (
 		QuotationViewSet,
 		InvoiceViewSet,
 		ProductLineComponentViewSet,
+		InvoiceLineViewSet,
 
 	)
 
@@ -15,6 +16,7 @@ router = DefaultRouter()
 router.register(r'creditnote', CreditNoteViewSet)
 router.register(r'customers', CustomerViewSet)
 router.register(r'payments', PaymentViewSet)
+router.register(r'invoicelines', InvoiceLineViewSet)
 router.register(r'sales-reps', SalesRepresentativeViewSet)
 router.register(r'invoices', InvoiceViewSet, basename='invoices')
 router.register(r'quotations', QuotationViewSet, basename='quotations')

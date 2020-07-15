@@ -16,6 +16,7 @@ export const bookkeepersURL= `${endpoint}/accounting/bookkeepers/`
 export const creditnoteURL= `${endpoint}/sales/creditnote/`
 export const currenciesURL= `${endpoint}/accounting/currencies/`
 export const customersURL= `${endpoint}/sales/customers/`
+
 export const debitnoteURL= `${endpoint}/inventory/debit-note/`
 export const inventorycategoryURL= `${endpoint}/inventory/inventory-categories/`
 export const inventorycontrollerURL= `${endpoint}/inventory/inventory-controllers/`
@@ -35,6 +36,7 @@ export const salesrepURL= `${endpoint}/sales/sales-reps/`
 export const transactionURL= `${endpoint}/accounting/transactions/`
 export const unitmeasureURL= `${endpoint}/inventory/unit-of-measure/`
 export const suppliersURL= `${endpoint}/inventory/suppliers/`
+export const orderItemsURL= `${endpoint}/inventory/orderitems/`
 export const wastereportURL= `${endpoint}/manufacture/waste-generation-reports/`
 
 export const billpaymentsURL = `${endpoint}/accounting/bill-payments/`

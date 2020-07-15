@@ -13,7 +13,8 @@ from invoicing.serializers import (
 								InvoiceDetailSerializer,
 								ProductLineComponentListSerializer,
 								ProductLineComponentCreateSerializer,
-								ProductLineComponentDetailSerializer
+								ProductLineComponentDetailSerializer,
+								InvoiceLineListSerializer,
 							)
 
 
@@ -31,11 +32,13 @@ class QuotationViewSet(viewsets.ModelViewSet):
 		return QuotationDetailSerializer
 
 
+
+
 class InvoiceViewSet(viewsets.ModelViewSet):
 	queryset = Invoice.objects.exclude(status='quotation')
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 
 	def get_serializer_class(self):
 		if self.action == 'list':
@@ -45,12 +48,17 @@ class InvoiceViewSet(viewsets.ModelViewSet):
 		return InvoiceDetailSerializer
 
 
+class InvoiceLineViewSet(viewsets.ModelViewSet):
+	queryset = InvoiceLine.objects.all()
+	serializer_class = InvoiceLineListSerializer
+
+
 
 class ProductLineComponentViewSet(viewsets.ModelViewSet):
 	queryset = ProductLineComponent.objects.all()
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 
 	def get_serializer_class(self):
 		if self.action == 'list':

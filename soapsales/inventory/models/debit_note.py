@@ -83,6 +83,8 @@ class DebitNote(models.Model):
         self.save()
 
 
+
+
 class DebitNoteLine(models.Model):
     item = models.ForeignKey('inventory.OrderItem', null=True,
         on_delete=models.SET_NULL)

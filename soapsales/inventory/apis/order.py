@@ -7,16 +7,17 @@ from inventory.serializers import (
                     OrderDetailSerializer,
                     OrderListSerializer,
                     OrderPaymentSerializer,
-                    OrderPaymentCreateSerializer
+                    OrderPaymentCreateSerializer,
+                    OrderItemListSerializer
     )
 
 
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -40,15 +41,20 @@ class OrderViewSet(viewsets.ModelViewSet):
         return Response(order)
 
 
+class OrderItemViewSet(viewsets.ModelViewSet):
+    queryset = OrderItem.objects.all()
+    seralizer_class = OrderItemListSerializer
+
+
 class OrderPaymentViewSet(viewsets.ModelViewSet):
     queryset = OrderPayment.objects.all()
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
 
     def get_serializer_class(self):
-        if self.action == 'create':
+        if self.action in ['create', 'put']:
             return OrderPaymentCreateSerializer
         return OrderPaymentSerializer
 

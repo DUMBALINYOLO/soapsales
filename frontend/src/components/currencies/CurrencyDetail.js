@@ -10,6 +10,8 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {Card} from 'primereact/card';
 import {Button} from 'primereact/button';
+import UpdateCurrency from './CurrencyUpdate';
+
 
 
 class CurrencyDetail extends Component {
@@ -39,6 +41,7 @@ class CurrencyDetail extends Component {
 					<div style={{margin: '4em', fontSize: '14px'}}>ID: {currency.id}</div>
 					<div style={{margin: '4em'}}>NAME: {currency.name}</div>
 					<div  style={{margin: '4em'}}>SYMBOL: {currency.symbol}</div>
+
                 </Card>
             </div>
         );

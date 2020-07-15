@@ -1,18 +1,11 @@
 import axios from 'axios';
 import { createMessage } from './messages';
-<<<<<<< HEAD
-import {
-        GET_TAXES,
-        GET_TAXE, 
-        DELETE_TAX,
-        ADD_TAX, GET_ERRORS
-=======
 import { 
         GET_TAXES, 
         DELETE_TAX, 
         ADD_TAX, 
+        GET_TAX
         GET_ERRORS 
->>>>>>> 92d34303bebc337d0465dbdc3b78a0656d1938e0
     } from './types';
 
 

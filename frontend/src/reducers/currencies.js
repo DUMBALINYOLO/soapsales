@@ -1,4 +1,4 @@
-import { GET_CURRENCIES, GET_CURRENCY, DELETE_CURRENCY, ADD_CURRENCY  } from '../types/currencyTypes';
+import { GET_CURRENCIES, GET_CURRENCY, DELETE_CURRENCY, ADD_CURRENCY, UPDATE_CURRENCY  } from '../types/currencyTypes';
 
 const initialState = {
     currencies: [],
@@ -29,6 +29,11 @@ export default function(state = initialState, action){
                 ...state,
                 currency: action.payload
             };
+        case UPDATE_CURRENCY:
+            return state.map(currency =>
+                    currency.id === action.currency.id ? action.currency: currency
+                );
+           
         default:
             return state;
     }

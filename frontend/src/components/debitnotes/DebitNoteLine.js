@@ -5,29 +5,29 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {Button} from 'primereact/button';
 import { connect } from 'react-redux';
-import { getAccounts} from '..//../actions/accounts';
+import { getOrderItems} from '..//../actions/orderitems';
 import {InputNumber} from 'primereact/inputnumber';
 
 
-const BillLines = (props) => {
+const DebitNoteLines = (props) => {
 
   // componentDidMount() {
   //       props.getAccounts();
   //   }
   useEffect(() => {
         if(!props.fetched) {
-            props.getAccounts();
+            props.getOrderItems();
         }
         console.log('mount it!');
     }, );
 
-  const { accounts } = props;
+  const { orderitems } = props;
 
-  console.log(accounts)
+  console.log(orderitems)
 
 
-  let debitAccounts = accounts.length > 0
-    && accounts.map((item, i) => {
+  let orderItems = orderitems.length > 0
+    && orderitems.map((item, i) => {
     return (
       <option key={i} value={item.id}>{item.name}</option>
     )
@@ -35,26 +35,26 @@ const BillLines = (props) => {
 
   return (
     props.lines.map((val, idx) => {
-      let debit_account = `debit_account-${idx}`, amount = `amount-${idx}`
+      let item = `item-${idx}`, quantity = `quantity-${idx}`
       return (
         <tr key={val.index}>
           <td>
             <input
               type="number"
-              name="amount" 
+              name="quantity" 
               data-id={idx} 
-              id={amount} 
+              id={quantty} 
               className="form-control " 
             />
           </td>
           <td>
             <select 
-              name="debit_account" 
-              id={debit_account} 
+              name="item" 
+              id={item} 
               data-id={idx} 
               className="form-control"
             >
-               {debitAccounts}
+               {orderItems}
             </select>
           </td>
 
@@ -72,7 +72,7 @@ const BillLines = (props) => {
 
 
 const mapStateToProps = state =>({
-    accounts: state.accounts.accounts
+    orderitems: state.orderitems.orderitems
 })
 
-export default connect(mapStateToProps, {getAccounts} ) (BillLines);
+export default connect(mapStateToProps, {getOrderItems} ) (DebitNoteLines);
