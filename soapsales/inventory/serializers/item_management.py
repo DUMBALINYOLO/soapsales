@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 from inventory.models import (
                     StockReceipt,
                     StockReceiptLine,
@@ -16,9 +17,33 @@ class StringSerializer(serializers.StringRelatedField):
         return value
 
 
-class StockReceiptSerializer(serializers.ModelSerializer):
-    order = StringSerializer()
-    receipt_by = StringSerializer()
+class StockReceiptLineCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StockReceiptLine
+        fields = [
+            'id',
+            'line',
+            'quantity',
+
+        ]
+
+
+class StockReceiptLineSerializer(serializers.ModelSerializer):
+    line = StringSerializer()
+
+    class Meta:
+        model = StockReceiptLine
+        fields = [
+            'id',
+            'line',
+            'quantity',
+
+        ]
+
+
+
+class StockReceiptCreateUpdateSerializer(WritableNestedModelSerializer):
+    lines = StockReceiptLineCreateSerializer(many=True)
 
     class Meta:
         model = StockReceipt
@@ -29,24 +54,101 @@ class StockReceiptSerializer(serializers.ModelSerializer):
             'receive_date',
             'note',
             'fully_received',
+            'lines',
         ]
 
-class StockReceiptLineSerializer(serializers.ModelSerializer):
-    order_item = StringSerializer()
+
+class StockReceiptListSerializer(serializers.ModelSerializer):
+    order = StringSerializer()
+    receipt_by = StringSerializer()
 
     class Meta:
-        model = StockReceiptLine
+        model = StockReceipt
         fields = [
             'id',
-            'receipt',
-            'line',
-            'order_item',
-            'quantity',
+            'order',
+            'receipt_by',
+            'receive_date',
+            'fully_received',
+        ]
+
+
+class StockReceiptDetailSerializer(serializers.ModelSerializer):
+    lines = StockReceiptLineSerializer(many=True, read_only=True)
+    order = StringSerializer()
+    receipt_by = StringSerializer()
+
+
+    class Meta:
+        model = StockReceipt
+        fields = [
+            'id',
+            'order',
+            'receipt_by',
+            'receive_date',
+            'fully_received',
+            'lines',
+        ]
+
+class StockAdjustmentCreateUpdateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = StockAdjustment
+        fields = [ 'id', 'warehouse_item', 'adjustment', 'note',]
+
+
+class StockAdjustmentListSerializer(serializers.ModelSerializer):
+    inventory_check = StringSerializer()
+    warehouse_item = StringSerializer()
+
+    class Meta:
+        model = StockAdjustment
+        fields = [
+            'id',
+            'warehouse_item',
+            'adjustment',
+            'inventory_check',
+            'adjustment_value',
+            'prev_quantity',
 
         ]
 
 
-class InventoryCheckSerializer(serializers.ModelSerializer):
+class StockAdjustmentDetailSerializer(serializers.ModelSerializer):
+    inventory_check = StringSerializer()
+    warehouse_item = StringSerializer()
+
+    class Meta:
+        model = StockAdjustment
+        fields = [
+            'id',
+            'warehouse_item',
+            'adjustment',
+            'note',
+            'inventory_check',
+            'adjustment_value',
+            'prev_quantity',
+
+        ]
+
+
+
+class InventoryCheckCreateUpdateSerializer(WritableNestedModelSerializer):
+    adjustments = StockAdjustmentCreateUpdateSerializer(many=True)
+
+    class Meta:
+        models = InventoryCheck
+        fields = [
+            'pk',
+            'date',
+            'adjusted_by',
+            'warehouse',
+            'comments',
+            'adjustments',
+        ]
+
+
+class InventoryCheckListSerializer(serializers.ModelSerializer):
     adjusted_by = StringSerializer()
     warehouse = StringSerializer()
 
@@ -59,27 +161,25 @@ class InventoryCheckSerializer(serializers.ModelSerializer):
             'adjusted_by',
             'warehouse',
             'comments',
-            # @property model methods
             'value_of_all_adjustments',
         ]
 
-class StockAdjustmentSerializer(serializers.ModelSerializer):
-    inventory_check = StringSerializer()
-    warehouse_item = StringSerializer()
+
+class InventoryCheckDetailSerializer(serializers.ModelSerializer):
+    adjustments = StockAdjustmentDetailSerializer(many=True, read_only=True)
 
     class Meta:
-        model = StockAdjustment
+        model = InventoryCheck
         fields = [
             'id',
-            'warehouse_item',
-            'adjustment',
-            'note',
-            'inventory_check',
-            # @property model methods
-            'adjustment_value',
-            'prev_quantity',
-
+            'adjusted_by',
+            'warehouse',
+            'comments',
+            'value_of_all_adjustments',
+            'adjustments',
+            # 'history',
         ]
+
 
 
 class TransferOrderSerializer(serializers.ModelSerializer):

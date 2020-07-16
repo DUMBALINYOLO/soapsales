@@ -16,6 +16,9 @@ from inventory.apis import (
                     WareHouseItemViewSet,
                     StorageMediaViewSet,
                     OrderItemViewSet,
+                    StockReceiptViewSet,
+                    StockAdjustmentViewSet,
+                    InventoryStockTakeViewSet,
                 )
 
 router = routers.DefaultRouter()
@@ -37,5 +40,8 @@ router.register(r'warehouses',  WareHouseViewSet)
 router.register(r'warehouseitems',  WareHouseItemViewSet)
 router.register(r'storagemedia',  StorageMediaViewSet)
 router.register(r'orderitems',  OrderItemViewSet)
+router.register(r'inventoryreceipts',  StockReceiptViewSet)
+router.register(r'stockadjustments',  StockAdjustmentViewSet)
+router.register(r'inventorystocktakes', InventoryStockTakeViewSet)
 
 urlpatterns = router.urls

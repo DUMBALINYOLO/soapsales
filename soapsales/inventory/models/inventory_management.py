@@ -1,8 +1,8 @@
 from django.db import models
 from django.db.models import Q
-from basedata.models import InvenTreeTree
 from .inventory import InventoryItem
 from accounts.models import Account, JournalEntry
+from simple_history.models import HistoricalRecords
 
 
 class InventoryController(models.Model):
@@ -77,6 +77,8 @@ class OrderPayment(models.Model):
     order = models.ForeignKey('inventory.Order', on_delete=models.SET_NULL,
         null=True)
     comments = models.TextField()
+     # History of this item
+    history = HistoricalRecords()
 
     entry = models.ForeignKey('accounts.JournalEntry',
         on_delete=models.SET_NULL,
@@ -94,7 +96,7 @@ class OrderPayment(models.Model):
             return
         j = JournalEntry.objects.create(
                 memo= 'Auto generated journal entry from order payment.' \
-                    if comments == "" else comments,
+                    if self.comments == "" else self.comments,
                 date=self.date,
                 creator = self.order.issuing_inventory_controller.employee,
                 is_approved = True,
@@ -130,6 +132,7 @@ class StockReceipt(models.Model):
     receive_date = models.DateField()
     note =models.TextField(blank=True, default="")
     fully_received = models.BooleanField(default=False)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.pk) + ' - ' + str(self.receive_date)
@@ -142,12 +145,14 @@ class StockReceipt(models.Model):
 
 class StockReceiptLine(models.Model):
     receipt = models.ForeignKey(
-                        'inventory.StockReceipt'
-                        ,on_delete=models.CASCADE,
-                        related_name= 'lines'
-                        )  
+                        'inventory.StockReceipt',
+                        on_delete=models.SET_NULL,
+                        null=True,
+                        related_name='lines'
+                    )  
     line = models.ForeignKey('inventory.OrderItem', on_delete=models.CASCADE)
     quantity = models.FloatField(default=0.0)
+    history = HistoricalRecords()
 
 
 #might need to rename
@@ -160,10 +165,11 @@ class InventoryCheck(models.Model):
         on_delete=models.SET_NULL,
         null=True )
     comments = models.TextField()
+    history = HistoricalRecords()
 
     @property
     def adjustments(self):
-        return self.stockadjustment_set.all()
+        return self.adjustments.all()
 
     @property
     def value_of_all_adjustments(self):
@@ -179,8 +185,13 @@ class StockAdjustment(models.Model):
         on_delete=models.SET_NULL, null=True)
     adjustment = models.FloatField()
     note = models.TextField()
-    inventory_check = models.ForeignKey('inventory.InventoryCheck',
-        on_delete=models.SET_NULL, null=True)
+    inventory_check = models.ForeignKey(
+                            'inventory.InventoryCheck',
+                            on_delete=models.SET_NULL, 
+                            null=True,
+                            related_name = 'adjustments',
+                        )
+    history = HistoricalRecords()
 
     @property
     def adjustment_value(self):
@@ -196,6 +207,8 @@ class StockAdjustment(models.Model):
     def save(self, *args, **kwargs):
         super(StockAdjustment, self).save(*args, **kwargs)
         self.adjust_inventory()
+
+
 
 class TransferOrder(models.Model):
     date = models.DateField()

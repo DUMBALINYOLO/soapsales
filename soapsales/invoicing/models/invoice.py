@@ -26,6 +26,7 @@ class Invoice(SoftDeletionModel):
     and no fiscalization takes place. Only non draft invoices can be sent
 
 
+
     methods
     -------
     add_line
@@ -198,7 +199,7 @@ class Invoice(SoftDeletionModel):
     @property
     def total_paid(self):
         '''Returns the total value of payments made towards the invoice'''
-        return sum([p.amount for p in self.payment_set.all()])
+        return sum([p.amount_to_pay for p in self.payment_set.all()])
 
     @property
     def total_due(self):

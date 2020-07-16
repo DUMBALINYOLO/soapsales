@@ -3,6 +3,7 @@ from django.db import models
 from accounts.models import Account, JournalEntry
 from decimal import Decimal as D
 from basedata.models import SoftDeletionModel
+from .receipt import CustomerReceipt
 
 class Payment(SoftDeletionModel):
     '''
@@ -25,7 +26,8 @@ class Payment(SoftDeletionModel):
     invoice = models.ForeignKey("invoicing.Invoice",
         on_delete=models.SET_NULL,
         null=True)
-    amount = models.DecimalField(max_digits=16,decimal_places=2)
+    amount_tendered = models.DecimalField(max_digits=16, default= 0, decimal_places=2)
+    amount_to_pay = models.DecimalField(max_digits=16, default= 0, decimal_places=2)
     date = models.DateField()
     method = models.CharField(
         max_length=32,
@@ -37,11 +39,21 @@ class Payment(SoftDeletionModel):
     comments = models.TextField(default="Thank you for your business")
     entry = models.ForeignKey('accounts.JournalEntry', null=True, blank=True,
         on_delete=models.SET_NULL)
+    receipt = models.ForeignKey(
+                            'invoicing.CustomerReceipt', 
+                            null=True, 
+                            blank=True,
+                            on_delete=models.SET_NULL,
+                            related_name = 'payments'
+                        )
+
 
 
     def save(self, *args, **kwargs):
         if self.entry is None:
             self.create_entry()
+        if self.receipt is None:
+            self.create_create_customer_receipt()
         super(Payment, self).save(*args, **kwargs)
 
 
@@ -50,7 +62,11 @@ class Payment(SoftDeletionModel):
 
     @property
     def due(self):
-        return self.invoice.total - self.amount
+        return self.invoice.total - self.amount_to_pay
+
+    @property
+    def customer_change(self):
+        return self.amount_tendered - self.amount_to_pay
 
     def create_entry(self):
         '''payment entries credit the customer account and debits the cash book'''
@@ -69,7 +85,7 @@ class Payment(SoftDeletionModel):
         j.simple_entry(
             self.amount,
             self.invoice.customer.account,
-            Account.objects.get(name='CASH-IN-CHECKING-ACCOUNT-1'),#cash in checking account
+            Account.objects.get(name='CASH-IN-CHECKING-ACCOUNT-ONE'),#cash in checking account
         )
         #change invoice status if  fully paid
         if self.invoice.total_due <= 0:
@@ -77,5 +93,17 @@ class Payment(SoftDeletionModel):
         else:
             self.invoice.status = "paid-partially"
         self.entry = j
-        self.save()
         self.invoice.save()
+
+    def create_create_customer_receipt(self):
+        self.receipt = CustomerReceipt.objects.create(
+                sales_rep = self.sales_rep,
+                customer = self.invoice.customer,
+                comment = f'We are Grateful for your support {self.invoice.customer.name} !!!!!',
+                payment_method = self.method,
+                amount_paid = self.amount_to_pay,
+                amount_tendered =  self.amount_tendered   
+            )
+
+
+
