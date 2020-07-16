@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addAccountType } from '..//../actions/accounttypes';
-import { getAccountTypes} from '..//../actions/accounttypes';
+import { getAccountTypesCategoryChoices, getAccountTypesClassificationChoices } from '..//../actions/choices';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -18,6 +18,8 @@ export class AccountTypeForm extends Component{
                 classification: '',
                 name: '',
                 order: '',
+                accounttypescategorychoices: [],
+                accounttypesclassificationchoices: [],
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -49,11 +51,13 @@ export class AccountTypeForm extends Component{
 
     static propTypes = {
         addAccountType: PropTypes.func.isRequired,
-        getAccountTypes: PropTypes.func.isRequired,
+        getAccountTypesClassificationChoices: PropTypes.func.isRequired,
+        getAccountTypesCategoryChoices: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-      this.props.getAccountTypes()
+      this.props.getAccountTypesClassificationChoices()
+      this.props.getAccountTypesCategoryChoices()
     }
 
     render() {
@@ -64,21 +68,28 @@ export class AccountTypeForm extends Component{
          order
         } = this.state;
 
-        const {} = this.props;
+        const {categories} = this.props.accounttypescategorychoices;
+        console.log(categories)
 
-        let categorise = category.length > 0
-            && category.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
+        // let accounttypescategorychoices = categories.length > 0
+        //     && categories.map((item, index) => {
+        //         return (
+        //             <option key={item.key } value={item.key}>{item.value}</option>
+        //         )
+        //     }, this);
 
-        let classifications = classification.length > 0
-            && classification.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
+        // const {classifications} = this.props.accounttypesclassificationchoices;
+
+        // let accounttypesclassificationchoices = classifications.length > 0
+        //     && classifications.map((item, index) => {
+        //         return (
+        //             <option key={item.key } value={item.key}>{item.value}</option>
+        //         )
+        //     }, this);
+
+
+
+
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -105,24 +116,6 @@ export class AccountTypeForm extends Component{
                     value={order}
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-4">
-                  <select
-                      name="category"
-                      value={category}
-                      onChange={this.onChange}
-                  >
-                      {category}
-                  </select>
-                </div>
-                <div className="p-field p-col-12 p-md-4">
-                  <select
-                      name="classification"
-                      value={classification}
-                      onChange={this.onChange}
-                  >
-                      {classification}
-                  </select>
-                </div>
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />
                 </div>
@@ -134,7 +127,8 @@ export class AccountTypeForm extends Component{
 }
 
 const mapStateToProps = state =>({
-    accounttypes: state.accounttypes.accounttypes
+    accounttypesclassificationchoices: state.accounttypesclassificationchoices.accounttypesclassificationchoices,
+    accounttypescategorychoices: state.accounttypescategorychoices.accounttypescategorychoices,
 })
 
-export default connect(mapStateToProps, {getAccountTypes, addAccountType })(AccountTypeForm);
+export default connect(mapStateToProps, {getAccountTypesCategoryChoices, getAccountTypesClassificationChoices, addAccountType })(AccountTypeForm);

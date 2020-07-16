@@ -431,6 +431,7 @@ class AccountViewSet(viewsets.ModelViewSet):
         current_liabilities_total = 0
         noncurrent_liabilities = []
         noncurrent_liabilities_total = 0
+        
 
         expenses_total = 0
         revenues_total = 0

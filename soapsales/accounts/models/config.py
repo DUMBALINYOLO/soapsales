@@ -5,6 +5,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from basedata.models import SoftDeletionModel, SingletonModel
+from basedata.const import ACCOUNTING_PERIODS_CHOICES
 
 
 class AccountingSettings(SingletonModel):
@@ -14,7 +15,7 @@ class AccountingSettings(SingletonModel):
         (2, "Weekly")
     ]
     default_accounting_period = models.PositiveSmallIntegerField(
-        choices=ACCOUNTING_PERIODS, default=1)
+        choices=ACCOUNTING_PERIODS_CHOICES, default=1)
 
     default_bookkeeper = models.ForeignKey('accounts.Bookkeeper', null=True,
         blank=True, on_delete=models.SET_NULL)

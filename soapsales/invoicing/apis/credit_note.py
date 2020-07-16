@@ -9,9 +9,9 @@ from invoicing.serializers import(
 
 class CreditNoteViewSet(viewsets.ModelViewSet):
 	queryset = CreditNote.objects.all()
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 
 
 	def get_serializer_class(self):

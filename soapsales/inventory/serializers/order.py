@@ -18,7 +18,7 @@ class OrderItemListSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = [
 
-            'id'
+            'id',
             'order',
             'item',
             'quantity',
@@ -132,23 +132,21 @@ class OrderListSerializer(serializers.ModelSerializer):
 
 
 class OrderPaymentCreateSerializer(serializers.ModelSerializer):
-    order = StringSerializer()
-    entry = StringSerializer()
+
 
     class Meta:
         model = OrderPayment
         fields = [
-            'id',
             'date',
             'amount',
             'order',
             'comments',
-            'entry',
         ]
 
 
 class OrderPaymentSerializer(serializers.ModelSerializer):
-
+    order = StringSerializer()
+    entry = StringSerializer()
     class Meta:
         model = OrderPayment
         fields = [

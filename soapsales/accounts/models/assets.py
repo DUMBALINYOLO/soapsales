@@ -6,17 +6,14 @@ from django.db.models import Q
 from django.utils import timezone
 from calendar import monthrange
 from .journalize import JournalEntry
+from basedata.const import (
+        ASSET_DEPRECIATION_METHOD_CHOICES,
+        ASSET_TYPE_CHOICES
+    )
 
 
 
-DEPRECIATION_METHOD = [
-    (0, 'Straight Line'),
-    (1, 'Sum of years digits'),
-    (2, 'Double Declining balance')
-]
-asset_choices = ['Land', 'Buildings', 'Vehicles', 'LeaseHold Improvements',
-    'Furniture and Fixtures', 'Equipment']
-ASSET_CHOICES = [(asset_choices.index(i), i) for i in asset_choices]
+
 
 #TODO add flexibility to create custom asset accounts
 
@@ -30,13 +27,13 @@ class Asset(models.Model):
     '''
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
-    category = models.IntegerField(choices=ASSET_CHOICES)
+    category = models.CharField(choices=ASSET_TYPE_CHOICES, max_length=128)
     initial_value  = models.DecimalField(max_digits=16, decimal_places=2)
     credit_account = models.ForeignKey('accounts.Account',
         on_delete=models.SET_DEFAULT, default=1000)
     depreciation_period = models.IntegerField()#years
     init_date = models.DateField()
-    depreciation_method = models.IntegerField(default=0, choices=DEPRECIATION_METHOD)
+    depreciation_method = models.IntegerField(default=0, choices=ASSET_DEPRECIATION_METHOD_CHOICES)
     salvage_value = models.DecimalField(max_digits=16, decimal_places=2)
     created_by = models.ForeignKey('employees.Employee', default=1, on_delete=models.SET_NULL, null=True)
     entry = models.ForeignKey("accounts.JournalEntry", null=True, on_delete=models.SET_NULL)
@@ -78,7 +75,7 @@ class Asset(models.Model):
         )
         j.simple_entry(self.initial_value,
             self.credit_account,# defaults to cash account
-            self.credit_account)
+            Account.objects.get(name='ASSET-ACCOUNT-NUMBER-ONE'))
 
     @property
     def salvage_date(self):

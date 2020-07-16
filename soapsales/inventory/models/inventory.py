@@ -2,17 +2,16 @@ from django.db import models
 from django.db.models import Q
 from .warehouse import *
 from .order import *
+from basedata.const import (
+            INVENTORY_TYPES_CHOICES,
+            PRODUCT_COMPONENT_PRICING_CHOICES,
+            EQUIPMENT_COMPONENT_CONDITION_CHOICES,
+    )
 
 class InventoryItem(models.Model):
-    INVENTORY_TYPES = [
-        (0, 'Product'),
-        (1, 'Equipment'),
-        (2, 'Consumables'),
-        (3, 'Raw Material'),
-    ]
 
     name = models.CharField(max_length = 64)
-    type = models.PositiveSmallIntegerField(choices=INVENTORY_TYPES)
+    type = models.PositiveSmallIntegerField(choices=INVENTORY_TYPES_CHOICES)
     category = models.ForeignKey('inventory.Category',
         on_delete=models.SET_NULL, null=True,default=1)
     length = models.FloatField(default=0.0)
@@ -163,16 +162,16 @@ class InventoryItem(models.Model):
 
 
 class ProductComponent(models.Model):
-    PRICING_CHOICES = [
-    (0, 'Manual'),
-    (1, 'Margin'),
-    (2, 'Markup')
-]
-    pricing_method = models.IntegerField(choices=PRICING_CHOICES, default=0)
+ 
+    pricing_method = models.IntegerField(choices=PRODUCT_COMPONENT_PRICING_CHOICES, default=0)
     direct_price = models.DecimalField(max_digits=16, decimal_places=2)
     margin = models.DecimalField(max_digits=16, decimal_places=2, default=0)
     markup = models.DecimalField(max_digits=16, decimal_places=2, default=0)
     sku = models.CharField(max_length=16, blank=True)
+
+
+    def __str__(self):
+        return self.name
 
 
     def quantity_on_date(self, date):
@@ -304,12 +303,10 @@ class ProductComponent(models.Model):
 
 
 class EquipmentComponent(models.Model):
-    CONDITION_CHOICES = [
-        ('excellent', 'Excellent'),
-        ('good', 'Good'),
-        ('poor', 'Poor'),
-        ('broken', 'Not Functioning')
-    ]
+
     condition = models.CharField(max_length=16,
-        choices=CONDITION_CHOICES, default='excellent')
+        choices=EQUIPMENT_COMPONENT_CONDITION_CHOICES, default='excellent')
     name = models.CharField(max_length=230)
+
+    def __str__(self):
+        return self.name

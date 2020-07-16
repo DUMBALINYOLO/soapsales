@@ -20,9 +20,9 @@ from invoicing.serializers import (
 
 class QuotationViewSet(viewsets.ModelViewSet):
 	queryset = Invoice.objects.filter(status='quotation')
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 
 	def get_serializer_class(self):
 		if self.action == 'list':

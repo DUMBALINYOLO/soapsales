@@ -80,9 +80,9 @@ class CreditNote(models.Model):
 
         j.credit(self.returned_total_with_tax, self.invoice.customer.account)
         # sales returns
-        j.debit(self.returned_total, Account.objects.get(name='SALES-RETURN'))
+        j.debit(self.returned_total, Account.objects.get(name='SALES-RETURN-ACCOUNT-NUMBER-ONE'))
         # tax account
-        j.debit(self.tax_credit, Account.objects.get(name='TAX-ACCOUNT'))
+        j.debit(self.tax_credit, Account.objects.get(name='TAX-ACCOUNT-NUMBER-TWO'))
 
         self.entry = j
         self.save()

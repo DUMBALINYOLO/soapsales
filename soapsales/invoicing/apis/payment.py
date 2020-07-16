@@ -9,9 +9,9 @@ from invoicing.serializers import(
 
 class PaymentViewSet(viewsets.ModelViewSet):
 	queryset = Payment.objects.all()
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 
 
 	def get_serializer_class(self):

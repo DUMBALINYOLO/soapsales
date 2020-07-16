@@ -1,7 +1,10 @@
 from __future__ import unicode_literals
-
-
 from django.db import models
+from basedata.const import (
+        PROCCES_RATE_UNIT_TIME_CHOICES,
+        MANUFACTURING_PRODUCT_TYPES,
+        BILL_OF_MATERIALS_LINE_CHOICES,
+    )
 '''
 A manufacturing process has involves the transformation of
 raw materials into finished products using some process
@@ -111,14 +114,10 @@ class Process(models.Model):
         return self.name
 
 class ProcessRate(models.Model):
-    UNIT_TIME_CHOICES = [
-            (0, 'per second'),
-            (1, 'per minute'),
-            (2, 'per hour'),
-        ]
+    
     unit = models.ForeignKey('inventory.UnitOfMeasure', on_delete=models.SET_NULL, null=True)
     unit_time = models.PositiveSmallIntegerField(
-        choices=UNIT_TIME_CHOICES
+        choices=PROCCES_RATE_UNIT_TIME_CHOICES
     )
     quantity = models.FloatField(default=0.0)
 
@@ -128,7 +127,7 @@ class ProcessRate(models.Model):
 
     @property
     def unit_time_string(self):
-        mapping = dict(self.UNIT_TIME_CHOICES)
+        mapping = dict(PROCCES_RATE_UNIT_TIME_CHOICES)
         return mapping[self.unit_time]
 
 class ProductVariation(models.Model):
@@ -163,15 +162,10 @@ class Product(models.Model):
 
 
 class ProcessProduct(models.Model):
-    PRODUCT_TYPES = [
-        (0, 'Product'),
-        (1, 'By-Product'),
-        (2, 'Co-Product'),
-        (3, 'Waste')
-    ]
+
     name = models.CharField(max_length=255)
     description = models.TextField()
-    type = models.PositiveSmallIntegerField(choices=PRODUCT_TYPES)# main product, byproduct, waste,  wip
+    type = models.PositiveSmallIntegerField(choices=MANUFACTURING_PRODUCT_TYPES)# main product, byproduct, waste,  wip
     unit = models.ForeignKey('inventory.UnitOfMeasure', on_delete=models.SET_NULL, null=True)
     finished_goods= models.BooleanField(default=False)
     inventory_product = models.ForeignKey('inventory.InventoryItem', on_delete=models.SET_NULL, null=True)
@@ -183,7 +177,7 @@ class ProcessProduct(models.Model):
         return self.name
 
     def type_string(self):
-        return dict(self.PRODUCT_TYPES)[self.type]
+        return dict(MANUFACTURING_PRODUCT_TYPES)[self.type]
 
 class WasteGenerationReport(models.Model):
     product = models.ForeignKey('manufacture.ProcessProduct', on_delete=models.SET_NULL, null=True)
@@ -208,10 +202,7 @@ class BillOfMaterials(models.Model):
 
 class BillOfMaterialsLine(models.Model):
     bill = models.ForeignKey('manufacture.BillOfMaterials', on_delete=models.SET_NULL, null=True)
-    type = models.PositiveSmallIntegerField(choices=[
-        (0, 'Raw Material'),
-        (1, 'Process Product')
-    ]) # integer
+    type = models.PositiveSmallIntegerField(choices=BILL_OF_MATERIALS_LINE_CHOICES) # integer
     raw_material = models.ForeignKey('inventory.InventoryItem', on_delete=models.SET_NULL, null=True, blank=True)
     product = models.ForeignKey('manufacture.ProcessProduct', on_delete=models.SET_NULL, null=True, blank=True)
     quantity = models.FloatField()

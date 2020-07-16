@@ -50,7 +50,7 @@ class StockReceiptCreateUpdateSerializer(WritableNestedModelSerializer):
         fields = [
             'id',
             'order',
-            'receipt_by',
+            'received_by',
             'receive_date',
             'note',
             'fully_received',
@@ -58,16 +58,17 @@ class StockReceiptCreateUpdateSerializer(WritableNestedModelSerializer):
         ]
 
 
+
 class StockReceiptListSerializer(serializers.ModelSerializer):
     order = StringSerializer()
-    receipt_by = StringSerializer()
+    received_by = StringSerializer()
 
     class Meta:
         model = StockReceipt
         fields = [
             'id',
             'order',
-            'receipt_by',
+            'received_by',
             'receive_date',
             'fully_received',
         ]
@@ -76,7 +77,7 @@ class StockReceiptListSerializer(serializers.ModelSerializer):
 class StockReceiptDetailSerializer(serializers.ModelSerializer):
     lines = StockReceiptLineSerializer(many=True, read_only=True)
     order = StringSerializer()
-    receipt_by = StringSerializer()
+    received_by = StringSerializer()
 
 
     class Meta:
@@ -84,7 +85,7 @@ class StockReceiptDetailSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'order',
-            'receipt_by',
+            'received_by',
             'receive_date',
             'fully_received',
             'lines',
@@ -137,7 +138,7 @@ class InventoryCheckCreateUpdateSerializer(WritableNestedModelSerializer):
     adjustments = StockAdjustmentCreateUpdateSerializer(many=True)
 
     class Meta:
-        models = InventoryCheck
+        model = InventoryCheck
         fields = [
             'pk',
             'date',

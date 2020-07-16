@@ -15,9 +15,9 @@ from inventory.serializers import (
 
 class DebitNoteViewSet(ModelViewSet):
 	queryset = DebitNote.objects.all()
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 	
 
 	def get_serializer_class(self):

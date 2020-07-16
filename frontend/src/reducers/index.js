@@ -41,6 +41,8 @@ import payments from "./payments";
 import messages from "./messages";
 import suppliers from "./suppliers";
 import orderitems from "./orderitems";
+import accounttypescategorychoices from './accounttypescategorychoices';
+import accounttypesclassificationchoices from './accounttypesclassificationchoices';
 
 
 
@@ -88,5 +90,8 @@ export default combineReducers({
     messages,
     suppliers,
     orderitems,
+    accounttypescategorychoices,
+    accounttypesclassificationchoices,
+
 
 });

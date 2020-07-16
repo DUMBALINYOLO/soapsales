@@ -3,6 +3,10 @@ from __future__ import unicode_literals
 from django.db import models
 from accounts.utils import format_currency
 from .enums import AccountCategories, AccountClassifications
+from basedata.const import (
+        ACCOUNT_TYPES_CATEGORY_CHOICES,
+        ACCOUNT_TYPES_CLASSIFICATION_CHOICES 
+    )
 
 NUM_ACCOUNTS_PER_ACCOUNT_TYPE = 100
 
@@ -16,22 +20,12 @@ class AccountType(models.Model):
 
     objects = AccountTypeManager()
 
-    category = models.SmallIntegerField(choices=(
-        (AccountCategories.ASSET, 'Asset'),
-        (AccountCategories.LIABILITY, 'Liability'),
-        (AccountCategories.EQUITY, 'Equity'),
-        (AccountCategories.REVENUE, 'Revenue'),
-        (AccountCategories.EXPENSE, 'Operating Expense')
-    ))
+    category = models.IntegerField(choices=ACCOUNT_TYPES_CATEGORY_CHOICES)
 
-    classification = models.SmallIntegerField(choices=(
-        (AccountClassifications.NONE, ''),
-        (AccountClassifications.CURRENT, 'Current'),
-        (AccountClassifications.NONCURRENT, 'Long-Term')
-    ))
+    classification = models.IntegerField(choices=ACCOUNT_TYPES_CLASSIFICATION_CHOICES)
 
     name = models.CharField(max_length=100, unique=True)
-    order = models.PositiveIntegerField(unique=True, verbose_name='order Value (1 represents highest order)')
+    order = models.IntegerField(unique=True, verbose_name='order Value (1 represents highest order)')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='date Created')
 
     def __str__(self):

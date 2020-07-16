@@ -12,6 +12,7 @@ from accounts.models import (
 from django.shortcuts import reverse
 
 
+
 class DebitNote(models.Model):
     """
         A document sent by a business to a supplier notifying them
@@ -75,9 +76,9 @@ class DebitNote(models.Model):
 
         j.debit(self.returned_total, self.order.supplier.account)
         #Purchase returns
-        j.credit(self.returned_subtotal, Account.objects.get(name='PURCHASE_RETURNS'))
+        j.credit(self.returned_subtotal, Account.objects.get(name='PURCHASE-RETURNS-ACCOUNT-NUMBER-ONE'))
         #Vat account
-        j.credit(self.returned_tax, Account.objects.get(name='VAT_ACCOUNT'))
+        j.credit(self.returned_tax, Account.objects.get(name='VAT-ACCOUNT-NUMBER-ONE'))
 
         self.entry = j
         self.save()

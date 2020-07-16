@@ -46,7 +46,7 @@ class DebitNoteCreateSerializer(WritableNestedModelSerializer):
     class Meta:
         model = DebitNote
         fields = [
-            'pk'
+            'pk',
             'date',
             'order',
             'comments',

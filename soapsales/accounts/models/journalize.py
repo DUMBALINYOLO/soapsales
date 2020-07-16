@@ -4,6 +4,7 @@ from django.db import models
 from employees.models import User
 from .accounts import Account
 from .enums import JournalEntryTypes
+from basedata.const import JOURNAL_ENTRY_TYPES_CHOICES
 
 
 class TransactionManager(models.Manager):
@@ -52,12 +53,7 @@ class JournalEntry(models.Model):
 
     objects = JournalEntryManager()
 
-    entry_type = models.SmallIntegerField(choices=(
-                                            (JournalEntryTypes.REGULAR, 'Regular'),
-                                            (JournalEntryTypes.ADJUSTING, 'Adjusting'),
-                                            (JournalEntryTypes.CLOSING, 'Closing'),
-                                            (JournalEntryTypes.REVERSING, 'Reversing')
-                                        ), default=JournalEntryTypes.REGULAR, blank=True, null=True)
+    entry_type = models.SmallIntegerField(choices=JOURNAL_ENTRY_TYPES_CHOICES, default=0, blank=True, null=True)
 
     date_created = models.DateTimeField(auto_now_add=True)
     date = models.DateField()

@@ -43,7 +43,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 class OrderItemViewSet(viewsets.ModelViewSet):
     queryset = OrderItem.objects.all()
-    seralizer_class = OrderItemListSerializer
+    serializer_class = OrderItemListSerializer
 
 
 class OrderPaymentViewSet(viewsets.ModelViewSet):

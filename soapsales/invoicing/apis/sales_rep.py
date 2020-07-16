@@ -9,9 +9,9 @@ from invoicing.serializers import(
 
 class SalesRepresentativeViewSet(viewsets.ModelViewSet):
 	queryset = SalesRepresentative.objects.all()
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 
 
 	def get_serializer_class(self):

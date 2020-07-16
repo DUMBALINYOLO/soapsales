@@ -104,7 +104,7 @@ class OrderPayment(models.Model):
 
         j.simple_entry(
             self.amount,
-            Account.objects.get(name='CASH_IN_ACCOUNT'),#cash in checking account
+            Account.objects.get(name='CASH-IN-CHECKING-ACCOUNT-NUMBER-ONE'),#cash in checking account
             self.order.supplier.account,
         )
 

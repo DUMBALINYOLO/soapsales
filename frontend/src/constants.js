@@ -17,6 +17,7 @@ export const creditnoteURL= `${endpoint}/sales/creditnote/`
 export const currenciesURL= `${endpoint}/accounting/currencies/`
 export const customersURL= `${endpoint}/sales/customers/`
 
+
 export const debitnoteURL= `${endpoint}/inventory/debit-note/`
 export const inventorycategoryURL= `${endpoint}/inventory/inventory-categories/`
 export const inventorycontrollerURL= `${endpoint}/inventory/inventory-controllers/`
@@ -45,3 +46,12 @@ export const inventoryitemURL = `${endpoint}/inventory/inventoryitem/`
 export const equipmentcomponentURL = `${endpoint}/inventory/equipment-components/`
 export const productionorderURL = `${endpoint}/manufacture/production-orders/`
 export const processproductsURL= `${endpoint}/manufacture/process-products/`
+
+
+export const accountTypesCategoryChoicesURL = `${endpoint}/config/account-types-category-choices/`
+export const accountTypesClassificationChoicesURL = `${endpoint}/config/account-types-classification-choices/`
+
+
+
+
+

@@ -118,19 +118,19 @@ class DebitNoteForm extends Component {
   render = () => {
     const {  
         date,
-        order
+        order,
         comments
     } = this.state;
 
     let { lines } = this.state
 
-    const { orders } = this.props;
+    const { amaorders } = this.props;
 
     console.log(orders)
 
 
-    let orders = orders.length > 0
-      && orders.map((item, i) => {
+    let orders = amaorders.length > 0
+      && amaorders.map((item, i) => {
       return (
         <option key={i} value={item.id}>{item.name}</option>
       )
@@ -191,7 +191,7 @@ class DebitNoteForm extends Component {
 }
 
 const mapStateToProps = state =>({
-    orders: state.orders.orders
+    amaorders: state.orders.orders
 })
 
 export default connect(mapStateToProps, {getOrders, addDebitnote})(DebitNoteForm);

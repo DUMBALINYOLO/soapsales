@@ -1,39 +1,151 @@
-# coding=utf-8
-from django.db import connection
-from django.utils.translation import ugettext_lazy as _
-__author__ = 'gosso_gosso'
-
-DB_CHAR_CODE_2 = 2
-DB_CHAR_CODE_4 = 4
-DB_CHAR_CODE_6 = 6
-DB_CHAR_CODE_8 = 8
-DB_CHAR_CODE_10 = 10
-
-DB_CHAR_NAME_20 = 20
-DB_CHAR_NAME_40 = 40
-DB_CHAR_NAME_60 = 60
-DB_CHAR_NAME_80 = 80
-DB_CHAR_NAME_120 = 120
-DB_CHAR_NAME_200 = 200
 
 
-STATUS_ON_OFF = (
-    (0,_('OFF')),
-    (0,_('ON')),
-)
+ACCOUNT_TYPES_CATEGORY_CHOICES = [
+        (100, 'Do Not Choose Me'),
+        (0, 'Asset'),
+        (1, 'Liability'),
+        (2, 'Equity'),
+        (3, 'Revenue'),
+        (4, 'Operating Expense')
+
+    ]
+
+ACCOUNT_TYPES_CLASSIFICATION_CHOICES = [
+        ('NONE', ''),
+        (100, 'Do Not Choose Me'),
+        (1, 'Current'),
+        (2, 'Long-Term')
+    ]
 
 
-def get_value_list(group):
-    """
-    获取值列表信息
-    """
-    if group:
-        try:
-            cursor = connection.cursor()
-            cursor.execute('SELECT code,name FROM basedata_valuelistitem WHERE group_code=%s AND status=1',[group])
-            rows = cursor.fetchall()
-            return tuple([(code,name) for code,name in rows])
-        except Exception:
-            return None
-    else:
-        return None
+ASSET_DEPRECIATION_METHOD_CHOICES = [
+        (100, 'Do Not Choose Me'),
+        (0, 'Straight Line'),
+        (1, 'Sum of years digits'),
+        (2, 'Double Declining balance')
+    ]
+
+ASSET_TYPE_CHOICES = [
+        ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+        ('LAND', 'Land'),
+        ('BUILDINGS', 'Buildings'),
+        ('VEHICLES', 'Vehicles'),
+        ('LEASEHOLD-IMPROVEMENTS', 'LeaseHold Improvements'),
+        ('FURNITURE-AND-FIXTURES', 'Furniture and Fixtures'),
+        ('EQUIPMENT', 'Equipment')
+    ]
+
+ACCOUNTING_PERIODS_CHOICES = [
+    (100, 'Do Not Choose Me'),
+    (0, "Annually"),
+    (1, "Monthly"),
+    (2, "Weekly")
+]
+
+
+JOURNAL_ENTRY_TYPES_CHOICES = [
+        (100, 'Do Not Choose Me'),
+        (0, 'Regular'),
+        (1, 'Adjusting'),
+        (2, 'Closing'),
+        (3, 'Reversing')
+
+    ]
+
+
+EMPLOYEES_GENDER_CHOICES = [
+        ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+        ('male','Male'),
+        ('female','Female')
+    ]
+
+
+INVENTORY_TYPES_CHOICES = [
+        ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+        (0, 'Product'),
+        (1, 'Equipment'),
+        (2, 'Consumables'),
+        (3, 'Raw Material'),
+    ]
+
+
+PRODUCT_COMPONENT_PRICING_CHOICES = [
+        ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+        (0, 'Manual'),
+        (1, 'Margin'),
+        (2, 'Markup')
+    ]
+
+
+
+
+EQUIPMENT_COMPONENT_CONDITION_CHOICES = [
+        ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+        ('EXCELLENT', 'Excellent'),
+        ('GOOD', 'Good'),
+        ('POOR', 'Poor'),
+        ('BROKEN', 'Not Functioning')
+    ]
+
+
+INVENTORY_ORDER_STATUS_CHOICES = [
+        ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+        ('received-partially', 'Partially Received'),
+        ('received', 'Received in Total'),
+        ('draft', 'Internal Draft'),
+        ('order', 'Order')
+    ]
+
+INVOICE_SALE_STATUS_CHOICES = [
+        ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+        ('quotation', 'Quotation'),
+        ('proforma', 'Proforma Invoice'),
+        ('invoice', 'Invoice'),
+        ('paid', 'Paid In Full'),
+        ('paid-partially', 'Paid Partially'),
+    ]
+
+INVOCE_LINE_CHOICES = [
+        ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+        (1, 'product'),
+        (2, 'service'),
+    ]
+
+CUSTOMER_PAYMENT_METHODS_CHOICES = [
+            ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+            ("cash", "Cash" ),
+            ("transfer", "Transfer"),
+            ("debit card", "Debit Card"),
+            ("mobile", "Mobile-Transfer")
+        ]
+
+PROCCES_RATE_UNIT_TIME_CHOICES = [
+            ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+            (0, 'per second'),
+            (1, 'per minute'),
+            (2, 'per hour'),
+        ]
+
+
+MANUFACTURING_PRODUCT_TYPES = [
+        ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+        (0, 'Product'),
+        (1, 'By-Product'),
+        (2, 'Co-Product'),
+        (3, 'Waste')
+    ]
+
+BILL_OF_MATERIALS_LINE_CHOICES = [
+        ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
+        (0, 'Raw Material'),
+        (1, 'Process Product'),
+    ]
+
+
+
+
+
+
+
+
+

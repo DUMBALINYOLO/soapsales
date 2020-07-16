@@ -4,6 +4,7 @@ from accounts.models import Account, JournalEntry
 from decimal import Decimal as D
 from basedata.models import SoftDeletionModel
 from .receipt import CustomerReceipt
+from basedata.const import CUSTOMER_PAYMENT_METHODS_CHOICES
 
 class Payment(SoftDeletionModel):
     '''
@@ -18,11 +19,6 @@ class Payment(SoftDeletionModel):
     ---------
     create_entry - returns the journal entry that debits the customer account
         and credits the sales account. Should also impact tax accounts'''
-
-    PAYMENT_METHODS = [("cash", "Cash" ),
-                        ("transfer", "Transfer"),
-                        ("debit card", "Debit Card"),
-                        ("mobile", "Mobile-Transfer")]
     invoice = models.ForeignKey("invoicing.Invoice",
         on_delete=models.SET_NULL,
         null=True)
@@ -31,7 +27,7 @@ class Payment(SoftDeletionModel):
     date = models.DateField()
     method = models.CharField(
         max_length=32,
-        choices=PAYMENT_METHODS,
+        choices=CUSTOMER_PAYMENT_METHODS_CHOICES,
         default='transfer')
     reference_number = models.AutoField(primary_key=True)
     sales_rep = models.ForeignKey("invoicing.SalesRepresentative",
@@ -85,7 +81,7 @@ class Payment(SoftDeletionModel):
         j.simple_entry(
             self.amount,
             self.invoice.customer.account,
-            Account.objects.get(name='CASH-IN-CHECKING-ACCOUNT-ONE'),#cash in checking account
+            Account.objects.get(name='CASH-IN-CHECKING-ACCOUNT-NUMBER-ONE'),#cash in checking account
         )
         #change invoice status if  fully paid
         if self.invoice.total_due <= 0:

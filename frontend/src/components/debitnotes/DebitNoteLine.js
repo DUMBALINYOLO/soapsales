@@ -43,7 +43,7 @@ const DebitNoteLines = (props) => {
               type="number"
               name="quantity" 
               data-id={idx} 
-              id={quantty} 
+              id={quantity} 
               className="form-control " 
             />
           </td>

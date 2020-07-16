@@ -17,6 +17,10 @@ from django.shortcuts import reverse
 from inventory.models import InventoryController
 from stock.models  import ProcessedProduct
 from .config import SalesConfig
+from basedata.const import (
+        INVOICE_SALE_STATUS_CHOICES,
+        INVOCE_LINE_CHOICES
+    )
 
 class Invoice(SoftDeletionModel):
     '''An invoice is a document that represents a sale. Because of the complexity of the object,
@@ -67,15 +71,9 @@ class Invoice(SoftDeletionModel):
     DEFAULT_WAREHOUSE = 1 #use  fixture
     DEFAULT_SALES_REP = 1
     DEFAULT_CUSTOMER = 1
-    SALE_STATUS = [
-        ('quotation', 'Quotation'),
-        ('proforma', 'Proforma Invoice'),
-        ('invoice', 'Invoice'),
-        ('paid', 'Paid In Full'),
-        ('paid-partially', 'Paid Partially'),
-    ]# reversal is handled in credit notes
+   # reversal is handled in credit notes
 
-    status = models.CharField(max_length=16, choices=SALE_STATUS)
+    status = models.CharField(max_length=16, choices=INVOICE_SALE_STATUS_CHOICES)
     invoice_number = models.PositiveIntegerField(null=True)
     quotation_number = models.PositiveIntegerField(null=True)
     quotation_date = models.DateField(blank=True, null=True)
@@ -262,12 +260,12 @@ class Invoice(SoftDeletionModel):
                 is_approved = True,
             )
 
-        j.credit(self.subtotal, Account.objects.get(name='SALES-ACCOUNT-1'))#sales does not affect balance sheet
+        j.credit(self.subtotal, Account.objects.get(name='SALES-ACCOUNT-NUMBER-ONE'))#sales does not affect balance sheet
 
         j.debit(self.total, self.customer.account)#asset increase
 
         if self.tax_amount > D(0):
-            j.credit(self.tax_amount, Account.objects.get(name='SALES-TAX-ACCOUNT-1'))#sales tax
+            j.credit(self.tax_amount, Account.objects.get(name='SALES-TAX-ACCOUNT-NUMBER-ONE'))#sales tax
 
         self.entry = j
         self.save()
@@ -340,10 +338,7 @@ class Invoice(SoftDeletionModel):
 
 
 class InvoiceLine(models.Model):
-    LINE_CHOICES = [
-        (1, 'product'),
-        (2, 'service'),
-    ]
+
     invoice = models.ForeignKey(
                             'invoicing.Invoice',
                             on_delete=models.SET_NULL,
@@ -355,7 +350,7 @@ class InvoiceLine(models.Model):
     product = models.OneToOneField('invoicing.ProductLineComponent',
         on_delete=models.SET_NULL,
         null=True, )
-    line_type = models.PositiveSmallIntegerField(choices=LINE_CHOICES)
+    line_type = models.PositiveSmallIntegerField(choices=INVOCE_LINE_CHOICES)
     tax = models.ForeignKey('accounts.Tax', on_delete=models.SET_NULL,
         null=True)
     discount =models.DecimalField(max_digits=16, decimal_places=2, default=0.0)

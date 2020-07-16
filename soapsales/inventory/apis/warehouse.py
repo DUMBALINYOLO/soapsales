@@ -15,9 +15,9 @@ from inventory.serializers import (
 class WareHouseViewSet(viewsets.ModelViewSet):
 
 	queryset = WareHouse.objects.all()
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 
 	def get_serializer_class(self):
 		if self.action != 'list' and 'retrieve':
@@ -35,9 +35,9 @@ class WareHouseViewSet(viewsets.ModelViewSet):
 class WareHouseItemViewSet(viewsets.ModelViewSet):
 
 	queryset = WareHouseItem.objects.all()
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 
 	def get_serializer_class(self):
 		if self.action != 'list' and 'retrieve':
@@ -48,9 +48,9 @@ class WareHouseItemViewSet(viewsets.ModelViewSet):
 class StorageMediaViewSet(viewsets.ModelViewSet):
 
 	queryset = StorageMedia.objects.filter(location__isnull=True)
-	permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+	# permission_classes = [
+ #        permissions.IsAuthenticated,
+ #    ]
 
 	def get_serializer_class(self):
 		if self.action != 'list' and 'retrieve':

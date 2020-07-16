@@ -5,15 +5,13 @@ from functools import reduce
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
-
-
-
 from .warehouse import (
                         StorageMedia,
                         WareHouseItem
                     )
 from .inventory_management import *
 from .debit_note import DebitNoteLine
+from basedata.const import INVENTORY_ORDER_STATUS_CHOICES
 
 
 # TODO i need to separate the order types into product, consumable and
@@ -47,12 +45,6 @@ class Order(models.Model):
     receive - quickly generates a stock receipt where all items are
         marked fully received
     '''
-    ORDER_STATUS_CHOICES = [
-        ('received-partially', 'Partially Received'),
-        ('received', 'Received in Total'),
-        ('draft', 'Internal Draft'),
-        ('order', 'Order')
-    ]
     validated_by = models.ForeignKey('employees.Employee',
                                     on_delete=models.SET_NULL,
                                     null=True,
@@ -89,7 +81,7 @@ class Order(models.Model):
                             )
     notes = models.TextField(blank=True)
     status = models.CharField(max_length=24,
-        choices=ORDER_STATUS_CHOICES)
+        choices=INVENTORY_ORDER_STATUS_CHOICES)
     received_to_date = models.FloatField(default=0.0)
     issuing_inventory_controller = models.ForeignKey(
                                         'inventory.InventoryController',

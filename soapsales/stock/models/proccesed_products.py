@@ -8,13 +8,32 @@ from datetime import datetime
 
 
 class ProcessedProduct(models.Model):
-    product = models.ForeignKey('manufacture.ProcessProduct',blank=True, null=True, on_delete=models.SET_NULL)
-    location = models.ForeignKey('inventory.WareHouse', blank=True, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(
+                        'inventory.Category',
+                        on_delete=models.SET_NULL, 
+                        null=True,default=1
+                    )
+    product = models.ForeignKey(
+                    'manufacture.ProcessProduct',
+                    blank=True, 
+                    null=True, 
+                    on_delete=models.SET_NULL
+                )
+    location = models.ForeignKey(
+                        'inventory.WareHouse', 
+                        blank=True, 
+                        null=True, 
+                        on_delete=models.SET_NULL
+                    )
+    unit = models.ForeignKey(
+                        'inventory.UnitOfMeasure',
+                        on_delete=models.SET_NULL,
+                        null=True,
+                        blank=True,
+                        default=1
+                    )
     quantity = models.IntegerField()
     updated = models.DateField(auto_now=True)
-    # last time the stock was checked / counted
-    stocktake_date = models.DateField(blank=True, null=True)
-    stocktake_user = models.ForeignKey('inventory.InventoryController', on_delete=models.SET_NULL, blank=True, null=True)
     review_needed = models.BooleanField(default=False)
 
 
@@ -43,69 +62,21 @@ class ProcessedProduct(models.Model):
                         )
 
     notes = models.CharField(max_length=100, blank=True)
-
-    # If stock item is incoming, an (optional) ETA field
-    expected_arrival = models.DateField(null=True, blank=True)
-
-    infinite = models.BooleanField(default=False)
     product_component = models.OneToOneField(
                                 'stock.ProcessedProductComponent',
                                 on_delete=models.SET_NULL,
                                 null=True,
                                 related_name = 'processedproduct'
                             )
+    minimum_order_level = models.IntegerField( default=0)
+    maximum_stock_level = models.IntegerField(default=0)
 
     # History of this item
     history = HistoricalRecords()
 
-    @transaction.atomic
-    def stocktake(self, count, user):
-        """
-            Perform item stocktake.
-            When the quantity of an item is counted,
-            record the date of stocktake
-        """
-        count = int(count)
 
-        if count < 0 or self.infinite:
-            return
 
-        self.quantity = count
-        self.stocktake_date = datetime.now().date()
-        self.stocktake_user = user
-        self.save()
-
-    @transaction.atomic
-    def add_stock(self, amount):
-        """
-            Add items to stock
-            This function can be called by initiating a ProjectRun,
-            or by manually adding the items to the stock location
-        """
-
-        amount = int(amount)
-
-        if self.infinite or amount == 0:
-            return
-
-        amount = int(amount)
-
-        q = self.quantity + amount
-        if q < 0:
-            q = 0
-
-        self.quantity = q
-        self.save()
-
-    @transaction.atomic
-    def take_stock(self, amount):
-        self.add_stock(-amount)
-
-    def __str__(self):
-        return "{n} x {part} @ {loc}".format(
-            n=self.quantity,
-            part=self.part.name,
-            loc=self.location.name)
+   
 
 
     @property

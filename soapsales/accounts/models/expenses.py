@@ -9,6 +9,7 @@ from .journalize import JournalEntry
 
 
 
+
 class Bill(models.Model):
     vendor = models.ForeignKey('inventory.Supplier',
         on_delete=models.SET_NULL, null=True)
