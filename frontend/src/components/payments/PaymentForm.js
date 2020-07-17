@@ -1,19 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addPayment } from '..//../actions/payments';
+import { getCustomerPaymentMethodChoices } from '..//../actions/choices';
 import PropTypes from 'prop-types';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import {InputText} from 'primereact/inputtext';
+import {Button} from 'primereact/button';
 
 export class PaymentForm extends Component{
-    state = {
-        date: '',
-        amount: '',
-        invoice: '',
-        method: '',
-        sales_rep: '',
-        comments: '',
+    constructor(props){
+        super(props);
+            this.state = {
+                date: '',
+                amount: '',
+                invoice: '',
+                method: '',
+                sales_rep: '',
+                comments: '',
+                methods: []
+        }
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
-
-
 
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -44,6 +55,11 @@ export class PaymentForm extends Component{
 
     static propTypes = {
         addPayment: PropTypes.func.isRequired,
+        getCustomerPaymentMethodChoices: PropTypes.func.isRequired,
+    }
+
+    componentDidMount() {
+      this.props.getCustomerPaymentMethodChoices()
     }
 
 
@@ -56,6 +72,16 @@ export class PaymentForm extends Component{
             sales_rep,
             comments,
         } = this.state;
+
+        const {customerpaymentmethodchoices} = this.props;
+        console.log(customerpaymentmethodchoices)
+
+        let methods = customerpaymentmethodchoices.length > 0
+            && customerpaymentmethodchoices.map((item, index) => {
+                return (
+                    <option key={item.key } value={item.key}>{item.value}</option>
+                )
+            }, this);
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -92,16 +118,6 @@ export class PaymentForm extends Component{
                   />
                 </div>
                 <div className="form-group">
-                  <label>Method</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="method"
-                    onChange={this.onChange}
-                    value={method}
-                  />
-                </div>
-                <div className="form-group">
                   <label>Sales Rep</label>
                   <input
                     className="form-control"
@@ -121,6 +137,15 @@ export class PaymentForm extends Component{
                     value={comments}
                   />
                 </div>
+                <div className="p-field p-col-12 p-md-4">
+                    <select
+                        name="method"
+                        value={method}
+                        onChange={this.onChange}
+                    >
+                        {methods}
+                    </select>
+                </div>
 
                 <div className="form-group">
                   <button type="submit" className="btn btn-primary">
@@ -133,4 +158,8 @@ export class PaymentForm extends Component{
     }
 }
 
-export default connect(null, { addPayment })(PaymentForm);
+const mapStateToProps = state =>({
+    customerpaymentmethodchoices: state.customerpaymentmethodchoices.customerpaymentmethodchoices,
+})
+
+export default connect(mapStateToProps, {getCustomerPaymentMethodChoices, addPayment })(PaymentForm);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addAsset } from '..//../actions/assets';
+import { getAssetDepriciationMethodChoices, getAssetTypeChoices } from '..//../actions/choices';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -27,6 +28,8 @@ export class AssetForm extends Component{
         salvage_value: '',
         credit_account: '',
         credited_by: '',
+        depreciation: [],
+        categories: [],
     }
 
 
@@ -41,12 +44,39 @@ export class AssetForm extends Component{
     };
 
     static propTypes = {
-        addAsser: PropTypes.func.isRequired,
+        addAsset: PropTypes.func.isRequired,
+        getAssetDepriciationMethodChoices: PropTypes.func.isRequired,
+        getAssetTypeChoices: PropTypes.func.isRequired,
     }
 
-
+    componentDidMount() {
+      this.props.getAssetDepriciationMethodChoices()
+      this.props.getAssetTypeChoices()
+    }
     render() {
         const { name, description, category, initial_value, depreciation_period, init_date, depreciation_method, salvage_value, credit_account, credited_by } = this.state;
+
+        const {assetsdepreciationmethodchoices} = this.props;
+        console.log(assetsdepreciationmethodchoices)
+
+        let depreciation = assetsdepreciationmethodchoices.length > 0
+            && assetsdepreciationmethodchoices.map((item, index) => {
+                return (
+                    <option key={item.key } value={item.key}>{item.value}</option>
+                )
+            }, this);
+
+        const {assettypeschoices} = this.props;
+
+        console.log(assettypeschoices)
+
+
+        let categories = assettypeschoices.length > 0
+            && assettypeschoices.map((item, index) => {
+                return (
+                    <option key={item.key } value={item.key}>{item.value}</option>
+                )
+            }, this);
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Asset</h2>
@@ -137,28 +167,6 @@ export class AssetForm extends Component{
                       step={1}
                     />
                   </div>
-
-
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>Category</label>
-                    <InputText
-                      className="form-control"
-                      type="text"
-                      name="category"
-                      onChange={this.onChange}
-                      value={category}
-                    />
-                  </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>Depreciation Method</label>
-                    <InputText
-                      className="form-control"
-                      type="text"
-                      name="depreciation method"
-                      onChange={this.onChange}
-                      value={depreciation_method}
-                    />
-                  </div>
                   <div className="p-field p-col-12 p-md-6">
                     <label>Credit Account</label>
                     <InputText
@@ -179,6 +187,24 @@ export class AssetForm extends Component{
                       value={credited_by}
                     />
                   </div>
+                  <div className="p-field p-col-12 p-md-4">
+                      <select
+                          name="depreciation_method"
+                          value={depreciation_method}
+                          onChange={this.onChange}
+                      >
+                          {depreciation}
+                      </select>
+                  </div>
+                  <div className="p-field p-col-12 p-md-4">
+                      <select
+                          name="category"
+                          value={category}
+                          onChange={this.onChange}
+                      >
+                          {categories}
+                      </select>
+                  </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />
                   </div>
@@ -189,5 +215,9 @@ export class AssetForm extends Component{
     }
 }
 
+const mapStateToProps = state =>({
+    assetsdepreciationmethodchoices: state.assetsdepreciationmethodchoices.assetsdepreciationmethodchoices,
+    assettypeschoices: state.assettypeschoices.assettypeschoices,
+})
 
-export default connect(null, { addAsset })(AssetForm);
+export default connect(mapStateToProps, {getAssetDepriciationMethodChoices, getAssetTypeChoices, addAsset })(AssetForm);

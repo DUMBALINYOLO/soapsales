@@ -53,10 +53,39 @@ import inventorystocktakes from "./inventorystocktakes";
 import storagemedias from "./storagemedia";
 import inventoryreceipts from "./inventoryreceipts";
 
-
+import accountingperiodchoices from "./accountingperiodchoices";
+import assetsdepreciationmethodchoices from "./assetdepreciationchoices";
+import assettypeschoices from "./assettypechoices";
+import billmateriallinechoices from "./billmateriallinechoices";
+import customerpaymentmethodchoices from "./customerpaymentchoices";
+import employeegenderchoices from "./employeegenderchoices";
+import equipmentcomponentconditionchoices from "./equipmentcomponentchoices";
+import inventoryorderstatuschoices from "./inventoryorderchoices";
+import inventorytypechoices from "./inventorytypechoices";
+import invoicelinechoices from "./invoicelinechoices";
+import invoicesalechoices from "./invoicesalechoices";
+import journalentrytypechoices from "./journalentrychoices";
+import manufacturingproducttypechoices from "./manufacturingproductchoices";
+import processrateunittimechoices from "./processratechoices";
+import productcomponentpricingchoices from "./productcomponentchoices";
 
 export default combineReducers({
     // taxes,
+    accountingperiodchoices,
+    customerpaymentmethodchoices,
+    employeegenderchoices,
+    invoicesalechoices,
+    productcomponentpricingchoices,
+    manufacturingproducttypechoices,
+    processrateunittimechoices,
+    journalentrytypechoices,
+    inventorytypechoices,
+    invoicelinechoices,
+    equipmentcomponentconditionchoices,
+    inventoryorderstatuschoices,
+    assetsdepreciationmethodchoices,
+    billmateriallinechoices,
+    assettypeschoices,
     auth,
     accounts,
     accountingConfig,
