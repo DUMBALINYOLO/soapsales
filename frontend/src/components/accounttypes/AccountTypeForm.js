@@ -18,8 +18,8 @@ export class AccountTypeForm extends Component{
                 classification: '',
                 name: '',
                 order: '',
-                accounttypescategorychoices: [],
-                accounttypesclassificationchoices: [],
+                categories: [],
+                classifications: [],
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -68,26 +68,27 @@ export class AccountTypeForm extends Component{
          order
         } = this.state;
 
-        const {categories} = this.props.accounttypescategorychoices;
-        console.log(categories)
+        const {categorychoices} = this.props;
+        console.log(categorychoices)
 
-        // let accounttypescategorychoices = categories.length > 0
-        //     && categories.map((item, index) => {
-        //         return (
-        //             <option key={item.key } value={item.key}>{item.value}</option>
-        //         )
-        //     }, this);
+        let categories = categorychoices.length > 0
+            && categorychoices.map((item, index) => {
+                return (
+                    <option key={item.key } value={item.key}>{item.value}</option>
+                )
+            }, this);
 
-        // const {classifications} = this.props.accounttypesclassificationchoices;
+        const {accounttypesclassificationchoices} = this.props;
 
-        // let accounttypesclassificationchoices = classifications.length > 0
-        //     && classifications.map((item, index) => {
-        //         return (
-        //             <option key={item.key } value={item.key}>{item.value}</option>
-        //         )
-        //     }, this);
+        console.log(accounttypesclassificationchoices)
 
 
+        let classifications = accounttypesclassificationchoices.length > 0
+            && accounttypesclassificationchoices.map((item, index) => {
+                return (
+                    <option key={item.key } value={item.key}>{item.value}</option>
+                )
+            }, this);
 
 
 
@@ -116,6 +117,25 @@ export class AccountTypeForm extends Component{
                     value={order}
                   />
                 </div>
+                <div className="p-field p-col-12 p-md-4">
+                    <select
+                        name="category"
+                        value={category}
+                        onChange={this.onChange}
+                    >
+                        {categories}
+                    </select>
+                </div>
+                <div className="p-field p-col-12 p-md-4">
+                    <select
+                        name="classification"
+                        value={classification}
+                        onChange={this.onChange}
+                    >
+                        {classifications}
+                    </select>
+                </div>
+
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />
                 </div>
@@ -128,7 +148,7 @@ export class AccountTypeForm extends Component{
 
 const mapStateToProps = state =>({
     accounttypesclassificationchoices: state.accounttypesclassificationchoices.accounttypesclassificationchoices,
-    accounttypescategorychoices: state.accounttypescategorychoices.accounttypescategorychoices,
+    categorychoices: state.categorychoices.categorychoices,
 })
 
 export default connect(mapStateToProps, {getAccountTypesCategoryChoices, getAccountTypesClassificationChoices, addAccountType })(AccountTypeForm);

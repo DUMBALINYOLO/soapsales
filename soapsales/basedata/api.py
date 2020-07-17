@@ -48,15 +48,15 @@ class AccountTypesCategoryChoicesAPIView(views.APIView):
 
 	def get(self, request, format=None):
 
-		result_list = []
-		chosen_dict = dict(ACCOUNT_TYPES_CATEGORY_CHOICES)
-		for key, value in chosen_dict.items():
+		my_choices = []
+		choice_dict = dict(ACCOUNT_TYPES_CATEGORY_CHOICES)
+		for key, value in choice_dict.items():
 
-			tmp = {"key": key, "value": value}
-			result_list.append(tmp)
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
 			print(result_list)
-		return Response(result_list, status=status.HTTP_200_OK)
-		return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
 
 
 
@@ -64,348 +64,244 @@ class AccountTypesCategoryChoicesAPIView(views.APIView):
 
 class AccountTypesClassificationChoicesAPIView(views.APIView):
 
-	# available_dicts = {
-	# 	"ACCOUNT_TYPES_CLASSIFICATION_CHOICES": ACCOUNT_TYPES_CLASSIFICATION_CHOICES,
-	# }
 
 	def get(self, request, format=None):
 
-		result_list = []
-		chosen_dict = dict(ACCOUNT_TYPES_CLASSIFICATION_CHOICES)
-		for key, value in chosen_dict.items():
+		my_choices = []
+		choice_dict = dict(ACCOUNT_TYPES_CLASSIFICATION_CHOICES)
+		for key, value in choice_dict.items():
 
-			tmp = {"key": key, "value": value}
-			result_list.append(tmp)
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
 			print(result_list)
-		return Response(result_list, status=status.HTTP_200_OK)
-		return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
 
 class AssetsDepreciationMethodChoicesAPIView(generics.GenericAPIView):
 
-	available_dicts = {
-		"ASSET_DEPRECIATION_METHOD_CHOICES ": ASSET_DEPRECIATION_METHOD_CHOICES ,
-	}
+	def get(self, request, format=None):
 
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
+		my_choices = []
+		choice_dict = dict(ASSET_DEPRECIATION_METHOD_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
 
 
-class AssetTypesChoicesAPIView(generics.GenericAPIView):
+
+
+class AssetTypesChoicesAPIView(views.APIView):
 
 	available_dicts = {
 		"ASSET_TYPE_CHOICES": ASSET_TYPE_CHOICES,
 	}
 
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
+	def get(self, request, format=None):
 
-
-
-
-class AccountingPeriodsChoicesAPIView(generics.GenericAPIView):
-
-	available_dicts = {
-		"ACCOUNTING_PERIODS_CHOICES": ACCOUNTING_PERIODS_CHOICES,
-	}
-
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-class JournalEntryTypesChoicesAPIView(generics.GenericAPIView):
-
-	available_dicts = {
-		"JOURNAL_ENTRY_TYPES_CHOICES": JOURNAL_ENTRY_TYPES_CHOICES,
-	}
-
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-class EmployeesGenderChoicesAPIView(generics.GenericAPIView):
-
-	available_dicts = {
-		"EMPLOYEES_GENDER_CHOICES": EMPLOYEES_GENDER_CHOICES,
-	}
-
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-class InventoryTypesChoicesAPIView(generics.GenericAPIView):
-
-	available_dicts = {
-		"INVENTORY_TYPES_CHOICES": INVENTORY_TYPES_CHOICES,
-	}
-
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
+		my_choices = []
+		choice_dict = dict()
+		for key, value in choice_dict.items(ASSET_TYPE_CHOICES):
 
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
-class ProductComponentPricingChoicesAPIView(generics.GenericAPIView):
 
-	available_dicts = {
-		"PRODUCT_COMPONENT_PRICING_CHOICES": PRODUCT_COMPONENT_PRICING_CHOICES,
-	}
 
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
 
+class AccountingPeriodsChoicesAPIView(views.APIView):
 
 
-class EquipmentComponentConditionChoicesAPIView(generics.GenericAPIView):
+	def get(self, request, format=None):
 
-	available_dicts = {
-		"EQUIPMENT_COMPONENT_CONDITION_CHOICES": EQUIPMENT_COMPONENT_CONDITION_CHOICES,
-	}
+		my_choices = []
+		choice_dict = dict(ACCOUNTING_PERIODS_CHOICES)
+		for key, value in choice_dict.items():
 
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
 
-class InventoryOrderStatusChoicesAPIView(generics.GenericAPIView):
+class JournalEntryTypesChoicesAPIView(views.APIView):
 
-	available_dicts = {
-		"INVENTORY_ORDER_STATUS_CHOICES": INVENTORY_ORDER_STATUS_CHOICES,
-	}
+	def get(self, request, format=None):
 
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
+		my_choices = []
+		choice_dict = dict(JOURNAL_ENTRY_TYPES_CHOICES)
+		for key, value in choice_dict.items():
 
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
 
-class InvoiceSaleStatusChoicesAPIView(generics.GenericAPIView):
 
-	available_dicts = {
-		"INVOICE_SALE_STATUS_CHOICES": INVOICE_SALE_STATUS_CHOICES,
-	}
+class EmployeesGenderChoicesAPIView(views.APIView):
 
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
 
+	def get(self, request, format=None):
 
+		my_choices = []
+		choice_dict = dict(EMPLOYEES_GENDER_CHOICES)
+		for key, value in choice_dict.items():
 
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
-class InvoiceLineChoicesAPIView(generics.GenericAPIView):
 
-	available_dicts = {
-		"INVOCE_LINE_CHOICES": INVOCE_LINE_CHOICES,
-	}
+class InventoryTypesChoicesAPIView(views.APIView):
 
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
+	def get(self, request, format=None):
 
+		my_choices = []
+		choice_dict = dict(INVENTORY_TYPES_CHOICES)
+		for key, value in choice_dict.items():
 
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
-class CustomerPaymentMethodsChoicesAPIView(generics.GenericAPIView):
 
-	available_dicts = {
-		"CUSTOMER_PAYMENT_METHODS_CHOICES": CUSTOMER_PAYMENT_METHODS_CHOICES,
-	}
+class ProductComponentPricingChoicesAPIView(views.APIView):
 
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
+	def get(self, request, format=None):
 
+		my_choices = []
+		choice_dict = dict(PRODUCT_COMPONENT_PRICING_CHOICES)
+		for key, value in choice_dict.items():
 
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
-class ProcessRateUnitTimeChoicesAPIView(generics.GenericAPIView):
 
-	available_dicts = {
-		"PROCCES_RATE_UNIT_TIME_CHOICES": PROCCES_RATE_UNIT_TIME_CHOICES,
-	}
+class EquipmentComponentConditionChoicesAPIView(views.APIView):
 
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
+	def get(self, request, format=None):
 
+		my_choices = []
+		choice_dict = dict(EQUIPMENT_COMPONENT_CONDITION_CHOICES)
+		for key, value in choice_dict.items():
 
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
-class ManufacturingProductTypesChoicesAPIView(generics.GenericAPIView):
+class InventoryOrderStatusChoicesAPIView(views.APIView):
 
-	available_dicts = {
-		"MANUFACTURING_PRODUCT_TYPES": MANUFACTURING_PRODUCT_TYPES,
-	}
 
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
+	def get(self, request, format=None):
 
+		my_choices = []
+		choice_dict = dict(INVENTORY_ORDER_STATUS_CHOICES)
+		for key, value in choice_dict.items():
 
-class BillOfMaterialsLineChoicesAPIView(generics.GenericAPIView):
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
-	available_dicts = {
-		"BILL_OF_MATERIALS_LINE_CHOICES": BILL_OF_MATERIALS_LINE_CHOICES,
-	}
 
-	def get(self, request):
-	    option = request.GET.get("option", None)
-	    if option is not None and option in self.available_dicts:
-	        result_list = []
-	        chosen_dict = available_dicts[option]
-	        for i in chosen_dict:
-	            key, value = i
-	            tmp = {"key": key, "value": value}
-	            result_list.append(tmp)
-	        return Response(result_list, status=status.HTTP_200_OK)
-	    else:
-	        return Response({"Error": "Empty or invalid option given"}, status=status.HTTP_400_BAD_REQUEST)
+
+class InvoiceSaleStatusChoicesAPIView(views.APIView):
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict()
+		for key, value in choice_dict.items(INVOICE_SALE_STATUS_CHOICES):
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+
+
+
+class InvoiceLineChoicesAPIView(views.APIView):
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(INVOCE_LINE_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+
+
+class CustomerPaymentMethodsChoicesAPIView(views.APIView):
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(CUSTOMER_PAYMENT_METHODS_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+
+
+class ProcessRateUnitTimeChoicesAPIView(views.APIView):
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(PROCCES_RATE_UNIT_TIME_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+
+
+class ManufacturingProductTypesChoicesAPIView(views.APIView):
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict()
+		for key, value in choice_dict.items(MANUFACTURING_PRODUCT_TYPES):
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class BillOfMaterialsLineChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(BILL_OF_MATERIALS_LINE_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
 

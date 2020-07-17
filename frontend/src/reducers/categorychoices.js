@@ -1,7 +1,7 @@
 import { GET_ACCOUNT_TYPE_CATEGORY_CHOICES } from '../actions/types.js';
 
 const initialState = {
-   accounttypescategorychoices: [],
+   categorychoices: [],
 }
 
 
@@ -10,7 +10,7 @@ export default function(state = initialState, action){
         case GET_ACCOUNT_TYPE_CATEGORY_CHOICES:
             return {
                 ...state,
-                accounttypescategorychoices: action.payload
+                categorychoices: action.payload
             };
         default:
             return state;

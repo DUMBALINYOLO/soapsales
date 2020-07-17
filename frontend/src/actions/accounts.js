@@ -22,6 +22,7 @@ import {GET_ERRORS} from "./types"
 
 // }
 
+
 export const getAccounts = () => dispatch => {
     axios.get(accountsURL)
         .then(res => {
