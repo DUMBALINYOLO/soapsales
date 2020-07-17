@@ -30,15 +30,7 @@ class Accounts extends Component {
             selectedAccounts: null,
 
         };
-
-
-
-
-
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
-
-        //filters
-
         this.filterDate = this.filterDate.bind(this);       //custom filter function
         this.export = this.export.bind(this);
         this.renderDateFilter = this.renderDateFilter.bind(this)
@@ -147,86 +139,86 @@ class Accounts extends Component {
                     selection={this.state.selectedAccounts} onSelectionChange={e => this.setState({selectedAccounts: e.value})}
                     paginator rows={10} emptyMessage="No Accounts found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
-                    <Column 
-                        className="table-field" 
-                        selectionMode="multiple" 
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}} 
-                    />
-                    <Column 
-                        className="table-field" 
-                        field="id" header="ID" 
-                        sortable filter 
-                        filterPlaceholder="Search by ID" 
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}} 
-                    />
-                    <Column 
-                        className="table-field" 
-                        field="account_type" 
-                        header="Account Type" 
-                        sortable filter 
-                        filterPlaceholder="Search by AccountType" 
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}} 
-                    />
-                    <Column 
-                        className="table-field" 
-                        field="name" 
-                        header="Name" 
-                        sortable filter 
-                        filterPlaceholder="Search by name" 
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}} 
-                    />
-                    <Column 
-                        className="table-field" 
-                        field="initial_balance" 
-                        header="Initial-Balance" 
-                        sortable filter 
-                        filterPlaceholder="Search by Initial-Balance" 
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}} 
-                    />
-                    <Column 
-                        className="table-field" 
-                        field="balance" 
-                        header="Balance" 
-                        sortable filter 
-                        filterPlaceholder="Search by Balance" 
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}} 
-                    />
-                    <Column 
-                        className="table-field" 
-                        field="created_date" 
-                        header="Created-Date" 
-                        sortable filter 
-                        filterMatchMode="custom" 
-                        filterFunction={this.filterDate} 
-                        filterElement={dateFilter} 
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}} 
-                    />
-                    <Column 
-                        className="table-field" 
-                        field="order"
-                         header="Order" 
-                         sortable filter 
-                         filterPlaceholder="Search by Order" 
-                         style={{width:'3em'}}
-                         headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}} 
-
-                    />
-                    <Column 
+                    <Column
                         className="table-field"
-                        header="EDIT" 
-                        body={this.actionBodyTemplate} 
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}} 
-                        bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4EB0A5'}} 
+                        selectionMode="multiple"
+                        style={{width:'3em'}}
+                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                    />
+                    <Column
+                        className="table-field"
+                        field="id" header="ID"
+                        sortable filter
+                        filterPlaceholder="Search by ID"
+                        style={{width:'3em'}}
+                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                    />
+                    <Column
+                        className="table-field"
+                        field="account_type"
+                        header="Account Type"
+                        sortable filter
+                        filterPlaceholder="Search by AccountType"
+                        style={{width:'3em'}}
+                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                    />
+                    <Column
+                        className="table-field"
+                        field="name"
+                        header="Name"
+                        sortable filter
+                        filterPlaceholder="Search by name"
+                        style={{width:'3em'}}
+                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                    />
+                    <Column
+                        className="table-field"
+                        field="initial_balance"
+                        header="Initial-Balance"
+                        sortable filter
+                        filterPlaceholder="Search by Initial-Balance"
+                        style={{width:'3em'}}
+                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                    />
+                    <Column
+                        className="table-field"
+                        field="balance"
+                        header="Balance"
+                        sortable filter
+                        filterPlaceholder="Search by Balance"
+                        style={{width:'3em'}}
+                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                    />
+                    <Column
+                        className="table-field"
+                        field="created_date"
+                        header="Created-Date"
+                        sortable filter
+                        filterMatchMode="custom"
+                        filterFunction={this.filterDate}
+                        filterElement={dateFilter}
+                        style={{width:'3em'}}
+                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                    />
+                    <Column
+                        className="table-field"
+                        field="order"
+                         header="Order"
+                         sortable filter
+                         filterPlaceholder="Search by Order"
+                         style={{width:'3em'}}
+                         headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
 
                     />
-                    
+                    <Column
+                        className="table-field"
+                        header="EDIT"
+                        body={this.actionBodyTemplate}
+                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                        bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4EB0A5'}}
+
+                    />
+
                 </DataTable>
             </div>
         );

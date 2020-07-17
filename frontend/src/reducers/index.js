@@ -15,7 +15,7 @@ import billmaterials from "./billmaterials";
 import processgroups from "./processgroups";
 import bills from "./bills";
 import billpayments from "./billpayments";
-import wastereports from "./wasteReports";
+import wastereports from "./wastereports";
 import processrates from "./processrates";
 import processes from "./process";
 import processedproducts from "./processedproducts.js";
@@ -44,6 +44,14 @@ import orderitems from "./orderitems";
 import accounttypescategorychoices from './accounttypescategorychoices';
 import accounttypesclassificationchoices from './accounttypesclassificationchoices';
 
+import receipts from "./receipts";
+import invoicelines from "./invoicelines";
+import warehouses from "./warehouses";
+import warehouseitems from "./warehouseitems";
+import stockadjustments from "./stockadjustments";
+import inventorystocktakes from "./inventorystocktakes";
+import storagemedias from "./storagemedia";
+import inventoryreceipts from "./inventoryreceipts";
 
 
 
@@ -57,6 +65,14 @@ export default combineReducers({
     errors,
     bills,
     //equipmemtcomponents,
+    receipts,
+    invoicelines,
+    warehouses,
+    warehouseitems,
+    stockadjustments,
+    inventorystocktakes,
+    storagemedias,
+    inventoryreceipts,
     billpayments,
     inventoryitems,
     salesreps,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addProcessMachine } from '../../actions/processMachines';
+import { addProcessMachine } from '../../actions/processmachines';
 import PropTypes from 'prop-types';
 import { getProcessGroups} from '..//../actions/processGroups';
 import {Dropdown} from 'primereact/dropdown';

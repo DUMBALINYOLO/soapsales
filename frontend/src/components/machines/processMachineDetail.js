@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {ProgressSpinner} from 'primereact/progressspinner';
-import { getProcessMachine } from '..//../actions/processMachines';
+import { getProcessMachine } from '..//../actions/processmachines';
 
 
 
