@@ -154,6 +154,9 @@ class StockReceiptLine(models.Model):
     quantity = models.FloatField(default=0.0)
     history = HistoricalRecords()
 
+    def __str__(self):
+        return f'{self.id} | {self.quantity} '
+
 
 #might need to rename
 class InventoryCheck(models.Model):

@@ -259,7 +259,7 @@ class App extends Component {
 							<Route exact path='/bookkeeper-form' component={BookkeeperForm} />
 
 							<Route exact path='/accounttypes' component={AccountTypes} />
-							<Route exact path='/accounttype-form' component={AccountTypeForm} />
+							<Route exact path='/accounttypes/create' component={AccountTypeForm} />
 							<Route exact path='/accounttype-detail/:id' component={AccountTypeDetail} />
 
 							<Route exact path='/accounts' component={Accounts} />

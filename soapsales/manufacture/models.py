@@ -198,10 +198,10 @@ class BillOfMaterials(models.Model):
 
     @property
     def bill_lines(self):
-        return self.billofmaterialsline_set.all()
+        return self.lines.all()
 
 class BillOfMaterialsLine(models.Model):
-    bill = models.ForeignKey('manufacture.BillOfMaterials', on_delete=models.SET_NULL, null=True)
+    bill = models.ForeignKey('manufacture.BillOfMaterials', related_name='lines', on_delete=models.SET_NULL, null=True)
     type = models.PositiveSmallIntegerField(choices=BILL_OF_MATERIALS_LINE_CHOICES) # integer
     raw_material = models.ForeignKey('inventory.InventoryItem', on_delete=models.SET_NULL, null=True, blank=True)
     product = models.ForeignKey('manufacture.ProcessProduct', on_delete=models.SET_NULL, null=True, blank=True)
@@ -212,7 +212,7 @@ class BillOfMaterialsLine(models.Model):
         if self.raw_material is not None:
             return str(self.raw_material)
         else:
-            return str(self.product)
+            return str(self.product.name)
 
 
 class ProcessMachineGroup(models.Model):

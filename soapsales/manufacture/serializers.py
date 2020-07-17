@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from rest_framework_recursive.fields import RecursiveField
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 from manufacture.models import *
+
 
 
 class StringSerializer(serializers.StringRelatedField):
@@ -175,24 +177,16 @@ class BillOfMaterialsLineSerializer(serializers.ModelSerializer):
         ]
 
 
-class BillOfMaterialsCreateSerializer(serializers.ModelSerializer):
-    bill_lines = BillOfMaterialsLineSerializer(many=True, write_only=True)
+class BillOfMaterialsCreateSerializer(WritableNestedModelSerializer):
+    lines = BillOfMaterialsLineSerializer(many=True)
 
     class Meta:
         model = BillOfMaterials
         fields = [
             'name',
             "description",
-            'bill_lines',
+            'lines',
         ]
-
-    def create(self, validated_data):
-        bill_lines = validated_data.pop('bill_lines', [])
-        bill = BillOfMaterials.objects.create(**validated_data)
-        for bill_line_dict in bill_lines:
-            bill_line_dict['bill'] = bill
-            BillOfMaterialsLine.objects.create(**bill_line_dict)
-        return bill
 
 
 class BillOfMaterialsListSerializer(serializers.ModelSerializer):

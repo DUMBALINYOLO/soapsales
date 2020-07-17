@@ -30,20 +30,20 @@ from accounts.serializers import (
                                 RetrieveAccountSerializer,
                                 RetrieveAccountTypeSerializer,
                                 LedgerAccountSerializer,
-                                InActiveAccountSerializer
+                                InActiveAccountSerializer,
+                                AccountTypeCreateUpdateSerializer
                             )
 
 class AccountTypeViewSet(viewsets.ModelViewSet):
     queryset = AccountType.objects.all()
-    serializer_class = AccountTypeSerializer
     # permission_classes = [
     #     permissions.IsAuthenticated,
     # ]
 
-    # def get_serializer_class(self):
-    #     if self.action in ['list', 'retrieve']:
-    #         return RetrieveAccountSerializer
-    #     return AccountSerializer
+    def get_serializer_class(self):
+        if self.action in ['create', 'put']:
+            return AccountTypeCreateUpdateSerializer
+        return AccountTypeSerializer
 
 class InActiveAccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.filter(account_type__isnull=True)

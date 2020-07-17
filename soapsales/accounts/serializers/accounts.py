@@ -10,9 +10,31 @@ class StringSerializer(serializers.StringRelatedField):
 
 
 class AccountTypeSerializer(serializers.ModelSerializer):
+    category = serializers.SerializerMethodField()
+    classification = serializers.SerializerMethodField()
+
+
     class Meta:
         model = AccountType
         fields = ('id', 'order', 'category', 'classification', 'name', 'starting_number',)
+
+    def get_category(self, obj):
+        return obj.get_category_display()
+
+    def get_classification(self, obj):
+        return obj.get_classification_display()
+
+
+
+class AccountTypeCreateUpdateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AccountType
+        fields = ('order', 'category', 'classification', 'name',)
+
+  
+
+
 
 
 class InActiveAccountSerializer(serializers.ModelSerializer):

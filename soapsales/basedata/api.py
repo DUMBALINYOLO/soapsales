@@ -28,6 +28,7 @@ from .const import (
 				PROCCES_RATE_UNIT_TIME_CHOICES,
 				MANUFACTURING_PRODUCT_TYPES,
 				BILL_OF_MATERIALS_LINE_CHOICES,
+				PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES,
 
 			)
 
@@ -54,7 +55,6 @@ class AccountTypesCategoryChoicesAPIView(views.APIView):
 
 			itered_dict = {"key": key, "value": value}
 			my_choices.append(itered_dict)
-			print(result_list)
 		return Response(my_choices, status=status.HTTP_200_OK)
 
 
@@ -73,7 +73,6 @@ class AccountTypesClassificationChoicesAPIView(views.APIView):
 
 			itered_dict = {"key": key, "value": value}
 			my_choices.append(itered_dict)
-			print(result_list)
 		return Response(my_choices, status=status.HTTP_200_OK)
 
 
@@ -96,10 +95,6 @@ class AssetsDepreciationMethodChoicesAPIView(generics.GenericAPIView):
 
 
 class AssetTypesChoicesAPIView(views.APIView):
-
-	available_dicts = {
-		"ASSET_TYPE_CHOICES": ASSET_TYPE_CHOICES,
-	}
 
 	def get(self, request, format=None):
 
@@ -301,6 +296,19 @@ class BillOfMaterialsLineChoicesAPIView(views.APIView):
 			my_choices.append(itered_dict)
 		return Response(my_choices, status=status.HTTP_200_OK)
 
+
+class ProcessedProductsStockStatusChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
 

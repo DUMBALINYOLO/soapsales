@@ -5,6 +5,10 @@ from django.core.validators import MinValueValidator
 from django.contrib.auth.models import User
 from simple_history.models import HistoricalRecords
 from datetime import datetime
+from basedata.const import (
+        PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES,
+    )
+
 
 
 class ProcessedProduct(models.Model):
@@ -36,29 +40,9 @@ class ProcessedProduct(models.Model):
     updated = models.DateField(auto_now=True)
     review_needed = models.BooleanField(default=False)
 
-
-    # Stock status types
-    ITEM_IN_STOCK = 10
-    ITEM_INCOMING = 15
-    ITEM_IN_PROGRESS = 20
-    ITEM_COMPLETE = 25
-    ITEM_ATTENTION = 50
-    ITEM_DAMAGED = 55
-    ITEM_DESTROYED = 60
-
-    ITEM_STATUS_CODES = {
-        ITEM_IN_STOCK: _("In stock"),
-        ITEM_INCOMING: _("Incoming"),
-        ITEM_IN_PROGRESS: _("In progress"),
-        ITEM_COMPLETE: _("Complete"),
-        ITEM_ATTENTION: _("Attention needed"),
-        ITEM_DAMAGED: _("Damaged"),
-        ITEM_DESTROYED: _("Destroyed")
-    }
-
     status = models.PositiveIntegerField(
-                            default=ITEM_IN_STOCK,
-                            choices=ITEM_STATUS_CODES.items(),
+                            default=0,
+                            choices=PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES,
                         )
 
     notes = models.CharField(max_length=100, blank=True)
@@ -74,9 +58,10 @@ class ProcessedProduct(models.Model):
     # History of this item
     history = HistoricalRecords()
 
+    def __str__(self):
+        return f'{self.product.name} | {self.quantity} |  {self.status}'
 
 
-   
 
 
     @property
@@ -102,11 +87,6 @@ class SalesGroup(models.Model):
         return self.name
 
 class ProcessedProductComponent(models.Model):
-    PRICING_CHOICES = [
-    (0, 'Manual'),
-    (1, 'Margin'),
-    (2, 'Markup')
-]
     pricing_method = models.ForeignKey(
                                 'SalesGroup',
                                 null= True,
@@ -135,4 +115,114 @@ class ProcessedProductComponent(models.Model):
             return self.processedproduct.unit_purchase_price
         return self.stock_value / D(self.processedproduct.quantity)
 
-    
+    def __str__(self):
+        return self.sku
+
+
+
+class ProcessedProductsStockReceipt(models.Model):
+    '''
+    Part of the ProcessedProducts transfer to warehouse workflow.
+    methods
+    ---------
+
+    '''
+    received_by = models.ForeignKey('inventory.InventoryController',
+        on_delete=models.SET_NULL,
+        null=True,
+        default=1)
+    receive_date = models.DateField()
+    note =models.TextField(blank=True, default="")
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return str(self.pk) + ' - ' + str(self.receive_date)
+
+
+    def receive(self, n, medium=None, receipt=None):
+        self.lines.create(
+            quantity= self.lines.quantity,
+            line= self.lines.line,
+            receipt= self
+        )
+
+        wh_item = self.order.ship_to.add_processed_item(self.self.lines.line, self.lines.quantity, location=self.lines.line.location)
+
+        self.save()
+
+
+
+        
+
+class ProcessedProductsStockReceiptLine(models.Model):
+    receipt = models.ForeignKey(
+                        'ProcessedProductsStockReceipt',
+                        on_delete=models.SET_NULL,
+                        null=True,
+                        related_name='lines'
+                    )  
+    line = models.ForeignKey('ProcessedProduct', null=True, on_delete=models.SET_NULL)
+    quantity = models.FloatField(default=0.0)
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return f'{self.id} | {self.quantity} '
+
+
+
+
+class ProcessedProductsStockTake(models.Model):
+    date = models.DateField()
+    adjusted_by = models.ForeignKey('inventory.InventoryController',
+        on_delete=models.SET_NULL,
+        null=True )
+    warehouse = models.ForeignKey('inventory.WareHouse',
+        on_delete=models.SET_NULL,
+        null=True )
+    comments = models.TextField()
+    history = HistoricalRecords()
+
+    @property
+    def adjustments(self):
+        return self.adjustments.all()
+
+    @property
+    def value_of_all_adjustments(self):
+        return sum(
+            [i.adjustment_value for i in self.adjustments])
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.warehouse.last_inventory_check_date = self.date
+
+
+
+class ProcessedProductStockAdjustment(models.Model):
+    warehouse_item = models.ForeignKey('inventory.WareHouseItem',
+        on_delete=models.SET_NULL, null=True)
+    adjustment = models.FloatField()
+    note = models.TextField()
+    inventory_check = models.ForeignKey(
+                            'ProcessedProductsStockTake',
+                            on_delete=models.SET_NULL, 
+                            null=True,
+                            related_name = 'adjustments',
+                        )
+    history = HistoricalRecords()
+
+
+    @property
+    def adjustment_value(self):
+        return D(self.adjustment) * self.warehouse_item.processed_item.unit_purchase_price
+
+    @property
+    def prev_quantity(self):
+        return self.warehouse_item.quantity + self.adjustment
+
+    def adjust_inventory(self):
+        self.warehouse_item.decrement(self.adjustment)
+
+    def save(self, *args, **kwargs):
+        super(StockAdjustment, self).save(*args, **kwargs)
+        self.adjust_inventory()
+

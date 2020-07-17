@@ -142,9 +142,17 @@ BILL_OF_MATERIALS_LINE_CHOICES = [
         (1, 'Process Product'),
     ]
 
+PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES = [
+        (0, 'DO-NOT-CHOOSE-THIS-ONE'),
+        (10, 'ITEM-IN-STOCK'),
+        (15, 'ITEM-INCOMING'),
+        (20, 'ITEM-IN-PROGRESS'),
+        (25, 'ITEM-COMPLETE'),
+        (50, 'ITEM-ATTENTION'),
+        (55, 'ITEM-DAMAGED'),
+        (60, 'ITEM-DESTROYED'),
 
-
-
+    ]
 
 
 

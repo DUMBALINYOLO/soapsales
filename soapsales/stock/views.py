@@ -6,117 +6,92 @@ from stock.models import (
                 ProcessedProduct,
                 SalesGroup,
                 ProcessedProductComponent,
+                ProcessedProductsStockReceipt,
+                ProcessedProductsStockReceiptLine,
+                ProcessedProductsStockTake,
+                ProcessedProductStockAdjustment,
               )
 from .serializers import (
-					ProcessedProductSerializer,
-					StockQuantitySerializer,
 					SalesGroupSerializer,
-					ProcessedProductComponentSerializer
+					ProcessedProductComponentSerializer,
+                    ProcessedProductCreateUpdateSerializer,
+                    ProcessedProductListSerializer,
+                    ProcessedProductDetailSerializer,
+                    ProcessedProductsStockReceiptCreateUpdateSerializer,
+                    ProcessedProductsStockReceiptListSerializer,
+                    ProcessedProductsStockReceiptDetailSerializer,
+                    ProcessedProductStockAdjustmentListSerializer,
+                    ProcessedProductsStockTakeCreateUpdateSerializer,
+                    ProcessedProductsStockTakeListSerializer,
+                    ProcessedProductsStockTakeDetailSerializer
+
 				)
 
 
 
 
 
-class StockDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
 
-    get:
-    Return a single StockItem object
-
-    post:
-    Update a StockItem
-
-    delete:
-    Remove a StockItem
-    """
-
-    queryset = ProcessedProduct.objects.all()
-    serializer_class = ProcessedProductSerializer
-    lookup_field = 'id'
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
-
-
-# class StockFilter(FilterSet):
-#     min_stock = NumberFilter(name='quantity', lookup_expr='gte')
-#     max_stock = NumberFilter(name='quantity', lookup_expr='lte')
-
-#     class Meta:
-#         model = ProcessedProduct
-#         fields = ['quantity','product']
-
-
-class StockList(generics.ListCreateAPIView):
-    """
-
-    get:
-    Return a list of all StockItem objects
-    (with optional query filters)
-
-    post:
-    Create a new StockItem
-    """
-
-    queryset = ProcessedProduct.objects.all()
-    serializer_class = ProcessedProductSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
-    filter_backends = (DjangoFilterBackend,)
-    # filter_class = StockFilter
-
-
-class StocktakeEndpoint(generics.UpdateAPIView):
-
-    queryset = ProcessedProduct.objects.all()
-    serializer_class = StockQuantitySerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
-
-    def update(self, request, *args, **kwargs):
-        object = self.get_object()
-        object.stocktake(request.data['quantity'], request.user)
-
-        serializer = self.get_serializer(object)
-
-        return response.Response(serializer.data)
-
-
-class AddStockEndpoint(generics.UpdateAPIView):
-
-    queryset = ProcessedProduct.objects.all()
-    serializer_class = StockQuantitySerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
-
-    def update(self, request, *args, **kwargs):
-        object = self.get_object()
-        object.add_stock(request.data['quantity'])
-
-        serializer = self.get_serializer(object)
-
-        return response.Response(serializer.data)
 
 
 
 class SalesGroupViewSet(viewsets.ModelViewSet):
     queryset = SalesGroup.objects.all()
     serializer_class = SalesGroupSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
 
 
 class ProcessedProductComponentViewSet(viewsets.ModelViewSet):
     queryset = ProcessedProductComponent.objects.all()
     serializer_class = ProcessedProductComponentSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
+
+
+class ProcessedProductViewSet(viewsets.ModelViewSet):
+    queryset = ProcessedProduct.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'put']:
+            return ProcessedProductCreateUpdateSerializer
+        elif self.action == 'retrieve':
+            return ProcessedProductDetailSerializer
+        return ProcessedProductListSerializer
+
+
+
+class ProcessedProductsStockReceiptViewSet(viewsets.ModelViewSet):
+    queryset = ProcessedProductsStockReceipt.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'put']:
+            return ProcessedProductsStockReceiptCreateUpdateSerializer
+        elif self.action == 'retrieve':
+            return ProcessedProductsStockReceiptDetailSerializer
+        return ProcessedProductsStockReceiptListSerializer
+
+
+
+class ProcessedProductsStockTakeViewSet(viewsets.ModelViewSet):
+    queryset = ProcessedProductsStockTake.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'put']:
+            return ProcessedProductsStockTakeCreateUpdateSerializer
+        elif self.action == 'retrieve':
+            ProcessedProductsStockTakeDetailSerializer
+        return ProcessedProductsStockTakeListSerializer
+
+
+class ProcessedProductStockAdjustmentViewSet(viewsets.ModelViewSet):
+    queryset = ProcessedProductStockAdjustment.objects.all()
+    serializer_class = ProcessedProductStockAdjustmentListSerializer
+    
+
+
 
 
 
