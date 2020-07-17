@@ -137,7 +137,6 @@ class ProcessedProductsStockReceiptCreateUpdateSerializer(WritableNestedModelSer
             'received_by',
             'receive_date',
             'note',
-            'fully_received',
             'lines',
         ]
 
@@ -152,7 +151,7 @@ class ProcessedProductsStockReceiptListSerializer(serializers.ModelSerializer):
             'id',
             'received_by',
             'receive_date',
-            'fully_received',
+
         ]
 
 
@@ -165,12 +164,12 @@ class ProcessedProductsStockReceiptDetailSerializer(serializers.ModelSerializer)
         model = ProcessedProductsStockReceipt
         fields = [
             'id',
-            'order',
             'received_by',
             'receive_date',
-            'fully_received',
             'lines',
+            'note',
         ]
+
 
 
 class ProcessedProductStockAdjustmentCreateUpdateSerializer(serializers.ModelSerializer):

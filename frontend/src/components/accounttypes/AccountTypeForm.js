@@ -46,6 +46,7 @@ export class AccountTypeForm extends Component{
       };
 
       this.props.addAccountType(accounttype);
+      console.log(accounttype)
 
     };
 

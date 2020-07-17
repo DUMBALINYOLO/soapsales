@@ -55,7 +55,6 @@ class AccountTypesCategoryChoicesAPIView(views.APIView):
 
 			itered_dict = {"key": key, "value": value}
 			my_choices.append(itered_dict)
-			print(result_list)
 		return Response(my_choices, status=status.HTTP_200_OK)
 
 
@@ -74,7 +73,6 @@ class AccountTypesClassificationChoicesAPIView(views.APIView):
 
 			itered_dict = {"key": key, "value": value}
 			my_choices.append(itered_dict)
-			print(result_list)
 		return Response(my_choices, status=status.HTTP_200_OK)
 
 
@@ -97,10 +95,6 @@ class AssetsDepreciationMethodChoicesAPIView(generics.GenericAPIView):
 
 
 class AssetTypesChoicesAPIView(views.APIView):
-
-	available_dicts = {
-		"ASSET_TYPE_CHOICES": ASSET_TYPE_CHOICES,
-	}
 
 	def get(self, request, format=None):
 
