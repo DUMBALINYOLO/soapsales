@@ -32,7 +32,7 @@ export const deleteJournal = (id) => dispatch => {
 
 
 // Add
-export const addJournals = (journal) => dispatch => {
+export const addJournal = (journal) => dispatch => {
     axios.post(journalURL, journal)
         .then(res => {
             dispatch({
