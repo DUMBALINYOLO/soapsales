@@ -30,7 +30,7 @@ class DebitNoteForm extends Component {
       orders: [],
       formData: {},
       lines: [{ index: Math.random(), item: "", quantity: '' }],
-  
+
     }
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -69,7 +69,7 @@ class DebitNoteForm extends Component {
         });
   }
 
-  
+
 
   onChange = (event) => {
     this.setState({[event.target.name]: event.target.value})
@@ -79,19 +79,19 @@ class DebitNoteForm extends Component {
 
   onSubmit = (e) => {
       e.preventDefault();
-      const { 
+      const {
         date,
         comments,
         order,
         lines
- 
+
       } = this.state;
 
-      const note = { 
+      const note = {
         date,
         comments,
         order,
-        lines, 
+        lines,
       };
 
       this.props.addDebitnote(note);
@@ -116,26 +116,27 @@ class DebitNoteForm extends Component {
   }
 
   render = () => {
-    const {  
+    const {
         date,
         order,
-        comments
+        comments,
     } = this.state;
 
     let { lines } = this.state
 
     const { amaorders } = this.props;
 
-    console.log(orders)
+    console.log(amaorders)
 
 
-    let orders = amaorders.length > 0
+
+    let Orders = amaorders.length > 0
       && amaorders.map((item, i) => {
       return (
         <option key={i} value={item.id}>{item.name}</option>
       )
     }, this);
- 
+
 
     return (
       <div className="card card-body mt-4 mb-4">
@@ -159,7 +160,7 @@ class DebitNoteForm extends Component {
                 value={order}
                 onChange={this.onChange}
               >
-                {orders}
+                {Orders}
               </select>
             </div>
             <div className="p-field p-col-12 p-md-6">
@@ -195,4 +196,3 @@ const mapStateToProps = state =>({
 })
 
 export default connect(mapStateToProps, {getOrders, addDebitnote})(DebitNoteForm);
-

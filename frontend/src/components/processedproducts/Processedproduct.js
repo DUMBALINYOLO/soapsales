@@ -15,6 +15,7 @@ import {MultiSelect} from 'primereact/multiselect';
 import {ProgressBar} from 'primereact/progressbar';
 import classNames from 'classnames';
 import { getProcessproducts} from '..//../actions/processedproducts';
+import { Link } from 'react-router-dom';
 import "./form.css";
 
 
@@ -29,15 +30,12 @@ class Processproduct extends Component {
             selectedProcessproducts: null,
 
         };
-
-
-
-
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
-
-        //filters
-
         this.filterDate = this.filterDate.bind(this);       //custom filter function
+        this.export = this.export.bind(this);
+        this.renderDateFilter = this.renderDateFilter.bind(this)
+        this.onDateFilterChange = this.onDateFilterChange.bind(this)
+        this.formatDate = this.formatDate.bind(this)
     }
 
     static propTypes = {
@@ -52,11 +50,13 @@ class Processproduct extends Component {
 
     renderHeader() {
         return (
-            <div >
-                List of Processed Products
-                <div  className="p-datatable-globalfilter-container">
-                    <div style={{textAlign:'left'}}><Button type="button" icon="pi pi-external-link" iconPos="left" label="EXPORT TO CSV" onClick={this.export}></Button></div>;
-                    <InputText type="search" onInput={(e) => this.setState({globalFilter: e.target.value})} placeholder="Global Search" />
+            <div className="table-head">
+                <h1>List Of Processed Products</h1>
+                <div className="datatable-fancy-icons">
+                    <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-pdf" iconPos="right" label="PDF" onClick={this.export}></Button></div>
+                    <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-excel" iconPos="right" label="CSV" onClick={this.export}></Button></div>
+                    <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-print" iconPos="right" label="PRINT" onClick={this.export}></Button></div>
+                    <InputText className="fancy-icon" type="search" onInput={(e) => this.setState({globalFilter: e.target.value})} placeholder="Search" />
                 </div>
             </div>
         );
@@ -68,10 +68,11 @@ class Processproduct extends Component {
 
     actionBodyTemplate() {
         return (
-            <Button type="button" icon="pi pi-cog" className="p-button-secondary"></Button>
+            <Link to="/" >
+                <Button type="button" label="VIEW-ME" icon="pi pi-pencil" className="p-button-warning p-button-rounded"></Button>
+            </Link>
         );
     }
-
 
     renderDateFilter() {
         return (
@@ -129,19 +130,19 @@ class Processproduct extends Component {
         return (
             <div className="datatable-doc-demo">
                 <DataTable ref={(el) => this.dt = el} value={this.props.processproducts}
-                    style={{backgroundColor: '#4c6b75'}}
-                    header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
+                    style={{backgroundColor: '#4EB08E'}}
+                    header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                     selection={this.state.selectedProcessproducts} onSelectionChange={e => this.setState({selectedProcessproducts: e.value})}
                     paginator rows={10} emptyMessage="No Accounts found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
-                    <Column selectionMode="multiple" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="direct_price" header="Direct Price" sortable filter filterPlaceholder="Search by Direct Price" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="margin" header="Margin" sortable filter filterPlaceholder="Search by Margin" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="markup" header="Markup" sortable filter filterPlaceholder="Search by Markup" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="sku" header="Sku" sortable filter filterPlaceholder="Search by Sku" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column field="pricing_method" header="Pricing Method" sortable filter filterPlaceholder="Search by Pricing Method" style={{width:'3em', backgroundColor: '#4c6b75'}}/>
-                    <Column body={this.actionBodyTemplate} headerStyle={{width: '8em', textAlign: 'center', backgroundColor: '#4c6b75'}} bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4c6b75'}} />
+                    <Column className="table-field" selectionMode="multiple" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
+                    <Column className="table-field" field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
+                    <Column className="table-field" field="direct_price" header="Direct Price" sortable filter filterPlaceholder="Search by Direct Price" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
+                    <Column className="table-field" field="margin" header="Margin" sortable filter filterPlaceholder="Search by Margin" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
+                    <Column className="table-field" field="markup" header="Markup" sortable filter filterPlaceholder="Search by Markup" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
+                    <Column className="table-field" field="sku" header="Sku" sortable filter filterPlaceholder="Search by Sku" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
+                    <Column className="table-field" field="pricing_method" header="Pricing Method" sortable filter filterPlaceholder="Search by Pricing Method" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
+                    <Column className="table-field" body={this.actionBodyTemplate} headerStyle={{width: '3em', textAlign: 'center', backgroundColor: '#4EB0A5'}} bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4EB0A5'}} />
                 </DataTable>
             </div>
         );

@@ -42,16 +42,16 @@ const DebitNoteLines = (props) => {
             <input
               type="number"
               name="quantity" 
-              data-id={idx} 
-              id={quantity} 
-              className="form-control " 
+              data-id={idx}
+              id={quantity}
+              className="form-control "
             />
           </td>
           <td>
-            <select 
-              name="item" 
-              id={item} 
-              data-id={idx} 
+            <select
+              name="item"
+              id={item}
+              data-id={idx}
               className="form-control"
             >
                {orderItems}
