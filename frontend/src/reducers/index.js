@@ -41,7 +41,7 @@ import payments from "./payments";
 import messages from "./messages";
 import suppliers from "./suppliers";
 import orderitems from "./orderitems";
-import accounttypescategorychoices from './accounttypescategorychoices';
+import categorychoices from './categorychoices';
 import accounttypesclassificationchoices from './accounttypesclassificationchoices';
 
 import receipts from "./receipts";
@@ -106,7 +106,7 @@ export default combineReducers({
     messages,
     suppliers,
     orderitems,
-    accounttypescategorychoices,
+    categorychoices,
     accounttypesclassificationchoices,
 
 
