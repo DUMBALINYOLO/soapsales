@@ -230,8 +230,6 @@ class InvoiceSaleStatusChoicesAPIView(views.APIView):
 
 
 
-
-
 class InvoiceLineChoicesAPIView(views.APIView):
 
 	def get(self, request, format=None):

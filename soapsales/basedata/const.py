@@ -16,6 +16,7 @@ ACCOUNT_TYPES_CLASSIFICATION_CHOICES = [
         (1, 'Current'),
         (2, 'Long-Term')
     ]
+    
 
 
 ASSET_DEPRECIATION_METHOD_CHOICES = [
