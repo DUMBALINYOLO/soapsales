@@ -21,6 +21,7 @@ from .api import (
             ProcessRateUnitTimeChoicesAPIView,
             ManufacturingProductTypesChoicesAPIView,
             BillOfMaterialsLineChoicesAPIView,
+            ProcessedProductsStockStatusChoicesAPIView,
 
         )
 
@@ -49,6 +50,7 @@ urlpatterns = [
     path('process-rate-unit-time-choices/', ProcessRateUnitTimeChoicesAPIView.as_view(), name='process-rate-unit-time-choices'),
     path('manufacturing-product-types-choices/', ManufacturingProductTypesChoicesAPIView.as_view(), name='manufacturing-product-types-choices'),
     path('bill-of-materials-line-choices/', BillOfMaterialsLineChoicesAPIView.as_view(), name='bill-of-materials-line-choices'),
+    path('processed-products-stock-status-choices/', ProcessedProductsStockStatusChoicesAPIView.as_view(), name='processed-products-stock-status-choices'),
 
 
 
