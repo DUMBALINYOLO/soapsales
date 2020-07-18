@@ -164,8 +164,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
        'knox.auth.TokenAuthentication',
     ),
-    "DATE_INPUT_FORMATS": ["%d-%m-%Y"],
+    # "DATE_INPUT_FORMATS": ["%d-%m-%Y"],
+    # 'DATE_FORMAT': ["%d-%m-%Y"],
+    # 'DATETIME_FORMAT': ["%d-%m-%Y %H:%M:%S"],
 }
+
+
 
 
 

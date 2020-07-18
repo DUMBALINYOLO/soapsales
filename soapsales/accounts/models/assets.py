@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.utils import timezone
 from calendar import monthrange
 from .journalize import JournalEntry
+from .accounts import Account
 from basedata.const import (
         ASSET_DEPRECIATION_METHOD_CHOICES,
         ASSET_TYPE_CHOICES
