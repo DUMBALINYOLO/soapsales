@@ -26,8 +26,6 @@ export const deleteInventoryreceipt = (id) => dispatch => {
         }).catch(err => console.log(err))
 }
 
-}
-
 export const getInventoryreceipt = id => dispatch =>{
       axios.get(`http://127.0.0.1:8000/api/inventory/inventoryreceipts/${id}`)
         .then(res => {

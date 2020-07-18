@@ -14,7 +14,7 @@ import {Calendar} from 'primereact/calendar';
 import {MultiSelect} from 'primereact/multiselect';
 import {ProgressBar} from 'primereact/progressbar';
 import classNames from 'classnames';
-import { getProcessMachines} from '..//../actions/processMachines';
+import { getProcessMachines} from '..//../actions/processmachines';
 import { Link } from 'react-router-dom';
 import "./form.css";
 

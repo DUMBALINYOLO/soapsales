@@ -27,7 +27,7 @@ export const ordersURL= `${endpoint}/inventory/orders/`
 export const paymentsURL= `${endpoint}/sales/payments/`
 export const pricinggroupsURL= `${endpoint}/stock/pricing-groups/`
 export const processURL= `${endpoint}/manufacture/process/`
-export const processproductURL= `${endpoint}/stock/processed-product-components/`
+export const processedproductcomponentURL= `${endpoint}/stock/processed-product-components/`
 export const processgroupURL= `${endpoint}/manufacture/process-machine-group/`
 export const processmachineURL= `${endpoint}/manufacture/process-machines/`
 export const processrateURL= `${endpoint}/manufacture/process-rates/`
@@ -45,13 +45,16 @@ export const journalURL = `${endpoint}/accounting/journal-entries/`
 export const inventoryitemURL = `${endpoint}/inventory/inventoryitem/`
 export const equipmentcomponentURL = `${endpoint}/inventory/equipment-components/`
 export const productionorderURL = `${endpoint}/manufacture/production-orders/`
-export const processproductsURL= `${endpoint}/manufacture/process-products/`
+export const processproductURL= `${endpoint}/manufacture/process-products/`
+export const productcomponentURL = `${endpoint}/inventory/product-components/`
+export const stockadjustmentURL= `${endpoint}/inventory/stockadjustments/`
+export const storagemediaURL= `${endpoint}/inventory/storagemedia/`
+export const warehouseURL= `${endpoint}/inventory/warehouses/`
+export const warehouseitemURL= `${endpoint}/inventory/warehouseitems/`
+export const receiptURL= `${endpoint}/sales/receipts/`
+export const inventoryreceiptURL= `${endpoint}/inventory/inventoryreceipts/`
+
 
 
 export const accountTypesCategoryChoicesURL = `${endpoint}/config/account-types-category-choices/`
 export const accountTypesClassificationChoicesURL = `${endpoint}/config/account-types-classification-choices/`
-
-
-
-
-

@@ -1,4 +1,4 @@
-import { GET_PROCESSPRODUCTS, GET_PROCESSPRODUCT, DELETE_PROCESSPRODUCT, ADD_PROCESSPRODUCT  } from "../types/processproductsTypes";
+import { GET_PROCESSPRODUCTS, GET_PROCESSPRODUCT, DELETE_PROCESSPRODUCT, ADD_PROCESSPRODUCT  } from "../types/processproductTypes";
 
 const initialState = {
     processproducts: [],

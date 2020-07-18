@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addProcessproduct } from '../../actions/processedproducts';
+import { addProductcomponent } from '../../actions/productcomponents';
+import { getProductComponentPricingChoices } from '..//../actions/choices';
 import PropTypes from 'prop-types';
 
-export class ProcessproductForm extends Component{
+export class ProductcomponentForm extends Component{
     state = {
         direct_price: '',
         margin: '',
         markup: '',
         sku: '',
         pricing_method: '',
+        pricing: [],
     }
 
 
@@ -18,20 +20,35 @@ export class ProcessproductForm extends Component{
     onSubmit = (e) => {
       e.preventDefault();
       const { direct_price, margin, markup, sku, pricing_method } = this.state;
-      const processproduct = { direct_price, margin, markup, sku, pricing_method };
-      this.props.addProcessproduct(processproduct);
+      const productcomponent = { direct_price, margin, markup, sku, pricing_method };
+      this.props.addProductcomponent(productcomponent);
     };
 
     static propTypes = {
-        addProcessproduct: PropTypes.func.isRequired,
-    }
+        addProductcomponent: PropTypes.func.isRequired,
+        getProductComponentPricingChoices: PropTypes.func.isRequired,
 
+    }
+    componentDidMount() {
+      this.props.getProductComponentPricingChoices();
+    }
 
     render() {
         const { direct_price, margin, markup, sku, pricing_method } = this.state;
+
+        const {productcomponentpricingchoices} = this.props;
+        console.log(productcomponentpricingchoices)
+
+        let pricing = productcomponentpricingchoices.length > 0
+            && productcomponentpricingchoices.map((item, index) => {
+                return (
+                    <option key={item.key } value={item.key}>{item.value}</option>
+                )
+            }, this);
+
         return (
             <div className="card card-body mt-4 mb-4">
-              <h2>Add Processed Product Component </h2>
+              <h2>Add Product Component </h2>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <label>Direct Price</label>
@@ -73,15 +90,14 @@ export class ProcessproductForm extends Component{
                     value={sku}
                   />
                 </div>
-                <div className="form-group">
-                  <label>Pricing Method</label>
-                  <input
-                    className="form-control"
-                    type="price"
-                    name="pricing method"
-                    onChange={this.onChange}
-                    value={pricing_method}
-                  />
+                <div className="p-field p-col-12 p-md-4">
+                    <select
+                        name="pricing_method"
+                        value={pricing_method}
+                        onChange={this.onChange}
+                    >
+                        {pricing}
+                    </select>
                 </div>
 
                 <div className="form-group">
@@ -95,5 +111,8 @@ export class ProcessproductForm extends Component{
     }
 }
 
+const mapStateToProps = state =>({
+    productcomponentpricingchoices: state.productcomponentpricingchoices.productcomponentpricingchoices,
+})
 
-export default connect(null, { addProcessproduct })(ProcessproductForm);
+export default connect(mapStateToProps, {getProductComponentPricingChoices, addProductcomponent })(ProductcomponentForm);

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addEquipmentcomponent } from '../../actions/equipmentcomponents';
+import { addProcessedproductcomponent } from '../../actions/processedproductcomponents';
 import { getProductComponentPricingChoices } from '..//../actions/choices';
 import PropTypes from 'prop-types';
 
-export class EquipmentcomponentForm extends Component{
+export class ProcessedproductcomponentForm extends Component{
     state = {
         direct_price: '',
         margin: '',
@@ -20,12 +20,12 @@ export class EquipmentcomponentForm extends Component{
     onSubmit = (e) => {
       e.preventDefault();
       const { direct_price, margin, markup, sku, pricing_method } = this.state;
-      const equipmentcomponent = { direct_price, margin, markup, sku, pricing_method };
-      this.props.addEquipmentcomponent(equipmentcomponent);
+      const processedproductcomponent = { direct_price, margin, markup, sku, pricing_method };
+      this.props.addProcessedproductcomponent(processedproductcomponent);
     };
 
     static propTypes = {
-        addEquipmentcomponent: PropTypes.func.isRequired,
+        addProcessedproductcomponent: PropTypes.func.isRequired,
         getProductComponentPricingChoices: PropTypes.func.isRequired,
 
     }
@@ -48,7 +48,7 @@ export class EquipmentcomponentForm extends Component{
 
         return (
             <div className="card card-body mt-4 mb-4">
-              <h2>Add Equipment Component </h2>
+              <h2>Add Processed Product Component </h2>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <label>Direct Price</label>
@@ -115,4 +115,4 @@ const mapStateToProps = state =>({
     productcomponentpricingchoices: state.productcomponentpricingchoices.productcomponentpricingchoices,
 })
 
-export default connect(mapStateToProps, {getProductComponentPricingChoices, addEquipmentcomponent })(EquipmentcomponentForm);
+export default connect(mapStateToProps, {getProductComponentPricingChoices, addProcessedproductcomponent })(ProcessedproductcomponentForm);
