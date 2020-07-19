@@ -94,7 +94,7 @@ class Asset(models.Model):
 
     @property
     def category_string(self):
-        return dict(ASSET_CHOICES)[self.category]
+        return dict(ASSET_TYPE_CHOICES)[self.category]
 
     @property
     def annual_depreciation(self):

@@ -138,14 +138,10 @@ class Journals extends Component {
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                     <Column className="table-field" selectionMode="multiple" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
-                    <Column className="table-field" field="creator" header="Creator" sortable filter filterPlaceholder="Search by Creator" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
-                    <Column className="table-field" field="transactions" header="Transactions" sortable filter filterPlaceholder="Search by Transactions" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
-                    <Column className="table-field" field="receipts" header="Receipts" sortable filter filterPlaceholder="Search by Receipts" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" field="entry_type" header="Entry Type" sortable filter filterPlaceholder="Search by Entry Type" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
-                    <Column className="table-field" field="is_approved" header="Is Approved" sortable filter filterPlaceholder="Search by Approval" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
+                    <Column className="table-field" field="creator" header="Created By" sortable filter filterPlaceholder="Search by Creator" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" field="date_created" header="Created-Date" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" field="date" header="Date" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
-                    <Column className="table-field" field="memo" header="Memo" sortable filter filterPlaceholder="Search by Memo" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" body={this.actionBodyTemplate} headerStyle={{width: '3em', textAlign: 'center', backgroundColor: '#4EB0A5'}} bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4EB0A5'}} />
                 </DataTable>
             </div>

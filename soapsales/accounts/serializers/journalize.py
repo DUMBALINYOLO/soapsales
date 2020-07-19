@@ -8,7 +8,14 @@ from drf_extra_fields.fields import Base64FileField
 
 # import magic
 
+class StringSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
+
+
 class TransactionReadOnlySerilizer(serializers.ModelSerializer):
+    affected_account = StringSerializer()
+    journal_entry = StringSerializer()
 
     class Meta:
         model = Transaction
@@ -18,12 +25,15 @@ class TransactionReadOnlySerilizer(serializers.ModelSerializer):
 
 
 class RetrieveTransactionSerializer(serializers.ModelSerializer):
+    affected_account = StringSerializer()
+    journal_entry = StringSerializer()
+    value = serializers.SerializerMethodField()
+
     class Meta:
         model = Transaction
         fields = ('date', 'affected_account', 'journal_entry', 'value', 'is_debit')
 
-    affected_account = RetrieveAccountSerializer()
-    value = serializers.SerializerMethodField()
+    
 
     def get_value(self, obj):
         return format_currency(obj.value, False)
@@ -44,14 +54,45 @@ class CreateTransactionSerializer(serializers.ModelSerializer):
         return value
 
 
-class RetrieveJournalEntrySerializer(serializers.ModelSerializer):
+class JournalEntryDetailSerializer(serializers.ModelSerializer):
+    transactions = RetrieveTransactionSerializer(many=True)
+    entry_type = serializers.SerializerMethodField()
+    creator = StringSerializer()
+    
     class Meta:
         model = JournalEntry
-        fields = ('id', 'date_created', 'date', 'entry_type', 'is_approved', 'memo', 'description', 'creator', 'transactions', 'receipts',)
+        fields = (
+            'id', 
+            'date_created', 
+            'date', 
+            'entry_type', 
+            'is_approved', 
+            'memo', 
+            'description', 
+            'creator', 
+            'transactions',
+        )
 
-    transactions = RetrieveTransactionSerializer(many=True)
-    # creator = UserSerializer()
+    def get_entry_type(self, obj):
+        return obj.get_entry_type_display()
+
+
+class JournalEntryListSerializer(serializers.ModelSerializer):
     entry_type = serializers.SerializerMethodField()
+    creator = StringSerializer()
+
+    class Meta:
+        model = JournalEntry
+        fields =[
+            'id',
+            'date_created',
+            'entry_type',
+            'creator', 
+            'date', 
+
+        ]
+
+
 
     def get_entry_type(self, obj):
         return obj.get_entry_type_display()

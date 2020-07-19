@@ -12,10 +12,11 @@ from accounts.models import (
                     )
 from accounts.permissions import LAJournalEntryReadPermission
 from accounts.serializers import (
-                    RetrieveJournalEntrySerializer,
                     CreateJournalEntrySerializer,
                     UpdateJournalEntrySerializer,
-                    TransactionReadOnlySerilizer
+                    TransactionReadOnlySerilizer,
+                    JournalEntryDetailSerializer,
+                    JournalEntryListSerializer,
                 )
 
 class TransactionViewSet(viewsets.ModelViewSet):
@@ -41,7 +42,7 @@ class JournalEntryViewSet(viewsets.ModelViewSet):
     #     permissions.IsAuthenticated,
     # ]
 
-    serializer_class = RetrieveJournalEntrySerializer
+   
    
 
     def options(self, request, *args, **kwargs):
@@ -56,9 +57,10 @@ class JournalEntryViewSet(viewsets.ModelViewSet):
         serializer.save(creator=self.request.user)
 
     def get_serializer_class(self):
-        if self.request.method == 'POST':
+        if self.action == 'POST':
             return CreateJournalEntrySerializer
-        elif self.request.method == 'PUT' or self.request.method == 'PATCH':
+        elif self.action in ['PUT', 'PATCH']:
             return UpdateJournalEntrySerializer
-        else:
-            return super(JournalEntryViewSet, self).get_serializer_class()
+        elif self.action == "RETRIEVE":
+            return JournalEntryDetailSerializer
+        return JournalEntryListSerializer

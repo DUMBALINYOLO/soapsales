@@ -37,7 +37,7 @@ import orderpayments from "./orderpayments";
 import inventorycontrollers from "./inventorycontrollers";
 import unitmeasures from "./unitmeasures";
 import inventorycategory from "./inventorycategory";
-import pricinggroup from "./pricinggroup";
+import pricinggroups from "./pricinggroups";
 import creditnotes from "./creditnotes";
 import customers from "./customers";
 import payments from "./payments";
@@ -114,7 +114,7 @@ export default combineReducers({
     salesreps,
     bookkeepers,
     processproducts,
-    pricinggroup,
+    pricinggroups,
     accounttypes,
     inventorycontrollers,
     inventorycategory,

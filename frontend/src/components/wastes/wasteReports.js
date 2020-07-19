@@ -24,7 +24,7 @@ class WasteReports extends Component {
     constructor() {
         super();
         this.state = {
-            wasteReports: null,
+            wastereports: null,
             globalFilter: null,
             dateFilter: null,
             selectedWasteReports: null,
@@ -39,7 +39,7 @@ class WasteReports extends Component {
     }
 
     static propTypes = {
-        wasteReports : PropTypes.array.isRequired,
+        wastereports : PropTypes.array.isRequired,
         getWasteReports: PropTypes.func.isRequired,
 
     };
@@ -130,7 +130,7 @@ class WasteReports extends Component {
 
         return (
             <div className="datatable-doc-demo">
-                <DataTable ref={(el) => this.dt = el} value={this.props.wasteReports}
+                <DataTable ref={(el) => this.dt = el} value={this.props.wastereports}
                     style={{backgroundColor: '#4EB08E'}}
                     header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                     selection={this.state.selectedWasteReports} onSelectionChange={e => this.setState({selectedWasteReports: e.value})}
@@ -150,7 +150,7 @@ class WasteReports extends Component {
 }
 
 const mapStateToProps = state =>({
-    wasteReports: state.wasteReports.wasteReports
+    wastereports: state.wastereports.wastereports
 })
 
 export default connect(mapStateToProps, {getWasteReports} ) (WasteReports);

@@ -26,11 +26,14 @@ class ProductionOrderSerializer(serializers.ModelSerializer):
 
 class ProductionOrderCreateSerializer(serializers.ModelSerializer):
 
+
+
     class Meta:
         model = ProductionOrder
         fields = [
             "id",
             "due",
+            'date',
             "customer",
             'process',
         ]
@@ -38,6 +41,11 @@ class ProductionOrderCreateSerializer(serializers.ModelSerializer):
 
 
 class ProcessSerializer(serializers.ModelSerializer):
+    bill_of_materials = StringSerializer()
+    process_equipment = StringSerializer()
+    product_list = StringSerializer()
+    rate = StringSerializer()
+    type = serializers.SerializerMethodField()
 
 
 
@@ -61,6 +69,9 @@ class ProcessSerializer(serializers.ModelSerializer):
             'is_subprocess'
 
         ]
+
+    def get_type(self, obj):
+        return obj.get_type_display()
 
 class ProcessCreateSerializer(serializers.ModelSerializer):
 
@@ -148,6 +159,9 @@ class ProcessProductSerializer(serializers.ModelSerializer):
 
 
 class WasteGenerationReportSerializer(serializers.ModelSerializer):
+    product = StringSerializer()
+    recorded_by = StringSerializer()
+    unit = StringSerializer()
 
 
     class Meta:
@@ -216,6 +230,7 @@ class BillOfMaterialsDetailSerializer(serializers.ModelSerializer):
 
 
 class ProcessMachineSerializer(serializers.ModelSerializer):
+    machine_group = StringSerializer()
     class Meta:
         model = ProcessMachine
         fields = [
