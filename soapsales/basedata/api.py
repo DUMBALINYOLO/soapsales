@@ -216,8 +216,8 @@ class InvoiceSaleStatusChoicesAPIView(views.APIView):
 	def get(self, request, format=None):
 
 		my_choices = []
-		choice_dict = dict()
-		for key, value in choice_dict.items(INVOICE_SALE_STATUS_CHOICES):
+		choice_dict = dict(INVOICE_SALE_STATUS_CHOICES)
+		for key, value in choice_dict.items():
 
 			itered_dict = {"key": key, "value": value}
 			my_choices.append(itered_dict)
@@ -275,8 +275,8 @@ class ManufacturingProductTypesChoicesAPIView(views.APIView):
 	def get(self, request, format=None):
 
 		my_choices = []
-		choice_dict = dict()
-		for key, value in choice_dict.items(MANUFACTURING_PRODUCT_TYPES):
+		choice_dict = dict(MANUFACTURING_PRODUCT_TYPES)
+		for key, value in choice_dict.items():
 
 			itered_dict = {"key": key, "value": value}
 			my_choices.append(itered_dict)

@@ -6,6 +6,8 @@ from django.db.models import Q
 from invoicing.models.invoice import Invoice
 from basedata.models import SoftDeletionModel
 
+DEFAULT_REP = 1000000
+
 class SalesRepresentative(SoftDeletionModel):
     '''
         Really just a dummy class that points to an employee.
@@ -16,8 +18,8 @@ class SalesRepresentative(SoftDeletionModel):
         sales - takes two dates as arguments and returns the
         amount sold exclusive of tax. Used in commission calculation
     '''
+    id = models.AutoField(primary_key=True, unique=True)
     employee = models.OneToOneField('employees.Employee', on_delete=models.SET_NULL, null=True,)
-    number = models.AutoField(primary_key=True)
     can_reverse_invoices = models.BooleanField(default=True)
     can_offer_discounts = models.BooleanField(default=True)
 

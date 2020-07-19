@@ -26,6 +26,7 @@ import UpdateCurrency from './components/currencies/CurrencyUpdate';
 
 
 
+
 import Bookkeepers from './components/bookkeepers/Bookkeepers';
 import BookkeeperForm from './components/bookkeepers/BookkeeperForm';
 import BookkeeperDetail from './components/bookkeepers/BookkeeperDetail';
@@ -44,6 +45,8 @@ import OrderDetail from './components/orders/OrderDetail';
 import Invoice from './components/invoices/Invoices';
 import InvoiceForm from './components/invoices/InvoiceForm';
 import InvoiceDetail from './components/invoices/InvoiceDetail';
+
+import QuotationForm from './components/quotations/QuotationForm';
 
 import Salesrep from './components/salesreps/Salesrep';
 import SalesrepForm from './components/salesreps/SalesrepForm';
@@ -160,6 +163,7 @@ import BillPaymentDetail from "./components/billpayment/BillpaymentDetail";
 
 import Bills from "./components/bills/Bills";
 import BillDetail from "./components/bills/BillDetail";
+import BillForm from './components/bills/BillForm'
 
 import EquipmentComponents from "./components/equipmentcomponent/equipmentcomponents";
 import EquipmentComponentDetail from "./components/equipmentcomponent/equipmentcomponentDetail";
@@ -175,6 +179,10 @@ import ProcessproductDetail from "./components/processproduct/ProcessproductDeta
 
 import InvoiceExample from "./components/nestedforms/NestedForm";
 import Dashboard from './dashboard/components/Dashboard';
+
+import StockReceiptForm from './components/stockreceipts/StockReceiptForm';
+
+import StockTakeForm from './components/stocktakes/StockTakeForm';
 
 
 //Alert Options
@@ -203,6 +211,14 @@ class App extends Component {
 							<Route exact path='/dash-view' component={Dashboard} />
 							<Route exact path='/test-form' component={InvoiceExample} />
 
+							<Route exact path='/stockreceipts/create' component={StockReceiptForm} />
+
+							<Route exact path='/quotations/create' component={QuotationForm} />
+
+
+							<Route exact path='/stocktakes/create' component={StockTakeForm} />
+
+
 							<Route exact path='/processmachines' component={ProcessMachines} />
 							<Route exact path='/process-machine-create' component={ProcessMachineForm} />
 
@@ -214,6 +230,7 @@ class App extends Component {
 							<Route exact path='/billmaterial-detail/:id' component={BillMaterialDetail} />
 
 							<Route exact path='/bills' component={Bills} />
+							<Route exact path='/bills/create' component={BillForm} />
 
 
 							<Route exact path='/billpayments' component={BillPayments} />
@@ -271,14 +288,14 @@ class App extends Component {
 							<Route exact path='/accountconfig-detail/:id' component={AccountConfigDetail} />
 
 							<Route exact path='/debitnotes' component={Debitnotes} />
-							<Route exact path='/debitnote-form' component={DebitnotesForm} />
+							<Route exact path='/debitnotes/create' component={DebitnotesForm} />
 
 							<Route exact path='/creditnotes' component={Creditnotes} />
-							<Route exact path='/creditnote-form' component={CreditnotesForm} />
+							<Route exact path='/creditnotes/create' component={CreditnotesForm} />
 							<Route exact path='/creditnote-detail/:id' component={CreditnoteDetail} />
 
 							<Route exact path='/orders' component={Orders} />
-							<Route exact path='/order-form' component={OrderForm} />
+							<Route exact path='/orders/create' component={OrderForm} />
 
 							<Route exact path='/orderpayments' component={Orderpayments} />
 							<Route exact path='/orderpayment-form' component={OrderpaymentForm} />
@@ -309,7 +326,7 @@ class App extends Component {
 							<Route exact path='/salesrep-detail/:id' component={SalesrepDetail} />
 
 							<Route exact path='/invoices' component={Invoice} />
-							<Route exact path='/invoice-form' component={InvoiceForm} />
+							<Route exact path='/invoices/create' component={InvoiceForm} />
 
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/login' component={Login} />

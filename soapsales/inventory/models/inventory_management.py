@@ -15,7 +15,7 @@ class InventoryController(models.Model):
     can_authorize_consumables_requisitions = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.employee.first_name} {self.employee.last_name} {self.employee.id}'
+        return f'{self.employee.first_name} | {self.employee.last_name} | {self.employee.id}'
 
 
 class UnitOfMeasure(models.Model):

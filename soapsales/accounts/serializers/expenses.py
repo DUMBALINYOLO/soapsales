@@ -52,7 +52,7 @@ class BillCreateSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = Bill
-        fields = ['pk', 'vendor', 'memo', 'reference', 'lines']
+        fields = ['pk', 'vendor', 'date', 'due', 'memo', 'reference', 'lines']
 
             
 

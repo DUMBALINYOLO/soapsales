@@ -9,6 +9,8 @@ class StringSerializer(serializers.StringRelatedField):
 
 class InventoryItemListSerializer(serializers.ModelSerializer):
     category = StringSerializer()
+    unit = StringSerializer()
+    type = serializers.SerializerMethodField()
 
 
 
@@ -22,9 +24,10 @@ class InventoryItemListSerializer(serializers.ModelSerializer):
             'category',
             'unit',
 
-
-
         ]
+
+    def get_type(self, obj):
+        return obj.get_type_display()
 
 
 class InventoryItemCreateSerializer(serializers.ModelSerializer):
@@ -56,7 +59,7 @@ class InventoryItemCreateSerializer(serializers.ModelSerializer):
 
 class InventoryItemDetailSerializer(serializers.ModelSerializer):
     category = StringSerializer()
-    unit_purchase_price = StringSerializer()
+    unit = StringSerializer()
     supplier = StringSerializer()
     product_component = StringSerializer()
     equipment_component = StringSerializer()

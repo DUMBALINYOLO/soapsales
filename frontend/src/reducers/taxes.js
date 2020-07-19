@@ -1,4 +1,4 @@
-import { GET_TAXES, GET_TAXE, DELETE_TAX, ADD_TAX  } from '../actions/types.js';
+import { GET_TAXES, GET_TAX, DELETE_TAX, ADD_TAX  } from '../actions/types.js';
 
 const initialState = {
     taxes: [],
@@ -24,7 +24,7 @@ export default function(state = initialState, action){
                 ...state,
                 taxes: [...state.taxes, action.payload]
             };
-        case GET_TAXE:
+        case GET_TAX:
             return {
                 ...state,
                 taxe: action.payload

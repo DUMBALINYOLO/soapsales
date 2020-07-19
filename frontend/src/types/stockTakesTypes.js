@@ -1,0 +1,4 @@
+export const GET_STOCK_TAKES = 'GET_STOCK_TAKES';
+export const DELETE_STOCK_TAKE = 'DELETE_STOCK_TAKE';
+export const ADD_STOCK_TAKE = 'ADD_STOCK_TAKE';
+export const GET_STOCK_TAKE = 'GET_STOCK_TAKE';

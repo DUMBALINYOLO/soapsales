@@ -12,7 +12,7 @@ class SalesRepresentativeListSerialaizer(serializers.ModelSerializer):
 
 	class Meta:
 		model = SalesRepresentative
-		fields = ['id', 'employee', 'number']
+		fields = ['employee', 'id']
 
 
 class SalesRepresentativeCreateSerialaizer(serializers.ModelSerializer):
@@ -21,7 +21,7 @@ class SalesRepresentativeCreateSerialaizer(serializers.ModelSerializer):
 		model = SalesRepresentative
 		fields = [
 			'employee', 
-			'number',
+			'id',
 			'can_reverse_invoices',
 			'can_offer_discounts',
 		]
@@ -32,10 +32,9 @@ class SalesRepresentativeDetailSerialaizer(serializers.ModelSerializer):
 
 	class Meta:
 		model = SalesRepresentative
-		fields = [
-			'id',
+		fields = [			
 			'employee', 
-			'number',
+			'id',
 			'can_reverse_invoices',
 			'can_offer_discounts',
 		]

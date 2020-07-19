@@ -29,7 +29,7 @@ const DebitNoteLines = (props) => {
   let orderItems = orderitems.length > 0
     && orderitems.map((item, i) => {
     return (
-      <option key={i} value={item.id}>{item.name}</option>
+      <option key={i} value={item.id}>{item.item}</option>
     )
   }, this);
 

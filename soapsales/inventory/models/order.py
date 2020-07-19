@@ -40,6 +40,7 @@ class Order(models.Model):
     percent_received - is the percentage of the order that has been
         fulfilled by the supplier.
 
+
     methods
     -------------
     receive - quickly generates a stock receipt where all items are

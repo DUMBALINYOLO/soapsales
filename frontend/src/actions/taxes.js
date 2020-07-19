@@ -4,7 +4,7 @@ import {
         GET_TAXES, 
         DELETE_TAX, 
         ADD_TAX, 
-        GET_TAX
+        GET_TAX,
         GET_ERRORS 
     } from './types';
 

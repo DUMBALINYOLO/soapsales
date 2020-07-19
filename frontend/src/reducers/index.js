@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-// import taxes from './taxes';
+import taxes from './taxes';
 import auth from './auth';
 import currencies from './currencies';
 import errors from './errors';
@@ -68,9 +68,12 @@ import journalentrytypechoices from "./journalentrychoices";
 import manufacturingproducttypechoices from "./manufacturingproductchoices";
 import processrateunittimechoices from "./processratechoices";
 import productcomponentpricingchoices from "./productcomponentchoices";
+import stockreceipts from './stockreceipts';
+import stocktakes from './stocktakes';
+import employees from './employees';
 
 export default combineReducers({
-    // taxes,
+    taxes,
     accountingperiodchoices,
     customerpaymentmethodchoices,
     employeegenderchoices,
@@ -137,6 +140,8 @@ export default combineReducers({
     orderitems,
     categorychoices,
     accounttypesclassificationchoices,
-
+    stockreceipts,
+    stocktakes,
+    employees,
 
 });

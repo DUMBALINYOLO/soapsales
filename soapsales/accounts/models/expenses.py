@@ -13,9 +13,9 @@ from .journalize import JournalEntry
 class Bill(models.Model):
     vendor = models.ForeignKey('inventory.Supplier',
         on_delete=models.SET_NULL, null=True)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField()
     reference = models.CharField(max_length=255, blank=True)
-    due = models.DateTimeField(auto_now_add=True)
+    due = models.DateField()
     memo = models.TextField(blank=True)
     entry= models.ForeignKey('accounts.Journalentry',
         on_delete=models.SET_NULL,

@@ -22,6 +22,8 @@ export const debitnoteURL= `${endpoint}/inventory/debit-note/`
 export const inventorycategoryURL= `${endpoint}/inventory/inventory-categories/`
 export const inventorycontrollerURL= `${endpoint}/inventory/inventory-controllers/`
 export const invoicesURL= `${endpoint}/sales/invoices/`
+export const invoicelineURL = `${endpoint}/sales/invoicelines/`
+export const quotationURL = `${endpoint}/sales/quotations/`
 export const orderpaymentsURL= `${endpoint}/inventory/orderpayments/`
 export const ordersURL= `${endpoint}/inventory/orders/`
 export const paymentsURL= `${endpoint}/sales/payments/`
@@ -39,6 +41,13 @@ export const unitmeasureURL= `${endpoint}/inventory/unit-of-measure/`
 export const suppliersURL= `${endpoint}/inventory/suppliers/`
 export const orderItemsURL= `${endpoint}/inventory/orderitems/`
 export const wastereportURL= `${endpoint}/manufacture/waste-generation-reports/`
+export const stockReceiptsURL= `${endpoint}/inventory/inventoryreceipts/`
+export const stockTakesURL= `${endpoint}/inventory/inventorystocktakes/`
+export const warehouseURL= `${endpoint}/inventory/warehouses/`
+
+export const warehouseitemURL = `${endpoint}/inventory/warehouseitems/`;
+
+export const employeesURL = `${endpoint}/employees/employees/`
 
 export const billpaymentsURL = `${endpoint}/accounting/bill-payments/`
 export const journalURL = `${endpoint}/accounting/journal-entries/`

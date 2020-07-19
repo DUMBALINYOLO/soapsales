@@ -27,7 +27,7 @@ class DebitNoteForm extends Component {
       date: '',
       comments: '',
       order: '',
-      orders: [],
+      amaorders: [],
       formData: {},
       lines: [{ index: Math.random(), item: "", quantity: '' }],
 
@@ -124,17 +124,17 @@ class DebitNoteForm extends Component {
 
     let { lines } = this.state
 
-    const { amaorders } = this.props;
+    const { orders } = this.props;
 
-    console.log(amaorders)
+    console.log(orders)
 
 
 
-    let Orders = amaorders.length > 0
-      && amaorders.map((item, i) => {
+    let amaorders = orders.length > 0
+      && orders.map((item, i) => {
 
       return (
-        <option key={i} value={item.id}>{item.name}</option>
+        <option key={i} value={item.id}>{item.id} | {item.tracking_number}</option>
       )
     }, this);
 
@@ -155,13 +155,23 @@ class DebitNoteForm extends Component {
                 value={comments}
               />
             </div>
+           <div className="p-field p-col-12 p-md-12">
+              <label>Date</label>
+              <Calendar
+                showIcon={true}
+                className="form-control"
+                name="date"
+                onChange={this.onChange}
+                value={date}
+              />
+            </div>
             <div className="p-field p-col-12 p-md-6">
               <select
                 name ='order'
                 value={order}
                 onChange={this.onChange}
               >
-                {Orders}
+                {amaorders}
               </select>
             </div>
             <div className="p-field p-col-12 p-md-6">
@@ -172,7 +182,7 @@ class DebitNoteForm extends Component {
                   <tr>
                     <th>QUANTITY</th>
                     <th>ORDER</th>
-                    <th>DATE</th>
+                                      
                   </tr>
                 </thead>
                 <tbody>
@@ -193,7 +203,7 @@ class DebitNoteForm extends Component {
 }
 
 const mapStateToProps = state =>({
-    amaorders: state.orders.orders
+    orders: state.orders.orders
 })
 
 export default connect(mapStateToProps, {getOrders, addDebitnote})(DebitNoteForm);

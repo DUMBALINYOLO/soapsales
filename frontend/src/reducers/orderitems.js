@@ -12,8 +12,7 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 orderitems: action.payload
-            };
-           
+            };      
         default:
             return state;
     }

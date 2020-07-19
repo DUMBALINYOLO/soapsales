@@ -8,7 +8,7 @@ export const getWarehouseitems = () => dispatch =>{
     axios.get(warehouseitemURL)
         .then(res => {
             dispatch({
-                type: GET_WAREHOUSES_ITEMS,
+                type: GET_WAREHOUSE_ITEMS,
                 payload: res.data
             });
         }).catch(err => console.log(err))
@@ -30,7 +30,7 @@ export const deleteWarehouseitem = (id) => dispatch => {
 // Add
 // Get
 export const addWarehouseitem = warehouseitem => dispatch => {
-    axios.post(warehousitemURL, warehouseitem)
+    axios.post(warehouseitemURL, warehouseitem)
         .then(res => {
             dispatch({
                 type: ADD_WAREHOUSE_ITEM,

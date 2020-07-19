@@ -7,39 +7,35 @@ import {Button} from 'primereact/button';
 import { connect } from 'react-redux';
 import { getProductlines} from '..//../actions/productlines';
 import { getTaxes} from '..//../actions/taxes';
+import { getInvoiceLineChoices } from '..//../actions/choices';
 import {InputNumber} from 'primereact/inputnumber';
 
 
 const QuotationLines = (props) => {
+
     useEffect(() => {
         if(!props.fetched) {
             props.getProductlines();
+            props.getTaxes();
+            props.getInvoiceLineChoices();
         }
         console.log('mount it!');
     }, []);
 
     const { productlines } = props;
+    const { taxes } = props;
+    const { invoicelinechoices } = props;
 
-    console.log(productlines)
 
 
-    let productLine = productlines.length > 0
+
+    let productLines = productlines.length > 0
     && productlines.map((item, i) => {
     return (
-      <option key={i} value={item.id}>{item.name}</option>
+      <option key={i} value={item.id}>{item.product}</option>
     )
     }, this);
 
-    useEffect(() => {
-        if(!props.fetched) {
-            props.getTaxes();
-        }
-        console.log('mount it!');
-    }, []);
-
-    const { taxes } = props;
-
-    console.log(taxes)
 
 
     let Taxes = taxes.length > 0
@@ -49,9 +45,17 @@ const QuotationLines = (props) => {
     )
     }, this);
 
+    let choices = invoicelinechoices.length > 0
+    && invoicelinechoices.map((item, i) => {
+    return (
+      <option key={i} value={item.key}>{item.value}</option>
+    )
+    }, this);
+
+
   return (
     props.lines.map((val, idx) => {
-      let discount = `discount-${idx}`, product = `product-${idx}`, tax = `tax-${idx}`
+      let discount = `discount-${idx}`, product = `product-${idx}`, tax = `tax-${idx}`,  line_type = `line_type-${idx}` 
       return (
         <tr key={val.index}>
           <td>
@@ -70,7 +74,7 @@ const QuotationLines = (props) => {
               data-id={idx}
               className="form-control"
             >
-               {productLine}
+               {productLines}
             </select>
           </td>
           <td>
@@ -81,6 +85,16 @@ const QuotationLines = (props) => {
               className="form-control"
             >
                {Taxes}
+            </select>
+          </td>
+          <td>
+            <select
+              name="line_type"
+              id={line_type}
+              data-id={idx}
+              className="form-control"
+            >
+               {choices}
             </select>
           </td>
 
@@ -99,7 +113,8 @@ const QuotationLines = (props) => {
 
 const mapStateToProps = state =>({
     productlines: state.productlines.productlines,
-    taxes: state.taxes.taxes
+    taxes: state.taxes.taxes,
+    invoicelinechoices: state.invoicelinechoices.invoicelinechoices,
 })
 
-export default connect(mapStateToProps, { getProductlines, getTaxes } ) (QuotationLines);
+export default connect(mapStateToProps, { getProductlines, getTaxes,  getInvoiceLineChoices } ) (QuotationLines);

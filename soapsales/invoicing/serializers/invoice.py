@@ -68,6 +68,7 @@ class QuotationCreateSerializer(WritableNestedModelSerializer):
 			'customer', 
 			'purchase_order_number',
 			'quotation_date',
+			'quotation_valid',
 			'draft',
 			'customer',
 			'salesperson',
