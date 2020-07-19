@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { GET_PROCESSPRODUCTS, GET_PROCESSPRODUCT, DELETE_PROCESSPRODUCT, ADD_PROCESSPRODUCT } from '../types/processproductTypes';
-import { processproductURL } from '../constants';
+import { GET_PROCESSEDPRODUCTS, GET_PROCESSEDPRODUCT, DELETE_PROCESSEDPRODUCT, ADD_PROCESSEDPRODUCT } from '../types/processedproductsTypes';
+import { processedproductURL } from '../constants';
 
 
 // Get
-export const getProcessproducts = () => dispatch => {
-    axios.get(processproductURL)
+export const getProcessedproducts = () => dispatch => {
+    axios.get(processedproductURL)
         .then(res => {
             dispatch({
-                type: GET_PROCESSPRODUCTS,
+                type: GET_PROCESSEDPRODUCTS,
                 payload: res.data
             });
         }).catch(err => console.log(err))
@@ -16,11 +16,11 @@ export const getProcessproducts = () => dispatch => {
 
 //Delete
 
-export const deleteProcessproduct = (id) => dispatch => {
-    axios.delete(processproductURL, id)
+export const deleteProcessedproduct = (id) => dispatch => {
+    axios.delete(processedproductURL, id)
         .then(res => {
             dispatch({
-                type: DELETE_PROCESSPRODUCT,
+                type: DELETE_PROCESSEDPRODUCT,
                 payload: id
             });
         }).catch(err => console.log(err))
@@ -28,21 +28,21 @@ export const deleteProcessproduct = (id) => dispatch => {
 
 
 // Add
-export const addProcessproduct = (processproduct) => dispatch => {
-    axios.post(processproductURL)
+export const addProcessedproduct = (processedproduct) => dispatch => {
+    axios.post(processedproductURL)
         .then(res => {
             dispatch({
-                type: ADD_PROCESSPRODUCT,
+                type: ADD_PROCESSEDPRODUCT,
                 payload: res.data
             });
         }).catch(err => console.log(err))
 }
 
-export const getProcessproduct = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/manufacture/process-products/${id}`)
+export const getProcessedproduct = id => dispatch =>{
+      axios.get(`http://127.0.0.1:8000/api/stock/processed-products/${id}`)
         .then(res => {
             dispatch({
-                type: GET_PROCESSPRODUCT,
+                type: GET_PROCESSEDPRODUCT,
                 payload: res.data
             });
         }).catch(err => console.log(err))

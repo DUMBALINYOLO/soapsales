@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addEquipmentcomponent } from '../../actions/equipmentcomponents';
+import { addProcessedproductcomponent } from '../../actions/processedproductcomponents';
 import { getProductComponentPricingChoices } from '..//../actions/choices';
 import PropTypes from 'prop-types';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import {InputText} from 'primereact/inputtext';
+import {Button} from 'primereact/button';
 
-export class EquipmentcomponentForm extends Component{
+export class ProcessedproductcomponentForm extends Component{
     state = {
         direct_price: '',
         margin: '',
@@ -20,12 +26,12 @@ export class EquipmentcomponentForm extends Component{
     onSubmit = (e) => {
       e.preventDefault();
       const { direct_price, margin, markup, sku, pricing_method } = this.state;
-      const equipmentcomponent = { direct_price, margin, markup, sku, pricing_method };
-      this.props.addEquipmentcomponent(equipmentcomponent);
+      const processedproductcomponent = { direct_price, margin, markup, sku, pricing_method };
+      this.props.addProcessedproductcomponent(processedproductcomponent);
     };
 
     static propTypes = {
-        addEquipmentcomponent: PropTypes.func.isRequired,
+        addProcessedproductcomponent: PropTypes.func.isRequired,
         getProductComponentPricingChoices: PropTypes.func.isRequired,
 
     }
@@ -48,11 +54,12 @@ export class EquipmentcomponentForm extends Component{
 
         return (
             <div className="card card-body mt-4 mb-4">
-              <h2>Add Equipment Component </h2>
+              <h2>Add Processed Product Component </h2>
               <form onSubmit={this.onSubmit}>
-                <div className="form-group">
+              <div className="p-fluid p-formgrid p-grid">
+                <div className="p-field p-col-12 p-md-6">
                   <label>Direct Price</label>
-                  <input
+                  <InputText
                     className="form-control"
                     type="text"
                     name="direct price"
@@ -60,9 +67,9 @@ export class EquipmentcomponentForm extends Component{
                     value={direct_price}
                   />
                 </div>
-                <div className="form-group">
+                <div className="p-field p-col-12 p-md-6">
                   <label>Margin</label>
-                  <input
+                  <InputText
                     className="form-control"
                     type="text"
                     name="margin"
@@ -70,9 +77,9 @@ export class EquipmentcomponentForm extends Component{
                     value={margin}
                   />
                 </div>
-                <div className="form-group">
+                <div className="p-field p-col-12 p-md-6">
                   <label>Markup</label>
-                  <input
+                  <InputText
                     className="form-control"
                     type="text"
                     name="markup"
@@ -80,9 +87,9 @@ export class EquipmentcomponentForm extends Component{
                     value={markup}
                   />
                 </div>
-                <div className="form-group">
+                <div className="p-field p-col-12 p-md-6">
                   <label>Sku</label>
-                  <input
+                  <InputText
                     className="form-control"
                     type="text"
                     name="sku"
@@ -99,11 +106,9 @@ export class EquipmentcomponentForm extends Component{
                         {pricing}
                     </select>
                 </div>
-
-                <div className="form-group">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
+                <div className="p-field p-col-12 p-md-6">
+                  <Button label="Submit" className="p-button-success p-button-rounded" />
+                </div>
                 </div>
              </form>
          </div>
@@ -115,4 +120,4 @@ const mapStateToProps = state =>({
     productcomponentpricingchoices: state.productcomponentpricingchoices.productcomponentpricingchoices,
 })
 
-export default connect(mapStateToProps, {getProductComponentPricingChoices, addEquipmentcomponent })(EquipmentcomponentForm);
+export default connect(mapStateToProps, {getProductComponentPricingChoices, addProcessedproductcomponent })(ProcessedproductcomponentForm);

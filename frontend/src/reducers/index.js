@@ -18,13 +18,16 @@ import billpayments from "./billpayments";
 import wastereports from "./wastereports";
 import processrates from "./processrates";
 import processes from "./process";
+import processproducts from "./processproducts.js";
+import processedproductcomponents from "./processedproductcomponents.js";
 import processedproducts from "./processedproducts.js";
+
 import assets from "./assets";
 import transactions from "./transactions";
 import inventoryitems from  "./inventoryitems";
 import equipmentcomponents from "./equipmentcomponents";
 
-import processproducts from "./processproducts";
+import productcomponents from "./productcomponents";
 import productionorders from "./productionorders";
 import productlines from "./productlines";
 import accountingConfig from "./accountingConfig";
@@ -71,6 +74,8 @@ import productcomponentpricingchoices from "./productcomponentchoices";
 import stockreceipts from './stockreceipts';
 import stocktakes from './stocktakes';
 import employees from './employees';
+import processedproductstockstatuschoices from "./processedproductstockstatuschoices";
+
 
 export default combineReducers({
     taxes,
@@ -78,6 +83,7 @@ export default combineReducers({
     customerpaymentmethodchoices,
     employeegenderchoices,
     invoicesalechoices,
+    processedproductstockstatuschoices,
     productcomponentpricingchoices,
     manufacturingproducttypechoices,
     processrateunittimechoices,
@@ -91,6 +97,8 @@ export default combineReducers({
     assettypeschoices,
     auth,
     accounts,
+    processedproducts,
+    processedproductcomponents,
     accountingConfig,
     currencies,
     customers,
@@ -120,7 +128,7 @@ export default combineReducers({
     products,
     productionorders,
     productlines,
-    processproducts,
+    productcomponents,
     orders,
     invoices,
     unitmeasures,
@@ -134,6 +142,7 @@ export default combineReducers({
     processes,
     assets,
     transactions,
+    equipmentcomponents,
     payments,
     messages,
     suppliers,

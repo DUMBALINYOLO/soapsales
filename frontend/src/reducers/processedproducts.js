@@ -1,33 +1,33 @@
-import { GET_PROCESSPRODUCTS, GET_PROCESSPRODUCT, DELETE_PROCESSPRODUCT, ADD_PROCESSPRODUCT  } from "../types/processproductTypes";
+import { GET_PROCESSEDPRODUCTS, GET_PROCESSEDPRODUCT, DELETE_PROCESSEDPRODUCT, ADD_PROCESSEDPRODUCT  } from "../types/processedproductsTypes";
 
 const initialState = {
-    processproducts: [],
-    processproduct: [],
+    processedproducts: [],
+    processedproduct: [],
     loading: false
 }
 
 
 export default function(state = initialState, action){
     switch(action.type){
-        case GET_PROCESSPRODUCTS:
+        case GET_PROCESSEDPRODUCTS:
             return {
                 ...state,
-                processproducts: action.payload
+                processedproducts: action.payload
             };
-        case DELETE_PROCESSPRODUCT:
+        case DELETE_PROCESSEDPRODUCT:
             return {
                 ...state,
-                processproduct: state.processproducts.filter(processproduct => processproduct.id !== action.payload)
+                processedproduct: state.processedproducts.filter(processedproduct => processedproduct.id !== action.payload)
             };
-        case ADD_PROCESSPRODUCT:
+        case ADD_PROCESSEDPRODUCT:
             return {
                 ...state,
-                processproduct: [...state.processproducts, action.payload]
+                processedproduct: [...state.processedproducts, action.payload]
             };
-        case GET_PROCESSPRODUCT:
+        case GET_PROCESSEDPRODUCT:
             return {
                 ...state,
-                processproduct: action.payload
+                processedproduct: action.payload
             };
         default:
             return state;

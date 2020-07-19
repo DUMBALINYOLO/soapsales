@@ -101,14 +101,11 @@ import ProductlineDetail from "./components/productline/ProductlineDetail";
 
 import ProcessMachines from "./components/machines/processMachines";
 import ProcessMachineDetail from "./components/machines/processMachineDetail";
-
 import ProcessMachineForm from "./components/machines/processMachineForm";
+
 import ProcessGroups from "./components/machinegroup/processGroups";
 import ProcessGroupForm from './components/machinegroup/processGroupForm';
 import ProcessGroupDetail from "./components/machinegroup/processGroupDetail";
-
-
-
 
 import BillMaterials from "./components/billmaterials/billMaterials";
 import BillMaterialDetail from "./components/billmaterials/billMaterialDetail";
@@ -143,9 +140,9 @@ import Inventorycategory from './components/inventorycategory/Inventorycategory'
 import InventorycategoryForm from './components/inventorycategory/InventorycategoryForm';
 import InventorycategoryDetail from './components/inventorycategory/InventorycategoryDetail';
 
-import Processproduct from "./components/processedproducts/Processedproduct";
-import ProcessproductForm from './components/processedproducts/ProcessedproductForm';
-import ProcessedproductDetail from "./components/processedproducts/ProcessedproductDetail";
+import Productcomponents from "./components/productcomponents/Productcomponents";
+import ProductcomponentForm from './components/productcomponents/ProductcomponentForm';
+import ProductcomponentDetail from "./components/productcomponents/ProductcomponentDetail";
 
 import Mali from './components/table/Mali';
 import Thebuli from './components/table/Thebuli';
@@ -167,22 +164,44 @@ import BillForm from './components/bills/BillForm'
 
 import EquipmentComponents from "./components/equipmentcomponent/equipmentcomponents";
 import EquipmentComponentDetail from "./components/equipmentcomponent/equipmentcomponentDetail";
+import EquipmentComponentForm from "./components/equipmentcomponent/equipmentcomponentForm";
+
 
 import Inventoryitems from "./components/inventoryitem/Inventoryitems";
+import InventoryitemForm from "./components/inventoryitem/InventoryitemForm";
 import InventoryitemDetail from "./components/inventoryitem/InventoryitemDetail";
 
 import Productionorders from "./components/productionorder/Productionorders";
 import ProductionorderDetail from "./components/productionorder/ProductionorderDetail";
 
-import Processproducts from "./components/processproduct/Processproduct";
-import ProcessproductDetail from "./components/processproduct/ProcessproductDetail";
+import Processedproductcomponents from "./components/processedproductcomponent/Processedproductcomponent";
+import ProcessedproductcomponentDetail from "./components/processedproductcomponent/ProcessedproductcomponentDetail";
+import ProcessedproductcomponentForm from "./components/processedproductcomponent/ProcessedproductcomponentForm";
+
+import Processproducts from "./components/processproducts/Processproducts";
+import ProcessproductDetail from "./components/processproducts/ProcessproductDetail";
+import ProcessproductForm from "./components/processproducts/ProcessproductForm";
+
+import Processedproducts from "./components/processedproducts/Processedproducts";
+import ProcessedproductForm from "./components/processedproducts/ProcessedproductsForm";
+import ProcessedproductDetail from "./components/processedproducts/ProcessedproductsDetail";
 
 import InvoiceExample from "./components/nestedforms/NestedForm";
 import Dashboard from './dashboard/components/Dashboard';
 
+
 import StockReceiptForm from './components/stockreceipts/StockReceiptForm';
 
 import StockTakeForm from './components/stocktakes/StockTakeForm';
+
+
+import Receipts from "./components/receipts/Receipts";
+import Warehouses from "./components/warehouses/Warehouses";
+import Warehouseitems from "./components/warehouseitems/Warehouseitems";
+import Stockadjustments from "./components/stockadjustments/Stockadjustments";
+import Storagemedia from "./components/storagemedia/Storagemedia";
+import Inventoryreceipts from "./components/inventoryreceipts/Inventoryreceipts";
+
 
 
 //Alert Options
@@ -232,6 +251,17 @@ class App extends Component {
 							<Route exact path='/bills' component={Bills} />
 							<Route exact path='/bills/create' component={BillForm} />
 
+							<Route exact path='/receipts' component={Receipts} />
+
+							<Route exact path='/warehouse' component={Warehouses} />
+
+							<Route exact path='/warehouseitems' component={Warehouseitems} />
+
+							<Route exact path='/stockadjustments' component={Stockadjustments} />
+
+							<Route exact path='/storagemedia' component={Storagemedia} />
+
+							<Route exact path='/inventoryreceipts' component={Inventoryreceipts} />
 
 							<Route exact path='/billpayments' component={BillPayments} />
 							<Route exact path='/billpayment-detail/:id' component={BillPaymentDetail} />
@@ -248,9 +278,6 @@ class App extends Component {
 							<Route exact path='/assets' component={Assets} />
 							<Route exact path='/asset-form' component={AssetForm} />
 							<Route exact path='/asset-detail/:id' component={AssetDetail} />
-
-							<Route exact path='/processproducts' component={Processproduct} />
-							<Route exact path='/processproduct-form' component={ProcessproductForm} />
 
 							<Route exact path='/productionorders' component={Productionorders} />
 
@@ -311,6 +338,8 @@ class App extends Component {
 							<Route exact path='/inventorycategory-form' component={InventorycategoryForm} />
 
 							<Route exact path='/inventoryitems' component={Inventoryitems} />
+							<Route exact path='/inventoryitem-form' component={InventoryitemForm} />
+							<Route exact path='/inventoryitem-detail/:id' component={InventoryitemDetail} />
 
 							<Route exact path='/pricinggroups' component={Pricinggroup} />
 							<Route exact path='/pricinggroup-form' component={PricinggroupForm} />
@@ -334,8 +363,25 @@ class App extends Component {
 							<Route exact path='/productlines' component={Productline} />
 							<Route exact path='/productline-form' component={ProductlineForm} />
 
-							<Route exact path='/processproducts' component={Processproducts} />
+							<Route exact path='/processedproductcomponents' component={Processedproductcomponents} />
+							<Route exact path='/processedproductcomponent-detail/:id' component={ProcessedproductcomponentDetail} />
+							<Route exact path='/processedproductcomponent-form' component={ProcessedproductcomponentForm} />
 
+							<Route exact path='/productcomponents' component={Productcomponents} />
+							<Route exact path='/productcomponent-form' component={ProductcomponentForm} />
+							<Route exact path='/productcomponent-detail/:id' component={ProductcomponentDetail} />
+
+							<Route exact path='/equipmentcomponents' component={EquipmentComponents} />
+							<Route exact path='/equipmentcomponent-form' component={EquipmentComponentForm} />
+							<Route exact path='/equipmentcomponent-detail/:id' component={EquipmentComponentDetail} />
+
+							<Route exact path='/processproduct' component={Processproducts} />
+							<Route exact path='/processproduct-detail/:id' component={ProcessproductDetail} />
+							<Route exact path='/processproduct-form' component={ProcessproductForm} />
+
+							<Route exact path='/processedproduct' component={Processedproducts} />
+							<Route exact path='/processedproduct-form' component={ProcessedproductForm} />
+							<Route exact path='/processedproduct-detail/:id' component={ProcessedproductDetail} />
 
 							<Route component={Default} />
 						</Switch>

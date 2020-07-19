@@ -129,7 +129,6 @@ class DebitNoteForm extends Component {
     console.log(orders)
 
 
-
     let amaorders = orders.length > 0
       && orders.map((item, i) => {
 
