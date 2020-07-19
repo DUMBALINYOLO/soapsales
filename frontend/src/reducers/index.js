@@ -52,9 +52,7 @@ import invoicelines from "./invoicelines";
 import warehouses from "./warehouses";
 import warehouseitems from "./warehouseitems";
 import stockadjustments from "./stockadjustments";
-import inventorystocktakes from "./inventorystocktakes";
 import storagemedias from "./storagemedia";
-import inventoryreceipts from "./inventoryreceipts";
 
 import accountingperiodchoices from "./accountingperiodchoices";
 import assetsdepreciationmethodchoices from "./assetdepreciationchoices";
@@ -110,9 +108,7 @@ export default combineReducers({
     warehouses,
     warehouseitems,
     stockadjustments,
-    inventorystocktakes,
     storagemedias,
-    inventoryreceipts,
     billpayments,
     inventoryitems,
     salesreps,

@@ -26,7 +26,6 @@ import UpdateCurrency from './components/currencies/CurrencyUpdate';
 
 
 
-
 import Bookkeepers from './components/bookkeepers/Bookkeepers';
 import BookkeeperForm from './components/bookkeepers/BookkeeperForm';
 import BookkeeperDetail from './components/bookkeepers/BookkeeperDetail';
@@ -200,7 +199,7 @@ import Warehouses from "./components/warehouses/Warehouses";
 import Warehouseitems from "./components/warehouseitems/Warehouseitems";
 import Stockadjustments from "./components/stockadjustments/Stockadjustments";
 import Storagemedia from "./components/storagemedia/Storagemedia";
-import Inventoryreceipts from "./components/inventoryreceipts/Inventoryreceipts";
+
 
 
 
@@ -261,7 +260,6 @@ class App extends Component {
 
 							<Route exact path='/storagemedia' component={Storagemedia} />
 
-							<Route exact path='/inventoryreceipts' component={Inventoryreceipts} />
 
 							<Route exact path='/billpayments' component={BillPayments} />
 							<Route exact path='/billpayment-detail/:id' component={BillPaymentDetail} />

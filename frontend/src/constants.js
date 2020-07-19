@@ -45,8 +45,6 @@ export const stockReceiptsURL= `${endpoint}/inventory/inventoryreceipts/`
 export const stockTakesURL= `${endpoint}/inventory/inventorystocktakes/`
 export const warehouseURL= `${endpoint}/inventory/warehouses/`
 
-export const warehouseitemURL = `${endpoint}/inventory/warehouseitems/`;
-
 export const employeesURL = `${endpoint}/employees/employees/`
 
 export const billpaymentsURL = `${endpoint}/accounting/bill-payments/`
@@ -58,7 +56,6 @@ export const processproductURL= `${endpoint}/manufacture/process-products/`
 export const productcomponentURL = `${endpoint}/inventory/product-components/`
 export const stockadjustmentURL= `${endpoint}/inventory/stockadjustments/`
 export const storagemediaURL= `${endpoint}/inventory/storagemedia/`
-export const warehouseURL= `${endpoint}/inventory/warehouses/`
 export const warehouseitemURL= `${endpoint}/inventory/warehouseitems/`
 export const receiptURL= `${endpoint}/sales/receipts/`
 export const inventoryreceiptURL= `${endpoint}/inventory/inventoryreceipts/`
