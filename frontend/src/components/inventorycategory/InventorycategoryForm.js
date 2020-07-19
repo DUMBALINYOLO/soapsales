@@ -2,12 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addInventorycategory } from '..//../actions/inventorycategory';
 import PropTypes from 'prop-types';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import {InputText} from 'primereact/inputtext';
+import {InputTextarea} from 'primereact/inputtextarea';
+import {Button} from 'primereact/button';
 
 export class InventorycategoryForm extends Component{
-    state = {
-        name: '',
-        description: '',
-        parent: ''
+    constructor(props){
+        super(props);
+            this.state = {
+                name: '',
+                description: '',
+                parent: ''
+        }
+
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
 
@@ -49,9 +62,10 @@ export class InventorycategoryForm extends Component{
             <div className="card card-body mt-4 mb-4">
               <h2>Add An Inventory Category</h2>
               <form onSubmit={this.onSubmit}>
-                <div className="form-group">
+              <div className="p-fluid p-formgrid p-grid">
+                <div className="p-field p-col-12 p-md-12">
                   <label>Name</label>
-                  <input
+                  <InputText
                     className="form-control"
                     type="text"
                     name="name"
@@ -60,9 +74,9 @@ export class InventorycategoryForm extends Component{
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="p-field p-col-12 p-md-12">
                   <label>Description</label>
-                  <input
+                  <InputTextarea
                     className="form-control"
                     type="text"
                     name="description"
@@ -71,9 +85,9 @@ export class InventorycategoryForm extends Component{
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="p-field p-col-12 p-md-12">
                   <label>Parent</label>
-                  <input
+                  <InputText
                     className="form-control"
                     type="number"
                     name="parent"
@@ -81,10 +95,9 @@ export class InventorycategoryForm extends Component{
                     value={parent}
                   />
                 </div>
-                <div className="form-group">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
+                <div className="p-field p-col-12 p-md-6">
+                  <Button label="Submit" className="p-button-success p-button-rounded" />
+                </div>
                 </div>
              </form>
          </div>

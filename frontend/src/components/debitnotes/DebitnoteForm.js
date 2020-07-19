@@ -128,11 +128,8 @@ class DebitNoteForm extends Component {
 
     console.log(amaorders)
 
-
-
     let Orders = amaorders.length > 0
       && amaorders.map((item, i) => {
-
       return (
         <option key={i} value={item.id}>{item.name}</option>
       )

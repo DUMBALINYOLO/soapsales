@@ -17,6 +17,7 @@ import {
     GET_PROCESS_RATE_UNIT_TIME_CHOICES,
     GET_MANUFACTURING_PRODUCT_TYPE_CHOICES,
     GET_BILL_OF_MATERIAL_LINE_CHOICES,
+    GET_PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES,
 
 } from './types';
 import {
@@ -30,6 +31,16 @@ export const getAccountTypesCategoryChoices = () => dispatch => {
         .then(res => {
             dispatch({
                 type: GET_ACCOUNT_TYPE_CATEGORY_CHOICES,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
+export const getProcessedProductsStockStatusChoices = () => dispatch => {
+    axios.get('http://127.0.0.1:8000/api/config/processed-products-stock-status-choices/')
+        .then(res => {
+            dispatch({
+                type: GET_PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES,
                 payload: res.data
             });
         }).catch(err => console.log(err))
@@ -74,6 +85,7 @@ export const getAccountingPeriodChoices = () => dispatch => {
             });
         }).catch(err => console.log(err))
 }
+
 
 export const getJournalEntryTypeChoices = () => dispatch => {
     axios.get('http://127.0.0.1:8000/api/config/journal-entry-types-choices/')

@@ -53,7 +53,7 @@ export const warehouseURL= `${endpoint}/inventory/warehouses/`
 export const warehouseitemURL= `${endpoint}/inventory/warehouseitems/`
 export const receiptURL= `${endpoint}/sales/receipts/`
 export const inventoryreceiptURL= `${endpoint}/inventory/inventoryreceipts/`
-
+export const processedproductURL= `${endpoint}/stock/processed-products/`
 
 
 export const accountTypesCategoryChoicesURL = `${endpoint}/config/account-types-category-choices/`

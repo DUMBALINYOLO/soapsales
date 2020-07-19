@@ -178,6 +178,10 @@ import Processproducts from "./components/processproducts/Processproducts";
 import ProcessproductDetail from "./components/processproducts/ProcessproductDetail";
 import ProcessproductForm from "./components/processproducts/ProcessproductForm";
 
+import Processedproducts from "./components/processedproducts/Processedproducts";
+import ProcessedproductForm from "./components/processedproducts/ProcessedproductsForm";
+import ProcessedproductDetail from "./components/processedproducts/ProcessedproductsDetail";
+
 import InvoiceExample from "./components/nestedforms/NestedForm";
 import Dashboard from './dashboard/components/Dashboard';
 
@@ -354,6 +358,10 @@ class App extends Component {
 							<Route exact path='/processproduct' component={Processproducts} />
 							<Route exact path='/processproduct-detail/:id' component={ProcessproductDetail} />
 							<Route exact path='/processproduct-form' component={ProcessproductForm} />
+
+							<Route exact path='/processedproduct' component={Processedproducts} />
+							<Route exact path='/processedproduct-form' component={ProcessedproductForm} />
+							<Route exact path='/processedproduct-detail/:id' component={ProcessedproductDetail} />
 
 							<Route component={Default} />
 						</Switch>

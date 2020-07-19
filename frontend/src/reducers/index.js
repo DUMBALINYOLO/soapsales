@@ -20,6 +20,7 @@ import processrates from "./processrates";
 import processes from "./process";
 import processproducts from "./processproducts.js";
 import processedproductcomponents from "./processedproductcomponents.js";
+import processedproducts from "./processedproducts.js";
 
 import assets from "./assets";
 import transactions from "./transactions";
@@ -70,6 +71,7 @@ import journalentrytypechoices from "./journalentrychoices";
 import manufacturingproducttypechoices from "./manufacturingproductchoices";
 import processrateunittimechoices from "./processratechoices";
 import productcomponentpricingchoices from "./productcomponentchoices";
+import processedproductstockstatuschoices from "./processedproductstockstatuschoices";
 
 export default combineReducers({
     // taxes,
@@ -77,6 +79,7 @@ export default combineReducers({
     customerpaymentmethodchoices,
     employeegenderchoices,
     invoicesalechoices,
+    processedproductstockstatuschoices,
     productcomponentpricingchoices,
     manufacturingproducttypechoices,
     processrateunittimechoices,
@@ -90,6 +93,7 @@ export default combineReducers({
     assettypeschoices,
     auth,
     accounts,
+    processedproducts,
     processedproductcomponents,
     accountingConfig,
     currencies,
