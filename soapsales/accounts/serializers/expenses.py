@@ -99,9 +99,6 @@ class BillPaymentSerializer(serializers.ModelSerializer):
 
 
 class BillPaymentCreateSerializer(serializers.ModelSerializer):
-    account = StringSerializer()
-    bill = StringSerializer()
-
 
 
     class Meta:

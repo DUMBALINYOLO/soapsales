@@ -16,6 +16,7 @@ import { getSuppliers } from '..//../actions/suppliers';
 import { getWarehouses } from '..//../actions/warehouses';
 import { getInventoryOrderStatusChoices } from '..//../actions/choices';
 import { addOrder } from '..//../actions/orders';
+import { getTaxes} from '..//../actions/taxes';
 import {Calendar} from "primereact/calendar";
 import {InputNumber} from 'primereact/inputnumber';
 import PropTypes from 'prop-types';
@@ -39,12 +40,14 @@ class OrderForm extends Component {
       tracking_number: '',
       notes: '',
       status: '',
+      tax: '',
       received_to_date: '',
       issuing_inventory_controller: '',
       vendors: [],
       locations: [],
       statuses: [],
       employees: [],
+      taxList: [],
       formData: {},
       lines: [{ index: Math.random(), item: "", quantity: '', unit: '', order_price: '', received: ''}],
   
@@ -111,6 +114,7 @@ class OrderForm extends Component {
         status,
         received_to_date,
         issuing_inventory_controller,
+        tax,
         lines
  
       } = this.state;
@@ -129,6 +133,7 @@ class OrderForm extends Component {
         status,
         received_to_date,
         issuing_inventory_controller,
+        tax,
         lines
 
       };
@@ -150,8 +155,10 @@ class OrderForm extends Component {
           status: '',
           received_to_date: '',
           issuing_inventory_controller: '',
+          tax: '',
 
         });
+      this.props.history.push('/orders');
     };
 
     static propTypes = {
@@ -160,6 +167,7 @@ class OrderForm extends Component {
         getInventorycontrollers: PropTypes.func.isRequired,
         getInventoryOrderStatusChoices: PropTypes.func.isRequired,
         getWarehouses: PropTypes.func.isRequired,
+        getTaxes: PropTypes.func.isRequired,
     }
 
   componentDidMount() {
@@ -167,6 +175,7 @@ class OrderForm extends Component {
     this.props.getWarehouses();
     this.props.getSuppliers();
     this.props.getInventoryOrderStatusChoices()
+    this.props.getTaxes()
   }
 
   render = () => {
@@ -183,7 +192,8 @@ class OrderForm extends Component {
         notes,
         status,
         received_to_date,
-        issuing_inventory_controller,  
+        issuing_inventory_controller,
+        tax, 
 
     } = this.state;
 
@@ -193,6 +203,7 @@ class OrderForm extends Component {
     const { warehouses } = this.props;
     const { inventorycontrollers } = this.props;
     const { inventoryorderstatuschoices } = this.props;
+    const { taxes } = this.props;
 
 
 
@@ -208,6 +219,13 @@ class OrderForm extends Component {
       return (
         <option key={i} value={item.id}>{item.name}</option>
       )
+    }, this);
+
+     let taxList = taxes.length > 0
+    && taxes.map((item, i) => {
+    return (
+      <option key={i} value={item.id}>{item.name}</option>
+    )
     }, this);
 
     let statuses = inventoryorderstatuschoices.length > 0
@@ -239,6 +257,7 @@ class OrderForm extends Component {
                 name="expected_receipt_date"
                 onChange={this.onChange}
                 value={expected_receipt_date}
+                dateFormat="yy-mm-dd"
               />
             </div>
             <div className="p-field p-col-12 p-md-6">
@@ -249,6 +268,7 @@ class OrderForm extends Component {
                 name="date"
                 onChange={this.onChange}
                 value={date}
+                dateFormat="yy-mm-dd"
               />
             </div>
              <div className="p-field p-col-12 p-md-6">
@@ -259,6 +279,7 @@ class OrderForm extends Component {
                 name="due"
                 onChange={this.onChange}
                 value={due}
+                dateFormat="yy-mm-dd"
               />
             </div>
             <div className="p-field p-col-12 p-md-6">
@@ -358,6 +379,26 @@ class OrderForm extends Component {
                 {locations}
               </select>
             </div>
+            <div className="p-field p-col-12 p-md-6">
+              <label>SUPPLIER</label>
+              <select
+                name ='supplier'
+                value={supplier}
+                onChange={this.onChange}
+              >
+                {vendors}
+              </select>
+            </div>
+            <div className="p-field p-col-12 p-md-6">
+              <label>TAX</label>
+              <select
+                name ='tax'
+                value={tax}
+                onChange={this.onChange}
+              >
+                {taxList}
+              </select>
+            </div>
 
             <div className="p-field p-col-12 p-md-6">
               <Button label="Submit" className="p-button-success p-button-rounded" />
@@ -393,13 +434,14 @@ const mapStateToProps = state =>({
     inventorycontrollers: state.inventorycontrollers.inventorycontrollers,
     suppliers: state.suppliers.suppliers,
     warehouses: state.warehouses.warehouses,
+    taxes: state.taxes.taxes,
     inventoryorderstatuschoices: state.inventoryorderstatuschoices.inventoryorderstatuschoices,
 
 })
 
 export default connect(
       mapStateToProps, 
-      {getSuppliers, getWarehouses, getInventoryOrderStatusChoices, getInventorycontrollers, addOrder})
+      {getSuppliers, getWarehouses, getTaxes, getInventoryOrderStatusChoices, getInventorycontrollers, addOrder})
       (OrderForm);
 
 

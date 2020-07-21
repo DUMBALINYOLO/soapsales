@@ -171,36 +171,6 @@ class Assets extends Component {
                     />
                     <Column
                     className="table-field"
-                    field="depreciation_period"
-                    header="Depreciation Period"
-                    sortable filter filterPlaceholder="Search by Period"
-                    style={{width:'3em', backgroundColor: '#4EB0A5'}}
-                    />
-                    <Column
-                    className="table-field"
-                    field="init_date"
-                    header="Init-Date"
-                    sortable filter filterMatchMode="custom"
-                    filterFunction={this.filterDate}
-                    filterElement={dateFilter}
-                    style={{width:'3em', backgroundColor: '#4EB0A5'}}
-                    />
-                    <Column
-                    className="table-field"
-                    field="depreciation_method"
-                    header="Depreciation Method"
-                    sortable filter filterPlaceholder="Search by Depreciation Method"
-                    style={{width:'3em', backgroundColor: '#4EB0A5'}}
-                    />
-                    <Column
-                    className="table-field"
-                    field="salvage_value" 
-                    header="Salvage Value"
-                    sortable filter filterPlaceholder="Search by Salvage Value"
-                    style={{width:'3em', backgroundColor: '#4EB0A5'}}
-                    />
-                    <Column
-                    className="table-field"
                     field="credit_account"
                     header="Credit Account"
                     sortable filter filterPlaceholder="Search by Credit Account"

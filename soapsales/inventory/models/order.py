@@ -83,6 +83,9 @@ class Order(models.Model):
     notes = models.TextField(blank=True)
     status = models.CharField(max_length=24,
         choices=INVENTORY_ORDER_STATUS_CHOICES)
+    tax = models.ForeignKey('accounts.Tax',on_delete=models.SET_NULL, 
+        null=True, 
+       )
     received_to_date = models.FloatField(default=0.0)
     issuing_inventory_controller = models.ForeignKey(
                                         'inventory.InventoryController',
@@ -102,20 +105,20 @@ class Order(models.Model):
             return 0
         return (datetime.date.today() - self.due).days
 
-    @property
-    def product_total(self):
-        return sum([i.subtotal for i in self.lines.filter(
-            item_type = 1)])
+    # @property
+    # def product_total(self):
+    #     return sum([i.subtotal for i in self.lines.filter(
+    #         item_type = 1)])
 
-    @property
-    def equipment_total(self):
-        return sum([i.subtotal for i in self.lines.filter(
-            item_type = 3)])
+    # @property
+    # def equipment_total(self):
+    #     return sum([i.subtotal for i in self.lines.filter(
+    #         item_type = 3)])
 
-    @property
-    def consumables_total(self):
-        return sum([i.subtotal for i in self.lines.filter(
-            item_type = 2)])
+    # @property
+    # def consumables_total(self):
+    #     return sum([i.subtotal for i in self.lines.filter(
+    #         item_type = 2)])
 
     @property
     def items(self):

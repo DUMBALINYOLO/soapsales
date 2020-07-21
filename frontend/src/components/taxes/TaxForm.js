@@ -7,6 +7,7 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
+import {InputNumber} from 'primereact/inputnumber';
 import {Button} from 'primereact/button';
 
 export class TaxForm extends Component{
@@ -27,6 +28,7 @@ export class TaxForm extends Component{
         name: '',
         rate: '',
       });
+      this.props.history.push('/taxes');
     };
 
     static propTypes = {
@@ -40,29 +42,37 @@ export class TaxForm extends Component{
             <div className="card card-body mt-4 mb-4">
               <h2>Add Tax</h2>
               <form onSubmit={this.onSubmit}>
-                <div className="p-field p-col-12 p-md-12">
-                  <label>Name</label>
-                  <InputText
-                    className="form-control"
-                    type="text"
-                    name="name"
-                    onChange={this.onChange}
-                    value={name}
-                  />
-                </div>
-                <div className="p-field p-col-12 p-md-12">
-                  <label>Rate</label>
-                  <InputText
-                    className="form-control"
-                    type="number"
-                    name="rate"
-                    onChange={this.onChange}
-                    value={rate}
-                  />
-                </div>
+                <div className="p-fluid p-formgrid p-grid">
+                  <div className="p-field p-col-12 p-md-12">
+                    <label>Name</label>
+                    <InputText
+                      className="form-control"
+                      type="text"
+                      name="name"
+                      onChange={this.onChange}
+                      value={name}
+                    />
+                  </div>
+                  <div className="p-field p-col-12 p-md-12">
+                    <label>Rate</label>
+                     <InputNumber
+                        name="rate"
+                         mode="decimal"
+                        onChange={this.onChange}
+                        value={rate}
+                        showButtons
+                        buttonLayout="horizontal"
+                        decrementButtonClassName="p-button-danger"
+                        incrementButtonClassName="p-button-success"
+                        incrementButtonIcon="pi pi-plus"
+                        decrementButtonIcon="pi pi-minus"
+                        step={1}
+                      />
+                  </div>
 
-                <div className="p-field p-col-12 p-md-6">
-                  <Button label="Submit" className="p-button-success p-button-rounded" />
+                  <div className="p-field p-col-12 p-md-6">
+                    <Button label="Submit" className="p-button-success p-button-rounded" />
+                  </div>
                 </div>
              </form>
          </div>

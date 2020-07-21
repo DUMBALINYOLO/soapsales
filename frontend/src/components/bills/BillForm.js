@@ -111,6 +111,7 @@ class BillForm extends Component {
           memo: '',
 
         });
+      this.props.history.push('/bills')
     };
 
     static propTypes = {
@@ -149,7 +150,7 @@ class BillForm extends Component {
 
     return (
       <div className="card card-body mt-4 mb-4">
-        <h2>Add An Account</h2>
+        <h2>Create A Bill</h2>
         <form onSubmit={this.onSubmit} onChange={this.handleChange}>
           <div className="p-fluid p-formgrid p-grid">
             <div className="p-field p-col-12 p-md-6">
@@ -170,6 +171,7 @@ class BillForm extends Component {
                 name="date"
                 onChange={this.onChange}
                 value={date}
+                dateFormat="yy-mm-dd"
               />
             </div>
             <div className="p-field p-col-12 p-md-12">
@@ -180,6 +182,7 @@ class BillForm extends Component {
                 name="due"
                 onChange={this.onChange}
                 value={due}
+                dateFormat="yy-mm-dd"
               />
             </div>
             <div className="p-field p-col-12 p-md-12">

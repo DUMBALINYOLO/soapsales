@@ -16,7 +16,7 @@ export class UnitmeasureForm extends Component{
         this.state = {
             name: '',
             eval_string: '',
-            is_derived: true
+            is_derived: false
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -41,6 +41,16 @@ export class UnitmeasureForm extends Component{
       const { name, eval_string, is_derived } = this.state;
       const unitmeasure = { name, eval_string, is_derived };
       this.props.addUnitmeasure(unitmeasure);
+      this.setState({
+        name: '',
+        eval_string: '',
+        is_derived: false,
+
+
+        });
+      
+      this.props.history.push('/unitofmeasures');
+
     };
 
     static propTypes = {
@@ -69,8 +79,7 @@ export class UnitmeasureForm extends Component{
                   <label>Eval String</label>
                   <InputText
                     className="form-control"
-                    type="number"
-                    name="eval string"
+                    name="eval_string"
                     onChange={this.onChange}
                     value={eval_string}
                   />

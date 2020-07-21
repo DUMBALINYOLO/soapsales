@@ -70,6 +70,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     supplier = StringSerializer()
     ship_to = StringSerializer()
     issuing_inventory_controller = StringSerializer()
+    tax = StringSerializer()
 
     
     class Meta:
@@ -84,27 +85,24 @@ class OrderDetailSerializer(serializers.ModelSerializer):
             'supplier_invoice_number',
             'bill_to',
             'ship_to',
-            # 'tax',
+            'tax',
             'tracking_number',
             'notes',
             'status',
             'received_to_date',
             'issuing_inventory_controller',
-
-            'shipping_cost_entries',
+            'items',
 
             # @property model methods
-            'total_shipping_costs',
-            'percentage_shipping_cost',
             'days_overdue',
-            'product_total',
-            'equipment_total',
-            'consumables_total',
+            # 'product_total',
+            # 'equipment_total',
+            # 'consumables_total',
             'total',
             'latest_receipt_date',
-            'tax_ammount',
-            'payments',
-            'ammount_paid',
+            'tax_amount',
+            # 'payments',
+            'amount_paid',
             'total_due',
             'payment_status',
             'received_total',

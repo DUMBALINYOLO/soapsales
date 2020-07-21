@@ -22,6 +22,9 @@ class Bill(models.Model):
         blank=True,
         null=True)
 
+    def __str__(self):
+        return f'{self.vendor} {self.reference}'
+
     def save(self, *args, **kwargs):
         if self.entry is None:
             self.create_entry()
@@ -63,6 +66,9 @@ class BillLine(models.Model):
         on_delete=models.SET_NULL, null=True)
     amount = models.DecimalField(max_digits=16, decimal_places=2)
 
+    def __str__(self):
+        return self.bill
+
 class BillPayment(models.Model):
     date = models.DateField()
     account = models.ForeignKey(
@@ -92,7 +98,7 @@ class BillPayment(models.Model):
         j = JournalEntry.objects.create(
             id = (9000 + n_entries + 10) * 10,
             date = self.date,
-            memo =  "Bill payment for  Bill #%s" % self.bill.pk,
+            memo =  f'Bill payment for  a Corresponding Bill {self.bill.id}|| {self.bill.reference}',
             creator = settings.default_bookkeeper.employee,
             is_approved = True
         )

@@ -20,6 +20,7 @@ import DebitNoteLines from './DebitNoteLine';
 
 
 
+
 class DebitNoteForm extends Component {
   constructor(props){
     super(props);
@@ -162,9 +163,11 @@ class DebitNoteForm extends Component {
                 name="date"
                 onChange={this.onChange}
                 value={date}
+                dateFormat="yy-mm-dd"
               />
             </div>
             <div className="p-field p-col-12 p-md-6">
+              <label>ORDERS</label>
               <select
                 name ='order'
                 value={order}
@@ -180,7 +183,7 @@ class DebitNoteForm extends Component {
               <thead>
                   <tr>
                     <th>QUANTITY</th>
-                    <th>ORDER</th>
+                    <th>ORDER ITEMS</th>
                                       
                   </tr>
                 </thead>

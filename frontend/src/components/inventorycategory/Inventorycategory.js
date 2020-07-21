@@ -24,7 +24,7 @@ class Inventorycategory extends Component {
     constructor() {
         super();
         this.state = {
-            inventorycategory : null,
+            inventorycategories : null,
             globalFilter: null,
             dateFilter: null,
             selectedInventorycategory: null,
@@ -38,8 +38,9 @@ class Inventorycategory extends Component {
         this.formatDate = this.formatDate.bind(this)
     }
 
+
     static propTypes = {
-        inventorycategory : PropTypes.array.isRequired,
+        inventorycategories : PropTypes.array.isRequired,
         getInventorycategories: PropTypes.func.isRequired,
 
     };
@@ -130,7 +131,7 @@ class Inventorycategory extends Component {
 
         return (
             <div className="datatable-doc-demo">
-                <DataTable ref={(el) => this.dt = el} value={this.props.inventorycategory}
+                <DataTable ref={(el) => this.dt = el} value={this.props.inventorycategories}
                     style={{backgroundColor: '#4EB08E'}}
                     header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                     selection={this.state.selectedInventorycategory} onSelectionChange={e => this.setState({selectedInventorycategory: e.value})}
@@ -148,7 +149,7 @@ class Inventorycategory extends Component {
 }
 
 const mapStateToProps = state =>({
-    inventorycategory: state.inventorycategory.inventorycategory
+    inventorycategories: state.inventorycategories.inventorycategories
 })
 
 export default connect(mapStateToProps, {getInventorycategories} ) (Inventorycategory);

@@ -19,7 +19,7 @@ const BillLines = (props) => {
             props.getAccounts();
         }
         console.log('mount it!');
-    }, );
+    }, []);
 
   const { accounts } = props;
 

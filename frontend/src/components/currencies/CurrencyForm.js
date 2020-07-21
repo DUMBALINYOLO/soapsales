@@ -27,6 +27,7 @@ export class CurrencyForm extends Component{
         name: '',
         symbol: '',
       });
+      this.props.history.push('/currencies');
     };
 
     static propTypes = {

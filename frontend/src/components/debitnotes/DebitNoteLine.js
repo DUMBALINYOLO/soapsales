@@ -19,7 +19,7 @@ const DebitNoteLines = (props) => {
             props.getOrderItems();
         }
         console.log('mount it!');
-    }, );
+    }, []);
 
   const { orderitems } = props;
 

@@ -135,7 +135,7 @@ class Content extends Component {
                     {
                         label: 'Accounts Type', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/accounttypes/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accounttypes'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/accounttype-detail/:id'},
 
@@ -153,63 +153,9 @@ class Content extends Component {
                     {
                         label: 'Assets', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/assets/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/assets'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/asset-detail/:id'},
-
-                        ]
-                    },
-                    {
-                        label: 'Accounting Configurations', icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accountingConfig'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/accountconfig-detail/:id'},
-
-                        ]
-                    },
-                    {
-                        label: 'Taxes', icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/taxes'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/'},
-
-                        ]
-                    },
-                    {
-                        label: 'Currency', icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/currencies'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
-
-                        ]
-                    },
-                    {
-                        label: 'Book Keepers', icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/bookkeepers'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
-
-                        ]
-                    },
-                    {
-                        label: 'My Bills', icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/bills'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
-
-                        ]
-                    },
-                    {
-                        label: 'Bill Payments', icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/billpayments'},
-                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
                         ]
                     },
@@ -221,6 +167,52 @@ class Content extends Component {
 
                         ]
                     },
+                    {
+                        label: 'Taxes', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/taxes/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/taxes'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark', to: '/'},
+
+                        ]
+                    },
+                    {
+                        label: 'Currency', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/currencies/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/currencies'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'Book Keepers', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/bookkeepers/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/bookkeepers'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'My Bills', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/bills/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/bills'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'Bill Payments', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/billpayments/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/billpayments'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    
                 ]
             },
             {
@@ -229,8 +221,8 @@ class Content extends Component {
                     {
                         label: 'Inventory Category', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorycategory'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventorycategories/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorycategories'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
                         ]
@@ -238,8 +230,8 @@ class Content extends Component {
                     {
                         label: 'Unit Measure', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unitmeasure'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/unitofmeasures/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unitofmeasures'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
                         ]
@@ -247,7 +239,7 @@ class Content extends Component {
                     {
                         label: 'Inventory Controllers', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventorycontrollers/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorycontrollers'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
@@ -256,7 +248,7 @@ class Content extends Component {
                     {
                         label: 'Debit Note', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/debitnotes/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/debitnotes'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
@@ -265,7 +257,7 @@ class Content extends Component {
                     {
                         label: 'Orders', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/orders/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/orders'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
@@ -281,10 +273,96 @@ class Content extends Component {
                         ]
                     },
                     {
+                        label: 'Order Items', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/orderitems'},
+
+                        ]
+                    },
+                    {
                         label: 'Inventory Items', icon: 'pi pi-fw pi-bookmark',
                         items: [
                             {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventoryitems'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'Product Components', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/productcomponents/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/productcomponents'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'Equipment Components', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/equipmentcomponents'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'Suppliers', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/suppliers/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/suppliers'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'Warehouses', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/warehouses'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'Warehouse Items', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/warehouseitems/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/warehouseitems'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'Inventory Receipts', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventoryreceipts'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'Stock Adjustments', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/stockadjustments'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'Inventory Stock Takes', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorystocktakes'},
+                            {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
+
+                        ]
+                    },
+                    {
+                        label: 'Storage Media', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/storagemedia'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
                         ]

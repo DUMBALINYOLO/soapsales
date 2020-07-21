@@ -99,8 +99,8 @@ class AssetTypesChoicesAPIView(views.APIView):
 	def get(self, request, format=None):
 
 		my_choices = []
-		choice_dict = dict()
-		for key, value in choice_dict.items(ASSET_TYPE_CHOICES):
+		choice_dict = dict(ASSET_TYPE_CHOICES)
+		for key, value in choice_dict.items():
 
 			itered_dict = {"key": key, "value": value}
 			my_choices.append(itered_dict)

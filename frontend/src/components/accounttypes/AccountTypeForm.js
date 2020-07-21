@@ -46,7 +46,14 @@ export class AccountTypeForm extends Component{
       };
 
       this.props.addAccountType(accounttype);
-      console.log(accounttype)
+      this.setState({
+          category: '',
+          classification: '',
+          name: '',
+          order: '',
+
+        });
+      this.props.history.push('/accounttypes');
 
     };
 

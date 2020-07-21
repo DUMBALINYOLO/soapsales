@@ -35,6 +35,7 @@ class WareHouseItemListSerializer(serializers.ModelSerializer):
 		    'location',
 		    'verified',
 		    'stock_value',
+		    'processed_item',
 		]
 		
 

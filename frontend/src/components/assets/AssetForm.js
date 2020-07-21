@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addAsset } from '..//../actions/assets';
+import { getAccounts } from '..//../actions/accounts';
+import { getEmployees } from '..//../actions/employees';
 import { getAssetDepriciationMethodChoices, getAssetTypeChoices } from '..//../actions/choices';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
@@ -27,9 +29,11 @@ export class AssetForm extends Component{
         depreciation_method: '',
         salvage_value: '',
         credit_account: '',
-        credited_by: '',
-        depreciation: [],
+        created_by: '',
+        depreciations: [],
         categories: [],
+        debitAccounts: [],
+        assetCreators:[],
     }
 
 
@@ -37,9 +41,45 @@ export class AssetForm extends Component{
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { name, description, category, initial_value, depreciation_period, init_date, depreciation_method, salvage_value, credit_account, credited_by } = this.state;
-      const asset = { name, description, category, initial_value, depreciation_period, init_date, depreciation_method, salvage_value, credit_account, credited_by };
+      const { 
+        name, 
+        description, 
+        category, 
+        initial_value, 
+        depreciation_period, 
+        init_date, 
+        depreciation_method, 
+        salvage_value, 
+        credit_account, 
+        created_by 
+      } = this.state;
+      const asset = { 
+        name,
+        description, 
+        category, 
+        initial_value, 
+        depreciation_period, 
+        init_date, 
+        depreciation_method, 
+        salvage_value, 
+        credit_account, 
+        created_by 
+      };
       this.props.addAsset(asset);
+      this.setState({
+        name: '',
+        description: '', 
+        category: '', 
+        initial_value: '', 
+        depreciation_period: '', 
+        init_date: '', 
+        depreciation_method: '', 
+        salvage_value: '', 
+        credit_account: '', 
+        created_by : ''
+
+        });
+      this.props.history.push('/assets');
 
     };
 
@@ -47,28 +87,57 @@ export class AssetForm extends Component{
         addAsset: PropTypes.func.isRequired,
         getAssetDepriciationMethodChoices: PropTypes.func.isRequired,
         getAssetTypeChoices: PropTypes.func.isRequired,
+        getEmployees: PropTypes.func.isRequired,
+        getAccounts: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
       this.props.getAssetDepriciationMethodChoices()
       this.props.getAssetTypeChoices()
+      this.props.getEmployees()
+      this.props.getAccounts()
     }
     render() {
-        const { name, description, category, initial_value, depreciation_period, init_date, depreciation_method, salvage_value, credit_account, credited_by } = this.state;
+        const { 
+          name, 
+          description, 
+          category, 
+          initial_value, 
+          depreciation_period, 
+          init_date, 
+          depreciation_method, 
+          salvage_value, 
+          credit_account, 
+          created_by } = this.state;
 
         const {assetsdepreciationmethodchoices} = this.props;
-        console.log(assetsdepreciationmethodchoices)
+        const {assettypeschoices} = this.props;
+        const { accounts } = this.props;
+        const { employees } = this.props;
 
-        let depreciation = assetsdepreciationmethodchoices.length > 0
+
+        let debitAccounts = accounts.length > 0
+            && accounts.map((item, index) => {
+                return (
+                    <option key={item.id } value={item.id}>{item.name}</option>
+                )
+            }, this);
+
+        let assetCreators = employees.length > 0
+            && employees.map((item, index) => {
+                return (
+                    <option key={item.id } value={item.id}>{item.username}| {item.employee_number} </option>
+                )
+            }, this);
+
+       
+
+        let depreciations = assetsdepreciationmethodchoices.length > 0
             && assetsdepreciationmethodchoices.map((item, index) => {
                 return (
                     <option key={item.key } value={item.key}>{item.value}</option>
                 )
             }, this);
-
-        const {assettypeschoices} = this.props;
-
-        console.log(assettypeschoices)
 
 
         let categories = assettypeschoices.length > 0
@@ -77,6 +146,7 @@ export class AssetForm extends Component{
                     <option key={item.key } value={item.key}>{item.value}</option>
                 )
             }, this);
+
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Asset</h2>
@@ -95,8 +165,6 @@ export class AssetForm extends Component{
                   <div className="p-field p-col-12 p-md-6">
                     <label>Initial Value</label>
                     <InputNumber
-                      className="form-control"
-                      type="number"
                       name="initial_value"
                       onChange={this.onChange}
                       value={initial_value}
@@ -126,17 +194,16 @@ export class AssetForm extends Component{
                       showIcon={true}
                       className="form-control"
                       type="date"
-                      name="init date"
+                      name="init_date"
                       onChange={this.onChange}
                       value={init_date}
+                      dateFormat="yy-mm-dd"
                     />
                   </div>
 
                   <div className="p-field p-col-12 p-md-6">
                     <label>Depreciation Period</label>
                     <InputNumber
-                      className="form-control"
-                      type="number"
                       name="depreciation_period"
                       onChange={this.onChange}
                       value={depreciation_period}
@@ -153,8 +220,6 @@ export class AssetForm extends Component{
                   <div className="p-field p-col-12 p-md-6">
                     <label>SALVAGE VALUE</label>
                     <InputNumber
-                      className="form-control"
-                      type="number"
                       name="salvage_value"
                       onChange={this.onChange}
                       value={salvage_value}
@@ -165,44 +230,47 @@ export class AssetForm extends Component{
                       incrementButtonIcon="pi pi-plus"
                       decrementButtonIcon="pi pi-minus"
                       step={1}
+
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <label>Credit Account</label>
-                    <InputText
-                      className="form-control"
-                      type="text"
-                      name="credit account"
-                      onChange={this.onChange}
-                      value={credit_account}
-                    />
-                  </div>
-                  <div className="p-field p-col-12 p-md-12">
-                    <label>Credited By</label>
-                    <InputText
-                      className="form-control"
-                      type="text"
-                      name="credited by"
-                      onChange={this.onChange}
-                      value={credited_by}
-                    />
-                  </div>
-                  <div className="p-field p-col-12 p-md-4">
+                      <label>Depreciation Method</label>
                       <select
                           name="depreciation_method"
                           value={depreciation_method}
                           onChange={this.onChange}
                       >
-                          {depreciation}
+                          {depreciations}
                       </select>
                   </div>
-                  <div className="p-field p-col-12 p-md-4">
+                  <div className="p-field p-col-12 p-md-6">
+                      <label>Asset Category</label>
                       <select
                           name="category"
                           value={category}
                           onChange={this.onChange}
                       >
                           {categories}
+                      </select>
+                  </div>
+                  <div className="p-field p-col-12 p-md-4">
+                      <label>CREDIT ACCOUNT</label>
+                      <select
+                          name="credit_account"
+                          value={credit_account}
+                          onChange={this.onChange}
+                      >
+                          {debitAccounts}
+                      </select>
+                  </div>
+                  <div className="p-field p-col-12 p-md-4">
+                      <label>Created By</label>
+                      <select
+                          name="created_by"
+                          value={created_by}
+                          onChange={this.onChange}
+                      >
+                          {assetCreators}
                       </select>
                   </div>
                   <div className="p-field p-col-12 p-md-6">
@@ -218,6 +286,11 @@ export class AssetForm extends Component{
 const mapStateToProps = state =>({
     assetsdepreciationmethodchoices: state.assetsdepreciationmethodchoices.assetsdepreciationmethodchoices,
     assettypeschoices: state.assettypeschoices.assettypeschoices,
+    accounts: state.accounts.accounts,
+    employees: state.employees.employees
 })
 
-export default connect(mapStateToProps, {getAssetDepriciationMethodChoices, getAssetTypeChoices, addAsset })(AssetForm);
+export default connect(
+        mapStateToProps, 
+        {getAssetDepriciationMethodChoices, getAssetTypeChoices, getEmployees, getAccounts, addAsset })
+        (AssetForm);

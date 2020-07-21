@@ -69,7 +69,6 @@ class DebitNote(models.Model):
         j = JournalEntry.objects.create(
             memo="Auto generated journal entry from debit note",
             date=self.date,
-            entry_type = entry_type.JournalEntryTypes.REGULAR,
             creator = self.order.issuing_inventory_controller.employee,
             is_approved = True
         )
@@ -81,7 +80,7 @@ class DebitNote(models.Model):
         j.credit(self.returned_tax, Account.objects.get(name='VAT-ACCOUNT-NUMBER-ONE'))
 
         self.entry = j
-        self.save()
+        # self.save()
 
 
 

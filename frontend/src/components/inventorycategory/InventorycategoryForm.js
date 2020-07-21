@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addInventorycategory } from '..//../actions/inventorycategory';
+import { addInventorycategory, getInventorycategories } from '..//../actions/inventorycategory';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -16,7 +16,8 @@ export class InventorycategoryForm extends Component{
             this.state = {
                 name: '',
                 description: '',
-                parent: ''
+                parent: '',
+                parents: [],
         }
 
         this.onChange = this.onChange.bind(this);
@@ -43,11 +44,26 @@ export class InventorycategoryForm extends Component{
       };
 
       this.props.addInventorycategory(inventorycategory);
+      this.setState({
+        name: '',
+        description: '',
+        parent: '',
 
+        });
+      this.props.history.push('/inventorycategories');
     };
+
+
 
     static propTypes = {
         addInventorycategory: PropTypes.func.isRequired,
+        inventorycategories : PropTypes.array.isRequired,
+        getInventorycategories: PropTypes.func.isRequired,
+
+    };
+
+    componentDidMount() {
+        this.props.getInventorycategories();
     }
 
 
@@ -57,6 +73,16 @@ export class InventorycategoryForm extends Component{
           description,
           parent
         } = this.state;
+
+        const {inventorycategories} = this.props;
+
+
+        let parents = inventorycategories.length > 0
+            && inventorycategories.map((item, index) => {
+                return (
+                    <option key={item.id } value={item.id}>{item.name}</option>
+                )
+            }, this);
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -84,17 +110,16 @@ export class InventorycategoryForm extends Component{
                     value={description}
                   />
                 </div>
-
                 <div className="p-field p-col-12 p-md-12">
-                  <label>Parent</label>
-                  <InputText
-                    className="form-control"
-                    type="number"
-                    name="parent"
-                    onChange={this.onChange}
-                    value={parent}
-                  />
-                </div>
+                    <label>PARENT</label>
+                    <select
+                        name="parent"
+                        value={parent}
+                        onChange={this.onChange}
+                    >
+                        {parents}
+                    </select>
+                  </div>
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />
                 </div>
@@ -105,4 +130,8 @@ export class InventorycategoryForm extends Component{
     }
 }
 
-export default connect(null, { addInventorycategory })(InventorycategoryForm);
+const mapStateToProps = state =>({
+    inventorycategories: state.inventorycategories.inventorycategories
+})
+
+export default connect(mapStateToProps, { getInventorycategories, addInventorycategory })(InventorycategoryForm);

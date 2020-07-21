@@ -9,16 +9,12 @@ from accounts.serializers import (
 
 class AssetViewSet(viewsets.ModelViewSet):
 	queryset = Asset.objects.all()
-	# permission_classes = [
- #        permissions.IsAuthenticated,
- #    ]
-	lookup_field = 'id'
 
 	def get_serializer_class(self):
-		if self.action == 'create':
+		if self.action in ['create', 'put']:
 			return CreateAssetsSerializer
-		elif self.action == 'list':
-			AssetsListSerializer
-		return AssetDetailSerializer
+		elif self.action == 'retrieve':
+			AssetDetailSerializer
+		return AssetsListSerializer
 
 

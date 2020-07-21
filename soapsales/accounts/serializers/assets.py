@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, fields
 from accounts.models import Asset
 
 
@@ -9,17 +9,20 @@ class StringSerializer(serializers.StringRelatedField):
 
 
 class CreateAssetsSerializer(serializers.ModelSerializer):
+    # init_date = fields.DateField(input_formats=['%Y-%m-%dT%H:%M:%S.%fZ'])
+    
     class Meta:
         model = Asset
         exclude = ['entry',]
 
 class AssetsListSerializer(serializers.ModelSerializer):
     credit_account = StringSerializer()
+    created_by = StringSerializer()
     category = serializers.SerializerMethodField()
 
     class Meta:
         model = Asset
-        fields = ['id', 'name', 'category']
+        fields = ['id', 'credit_account', 'name', 'initial_value', 'created_by', 'category']
 
 
     def get_category(self, obj):
@@ -33,14 +36,7 @@ class AssetDetailSerializer(serializers.ModelSerializer):
     depreciation_method = serializers.SerializerMethodField()
     credit_account = StringSerializer()
     created_by = StringSerializer()
-    depreciation_account = serializers.ReadOnlyField()
-    salvage_date = serializers.ReadOnlyField()
-    _timedelta = serializers.ReadOnlyField()
-    category_string = serializers.ReadOnlyField()
-    anual_depreciation = serializers.ReadOnlyField()
-    daily_depreciation = serializers.ReadOnlyField()
-    total_depreciation = serializers.ReadOnlyField()
-    current_value = serializers.ReadOnlyField()
+
 
     class Meta:
         model = Asset
@@ -52,21 +48,16 @@ class AssetDetailSerializer(serializers.ModelSerializer):
             'initial_value',
             'credit_account',
 			'depreciation_period',
-            'depreciation_account', #Many_to_One_Relationship
             'depreciation_method',
             'init_date',
             'salvage_value',
             'created_by',
             # property model methods
-            'depreciation_account',
             'salvage_date',
-            '_timedelta',
-            "category_string",
             "anual_depreciation",
             "daily_depreciation",
             "total_depreciation",
             'current_value',
-            # model methods
 
         ]
 

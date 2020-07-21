@@ -138,10 +138,10 @@ class Orders extends Component {
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                     <Column className="table-field" selectionMode="multiple" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
-                    <Column className="table-field" field="received_to_date" header="Received Date" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
+                    <Column className="table-field" field="received_to_date" header="Received To Date" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" field="status" header="Status" sortable filter filterPlaceholder="Search by Status" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" field="supplier" header="Supplier" sortable filter filterPlaceholder="Search by Supplier" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
-                    <Column className="table-field" field="tracker_number" header="Tracker Number" sortable filter filterPlaceholder="Search by Tracker Number" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
+                    <Column className="table-field" field="tracking_number" header="Tracking Number" sortable filter filterPlaceholder="Search by Tracker Number" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" body={this.actionBodyTemplate} headerStyle={{width: '3em', textAlign: 'center', backgroundColor: '#4EB0A5'}} bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4EB0A5'}} />
                 </DataTable>
             </div>

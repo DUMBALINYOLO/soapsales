@@ -89,6 +89,7 @@ class AccountForm extends Component{
           order: '',
 
         });
+      this.props.history.push('/accounts');
     };
 
     static propTypes = {
