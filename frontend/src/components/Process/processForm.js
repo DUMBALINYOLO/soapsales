@@ -47,27 +47,27 @@ export class ProcessForm extends Component{
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { 
-        parent_process, 
-        process_equipment, 
-        name, 
-        description, 
-        bill_of_materials, 
-        type, 
-        duration, 
-        rate, 
-        product_list 
+      const {
+        parent_process,
+        process_equipment,
+        name,
+        description,
+        bill_of_materials,
+        type,
+        duration,
+        rate,
+        product_list
       } = this.state;
-      const process = { 
-        parent_process, 
-        process_equipment, 
-        name, 
-        description, 
-        bill_of_materials, 
-        type, 
-        duration, 
-        rate, 
-        product_list 
+      const process = {
+        parent_process,
+        process_equipment,
+        name,
+        description,
+        bill_of_materials,
+        type,
+        duration,
+        rate,
+        product_list
       };
       this.props.addProcess(process);
       this.setState({
@@ -107,16 +107,16 @@ export class ProcessForm extends Component{
 
 
     render() {
-        const { 
-          parent_process, 
-          process_equipment, 
-          name, 
-          description, 
-          bill_of_materials, 
-          type, 
-          duration, 
-          rate, 
-          product_list 
+        const {
+          parent_process,
+          process_equipment,
+          name,
+          description,
+          bill_of_materials,
+          type,
+          duration,
+          rate,
+          product_list
         } = this.state;
 
         const  { products } = this.props;
@@ -297,6 +297,6 @@ const mapStateToProps = state =>({
 
 
 export default connect(
-      mapStateToProps, 
+      mapStateToProps,
       { addProcess, getManufacturingProcessChoices, getProcesses, getBillMaterials, getProcessGroups, getProcessRates, getProducts })
       (ProcessForm);

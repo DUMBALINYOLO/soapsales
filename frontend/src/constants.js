@@ -17,7 +17,6 @@ export const creditnoteURL= `${endpoint}/sales/creditnote/`
 export const currenciesURL= `${endpoint}/accounting/currencies/`
 export const customersURL= `${endpoint}/sales/customers/`
 
-
 export const debitnoteURL= `${endpoint}/inventory/debit-note/`
 export const inventorycategoryURL= `${endpoint}/inventory/inventory-categories/`
 export const inventorycontrollerURL= `${endpoint}/inventory/inventory-controllers/`

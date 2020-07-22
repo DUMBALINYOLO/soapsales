@@ -150,6 +150,7 @@ class Processedproductcomponents extends Component {
     }
 }
 
+
 const mapStateToProps = state =>({
     processedproductcomponents: state.processedproductcomponents.processedproductcomponents
 })

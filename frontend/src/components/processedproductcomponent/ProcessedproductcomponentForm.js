@@ -9,17 +9,23 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
+import {InputNumber} from 'primereact/inputnumber';
+
 
 export class ProcessedproductcomponentForm extends Component{
-    state = {
-        direct_price: '',
-        margin: '',
-        markup: '',
-        sku: '',
-        pricing_method: '',
-        pricing: [],
+    constructor(props){
+        super(props);
+        this.state = {
+            direct_price: '',
+            margin: '',
+            markup: '',
+            sku: '',
+            pricing_method: '',
+            salesGroup: [],
+        }
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
-
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -28,6 +34,14 @@ export class ProcessedproductcomponentForm extends Component{
       const { direct_price, margin, markup, sku, pricing_method } = this.state;
       const processedproductcomponent = { direct_price, margin, markup, sku, pricing_method };
       this.props.addProcessedproductcomponent(processedproductcomponent);
+      this.setState({
+            direct_price: '',
+            margin: '',
+            markup: '',
+            sku: '',
+            pricing_method: '',
+        });
+      this.props.history.push('/processedproductcomponents');
     };
 
     static propTypes = {
@@ -43,9 +57,8 @@ export class ProcessedproductcomponentForm extends Component{
         const { direct_price, margin, markup, sku, pricing_method } = this.state;
 
         const {productcomponentpricingchoices} = this.props;
-        console.log(productcomponentpricingchoices)
 
-        let pricing = productcomponentpricingchoices.length > 0
+        let salesGroup = productcomponentpricingchoices.length > 0
             && productcomponentpricingchoices.map((item, index) => {
                 return (
                     <option key={item.key } value={item.key}>{item.value}</option>
@@ -57,38 +70,8 @@ export class ProcessedproductcomponentForm extends Component{
               <h2>Add Processed Product Component </h2>
               <form onSubmit={this.onSubmit}>
               <div className="p-fluid p-formgrid p-grid">
-                <div className="p-field p-col-12 p-md-6">
-                  <label>Direct Price</label>
-                  <InputText
-                    className="form-control"
-                    type="text"
-                    name="direct price"
-                    onChange={this.onChange}
-                    value={direct_price}
-                  />
-                </div>
-                <div className="p-field p-col-12 p-md-6">
-                  <label>Margin</label>
-                  <InputText
-                    className="form-control"
-                    type="text"
-                    name="margin"
-                    onChange={this.onChange}
-                    value={margin}
-                  />
-                </div>
-                <div className="p-field p-col-12 p-md-6">
-                  <label>Markup</label>
-                  <InputText
-                    className="form-control"
-                    type="text"
-                    name="markup"
-                    onChange={this.onChange}
-                    value={markup}
-                  />
-                </div>
-                <div className="p-field p-col-12 p-md-6">
-                  <label>Sku</label>
+                <div className="p-field p-col-12 p-md-12">
+                  <label>SKU</label>
                   <InputText
                     className="form-control"
                     type="text"
@@ -97,13 +80,59 @@ export class ProcessedproductcomponentForm extends Component{
                     value={sku}
                   />
                 </div>
+                <div className="p-field p-col-12 p-md-6">
+                  <label>DIRECT PRICE</label>
+                  <InputNumber
+                    name="direct_price"
+                    onChange={this.onChange}
+                    value={direct_price}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
+                  />
+                </div>
+                <div className="p-field p-col-12 p-md-6">
+                  <label>MARGIN</label>
+                  <InputNumber
+                    name="margin"
+                    onChange={this.onChange}
+                    value={margin}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
+                  />
+                </div>
+                <div className="p-field p-col-12 p-md-6">
+                  <label>MARKUP</label>
+                  <InputNumber
+                    name="markup"
+                    onChange={this.onChange}
+                    value={markup}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
+                  />
+                </div>
                 <div className="p-field p-col-12 p-md-4">
+                    <label>PRICING METHOD</label>
                     <select
                         name="pricing_method"
                         value={pricing_method}
                         onChange={this.onChange}
                     >
-                        {pricing}
+                        {salesGroup}
                     </select>
                 </div>
                 <div className="p-field p-col-12 p-md-6">

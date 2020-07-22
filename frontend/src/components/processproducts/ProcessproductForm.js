@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import {InputText} from 'primereact/inputtext';
+import {Button} from 'primereact/button';
+import {InputTextarea} from 'primereact/inputtextarea';
 import { addProcessproduct } from '../../actions/processproducts';
 import { getManufacturingProductTypeChoices } from '..//../actions/choices';
 import { getInventoryitems } from '..//../actions/inventoryitems';
@@ -19,9 +26,9 @@ export class ProcessproductForm extends Component{
                 inventory_product:'',
                 product_list: '',
                 types: [],
-                inventory: [],
-                product: [],
-                units: []
+                inventoryItems: [],
+                productList: [],
+                unitOfMeasure: []
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -61,6 +68,16 @@ export class ProcessproductForm extends Component{
           product_list
         };
       this.props.addProcessproduct(processproduct);
+      this.setState({
+          name: '',
+          description: '',
+          type: '',
+          unit: '',
+          finished_goods: true,
+          inventory_product:'',
+          product_list: '',
+        });
+      this.props.history.push('/processproducts');
     };
 
     static propTypes = {
@@ -89,7 +106,9 @@ export class ProcessproductForm extends Component{
         } = this.state;
 
         const {manufacturingproducttypechoices} = this.props;
-        console.log(manufacturingproducttypechoices)
+        const {inventoryitems} = this.props;
+        const {products} = this.props;
+        const {unitmeasures} = this.props;
 
         let types = manufacturingproducttypechoices.length > 0
             && manufacturingproducttypechoices.map((item, index) => {
@@ -98,33 +117,24 @@ export class ProcessproductForm extends Component{
                 )
             }, this);
 
-        const {inventoryitems} = this.props;
-        console.log(inventoryitems)
-
-        let inventory = inventoryitems.length > 0
+        let inventoryItems = inventoryitems.length > 0
             && inventoryitems.map((item, index) => {
                 return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
+                    <option key={item.id } value={item.id}>{item.name}</option>
                 )
             }, this);
 
-        const {products} = this.props;
-        console.log(products)
-
-        let product = products.length > 0
+        let productList = products.length > 0
             && products.map((item, index) => {
                 return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
+                    <option key={item.id } value={item.id}>{item.name}</option>
                 )
             }, this);
 
-        const {unitmeasures} = this.props;
-        console.log(unitmeasures)
-
-        let units = unitmeasures.length > 0
+        let unitOfMeasure = unitmeasures.length > 0
             && unitmeasures.map((item, index) => {
                 return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
+                    <option key={item.id } value={item.id}>{item.name}</option>
                 )
             }, this);
 
@@ -132,36 +142,35 @@ export class ProcessproductForm extends Component{
             <div className="card card-body mt-4 mb-4">
               <h2>Add Process Product </h2>
               <form onSubmit={this.onSubmit}>
-                <div className="form-group">
+              <div className="p-fluid p-formgrid p-grid">
+                <div className="p-field p-col-12 p-md-12">
                   <label>Name</label>
-                  <input
-                    className="form-control"
-                    type="text"
+                  <InputText
                     name="name"
                     onChange={this.onChange}
                     value={name}
                   />
                 </div>
-                <div className="form-group">
+                <div className="p-field p-col-12 p-md-12">
                   <label>Description</label>
-                  <input
-                    className="form-control"
-                    type="text"
+                  <InputTextarea
                     name="description"
                     onChange={this.onChange}
                     value={description}
                   />
                 </div>
-                <label>
-                    Finished Goods:
-                    <input
-                      name="finished_goods"
-                      type="checkbox"
-                      checked={this.state.finished_goods}
-                      onChange={this.handleFinished} />
-                 </label>
-
-                <div className="p-field p-col-12 p-md-4">
+                <div className="p-field p-col-12 p-md-12">
+                    <label>
+                        Finished Goods:
+                        <input
+                          name="finished_goods"
+                          type="checkbox"
+                          checked={this.state.finished_goods}
+                          onChange={this.handleFinished} />
+                     </label>
+                </div>
+                <div className="p-field p-col-12 p-md-6">
+                    <label>TYPE</label>
                     <select
                         name="type"
                         value={type}
@@ -170,40 +179,41 @@ export class ProcessproductForm extends Component{
                         {types}
                     </select>
                 </div>
-                <div className="p-field p-col-12 p-md-4">
+                <div className="p-field p-col-12 p-md-6">
+                    <label>UNIT</label>
                     <select
                         name="unit"
                         value={unit}
                         onChange={this.onChange}
                     >
-                        {units}
+                        {unitOfMeasure}
                     </select>
                 </div>
-                <div className="p-field p-col-12 p-md-4">
+                <div className="p-field p-col-12 p-md-6">
+                    <label>INVENTORY PRODUCT</label>
                     <select
                         name="inventory_product"
                         value={inventory_product}
                         onChange={this.onChange}
                     >
-                        {inventory}
+                        {inventoryItems}
                     </select>
                 </div>
-                <div className="p-field p-col-12 p-md-4">
+                <div className="p-field p-col-12 p-md-6">
+                    <label>PRODUCT LIST</label>
                     <select
                         name="product_list"
                         value={product_list}
                         onChange={this.onChange}
                     >
-                        {product}
+                        {productList}
                     </select>
                 </div>
-
-                <div className="form-group">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
+                <div className="p-field p-col-12 p-md-12">
+                  <Button label="Submit" className="p-button-success p-button-rounded" />
                 </div>
-             </form>
+            </div>
+            </form>
          </div>
         );
     }

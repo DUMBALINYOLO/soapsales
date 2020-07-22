@@ -32,7 +32,7 @@ class ProcessRateForm extends Component{
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
-    
+
 
     onSubmit = (e) => {
       e.preventDefault();
@@ -75,7 +75,7 @@ class ProcessRateForm extends Component{
           unit_time,
           quantity
         } = this.state;
-        
+
         const {unitmeasures} = this.props;
         const {processrateunittimechoices} = this.props;
 
@@ -152,7 +152,6 @@ const mapStateToProps = state =>({
 
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     {getUnitmeasures, getProcessRateUnitTimeChoices, addProcessRate}
     )(ProcessRateForm);
-    
