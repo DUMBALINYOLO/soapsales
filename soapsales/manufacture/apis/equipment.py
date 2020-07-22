@@ -7,7 +7,8 @@ from django.shortcuts import get_object_or_404
 from manufacture.serializers import (
             ProcessMachineSerializer,
             ProcessMachineGroupSerializer,
-            ProcessMachineGroupCreateSerializer
+            ProcessMachineGroupCreateSerializer,
+            ProcessMachineCreateSerializer,
         )
 from manufacture.serializers import (
             ProcessMachine,
@@ -23,10 +24,14 @@ from inventory.models import UnitOfMeasure
 
 class ProcessMachineViewset(ModelViewSet):
     queryset = ProcessMachine.objects.all() # call prefetch related in the Model Manager
-    serializer_class = ProcessMachineSerializer
     # permission_classes = [
     #     permissions.IsAuthenticated,
     # ]
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'put']:
+            return ProcessMachineCreateSerializer
+        return ProcessMachineSerializer
 
 
 
@@ -38,8 +43,6 @@ class ProcessMachineGroupViewset(ModelViewSet):
     # ]
 
     def get_serializer_class(self):
-        if self.action == 'create':
-            return ProcessMachineGroupCreateSerializer
-        if self.action == 'put':
+        if self.action in ['create', 'put']:
             return ProcessMachineGroupCreateSerializer
         return ProcessMachineGroupSerializer

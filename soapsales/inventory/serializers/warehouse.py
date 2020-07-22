@@ -23,6 +23,7 @@ class WareHouseItemCreateSerializer(serializers.ModelSerializer):
 
 class WareHouseItemListSerializer(serializers.ModelSerializer):
 	item = StringSerializer()
+	warehouse = StringSerializer()
 	processed_item = StringSerializer()
 	location = StringSerializer()
 

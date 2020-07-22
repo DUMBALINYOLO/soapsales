@@ -9,7 +9,6 @@ import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
-import {Dropdown} from 'primereact/dropdown';
 import {Calendar} from 'primereact/calendar';
 import {MultiSelect} from 'primereact/multiselect';
 import {ProgressBar} from 'primereact/progressbar';
@@ -149,7 +148,7 @@ class ProcessRates extends Component {
 }
 
 const mapStateToProps = state =>({
-    processRates: state.processRates.processRates
+    processrates: state.processrates.processrates
 })
 
 export default connect(mapStateToProps, {getProcessRates} ) (ProcessRates);

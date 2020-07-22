@@ -142,6 +142,14 @@ BILL_OF_MATERIALS_LINE_CHOICES = [
         (1, 'Process Product'),
     ]
 
+MANUFACTURING_PROCESS_CHOICES = [
+    (100, 'Dont Choose Me'),
+    (0, 'Line'),
+    (1, 'Batch')
+
+]
+
+
 PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES = [
         (0, 'DO-NOT-CHOOSE-THIS-ONE'),
         (10, 'ITEM-IN-STOCK'),

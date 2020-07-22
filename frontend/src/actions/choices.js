@@ -18,11 +18,13 @@ import {
     GET_MANUFACTURING_PRODUCT_TYPE_CHOICES,
     GET_BILL_OF_MATERIAL_LINE_CHOICES,
     GET_PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES,
+    GET_MANUFACTURING_PROCESS_CHOICES,
 
 } from './types';
 import {
 	accountTypesCategoryChoicesURL,
 	accountTypesClassificationChoicesURL,
+    manufacturingProcessChoicesURL,
 } from '../constants';
 
 
@@ -202,6 +204,17 @@ export const getBillOfMaterialLineChoices = () => dispatch => {
         .then(res => {
             dispatch({
                 type: GET_BILL_OF_MATERIAL_LINE_CHOICES,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
+
+export const getManufacturingProcessChoices = () => dispatch => {
+    axios.get('http://127.0.0.1:8000/api/config/manufacturing-process-choices/')
+        .then(res => {
+            dispatch({
+                type: GET_MANUFACTURING_PROCESS_CHOICES,
                 payload: res.data
             });
         }).catch(err => console.log(err))

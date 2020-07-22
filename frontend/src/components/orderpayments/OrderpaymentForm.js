@@ -1,117 +1,150 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getOrders } from '..//../actions/orders';
 import { addOrderpayment } from '..//../actions/orderpayments';
 import PropTypes from 'prop-types';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import {Button} from 'primereact/button';
+import {InputTextarea} from 'primereact/inputtextarea';
+import {Calendar} from "primereact/calendar";
+import {InputNumber} from 'primereact/inputnumber';
 
-export class OrderpaymentForm extends Component{
-    state = {
-        date: '',
-        ammount: '',
-        order: '',
-        comments: '',
-        entry: '',
+
+class OrderPaymentForm extends Component{
+    constructor(props){
+        super(props);
+            this.state = {
+                date: '',
+                amount: '',
+                comments: '',
+                order: '',
+                orderList: [],
+        }
+
+      this.onChange = this.onChange.bind(this);
+      this.onSubmit = this.onSubmit.bind(this);
+
     }
 
-
-
-
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+
+    
 
     onSubmit = (e) => {
       e.preventDefault();
       const {
         date,
-        ammount,
-        order,
+        amount,
         comments,
-        entry,
+        order
       } = this.state;
 
-      const orderpayments = {
-          date,
-          ammount,
-          order,
-          comments,
-          entry,
+      const payment = {
+        date,
+        amount,
+        comments,
+        order
       };
 
-      this.props.addOrderpayment(orderpayments);
-
+      this.props.addOrderpayment(payment);
+      this.setState({
+          date: '',
+          amount: '',
+          comments: '',
+          order: '',
+        });
+      this.props.history.push('/orderpayments');
     };
 
     static propTypes = {
         addOrderpayment: PropTypes.func.isRequired,
+        getOrders: PropTypes.func.isRequired,
+
     }
 
+    componentDidMount() {
+      this.props.getOrders()
+    }
 
     render() {
         const {
-            date,
-            ammount,
-            order,
-            comments,
-            entry,
+          date,
+          amount,
+          comments,
+          order
         } = this.state;
+
+        
+        const { orders } = this.props;
+
+
+        let orderList = orders.length > 0
+          && orders.map((item, i) => {
+
+          return (
+            <option key={i} value={item.id}>{item.id} | {item.tracking_number}</option>
+          )
+        }, this);
 
         return (
             <div className="card card-body mt-4 mb-4">
-              <h2>Add Order Payment</h2>
+              <h2>Add An Account</h2>
               <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <label>Date</label>
-                  <input
-                    className="form-control"
-                    type="date"
-                    name="date"
-                    onChange={this.onChange}
-                    value={date}
-                  />
-                </div>
-                <div className="form-group">
-                <label>Ammount</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="ammount"
-                  onChange={this.onChange}
-                  value={ammount}
-                />
-                </div>
-                <div className="form-group">
-                  <label>Order</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="order"
-                    onChange={this.onChange}
-                    value={order}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Comments</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="comments"
-                    onChange={this.onChange}
-                    value={comments}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Entry</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="entry"
-                    onChange={this.onChange}
-                    value={entry}
-                  />
-                </div>
+                <div className="p-fluid p-formgrid p-grid">
+                  <div className="p-field p-col-12 p-md-12">
+                    <label>DATE</label>
+                    <Calendar
+                      showIcon={true}
+                      className="form-control"
+                      name="date"
+                      onChange={this.onChange}
+                      value={date}
+                      dateFormat="yy-mm-dd"
+                    />
+                  </div>
 
-                <div className="form-group">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
+                  <div className="p-field p-col-12 p-md-12">
+                    <label>AMOUNT</label>
+                    <InputNumber
+                      name="amount"
+                      onChange={this.onChange}
+                      value={amount}
+                      showButtons
+                      buttonLayout="horizontal"
+                      decrementButtonClassName="p-button-danger"
+                      incrementButtonClassName="p-button-success"
+                      incrementButtonIcon="pi pi-plus"
+                      decrementButtonIcon="pi pi-minus"
+                      step={1}
+                    />
+                  </div>
+                  <div className="p-field p-col-12 p-md-12">
+                    <label>Comments</label>
+                    <InputTextarea
+                      row="3"
+                      className="form-control"
+                      name="comments"
+                      onChange={this.onChange}
+                      value={comments}
+                    />
+                  </div>
+                  <div className="p-field p-col-12 p-md-6">
+                    <label>ORDER</label>
+                    <select
+                      name ='order'
+                      value={order}
+                      onChange={this.onChange}
+                    >
+                      {orderList}
+                    </select>
+                  </div>
+
+                  <div className="p-field p-col-12 p-md-6">
+                    <Button label="Submit" className="p-button-success p-button-rounded" />
+                  </div>
                 </div>
              </form>
          </div>
@@ -119,4 +152,10 @@ export class OrderpaymentForm extends Component{
     }
 }
 
-export default connect(null, { addOrderpayment })(OrderpaymentForm);
+
+const mapStateToProps = state =>({
+    orders: state.orders.orders
+})
+
+
+export default connect(mapStateToProps, {getOrders, addOrderpayment})(OrderPaymentForm);

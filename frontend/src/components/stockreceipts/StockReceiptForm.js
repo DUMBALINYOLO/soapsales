@@ -188,6 +188,7 @@ class StockReceiptForm extends Component {
                 name="receive_date"
                 onChange={this.onChange}
                 value={receive_date}
+                dateFormat="yy-mm-dd"
               />
             </div>
             <div className="p-field p-col-12 p-md-12">

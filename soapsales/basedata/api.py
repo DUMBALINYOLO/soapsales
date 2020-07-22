@@ -29,6 +29,7 @@ from .const import (
 				MANUFACTURING_PRODUCT_TYPES,
 				BILL_OF_MATERIALS_LINE_CHOICES,
 				PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES,
+				MANUFACTURING_PROCESS_CHOICES,
 
 			)
 
@@ -304,6 +305,21 @@ class ProcessedProductsStockStatusChoicesAPIView(views.APIView):
 
 		my_choices = []
 		choice_dict = dict(PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+
+class ManufacturingProcessChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(MANUFACTURING_PROCESS_CHOICES)
 		for key, value in choice_dict.items():
 
 			itered_dict = {"key": key, "value": value}

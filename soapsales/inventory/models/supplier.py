@@ -77,7 +77,7 @@ class Supplier(models.Model):
         #will overwrite if error occurs
         self.account = Account.objects.create(
             name= "Vendor: %s" % self.name,
-            id = 2100 + n_suppliers + 1, # the + 1 for the default supplier
+            id = (2100 + n_suppliers + 2 ) * 10, # the + 1 for the default supplier
             initial_balance = 0,
             order  = 2,
             is_active = False,

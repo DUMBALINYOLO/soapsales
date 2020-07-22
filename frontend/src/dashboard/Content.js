@@ -12,6 +12,7 @@ import 'primeflex/primeflex.css';
 import './layout/layout.scss';
 import './App.scss';
 
+
 class Content extends Component {
 
     constructor() {
@@ -266,7 +267,7 @@ class Content extends Component {
                     {
                         label: 'Order Payments', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/orderpayments/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/orderpayments'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
@@ -282,7 +283,7 @@ class Content extends Component {
                     {
                         label: 'Inventory Items', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventoryitems/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventoryitems'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
@@ -375,7 +376,7 @@ class Content extends Component {
                     {
                         label: 'Process Machines', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processmachines/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processmachines'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
@@ -384,8 +385,8 @@ class Content extends Component {
                     {
                         label: 'Process Machine Groups', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processgroups'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processmachinegroups/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processmachinegroups'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
                         ]
@@ -393,8 +394,8 @@ class Content extends Component {
                     {
                         label: 'Process', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/process'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processes/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processes'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
                         ]
@@ -402,7 +403,7 @@ class Content extends Component {
                     {
                         label: 'Process Rate', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processrates/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processrates'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
@@ -447,8 +448,8 @@ class Content extends Component {
                     {
                         label: 'Bill Of Materials', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/billmaterials'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/billofmaterials/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/billofmaterials'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
                         ]
@@ -470,7 +471,7 @@ class Content extends Component {
                     {
                         label: 'Customers', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/customers/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/customers'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
@@ -488,8 +489,8 @@ class Content extends Component {
                     {
                         label: 'Sales Rep', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/sales-rep'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/salesreps/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/salesreps'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
                         ]
@@ -506,8 +507,8 @@ class Content extends Component {
                     {
                         label: 'Product Line Components', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/productlines'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/productlinecomponents/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/productlinecomponents'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
                         ]

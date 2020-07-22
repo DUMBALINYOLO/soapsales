@@ -36,7 +36,7 @@ import orders from "./orders";
 import orderpayments from "./orderpayments";
 import inventorycontrollers from "./inventorycontrollers";
 import unitmeasures from "./unitmeasures";
-import inventorycategories from "./inventorycategory";
+import inventorycategories from "./inventorycategories";
 import pricinggroups from "./pricinggroups";
 import creditnotes from "./creditnotes";
 import customers from "./customers";
@@ -52,7 +52,7 @@ import invoicelines from "./invoicelines";
 import warehouses from "./warehouses";
 import warehouseitems from "./warehouseitems";
 import stockadjustments from "./stockadjustments";
-import storagemedias from "./storagemedia";
+import storagemedias from "./storagemedias";
 
 import accountingperiodchoices from "./accountingperiodchoices";
 import assetsdepreciationmethodchoices from "./assetdepreciationchoices";
@@ -67,15 +67,19 @@ import invoicelinechoices from "./invoicelinechoices";
 import invoicesalechoices from "./invoicesalechoices";
 import journalentrytypechoices from "./journalentrychoices";
 import manufacturingproducttypechoices from "./manufacturingproductchoices";
-import processrateunittimechoices from "./processratechoices";
+import processrateunittimechoices from "./processrateunittimechoices";
 import productcomponentpricingchoices from "./productcomponentchoices";
 import stockreceipts from './stockreceipts';
 import stocktakes from './stocktakes';
 import employees from './employees';
 import processedproductstockstatuschoices from "./processedproductstockstatuschoices";
+import manufacturingprocesschoices from "./manufacturingprocesschoices";
+import productlinecomponents from "./productlinecomponents";
 
 
 export default combineReducers({
+    productlinecomponents,
+    manufacturingprocesschoices,
     taxes,
     accountingperiodchoices,
     customerpaymentmethodchoices,

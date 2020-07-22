@@ -64,7 +64,6 @@ class ProcessSerializer(serializers.ModelSerializer):
             'product_list',
 
             #gettar
-            'process_type_string',
             'child_processes',
             'is_subprocess'
 
@@ -91,7 +90,7 @@ class ProcessCreateSerializer(serializers.ModelSerializer):
             'product_list',
         ]
 
-class ProcessRateSerializer(serializers.ModelSerializer):
+class ProcessRateCreateUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProcessRate
@@ -100,10 +99,25 @@ class ProcessRateSerializer(serializers.ModelSerializer):
             "unit",
             "unit_time",
             'quantity',
-
-            #getter methods
-            'unit_time_string'
         ]
+
+
+class ProcessRateSerializer(serializers.ModelSerializer):
+    unit = StringSerializer()
+    unit_time = serializers.SerializerMethodField()
+
+
+    class Meta:
+        model = ProcessRate
+        fields = [
+            "id",
+            "unit",
+            "unit_time",
+            'quantity',
+        ]
+
+    def get_unit_time(self, obj):
+        return obj.get_unit_time_display()
 
 class ProcessProductListSerializer(serializers.ModelSerializer):
 
@@ -240,6 +254,19 @@ class ProcessMachineSerializer(serializers.ModelSerializer):
             "description",
             'machine_group',
         ]
+
+
+class ProcessMachineCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProcessMachine
+        fields = [
+            "id",
+            'name',
+            "description",
+            'machine_group',
+        ]
+
+
 
 class ProcessMachineGroupCreateSerializer(serializers.ModelSerializer):
     class Meta:

@@ -15,6 +15,7 @@ import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
+import {InputNumber} from 'primereact/inputnumber';
 
 export class InventoryitemForm extends Component{
     constructor(props){
@@ -26,7 +27,6 @@ export class InventoryitemForm extends Component{
                 length: '',
                 width: '',
                 height: '',
-                image: '',
                 description: '',
                 unit: '',
                 unit_purchase_price: '',
@@ -37,10 +37,10 @@ export class InventoryitemForm extends Component{
                 product_component: '',
                 types: [],
                 categories: [],
-                units: [],
-                supplierz: [],
-                equipment: [],
-                product: []
+                unitList: [],
+                supplierList: [],
+                equipmentComponents: [],
+                productComponents: []
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -57,7 +57,6 @@ export class InventoryitemForm extends Component{
           length,
           width,
           height,
-          image,
           description,
           unit,
           unit_purchase_price,
@@ -75,7 +74,6 @@ export class InventoryitemForm extends Component{
           length,
           width,
           height,
-          image,
           description,
           unit,
           unit_purchase_price,
@@ -87,6 +85,24 @@ export class InventoryitemForm extends Component{
       };
 
       this.props.addInventoryitem(inventoryitem);
+      this.setState({
+          name: '',
+          type: '',
+          category: '',
+          length: '',
+          width: '',
+          height: '',
+          description: '',
+          unit: '',
+          unit_purchase_price: '',
+          supplier: '',
+          minimum_order_level: '',
+          maximum_stock_level: '',
+          equipment_component: '',
+          product_component: '',
+
+        });
+      this.props.history.push('/inventoryitems');
 
     };
 
@@ -117,7 +133,6 @@ export class InventoryitemForm extends Component{
             length,
             width,
             height,
-            image,
             description,
             unit,
             unit_purchase_price,
@@ -129,7 +144,12 @@ export class InventoryitemForm extends Component{
         } = this.state;
 
         const {inventorytypechoices} = this.props;
-        console.log(inventorytypechoices)
+        const {inventorycategories} = this.props;
+        const {unitmeasures} = this.props;
+        const {suppliers} = this.props;
+        const {productcomponents} = this.props;
+        const {equipmentcomponents} = this.props;
+
 
         let types = inventorytypechoices.length > 0
             && inventorytypechoices.map((item, index) => {
@@ -138,53 +158,45 @@ export class InventoryitemForm extends Component{
                 )
             }, this);
 
-        const {inventorycategory} = this.props;
-        console.log(inventorycategory)
 
-        let categories = inventorycategory.length > 0
-            && inventorycategory.map((item, index) => {
+        let categories = inventorycategories.length > 0
+            && inventorycategories.map((item, index) => {
                 return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
+                    <option key={item.id } value={item.id}>{item.name}</option>
                 )
             }, this);
 
-        const {unitmeasures} = this.props;
-        console.log(unitmeasures)
 
-        let units = unitmeasures.length > 0
+        let unitList = unitmeasures.length > 0
             && unitmeasures.map((item, index) => {
                 return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
+                    <option key={item.id } value={item.id}>{item.name}</option>
                 )
-            }, this);
+            }, this);     
 
-        const {suppliers} = this.props;
-        console.log(suppliers)
-
-        let supplierz = suppliers.length > 0
+        let supplierList = suppliers.length > 0
             && suppliers.map((item, index) => {
                 return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
+                    <option key={item.id } value={item.id}>{item.name}</option>
                 )
             }, this);
 
-        const {productcomponents} = this.props;
-        console.log(productcomponents)
+       
 
-        let product = productcomponents.length > 0
+        let productComponents = productcomponents.length > 0
             && productcomponents.map((item, index) => {
                 return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
+                    <option key={item.id } value={item.id}>{item.pricing_method} || {item.sku}</option>
                 )
             }, this);
 
-        const {equipmentcomponents} = this.props;
-        console.log(equipmentcomponents)
+        
 
-        let equipment = equipmentcomponents.length > 0
+
+        let equipmentComponents = equipmentcomponents.length > 0
             && equipmentcomponents.map((item, index) => {
                 return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
+                    <option key={item.id } value={item.id}>{item.name}</option>
                 )
             }, this);
 
@@ -204,74 +216,52 @@ export class InventoryitemForm extends Component{
                     value={name}
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-12">
-                  <label>Length</label>
-                  <InputText
-                    className="form-control"
-                    type="number"
+               <div className="p-field p-col-12 p-md-6">
+                  <label>LENGTH</label>
+                  <InputNumber
                     name="length"
                     onChange={this.onChange}
                     value={length}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
+
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-12">
-                  <label>Width</label>
-                  <InputText
-                    className="form-control"
-                    type="number"
+                <div className="p-field p-col-12 p-md-6">
+                  <label>WIDTH</label>
+                  <InputNumber
                     name="width"
                     onChange={this.onChange}
                     value={width}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
+
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-12">
-                  <label>Height</label>
-                  <InputText
-                    className="form-control"
-                    type="number"
+                  <label>HEIGHT</label>
+                  <InputNumber
                     name="height"
                     onChange={this.onChange}
                     value={height}
-                  />
-                </div>
-                <div className="p-field p-col-12 p-md-12">
-                  <label>Image</label>
-                  <InputText
-                    className="form-control"
-                    type="image"
-                    name="image"
-                    onChange={this.onChange}
-                    value={image}
-                  />
-                </div>
-                <div className="p-field p-col-12 p-md-12">
-                  <label>Unit Purchase Price</label>
-                  <InputText
-                    className="form-control"
-                    type="number"
-                    name="unit_purchase_price"
-                    onChange={this.onChange}
-                    value={unit_purchase_price}
-                  />
-                </div>
-                <div className="p-field p-col-12 p-md-12">
-                  <label>Minimum Order Level</label>
-                  <InputText
-                    className="form-control"
-                    type="number"
-                    name="minimun_order_level"
-                    onChange={this.onChange}
-                    value={minimum_order_level}
-                  />
-                </div>
-                <div className="p-field p-col-12 p-md-12">
-                  <label>Maximum Stock Level</label>
-                  <InputText
-                    className="form-control"
-                    type="number"
-                    name="maximum_stock_level"
-                    onChange={this.onChange}
-                    value={maximum_stock_level}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
+
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-12">
@@ -284,7 +274,58 @@ export class InventoryitemForm extends Component{
                     value={description}
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-4">
+
+                <div className="p-field p-col-12 p-md-6">
+                  <label>UNIT PURCHASE PRICE</label>
+                  <InputNumber
+                    name="unit_purchase_price"
+                    onChange={this.onChange}
+                    value={unit_purchase_price}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
+
+                  />
+                </div>
+                <div className="p-field p-col-12 p-md-6">
+                  <label>MINIMUM ORDER LEVEL</label>
+                  <InputNumber
+                    name="minimum_order_level"
+                    onChange={this.onChange}
+                    value={minimum_order_level}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
+
+                  />
+                </div>
+
+                <div className="p-field p-col-12 p-md-12">
+                  <label>MAXIMUM STOCK LEVEL</label>
+                  <InputNumber
+                    name="maximum_stock_level"
+                    onChange={this.onChange}
+                    value={maximum_stock_level}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
+
+                  />
+                </div>  
+                <div className="p-field p-col-12 p-md-6">
+                  <label>TYPE</label>
                     <select
                         name="type"
                         value={type}
@@ -293,43 +334,8 @@ export class InventoryitemForm extends Component{
                         {types}
                     </select>
                 </div>
-                <div className="p-field p-col-12 p-md-4">
-                    <select
-                        name="unit"
-                        value={unit}
-                        onChange={this.onChange}
-                    >
-                        {units}
-                    </select>
-                </div>
-                <div className="p-field p-col-12 p-md-4">
-                    <select
-                        name="supplier"
-                        value={supplier}
-                        onChange={this.onChange}
-                    >
-                        {supplierz}
-                    </select>
-                </div>
-                <div className="p-field p-col-12 p-md-4">
-                    <select
-                        name="equipment_component"
-                        value={equipment_component}
-                        onChange={this.onChange}
-                    >
-                        {equipment}
-                    </select>
-                </div>
-                <div className="p-field p-col-12 p-md-4">
-                    <select
-                        name="product_component"
-                        value={product_component}
-                        onChange={this.onChange}
-                    >
-                        {product}
-                    </select>
-                </div>
-                <div className="p-field p-col-12 p-md-4">
+                <div className="p-field p-col-12 p-md-6">
+                  <label>CATEGORY</label>
                     <select
                         name="category"
                         value={category}
@@ -338,7 +344,47 @@ export class InventoryitemForm extends Component{
                         {categories}
                     </select>
                 </div>
-
+                <div className="p-field p-col-12 p-md-6">
+                  <label>UNIT</label>
+                    <select
+                        name="unit"
+                        value={unit}
+                        onChange={this.onChange}
+                    >
+                        {unitList}
+                    </select>
+                </div>
+                <div className="p-field p-col-12 p-md-6">
+                  <label>SUPPLIER</label>
+                    <select
+                        name="supplier"
+                        value={supplier}
+                        onChange={this.onChange}
+                    >
+                        {supplierList}
+                    </select>
+                </div>
+                <div className="p-field p-col-12 p-md-6">
+                  <label>EQUIPMENT COMPONENT</label>
+                    <select
+                        name="equipment_component"
+                        value={equipment_component}
+                        onChange={this.onChange}
+                    >
+                        {equipmentComponents}
+                    </select>
+                </div>
+                 <div className="p-field p-col-12 p-md-6">
+                  <label>PRODUCT COMPONENT</label>
+                    <select
+                        name="product_component"
+                        value={product_component}
+                        onChange={this.onChange}
+                    >
+                        {productComponents}
+                    </select>
+                </div>
+                
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />
                 </div>
@@ -354,8 +400,11 @@ const mapStateToProps = state =>({
     unitmeasures: state.unitmeasures.unitmeasures,
     suppliers: state.suppliers.suppliers,
     equipmentcomponents: state.equipmentcomponents.equipmentcomponents,
-    inventorycategory: state.inventorycategory.inventorycategory,
+    inventorycategories: state.inventorycategories.inventorycategories,
     productcomponents: state.productcomponents.productcomponents,
 })
 
-export default connect(mapStateToProps, {getInventoryTypeChoices, getInventorycategories, getUnitmeasures, getSuppliers, getEquipmentComponents, getProductcomponents, addInventoryitem })(InventoryitemForm);
+export default connect(
+      mapStateToProps, 
+      {getInventoryTypeChoices, getInventorycategories, getUnitmeasures, getSuppliers, getEquipmentComponents, getProductcomponents, addInventoryitem })
+      (InventoryitemForm);

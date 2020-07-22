@@ -13,6 +13,7 @@ from manufacture.serializers import (
                         BillOfMaterialsCreateSerializer,
                         BillOfMaterialsListSerializer,
                         BillOfMaterialsDetailSerializer,
+                        ProcessRateCreateUpdateSerializer,
                        
                     )
 
@@ -41,11 +42,15 @@ class ProductionOrderViewSet(ModelViewSet):
         return  ProductionOrderCreateSerializer
 
 class ProcessRateViewSet(ModelViewSet):
-    serializer_class = ProcessRateSerializer
     queryset = ProcessRate.objects.all()
     # permission_classes = [
     #     permissions.IsAuthenticated,
     # ]
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'put']:
+            return ProcessRateCreateUpdateSerializer
+        return ProcessRateSerializer
 
 class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer

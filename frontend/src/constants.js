@@ -10,7 +10,7 @@ export const accountsURL = `${endpoint}/accounting/accounts/`
 export const accountingConfigURL =`${endpoint}/accounting/accounting-configuration/`
 export const accounttypesURL= `${endpoint}/accounting/accounttypes/`
 export const assetsURL= `${endpoint}/accounting/assets/`
-export const billmaterialURL= `${endpoint}/manufacture/bills-of-materials-line/`
+export const billmaterialURL= `${endpoint}/manufacture/bills-of-materials/`
 export const billsURL= `${endpoint}/accounting/my-bills/`
 export const bookkeepersURL= `${endpoint}/accounting/bookkeepers/`
 export const creditnoteURL= `${endpoint}/sales/creditnote/`
@@ -33,7 +33,7 @@ export const processedproductcomponentURL= `${endpoint}/stock/processed-product-
 export const processgroupURL= `${endpoint}/manufacture/process-machine-group/`
 export const processmachineURL= `${endpoint}/manufacture/process-machines/`
 export const processrateURL= `${endpoint}/manufacture/process-rates/`
-export const productlineURL= `${endpoint}/sales/productlinecomponent/`
+export const productLineComponentURL= `${endpoint}/sales/productlinecomponents/`
 export const productsURL= `${endpoint}/manufacture/products/`
 export const salesrepURL= `${endpoint}/sales/sales-reps/`
 export const transactionURL= `${endpoint}/accounting/transactions/`
@@ -61,6 +61,6 @@ export const receiptURL= `${endpoint}/sales/receipts/`
 export const inventoryreceiptURL= `${endpoint}/inventory/inventoryreceipts/`
 export const processedproductURL= `${endpoint}/stock/processed-products/`
 
-
+export const manufacturingProcessChoicesURL = `${endpoint}/config/manufacturing-process-choices/`
 export const accountTypesCategoryChoicesURL = `${endpoint}/config/account-types-category-choices/`
 export const accountTypesClassificationChoicesURL = `${endpoint}/config/account-types-classification-choices/`

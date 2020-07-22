@@ -5,7 +5,7 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {Button} from 'primereact/button';
 import { connect } from 'react-redux';
-import { getProductlines} from '..//../actions/productlines';
+import { getProductLineComponents } from '..//../actions/productlinecomponents';
 import { getTaxes} from '..//../actions/taxes';
 import { getInvoiceLineChoices } from '..//../actions/choices';
 import {InputNumber} from 'primereact/inputnumber';
@@ -15,26 +15,26 @@ const InvoiceLines = (props) => {
 
     useEffect(() => {
         if(!props.fetched) {
-            props.getProductlines();
+            props.getProductLineComponents();
             props.getTaxes();
             props.getInvoiceLineChoices();
         }
         console.log('mount it!');
     }, []);
 
-    const { productlines } = props;
+    const { productlinecomponents } = props;
     const { taxes } = props;
     const { invoicelinechoices } = props;
 
 
 
 
-    let productLines = productlines.length > 0
-    && productlines.map((item, i) => {
-    return (
-      <option key={i} value={item.id}>{item.product}</option>
-    )
-    }, this);
+    let productLines = productlinecomponents.length > 0
+      && productlinecomponents.map((item, i) => {
+      return (
+        <option key={i} value={item.id}>{item.product}</option>
+      )
+      }, this);
 
 
 
@@ -111,10 +111,11 @@ const InvoiceLines = (props) => {
 }
 
 
+
 const mapStateToProps = state =>({
-    productlines: state.productlines.productlines,
+    productlinecomponents: state.productlinecomponents.productlinecomponents,
     taxes: state.taxes.taxes,
     invoicelinechoices: state.invoicelinechoices.invoicelinechoices,
 })
 
-export default connect(mapStateToProps, { getProductlines, getTaxes,  getInvoiceLineChoices } ) (InvoiceLines);
+export default connect(mapStateToProps, { getProductLineComponents, getTaxes,  getInvoiceLineChoices } ) (InvoiceLines);

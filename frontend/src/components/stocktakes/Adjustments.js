@@ -27,7 +27,7 @@ const Adjustments = (props) => {
   let warehouseItems = warehouseitems.length > 0
     && warehouseitems.map((item, i) => {
     return (
-      <option key={i} value={item.id}>{item.warehouse_item}</option>
+      <option key={i} value={item.id}>{item.item}</option>
     )
   }, this);
 

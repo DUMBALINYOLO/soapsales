@@ -4,6 +4,7 @@ from basedata.const import (
         PROCCES_RATE_UNIT_TIME_CHOICES,
         MANUFACTURING_PRODUCT_TYPES,
         BILL_OF_MATERIALS_LINE_CHOICES,
+        MANUFACTURING_PROCESS_CHOICES,
     )
 '''
 A manufacturing process has involves the transformation of
@@ -85,8 +86,7 @@ class Process(models.Model):
     description = models.TextField(blank=True)
     bill_of_materials = models.ForeignKey('manufacture.BillOfMaterials',
         on_delete=models.SET_NULL, null=True, blank=True)
-    type = models.PositiveSmallIntegerField(choices = [
-        (0, 'Line'),(1, 'Batch')])#line or batch
+    type = models.PositiveSmallIntegerField(choices = MANUFACTURING_PROCESS_CHOICES, default=0 )#line or batch
     duration = models.DurationField(blank=True, null=True) #batch
     rate = models.ForeignKey(
         'manufacture.ProcessRate', on_delete=models.SET_NULL, null=True, blank=True)
@@ -94,14 +94,7 @@ class Process(models.Model):
         on_delete=models.SET_NULL, null=True, blank=True)
 
 
-    @property
-    def process_type_string(self):
-        mapping = {
-            0: 'Line',
-            1: 'Batch'
-        }
-        return mapping[self.type]
-
+  
     @property
     def is_subprocess(self):
         return self.parent_process != None
@@ -213,6 +206,7 @@ class BillOfMaterialsLine(models.Model):
             return str(self.raw_material)
         else:
             return str(self.product.name)
+
 
 
 class ProcessMachineGroup(models.Model):

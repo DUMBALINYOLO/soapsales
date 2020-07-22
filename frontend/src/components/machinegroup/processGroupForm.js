@@ -25,6 +25,11 @@ export class ProcessGroupForm extends Component{
       const { name, description } = this.state;
       const processGroups = { name, description };
       this.props.addProcessGroup(processGroups);
+      this.setState({
+        name: '',
+        description: '',
+      });
+      this.props.history.push('/processmachinegroups');
     };
 
     static propTypes = {

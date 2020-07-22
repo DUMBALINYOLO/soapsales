@@ -17,9 +17,11 @@ import {InputTextarea} from 'primereact/inputtextarea';
 
 
 export class CustomerForm extends Component{
-    state = {
+  constructor(props){
+    super(props);
+    this.state = {
         name: '',
-        is_organization: '',
+        is_organization: true,
         billing_address: '',
         banking_details: '',
         website: '',
@@ -27,15 +29,60 @@ export class CustomerForm extends Component{
         email: '',
         phone: ''
     }
+    this.handleIsOrganization = this.handleIsOrganization.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+    handleIsOrganization(event) {
+      const target = event.target;
+      const value = target.name === 'is_organization' ? target.checked : target.value;
+      const name = target.name;
+
+      this.setState({
+        [name]: value
+      });
+    }
 
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { name, is_organization, billing_address, banking_details, website, bp_number, email, phone } = this.state;
-      const customer = { name, is_organization, billing_address, banking_details, website, bp_number, email, phone };
+      const { 
+        name, 
+        is_organization, 
+        billing_address, 
+        banking_details, 
+        website, 
+        bp_number, 
+        email, 
+        phone 
+      } = this.state;
+      const customer = { 
+        name, 
+        is_organization, 
+        billing_address, 
+        banking_details, 
+        website, 
+        bp_number, 
+        email, 
+        phone 
+      };
       this.props.addCustomer(customer);
+      console.log(customer);
+      this.setState({
+        name: '',
+        is_organization: false,
+        billing_address: '',
+        banking_details: '',
+        website: '',
+        bp_number: '',
+        email: '',
+        phone: ''
+
+        });
+      this.props.history.push('/customers');
     };
 
     static propTypes = {
@@ -77,7 +124,7 @@ export class CustomerForm extends Component{
                       rows="3" 
                       className="form-control"
                       type="text"
-                      name="billing address"
+                      name="billing_address"
                       onChange={this.onChange}
                       value={billing_address}
                     />
@@ -95,9 +142,7 @@ export class CustomerForm extends Component{
                   <div className="p-field p-col-12 p-md-6">
                     <label>Bp Number</label>
                     <InputText 
-                      className="form-control"
-                      type="text"
-                      name="bp number"
+                      name="bp_number"
                       onChange={this.onChange}
                       value={bp_number}
                     />
@@ -106,9 +151,7 @@ export class CustomerForm extends Component{
                     <label>Banking Details</label>
                     <InputTextarea
                       rows="3"
-                      className="form-control"
-                      type="text"
-                      name="banking details"
+                      name="banking_details"
                       onChange={this.onChange}
                       value={banking_details}
                     />
@@ -122,6 +165,16 @@ export class CustomerForm extends Component{
                       onChange={this.onChange}
                       value={phone}
                     />
+                  </div>
+                  <div className="p-field p-col-12 p-md-12">
+                    <label>
+                        Is Organization:
+                        <input
+                          name="is_organization"
+                          type="checkbox"
+                          checked={this.state.is_organization}
+                          onChange={this.handleIsOrganization} />
+                      </label>
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

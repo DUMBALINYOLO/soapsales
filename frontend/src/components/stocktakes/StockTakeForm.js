@@ -171,6 +171,7 @@ class StockTakeForm extends Component {
                 name="date"
                 onChange={this.onChange}
                 value={date}
+                dateFormat="yy-mm-dd"
               />
             </div>
             <div className="p-field p-col-12 p-md-12">

@@ -8,6 +8,7 @@ from basedata.models import SoftDeletionModel
 
 DEFAULT_REP = 1000000
 
+
 class SalesRepresentative(SoftDeletionModel):
     '''
         Really just a dummy class that points to an employee.

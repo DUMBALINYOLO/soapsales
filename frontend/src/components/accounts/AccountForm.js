@@ -18,15 +18,15 @@ import {InputTextarea} from 'primereact/inputtextarea';
 class AccountForm extends Component{
     constructor(props){
         super(props);
-            this.state = {
-                account_type: '',
-                name: '',
-                description: '',
-                initial_balance: '',
-                is_active: true,
-                is_contra: true,
-                order: '',
-        }
+        this.state = {
+            account_type: '',
+            name: '',
+            description: '',
+            initial_balance: '',
+            is_active: true,
+            is_contra: true,
+            order: '',
+      }
 
       this.onChange = this.onChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
@@ -113,6 +113,7 @@ class AccountForm extends Component{
           order
         } = this.state;
         const { inputValue } = this.state;
+        
         const {accounttypes} = this.props;
         let typesOptions = accounttypes.length > 0
             && accounttypes.map((item, index) => {

@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom';
 import "./form.css";
 
 
-class Warehouseitems extends Component {
+class WarehouseItems extends Component {
 
     constructor() {
         super();
@@ -155,4 +155,4 @@ const mapStateToProps = state =>({
     warehouseitems: state.warehouseitems.warehouseitems
 })
 
-export default connect(mapStateToProps, {getWarehouseitems} ) (Warehouseitems);
+export default connect(mapStateToProps, {getWarehouseitems} ) (WarehouseItems);

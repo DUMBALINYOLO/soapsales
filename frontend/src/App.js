@@ -42,7 +42,7 @@ import Orders from './components/orders/Orders';
 import OrderForm from './components/orders/OrderForm';
 import OrderDetail from './components/orders/OrderDetail';
 
-import OrderItems from './components/orders/OrderItems';
+// import OrderItems from './components/orders/OrderItems';
 
 
 import Invoice from './components/invoices/Invoices';
@@ -68,7 +68,7 @@ import UnitmeasureForm from './components/unitmeasure/UnitmeasureForm';
 import UnitmeasureDetail from './components/unitmeasure/UnitmeasureDetail';
 
 import Orderpayments from './components/orderpayments/Orderpayments';
-import OrderpaymentForm from './components/orderpayments/OrderpaymentForm';
+import OrderPaymentForm  from './components/orderpayments/OrderpaymentForm';
 import OrderpaymentDetail from './components/orderpayments/OrderpaymentDetail';
 
 import Payments from './components/payments/Payments';
@@ -98,9 +98,7 @@ import ProductForm from './components/Products/productForm';
 import ProductDetail from "./components/Products/ProductDetail";
 
 
-import Productline from "./components/productline/Productline";
-import ProductlineForm from './components/productline/ProductlineForm';
-import ProductlineDetail from "./components/productline/ProductlineDetail";
+
 
 import ProcessMachines from "./components/machines/processMachines";
 import ProcessMachineDetail from "./components/machines/processMachineDetail";
@@ -112,19 +110,21 @@ import ProcessGroupDetail from "./components/machinegroup/processGroupDetail";
 
 import BillMaterials from "./components/billmaterials/billMaterials";
 import BillMaterialDetail from "./components/billmaterials/billMaterialDetail";
+import BillOfMaterialsForm from "./components/billmaterials/BillOfMaterialsForm";
+
 
 import WasteReports from "./components/wastes/wasteReports";
 import WasteReportForm from './components/wastes/wasteForm';
 import WasteReportDetail from "./components/wastes/wasteReportDetail";
 
 import ProcessRates from "./components/processrate/processRates";
-import ProcessRateForm from './components/processrate/processRateForm';
+import ProcessRateForm from './components/processrate/ProcessRateForm';
 import ProcessRateDetail from "./components/processrate/processRateDetail";
 
 import { loadUser } from "./actions/auth";
 
 import Process from "./components/Process/process";
-import ProcessForm from './components/Process/processForm';
+import ProcessForm from './components/Process/ProcessForm';
 import ProcessDetail from "./components/Process/processDetail";
 
 import Assets from "./components/assets/Assets";
@@ -201,12 +201,25 @@ import StockReceiptForm from './components/stockreceipts/StockReceiptForm';
 import StockTakeForm from './components/stocktakes/StockTakeForm';
 
 
+import SupplierForm from './components/suppliers/SupplierForm';
+import Suppliers from './components/suppliers/Suppliers';
+
+
 import Receipts from "./components/receipts/Receipts";
+
 import Warehouses from "./components/warehouses/Warehouses";
-import Warehouseitems from "./components/warehouseitems/Warehouseitems";
+import WarehouseForm from "./components/warehouses/WarehouseForm";
+
+
+import WarehouseItems from "./components/warehouseitems/WarehouseItems";
+import WarehouseItemForm from "./components/warehouseitems/WarehouseItemForm";
+
+
 import Stockadjustments from "./components/stockadjustments/Stockadjustments";
 import Storagemedia from "./components/storagemedia/Storagemedia";
 
+import ProductLineComponentForm from './components/productLineComponents/ProductLineComponentForm';
+import ProductLineComponents from './components/productLineComponents/ProductLineComponents';
 
 
 
@@ -240,18 +253,26 @@ class App extends Component {
 
 							<Route exact path='/quotations/create' component={QuotationForm} />
 
+							<Route exact path='/productlinecomponents' component={ProductLineComponents} />
+							<Route exact path='/productlinecomponents/create' component={ProductLineComponentForm} />
+
 
 							<Route exact path='/stocktakes/create' component={StockTakeForm} />
 
+							<Route exact path='/suppliers' component={Suppliers} />
+							<Route exact path='/suppliers/create' component={SupplierForm} />
+
 
 							<Route exact path='/processmachines' component={ProcessMachines} />
-							<Route exact path='/process-machine-create' component={ProcessMachineForm} />
+							<Route exact path='/processmachines/create' component={ProcessMachineForm} />
 
-							<Route exact path='/process-machine-group-create' component={ProcessGroupForm} />
-							<Route exact path='/processgroups' component={ProcessGroups} />
+						
+							<Route exact path='/processmachinegroups' component={ProcessGroups} />
+							<Route exact path='/processmachinegroups/create' component={ProcessGroupForm} />
 
 
-							<Route exact path='/billmaterials' component={BillMaterials} />
+							<Route exact path='/billofmaterials' component={BillMaterials} />
+							<Route exact path='/billofmaterials/create' component={BillOfMaterialsForm} />
 							<Route exact path='/billmaterial-detail/:id' component={BillMaterialDetail} />
 
 							<Route exact path='/bills' component={Bills} />
@@ -262,11 +283,11 @@ class App extends Component {
 
 							<Route exact path='/receipts' component={Receipts} />
 
-							<Route exact path='/orderitems' component={OrderItems} />
+							<Route exact path='/warehouses' component={Warehouses} />
+							<Route exact path='/warehouses/create' component={WarehouseForm} />
 
-							<Route exact path='/warehouse' component={Warehouses} />
-
-							<Route exact path='/warehouseitems' component={Warehouseitems} />
+							<Route exact path='/warehouseitems' component={WarehouseItems} />
+							<Route exact path='/warehouseitems/create' component={WarehouseItemForm} />
 
 							<Route exact path='/stockadjustments' component={Stockadjustments} />
 
@@ -282,8 +303,8 @@ class App extends Component {
 							<Route exact path='/journals' component={Journals} />
 							<Route exact path='/tab' component={MainTab} />
 
-							<Route exact path='/process-rate' component={ProcessRates} />
-							<Route exact path='/process-rate-form' component={ProcessRateForm} />
+							<Route exact path='/processrates' component={ProcessRates} />
+							<Route exact path='/processrates/create' component={ProcessRateForm} />
 
 
 							<Route exact path='/assets' component={Assets} />
@@ -300,8 +321,8 @@ class App extends Component {
 							<Route exact path='/waste-report' component={WasteReportForm} />
 							<Route exact path='/waste-report-detail/:id' component={WasteReportDetail} />
 
-							<Route exact path='/process' component={Process} />
-							<Route exact path='/process-form' component={ProcessForm} />
+							<Route exact path='/processes' component={Process} />
+							<Route exact path='/processes/create' component={ProcessForm} />
 
 							<Route exact path='/transactions' component={Transactions} />
 
@@ -337,7 +358,7 @@ class App extends Component {
 							<Route exact path='/orders/create' component={OrderForm} />
 
 							<Route exact path='/orderpayments' component={Orderpayments} />
-							<Route exact path='/orderpayment-form' component={OrderpaymentForm} />
+							<Route exact path='/orderpayments/create' component={OrderPaymentForm } />
 
 							<Route exact path='/inventorycontrollers' component={Inventorycontroller} />
 							<Route exact path='/inventorycontrollers/create' component={InventorycontrollerForm} />
@@ -350,14 +371,14 @@ class App extends Component {
 							<Route exact path='/inventorycategories/create' component={InventorycategoryForm} />
 
 							<Route exact path='/inventoryitems' component={Inventoryitems} />
-							<Route exact path='/inventoryitem-form' component={InventoryitemForm} />
+							<Route exact path='/inventoryitems/create' component={InventoryitemForm} />
 							<Route exact path='/inventoryitem-detail/:id' component={InventoryitemDetail} />
 
 							<Route exact path='/pricinggroups' component={Pricinggroup} />
 							<Route exact path='/pricinggroup-form' component={PricinggroupForm} />
 
 							<Route exact path='/customers' component={Customers} />
-							<Route exact path='/customer-form' component={CustomerForm} />
+							<Route exact path='/customers/create' component={CustomerForm} />
 
 							<Route exact path='/taxes' component={Taxes} />
 							<Route exact path='/taxes/create' component={TaxForm} />
@@ -365,8 +386,8 @@ class App extends Component {
 							<Route exact path='/payments' component={Payments} />
 							<Route exact path='/payment-form' component={PaymentForm} />
 
-							<Route exact path='/sales-rep' component={Salesrep} />
-							<Route exact path='/salesrep-form' component={SalesrepForm} />
+							<Route exact path='/salesreps' component={Salesrep} />
+							<Route exact path='/salesreps/create' component={SalesrepForm} />
 							<Route exact path='/salesrep-detail/:id' component={SalesrepDetail} />
 
 							<Route exact path='/invoices' component={Invoice} />
@@ -374,9 +395,6 @@ class App extends Component {
 
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/login' component={Login} />
-
-							<Route exact path='/productlines' component={Productline} />
-							<Route exact path='/productline-form' component={ProductlineForm} />
 
 							<Route exact path='/processedproductcomponents' component={Processedproductcomponents} />
 							<Route exact path='/processedproductcomponent-detail/:id' component={ProcessedproductcomponentDetail} />
