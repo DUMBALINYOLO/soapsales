@@ -68,6 +68,7 @@ export class ProcessproductForm extends Component{
           product_list
         };
       this.props.addProcessproduct(processproduct);
+      console.log(processproduct)
       this.setState({
           name: '',
           description: '',

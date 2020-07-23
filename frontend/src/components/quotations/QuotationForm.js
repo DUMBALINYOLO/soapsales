@@ -90,6 +90,7 @@ export class QuotationForm extends Component{
           due,
           terms,
           comments,
+          lines,
           ship_from,
           quotation_date,
           quotation_valid
@@ -106,7 +107,8 @@ export class QuotationForm extends Component{
           comments,
           ship_from,
           quotation_date,
-          quotation_valid
+          quotation_valid,
+          lines,
       };
 
       this.props.addQuotation(quotation);
@@ -229,6 +231,7 @@ export class QuotationForm extends Component{
                     name="due"
                     onChange={this.onChange}
                     value={due}
+                    dateFormat="yy-mm-dd"
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-6">

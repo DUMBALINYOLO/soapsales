@@ -14,6 +14,8 @@ from manufacture.serializers import (
                         BillOfMaterialsListSerializer,
                         BillOfMaterialsDetailSerializer,
                         ProcessRateCreateUpdateSerializer,
+                        ProcessProductCreateUpdateSerializer,
+                        WasteGenerationReportCreateUpdateSerializer
                        
                     )
 
@@ -60,19 +62,28 @@ class ProductViewSet(ModelViewSet):
     # ]
 
 class ProcessProductViewSet(ModelViewSet):
-    serializer_class = ProcessProductSerializer
     queryset = ProcessProduct.objects.all()
     # permission_classes = [
     #     permissions.IsAuthenticated,
     # ]
 
+    def get_serializer_class(self):
+        if self.action in ['create', 'put']:
+            return ProcessProductCreateUpdateSerializer
+        return ProcessProductSerializer
+
 
 class WasteGenerationReportViewSet(ModelViewSet):
-    serializer_class = WasteGenerationReportSerializer
     queryset = WasteGenerationReport.objects.all()
     # permission_classes = [
     #     permissions.IsAuthenticated,
     # ]
+    def get_serializer_class(self):
+        if self.action in ['create', 'put']:
+            return WasteGenerationReportCreateUpdateSerializer
+        return WasteGenerationReportSerializer
+
+
 
 class BillOfMaterialsViewSet(ModelViewSet):
     queryset = BillOfMaterials.objects.all()

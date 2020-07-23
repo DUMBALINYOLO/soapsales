@@ -20,10 +20,13 @@ import TaxForm from './components/taxes/TaxForm';
 //import TaxDetail from './components/taxes/TaxDetail';
 
 
+
+
 import Currencies from './components/currencies/Currencies';
 import CurrencyForm from './components/currencies/CurrencyForm';
 import CurrencyDetail from './components/currencies/CurrencyDetail';
 import UpdateCurrency from './components/currencies/CurrencyUpdate';
+
 
 
 
@@ -99,6 +102,7 @@ import ProductDetail from "./components/Products/ProductDetail";
 import ProcessMachines from "./components/machines/processMachines";
 import ProcessMachineDetail from "./components/machines/processMachineDetail";
 import ProcessMachineForm from "./components/machines/processMachineForm";
+
 
 import ProcessGroups from "./components/machinegroup/processGroups";
 import ProcessGroupForm from './components/machinegroup/processGroupForm';
@@ -221,7 +225,7 @@ import ProductLineComponents from './components/productLineComponents/ProductLin
 
 //Alert Options
 const alertOptions = {
-	timeout: 3000,
+	timeout: 30000,
 	position: 'top center'
 }
 

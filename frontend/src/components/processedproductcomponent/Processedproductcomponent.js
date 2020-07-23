@@ -137,10 +137,6 @@ class Processedproductcomponents extends Component {
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                     <Column className="table-field" selectionMode="multiple" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
-                    <Column className="table-field" field="name" header="Name" sortable filter filterPlaceholder="Search by Name" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
-                    <Column className="table-field" field="direct_price" header="Direct Price" sortable filter filterPlaceholder="Search by Direct Price" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
-                    <Column className="table-field" field="margin" header="Margin" sortable filter filterPlaceholder="Search by Margin" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
-                    <Column className="table-field" field="markup" header="Markup" sortable filter filterPlaceholder="Search by Markup" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" field="sku" header="Sku" sortable filter filterPlaceholder="Search by Sku" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" field="pricing_method" header="Pricing Method" sortable filter filterPlaceholder="Search by Pricing Method" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" body={this.actionBodyTemplate} headerStyle={{width: '3em', textAlign: 'center', backgroundColor: '#4EB0A5'}} bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4EB0A5'}} />

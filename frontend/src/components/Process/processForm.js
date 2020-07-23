@@ -95,6 +95,7 @@ export class ProcessForm extends Component{
         getManufacturingProcessChoices: PropTypes.func.isRequired,
     }
 
+
     componentDidMount() {
       this.props.getProcesses();
       this.props.getProducts();

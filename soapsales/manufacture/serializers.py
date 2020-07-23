@@ -148,7 +148,11 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProcessProductSerializer(serializers.ModelSerializer):
-    type_string = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
+    unit = StringSerializer()
+    inventory_product = StringSerializer()
+    product_list = StringSerializer()
+    
 
 
     class Meta:
@@ -162,13 +166,30 @@ class ProcessProductSerializer(serializers.ModelSerializer):
             'finished_goods',
             'inventory_product',
             'product_list',
-
-            #model method
-            'type_string',
         ]
 
-    def get_type_string(self, obj):
-        return obj.type_string()
+    def get_type(self, obj):
+        return obj.get_type_display()
+
+
+
+class ProcessProductCreateUpdateSerializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = ProcessProduct
+        fields = [
+            "name",
+            "description", # display_this
+            'type',
+            'unit',
+            'finished_goods',
+            'inventory_product',
+            'product_list',
+
+        ]
+
+
 
 
 
@@ -176,6 +197,20 @@ class WasteGenerationReportSerializer(serializers.ModelSerializer):
     product = StringSerializer()
     recorded_by = StringSerializer()
     unit = StringSerializer()
+
+
+    class Meta:
+        model = WasteGenerationReport
+        fields = [
+            "id",
+            'product',
+            "unit",
+            'quantity',
+            'comments',
+            'recorded_by',
+        ]
+
+class WasteGenerationReportCreateUpdateSerializer(serializers.ModelSerializer):
 
 
     class Meta:

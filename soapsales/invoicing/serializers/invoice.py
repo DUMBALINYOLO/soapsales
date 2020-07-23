@@ -18,7 +18,7 @@ class InvoiceLineCreateSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = InvoiceLine
-		fields = ['pk' 'product', 'line_type', 'tax', 'discount']
+		fields = ['pk', 'product', 'line_type', 'tax', 'discount']
 
 
 class QuotationLineListSerializer(serializers.ModelSerializer):
@@ -176,6 +176,8 @@ class InvoiceDetailSerializer(serializers.ModelSerializer):
 
 
 class ProductLineComponentListSerializer(serializers.ModelSerializer):
+	product = StringSerializer()
+
 
 
 	class Meta:
@@ -185,8 +187,6 @@ class ProductLineComponentListSerializer(serializers.ModelSerializer):
 
 
 class ProductLineComponentCreateSerializer(serializers.ModelSerializer):
-
-
 	class Meta:
 		model = ProductLineComponent
 		fields = [
@@ -198,6 +198,8 @@ class ProductLineComponentCreateSerializer(serializers.ModelSerializer):
 
 
 class ProductLineComponentDetailSerializer(serializers.ModelSerializer):
+	product = StringSerializer()
+
 	class Meta:
 		model = ProductLineComponent
 		fields = [

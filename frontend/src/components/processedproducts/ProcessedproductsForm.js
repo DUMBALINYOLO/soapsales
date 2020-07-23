@@ -143,6 +143,7 @@ export class ProcessedproductForm extends Component{
         const {processedproductstockstatuschoices} = this.props;
         const {unitmeasures} = this.props;
         const {processproducts} = this.props;
+        console.log(processproducts);
         const {warehouses} = this.props;
         const {processedproductcomponents} = this.props;
         const {inventorycategories} = this.props;
@@ -171,7 +172,7 @@ export class ProcessedproductForm extends Component{
         let ProcessedProductComponent = processedproductcomponents.length > 0
             && processedproductcomponents.map((item, index) => {
                 return (
-                    <option key={item.id } value={item.id}>{item.pricing_method}</option>
+                    <option key={item.id } value={item.id}>{item.sku}</option>
                 )
             }, this);
 

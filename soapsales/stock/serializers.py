@@ -43,19 +43,30 @@ class ProcessedProductCreateUpdateSerializer(serializers.ModelSerializer):
 class ProcessedProductListSerializer(serializers.ModelSerializer):
     """ Serializer for a StockItem
     """
+    product = StringSerializer()
+    location = StringSerializer()
+    product_component = StringSerializer()
+    unit = StringSerializer()
+
+
+
 
     class Meta:
         model = ProcessedProduct
         fields = [
-              'product',
-              'location',
-              'quantity',
-              'status',
-              'product_component',
-              'unit',
-              'minimum_order_level',
-              'maximum_stock_level'
+            'id',
+            'product',
+            'location',
+            'quantity',
+            'status',
+            'product_component',
+            'unit',
+            'minimum_order_level',
+            'maximum_stock_level'
         ]
+
+    def get_status(self, obj):
+        return obj.get_status_display()
 
 
 class ProcessedProductDetailSerializer(serializers.ModelSerializer):
@@ -97,7 +108,7 @@ class ProcessedProductComponentSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = ProcessedProductComponent
-    fields = '__all__'
+    fields = ['id', 'pricing_method', 'sku']
 
 
 

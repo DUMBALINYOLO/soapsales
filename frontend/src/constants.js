@@ -33,6 +33,7 @@ export const processgroupURL= `${endpoint}/manufacture/process-machine-group/`
 export const processmachineURL= `${endpoint}/manufacture/process-machines/`
 export const processrateURL= `${endpoint}/manufacture/process-rates/`
 export const productLineComponentURL= `${endpoint}/sales/productlinecomponents/`
+
 export const productsURL= `${endpoint}/manufacture/products/`
 export const salesrepURL= `${endpoint}/sales/sales-reps/`
 export const transactionURL= `${endpoint}/accounting/transactions/`

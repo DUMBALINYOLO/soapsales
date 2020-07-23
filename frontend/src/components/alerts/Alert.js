@@ -29,7 +29,35 @@ export class Alerts extends Component {
       if (error.msg.debit_account) alert.error(`Debit-Account: ${error.msg.debit_account.join()}`);
       if (error.msg.amount) alert.error(`Amount: ${error.msg.amount.join()}`);
       if (error.msg.reference) alert.error(`Reference: ${error.msg.reference.join()}`);
-
+      if (error.msg.pricing_method) alert.error(`Pricing-Method: ${error.msg.pricing_method.join()}`);
+      if (error.msg.direct_price) alert.error(`DirectPrice: ${error.msg.direct_price.join()}`);
+      if (error.msg.margin) alert.error(`Margin: ${error.msg.margin.join()}`);
+      if (error.msg.markup) alert.error(`Markup: ${error.msg.markup.join()}`);
+      if (error.msg.sku) alert.error(`SKU: ${error.msg.sku.join()}`);
+      if (error.msg.quantity) alert.error(`Quantity: ${error.msg.quantity.join()}`);
+      if (error.msg.product) alert.error(`Product: ${error.msg.product.join()}`);
+      if (error.msg.review_needed) alert.error(`Reviewed-Needed: ${error.msg.review_needed.join()}`);
+      if (error.msg.category) alert.error(`Category: ${error.msg.category.join()}`);
+      if (error.msg.location) alert.error(`Location: ${error.msg.location.join()}`);
+      if (error.msg.updated) alert.error(`Updated: ${error.msg.updated.join()}`);
+      if (error.msg.status) alert.error(`Status: ${error.msg.status.join()}`);
+      if (error.msg.notes) alert.error(`NOTES: ${error.msg.notes.join()}`);
+      if (error.msg.product_component) alert.error(`PRODUCT-COMPONENT: ${error.msg.product_component.join()}`);
+      if (error.msg.minimum_order_level) alert.error(`MANIMUM-ORDER-LEVEL: ${error.msg.minimum_order_level.join()}`);
+      if (error.msg.maximum_stock_level) alert.error(`MAXIMUM-STOCK-LEVEL: ${error.msg.maximum_stock_leve.join()}`);
+      if (error.msg.lines) alert.error(`LINES: ${error.msg.lines.join()}`);
+      if (error.msg.customer) alert.error(`CUSTOMER: ${error.msg.customer.join()}`);
+      if (error.msg.purchase_order_number) alert.error(`PURCHASE-ORDER-NUMBER: ${error.msg.purchase_order_number.join()}`);
+      if (error.msg.invoice_validated_by) alert.error(`INVOICE-VALIDATOR: ${error.msg.invoice_validated_by.join()}`);
+      if (error.msg.draft) alert.error(`Draft: ${error.msg.draft.join()}`);
+      if (error.msg.sales_person) alert.error(`SALES PERSON: ${error.msg.sales_person.join()}`);
+      if (error.msg.terms) alert.error(`TERMS: ${error.msg.terms.join()}`);
+      if (error.msg.comments) alert.error(`COMMENTS: ${error.msg.comments.join()}`);
+      if (error.msg.ship_from) alert.error(`SHIP FROM: ${error.msg.ship_from.join()}`);
+      if (error.msg.lines.line_type) alert.error(`LINE TYPE: ${error.msg.lines.line_type.join()}`);
+      if (error.msg.lines.tax) alert.error(`Tax: ${error.msg.lines.tax.join()}`);
+      if (error.msg.lines.product) alert.error(`Product: ${error.msg.lines.product.join()}`);
+      if (error.msg.lines.discount) alert.error(`Discount: ${error.msg.lines.discount.join()}`);
       if (error.msg.non_field_errors) alert.error(error.msg.non_field_errors.join());
     }
 

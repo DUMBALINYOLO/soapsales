@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { GET_PROCESSEDPRODUCTS, GET_PROCESSEDPRODUCT, DELETE_PROCESSEDPRODUCT, ADD_PROCESSEDPRODUCT } from '../types/processedproductsTypes';
 import { processedproductURL } from '../constants';
+import {createMessage} from "./messages";
+import {GET_ERRORS} from "./types"
+
 
 
 // Get
@@ -29,13 +32,23 @@ export const deleteProcessedproduct = (id) => dispatch => {
 
 // Add
 export const addProcessedproduct = (processedproduct) => dispatch => {
-    axios.post(processedproductURL)
+    axios.post(processedproductURL, processedproduct)
         .then(res => {
             dispatch({
                 type: ADD_PROCESSEDPRODUCT,
                 payload: res.data
             });
-        }).catch(err => console.log(err))
+        }).catch(err =>{
+            const errors = {
+                msg: err.response.data,
+                status: err.response.status
+
+        }
+        dispatch({
+            type: GET_ERRORS,
+            payload: errors
+        });
+    });
 }
 
 export const getProcessedproduct = id => dispatch =>{

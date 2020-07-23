@@ -22,7 +22,7 @@ router.register(r'invoicelines', InvoiceLineViewSet)
 router.register(r'sales-reps', SalesRepresentativeViewSet)
 router.register(r'invoices', InvoiceViewSet, basename='invoices')
 router.register(r'quotations', QuotationViewSet, basename='quotations')
-router.register(r'productlinecomponent', ProductLineComponentViewSet)
+router.register(r'productlinecomponents', ProductLineComponentViewSet)
 
 
 

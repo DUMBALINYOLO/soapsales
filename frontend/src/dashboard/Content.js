@@ -440,7 +440,7 @@ class Content extends Component {
                     {
                         label: 'Processed Products', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: './processproducts/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: './processproducts'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 
@@ -508,7 +508,7 @@ class Content extends Component {
                     {
                         label: 'Invoices', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/invoices/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/invoices'},
                             {label: 'Details', icon: 'pi pi-fw pi-bookmark'},
 

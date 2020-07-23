@@ -103,7 +103,8 @@ export class InvoiceForm extends Component{
           terms,
           comments,
           ship_from,
-          draft
+          draft,
+          lines
 
       } = this.state;
 
@@ -118,6 +119,7 @@ export class InvoiceForm extends Component{
           comments,
           ship_from,
           draft,
+          lines,
       };
 
       this.props.addInvoice(invoice);
@@ -246,6 +248,7 @@ export class InvoiceForm extends Component{
                     name="due"
                     onChange={this.onChange}
                     value={due}
+                    dateFormat="yy-mm-dd"
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-6">

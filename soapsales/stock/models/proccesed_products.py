@@ -5,6 +5,7 @@ from django.core.validators import MinValueValidator
 from django.contrib.auth.models import User
 from simple_history.models import HistoricalRecords
 from datetime import datetime
+from inventory.models import WareHouse, WareHouseItem
 from basedata.const import (
         PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES,
     )
@@ -93,9 +94,6 @@ class ProcessedProductComponent(models.Model):
                                 blank = True,
                                 on_delete=models.SET_NULL
                             )
-    direct_price = models.DecimalField(max_digits=16, decimal_places=2)
-    margin = models.DecimalField(max_digits=16, decimal_places=2, default=0)
-    markup = models.DecimalField(max_digits=16, decimal_places=2, default=0)
     sku = models.CharField(max_length=16, blank=True)
 
 

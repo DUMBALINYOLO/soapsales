@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { GET_PROCESSEDPRODUCTCOMPONENTS, GET_PROCESSEDPRODUCTCOMPONENT, DELETE_PROCESSEDPRODUCTCOMPONENT, ADD_PROCESSEDPRODUCTCOMPONENT } from '../types/processedproductcomponentTypes';
 import { processedproductcomponentURL } from '../constants';
-
+import {createMessage} from "./messages";
+import {GET_ERRORS} from "./types"
 
 // Get
 export const getProcessedproductcomponents = () => dispatch => {
@@ -29,14 +30,25 @@ export const deleteProcessedproductcomponent = (id) => dispatch => {
 
 // Add
 export const addProcessedproductcomponent = (processedproductcomponent) => dispatch => {
-    axios.post(processedproductcomponentURL)
+    axios.post(processedproductcomponentURL, processedproductcomponent)
         .then(res => {
             dispatch({
                 type: ADD_PROCESSEDPRODUCTCOMPONENT,
                 payload: res.data
             });
-        }).catch(err => console.log(err))
+        }).catch(err =>{
+            const errors = {
+                msg: err.response.data,
+                status: err.response.status
+
+        }
+        dispatch({
+            type: GET_ERRORS,
+            payload: errors
+        });
+    });
 }
+
 
 export const getProcessedproductcomponent = id => dispatch =>{
       axios.get(`http://127.0.0.1:8000/api/stock/processed-product-components/${id}`)
