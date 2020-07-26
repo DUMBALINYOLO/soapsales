@@ -65,17 +65,7 @@ export const addAccount = (account) => dispatch => {
                 type: ADD_ACCOUNT,
                 payload: res.data
             });
-        }).catch(err =>{
-            const errors = {
-                msg: err.response.data,
-                status: err.response.status
-
-        }
-        dispatch({
-            type: GET_ERRORS,
-            payload: errors
-        });
-    });
+        }).catch(err => console.log(err))
 }
 
 

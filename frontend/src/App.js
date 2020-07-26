@@ -20,8 +20,6 @@ import TaxForm from './components/taxes/TaxForm';
 //import TaxDetail from './components/taxes/TaxDetail';
 
 
-
-
 import Currencies from './components/currencies/Currencies';
 import CurrencyForm from './components/currencies/CurrencyForm';
 import CurrencyDetail from './components/currencies/CurrencyDetail';
@@ -344,7 +342,7 @@ class App extends Component {
 
 							<Route exact path='/accounts' component={Accounts} />
 							<Route exact path='/account-detail/:id' component={AccountDetail} />
-							<Route exact path='/account-form' component={AccountForm} />
+							<Route exact path='/accounts/create' component={AccountForm} />
 
 							<Route exact path='/accountingConfig' component={AccountingConfig} />
 							<Route exact path='/accountingConfig-form' component={AccountingConfigForm} />

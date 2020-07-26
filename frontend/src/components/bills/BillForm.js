@@ -24,12 +24,11 @@ class BillForm extends Component {
   constructor(props){
     super(props);
     this.state = {
-      vendor: '',
+      vendor: null,
       date: '',
       reference: '',
       due: '',
       memo: '',
-      vendors: [],
       formData: {},
       lines: [{ index: Math.random(), debit_account: "", amount: '' }],
   
@@ -39,7 +38,12 @@ class BillForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.addNewRow = this.addNewRow.bind(this);
     this.deleteRow = this.deleteRow.bind(this);
+    this.onVendor = this.onVendor.bind(this);
   }
+
+  onVendor (e){
+      this.setState({vendor: e.value})
+    }
 
   handleChange = (e) => {
     if (["debit_account", "amount"].includes(e.target.name)) {
@@ -135,18 +139,7 @@ class BillForm extends Component {
 
     let { lines } = this.state
 
-    const { suppliers } = this.props;
-
-    console.log(suppliers)
-
-
-    let vendors = suppliers.length > 0
-      && suppliers.map((item, i) => {
-      return (
-        <option key={i} value={item.id}>{item.name}</option>
-      )
-    }, this);
- 
+    const { suppliers } = this.props; 
 
     return (
       <div className="card card-body mt-4 mb-4">
@@ -197,13 +190,17 @@ class BillForm extends Component {
               />
             </div>
             <div className="p-field p-col-12 p-md-6">
-              <select
-                name ='vendor'
+              <Dropdown 
+                placeholder ="SELECT VENDOR"
                 value={vendor}
-                onChange={this.onChange}
-              >
-                {vendors}
-              </select>
+                onChange={this.onVendor}
+                options={suppliers}
+                filter={true} 
+                filterBy="id,name" 
+                showClear={true}
+                optionLabel="name" 
+                optionValue="id"
+              />
             </div>
             <div className="p-field p-col-12 p-md-6">
               <Button label="Submit" className="p-button-success p-button-rounded" />

@@ -12,49 +12,47 @@ import {Dropdown} from 'primereact/dropdown';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
-
+import {Checkbox} from 'primereact/checkbox';
 
 
 class AccountForm extends Component{
     constructor(props){
         super(props);
         this.state = {
-            account_type: '',
+            account_type: null,
             name: '',
             description: '',
             initial_balance: '',
-            is_active: true,
-            is_contra: true,
+            is_active: false,
+            is_contra: false,
             order: '',
       }
 
       this.onChange = this.onChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
-      this.handleContra = this.handleContra.bind(this);
-      this.handleActive = this.handleActive.bind(this);
+      this.onTypeChange = this.onTypeChange.bind(this);
+      this.onContra = this.onContra.bind(this);
+      this.onActive = this.onActive.bind(this)
     }
 
+    onContra() {
+      this.setState({
+        is_contra: !this.state.checked
+      });
+    }
+
+    onActive() {
+      this.setState({
+        is_active: !this.state.checked
+      });
+    }
+
+    onTypeChange (e){
+      this.setState({account_type: e.value})
+    } 
+    
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
-    handleContra(event) {
-      const target = event.target;
-      const value = target.name === 'is_contra' ? target.checked : target.value;
-      const name = target.name;
-
-      this.setState({
-        [name]: value
-      });
-    }
-
-    handleActive(event) {
-      const target = event.target;
-      const value = target.name === 'is_active' ? target.checked : target.value;
-      const name = target.name;
-
-      this.setState({
-        [name]: value
-      });
-    }
 
     onSubmit = (e) => {
       e.preventDefault();
@@ -115,12 +113,6 @@ class AccountForm extends Component{
         const { inputValue } = this.state;
         
         const {accounttypes} = this.props;
-        let typesOptions = accounttypes.length > 0
-            && accounttypes.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -161,25 +153,23 @@ class AccountForm extends Component{
                       value={description}
                     />
                   </div>
-
-                  <label>
-                      Is Contra:
-                      <input
-                        name="is_contra"
-                        type="checkbox"
-                        checked={this.state.is_contra}
-                        onChange={this.handleContra} />
-                    </label>
-                    <label>
-                        Is Active:
-                        <input
-                          name="is_active"
-                          type="checkbox"
-                          checked={this.state.is_active}
-                          onChange={this.handleActive} />
-                    </label>
-
-                    <div className="p-field p-col-12 p-md-12">
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>IS CONTRA :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.onContra}
+                      checked={this.state.is_contra}
+                    />                        
+                  </div>
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>IS ACTIVE :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.onActive}
+                      checked={this.state.is_active}
+                    /> 
+                  </div>
+                  <div className="p-field p-col-12 p-md-12">
                     <label>Order</label>
                     <InputText
                       className="form-control"
@@ -189,14 +179,18 @@ class AccountForm extends Component{
                       value={order}
                     />
                   </div>
-                  <div className="p-field p-col-12 p-md-4">
-                    <select
-                        name="account_type"
-                        value={account_type}
-                        onChange={this.onChange}
-                    >
-                        {typesOptions}
-                    </select>
+                  <div className="p-field p-col-12 p-md-6">
+                    <Dropdown 
+                      placeholder ="SELECT ACCOUNT TYPE"
+                      value={account_type}
+                      onChange={this.onTypeChange}
+                      options={accounttypes}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="name" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />
