@@ -9,6 +9,7 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
+import {Dropdown} from 'primereact/dropdown';
 
 
 export class ProcessedproductcomponentForm extends Component{
@@ -16,11 +17,15 @@ export class ProcessedproductcomponentForm extends Component{
         super(props);
         this.state = {
             sku: '',
-            pricing_method: '',
-            salesGroup: [],
+            pricing_method: null,
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onTypeChange = this.onTypeChange.bind(this);
+    }
+    
+    onTypeChange (e){
+      this.setState({pricing_method: e.value})
     }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -52,19 +57,12 @@ export class ProcessedproductcomponentForm extends Component{
 
         const {pricinggroups} = this.props;
 
-        let salesGroup = pricinggroups.length > 0
-            && pricinggroups.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Processed Product Component </h2>
               <form onSubmit={this.onSubmit}>
               <div className="p-fluid p-formgrid p-grid">
-                <div className="p-field p-col-12 p-md-12">
+                <div className="p-field p-col-12 p-md-6">
                   <label>SKU</label>
                   <InputText
                     className="form-control"
@@ -74,16 +72,18 @@ export class ProcessedproductcomponentForm extends Component{
                     value={sku}
                   />
                 </div>
-                
-                <div className="p-field p-col-12 p-md-12">
-                    <label>PRICING METHOD</label>
-                    <select
-                        name="pricing_method"
-                        value={pricing_method}
-                        onChange={this.onChange}
-                    >
-                        {salesGroup}
-                    </select>
+                <div className="p-field p-col-12 p-md-6">
+                  <Dropdown 
+                    placeholder ="SELECT PRICING METHOD"
+                    value={pricing_method}
+                    onChange={this.onTypeChange}
+                    options={pricinggroups}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />

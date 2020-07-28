@@ -3,17 +3,34 @@ import { connect } from 'react-redux';
 import { addEquipmentcomponent } from '../../actions/equipmentcomponents';
 import { getProductComponentPricingChoices } from '..//../actions/choices';
 import PropTypes from 'prop-types';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import {InputText} from 'primereact/inputtext';
+import {Button} from 'primereact/button';
+import {InputNumber} from 'primereact/inputnumber';
+import {Dropdown} from 'primereact/dropdown';
 
 export class EquipmentcomponentForm extends Component{
-    state = {
+  constructor(props){
+      super(props);
+      this.state = {        
         direct_price: '',
         margin: '',
         markup: '',
         sku: '',
-        pricing_method: '',
-        pricing: [],
+        pricing_method: null,
+      }
+
+      this.onChange = this.onChange.bind(this);
+      this.onSubmit = this.onSubmit.bind(this);
+      this.onTypeChange = this.onTypeChange.bind(this);
     }
 
+    onTypeChange (e){
+      this.setState({pricing_method: e.value})
+    } 
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -22,6 +39,15 @@ export class EquipmentcomponentForm extends Component{
       const { direct_price, margin, markup, sku, pricing_method } = this.state;
       const equipmentcomponent = { direct_price, margin, markup, sku, pricing_method };
       this.props.addEquipmentcomponent(equipmentcomponent);
+      this.setState({
+          direct_price: '',
+          margin: '',
+          markup: '',
+          sku: '',
+          pricing_method: '',
+
+        });
+      this.props.history.push('/equipmentcomponents');
     };
 
     static propTypes = {
@@ -37,73 +63,88 @@ export class EquipmentcomponentForm extends Component{
         const { direct_price, margin, markup, sku, pricing_method } = this.state;
 
         const {productcomponentpricingchoices} = this.props;
-        console.log(productcomponentpricingchoices)
-
-        let pricing = productcomponentpricingchoices.length > 0
-            && productcomponentpricingchoices.map((item, index) => {
-                return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
-                )
-            }, this);
 
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Equipment Component </h2>
               <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <label>Direct Price</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="direct price"
+                <div className="p-fluid p-formgrid p-grid">
+                <div className="p-field p-col-12 p-md-6">
+                  <label>DIRECT PRICE</label>
+                  <InputNumber
+                    name="direct_price"
                     onChange={this.onChange}
                     value={direct_price}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
                   />
                 </div>
-                <div className="form-group">
-                  <label>Margin</label>
-                  <input
-                    className="form-control"
-                    type="text"
+                <div className="p-field p-col-12 p-md-6">
+                  <label>MARGIN</label>
+                  <InputNumber
                     name="margin"
                     onChange={this.onChange}
                     value={margin}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
                   />
                 </div>
-                <div className="form-group">
-                  <label>Markup</label>
-                  <input
-                    className="form-control"
-                    type="text"
+                <div className="p-field p-col-12 p-md-6">
+                  <label>MARKUP</label>
+                  <InputNumber
                     name="markup"
                     onChange={this.onChange}
                     value={markup}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
                   />
                 </div>
-                <div className="form-group">
-                  <label>Sku</label>
-                  <input
-                    className="form-control"
-                    type="text"
+                <div className="p-field p-col-12 p-md-6">
+                  <label>SKU</label>
+                  <InputNumber
                     name="sku"
                     onChange={this.onChange}
                     value={sku}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-4">
-                    <select
-                        name="pricing_method"
-                        value={pricing_method}
-                        onChange={this.onChange}
-                    >
-                        {pricing}
-                    </select>
+                <div className="p-field p-col-12 p-md-6">
+                  <Dropdown 
+                    placeholder ="SELECT PRICING METHODS"
+                    value={pricing_method}
+                    onChange={this.onTypeChange}
+                    options={productcomponentpricingchoices}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="value" 
+                    optionValue="key"
+                  />
                 </div>
-
-                <div className="form-group">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
+                <div className="p-field p-col-12 p-md-6">
+                    <Button label="Submit" className="p-button-success p-button-rounded" />
+                  </div>
                 </div>
              </form>
          </div>

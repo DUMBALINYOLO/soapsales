@@ -10,6 +10,7 @@ import {InputTextarea} from 'primereact/inputtextarea';
 import { addProcessMachine } from '../../actions/processMachines';
 import PropTypes from 'prop-types';
 import { getProcessGroups} from '..//../actions/processGroups';
+import {Dropdown} from 'primereact/dropdown';
 
 
 export class ProcessMachineForm extends Component{
@@ -18,14 +19,16 @@ export class ProcessMachineForm extends Component{
     this.state = {
         name: '',
         description: '',
-        machine_group: '',
-        processMachineGroups:  [],
+        machine_group: null,
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onTypeChange = this.onTypeChange.bind(this);
   }
 
-
+    onTypeChange (e){
+      this.setState({machine_group: e.value})
+    } 
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -59,14 +62,6 @@ export class ProcessMachineForm extends Component{
 
         const  { processgroups } = this.props;
 
-        let processMachineGroups = processgroups.length > 0
-          && processgroups.map((item, index) => {
-              return (
-                  <option key={item.id } value={item.id}>{item.name}</option>
-              )
-          }, this);
-
-
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Process Machines</h2>
@@ -75,33 +70,33 @@ export class ProcessMachineForm extends Component{
                   <div className="p-field p-col-12 p-md-12">
                     <label>Name</label>
                     <InputText
-                      className="form-control"
-                      type="text"
                       name="name"
                       onChange={this.onChange}
                       value={name}
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-12">
+                    <Dropdown 
+                      placeholder ="SELECT MACHINE GROUP"
+                      value={machine_group}
+                      onChange={this.onTypeChange}
+                      options={processgroups}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="username" 
+                      optionValue="id"
+                    />
+                  </div>
+
+                  <div className="p-field p-col-12 p-md-12">
                     <label>Description</label>
                     <InputTextarea
                       rows={3}
-                      className="form-control"
-                      type="text"
                       name="description"
                       onChange={this.onChange}
                       value={description}
                     />
-                  </div>
-                  <div className="p-field p-col-12 p-md-12">
-                      <label>MACHINE GROUP</label>
-                      <select
-                          name="machine_group"
-                          value={machine_group}
-                          onChange={this.onChange}
-                      >
-                          {processMachineGroups}
-                      </select>
                   </div>
                   
                   <div className="p-field p-col-12 p-md-6">

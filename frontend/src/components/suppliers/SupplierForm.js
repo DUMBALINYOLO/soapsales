@@ -6,20 +6,18 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import {Dropdown} from 'primereact/dropdown';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
-
-
+import {Checkbox} from 'primereact/checkbox';
 
 class SupplierForm extends Component{
     constructor(props){
         super(props);
         this.state = {
             name: '',
-            is_organization: true,
-            is_individual: true,
+            is_organization: false,
+            is_individual: false,
             business_address: '',
             website: '',
             bp_number: '', 
@@ -37,23 +35,15 @@ class SupplierForm extends Component{
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
-    handleIsOrganization(event) {
-      const target = event.target;
-      const value = target.name === 'is_organization' ? target.checked : target.value;
-      const name = target.name;
-
+    handleIsOrganization() {
       this.setState({
-        [name]: value
+        is_organization: !this.state.checked
       });
     }
 
-    handleIsIndividual(event) {
-      const target = event.target;
-      const value = target.name === 'is_individual' ? target.checked : target.value;
-      const name = target.name;
-
+    handleIsIndividual() {
       this.setState({
-        [name]: value
+        is_individual: !this.state.checked
       });
     }
 
@@ -181,27 +171,22 @@ class SupplierForm extends Component{
                       value={business_address}
                     />
                   </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>
-                        Is Organization:
-                        <input
-                          name="is_organization"
-                          type="checkbox"
-                          checked={this.state.is_organization}
-                          onChange={this.handleIsOrganization} />
-                      </label>
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>IS ORGANIZATION :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.handleIsOrganization}
+                      checked={this.state.is_organization}
+                    /> 
                   </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>
-                        Is Indvidual:
-                        <input
-                          name="is_individual"
-                          type="checkbox"
-                          checked={this.state.is_individual}
-                          onChange={this.handleIsIndividual} />
-                      </label>
-                  </div>
-                    
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>IS INDIVIDUAL :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.handleIsIndividual}
+                      checked={this.state.is_individual}
+                    /> 
+                  </div>    
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />
                   </div>
@@ -211,8 +196,5 @@ class SupplierForm extends Component{
         );
     }
 }
-
-
-
 
 export default connect(null, { addSupplier})(SupplierForm);

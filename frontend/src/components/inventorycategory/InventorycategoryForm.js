@@ -9,6 +9,8 @@ import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {Button} from 'primereact/button';
+import {Dropdown} from 'primereact/dropdown';
+
 
 export class InventorycategoryForm extends Component{
     constructor(props){
@@ -16,16 +18,17 @@ export class InventorycategoryForm extends Component{
             this.state = {
                 name: '',
                 description: '',
-                parent: '',
-                parents: [],
+                parent: null,
         }
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onTypeChange = this.onTypeChange.bind(this);
     }
 
-
-
+    onTypeChange (e){
+      this.setState({parent: e.value})
+    } 
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -76,14 +79,6 @@ export class InventorycategoryForm extends Component{
 
         const {inventorycategories} = this.props;
 
-
-        let parents = inventorycategories.length > 0
-            && inventorycategories.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add An Inventory Category</h2>
@@ -110,16 +105,19 @@ export class InventorycategoryForm extends Component{
                     value={description}
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-12">
-                    <label>PARENT</label>
-                    <select
-                        name="parent"
-                        value={parent}
-                        onChange={this.onChange}
-                    >
-                        {parents}
-                    </select>
-                  </div>
+                <div className="p-field p-col-12 p-md-6">
+                  <Dropdown 
+                    placeholder ="SELECT PARENT"
+                    value={parent}
+                    onChange={this.onTypeChange}
+                    options={inventorycategories}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
+                </div>
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />
                 </div>

@@ -17,42 +17,67 @@ import { getWarehouses } from '..//../actions/warehouses';
 import { getInventorycategories } from '..//../actions/inventorycategory';
 import { getProcessedproductcomponents } from '../../actions/processedproductcomponents';
 import PropTypes from 'prop-types';
+import {Dropdown} from 'primereact/dropdown';
+import {Checkbox} from 'primereact/checkbox';
+
+
 
 export class ProcessedproductForm extends Component{
     constructor(props){
         super(props);
             this.state = {
-                category: '',
-                product: '',
-                location: '',
+                category: null,
+                product: null,
+                location: null,
                 quantity: '',
-                status: '',
-                product_component: '',
-                unit: '',
+                status: null,
+                product_component: null,
+                unit: null,
                 updated: '',
-                review_needed: true,
+                review_needed: false,
                 minimum_order_level: '',
                 maximum_stock_level: '',
                 notes: '',
-                ProcessedProductList: [],
-                wahouseList: [],
-                statuses: [],
-                ProcessedProductComponent: [],
-                unitOfMeasure: [],
-                inventoryCategory: []
+
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleReviewNeeded = this.handleReviewNeeded.bind(this);
+        this.onCategory = this.onCategory.bind(this);
+        this.onProduct = this.onProduct.bind(this);
+        this.onLocation = this.onLocation.bind(this);
+        this.onStatus = this.onStatus.bind(this);
+        this.onProductComponent = this.onProductComponent.bind(this);
+        this.onUnit = this.onUnit.bind(this);
     }
 
-    handleReviewNeeded(event) {
-      const target = event.target;
-      const value = target.name === 'review_needed' ? target.checked : target.value;
-      const name = target.name;
+    onCategory (e){
+      this.setState({category: e.value})
+    }
+    
+    onProduct (e){
+      this.setState({product: e.value})
+    }
+    
+    onLocation (e){
+      this.setState({location: e.value})
+    }
 
+    onStatus (e){
+      this.setState({status: e.value})
+    }
+
+    onProductComponent (e){
+      this.setState({product_component: e.value})
+    }
+
+    onUnit (e){
+      this.setState({unit: e.value})
+    }
+
+    handleReviewNeeded() {
       this.setState({
-        [name]: value
+        review_needed: !this.state.checked
       });
     }
 
@@ -143,52 +168,9 @@ export class ProcessedproductForm extends Component{
         const {processedproductstockstatuschoices} = this.props;
         const {unitmeasures} = this.props;
         const {processproducts} = this.props;
-        console.log(processproducts);
         const {warehouses} = this.props;
         const {processedproductcomponents} = this.props;
         const {inventorycategories} = this.props;
-
-        let statuses = processedproductstockstatuschoices.length > 0
-            && processedproductstockstatuschoices.map((item, index) => {
-                return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
-                )
-            }, this);
-
-        let ProcessedProductList = processproducts.length > 0
-            && processproducts.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-        let warehouseList = warehouses.length > 0
-            && warehouses.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-        let ProcessedProductComponent = processedproductcomponents.length > 0
-            && processedproductcomponents.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.sku}</option>
-                )
-            }, this);
-
-        let unitOfMeasure = unitmeasures.length > 0
-            && unitmeasures.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-        let inventoryCategory = inventorycategories.length > 0
-            && inventorycategories.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -258,75 +240,91 @@ export class ProcessedproductForm extends Component{
                     dateFormat="yy-mm-dd"
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-12">
-                    <label>
-                        REVIEW NEEDED:
-                        <input
-                          name="is_contra"
-                          type="checkbox"
-                          checked={this.state.is_contra}
-                          onChange={this.handleContra} />
-                    </label>
+                <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                  <label>REVIEW NEEDED :</label>
+                  <Checkbox
+                    inputId="working"
+                    onChange={this.handleReviewNeeded}
+                    checked={this.state.review_needed}
+                  /> 
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                    <label>PRODUCT</label>
-                    <select
-                        name="product"
-                        value={product}
-                        onChange={this.onChange}
-                    >
-                        {ProcessedProductList}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT PRODUCT"
+                    value={product}
+                    onChange={this.onProduct}
+                    options={processproducts}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                    <label>LOCATION</label>
-                    <select
-                        name="location"
-                        value={location}
-                        onChange={this.onChange}
-                    >
-                        {warehouseList}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT LOCATION"
+                    value={location}
+                    onChange={this.onLocation}
+                    options={warehouses}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                    <label>STATUS</label>
-                    <select
-                        name="status"
-                        value={status}
-                        onChange={this.onChange}
-                    >
-                        {statuses}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT STATUS"
+                    value={status}
+                    onChange={this.onStatus}
+                    options={processedproductstockstatuschoices}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="value" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                    <label>PRODUCT COMPONENT</label>
-                    <select
-                        name="product_component"
-                        value={product_component}
-                        onChange={this.onChange}
-                    >
-                        {ProcessedProductComponent}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT PRODUCT COMPONENT"
+                    value={product_component}
+                    onChange={this.onProductComponent}
+                    options={processedproductcomponents}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="sku" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                    <label>UNIT</label>
-                    <select
-                        name="unit"
-                        value={unit}
-                        onChange={this.onChange}
-                    >
-                        {unitOfMeasure}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT UNIT"
+                    value={unit}
+                    onChange={this.onUnit}
+                    options={unitmeasures}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                    <label>CATEGORY</label>
-                    <select
-                        name="category"
-                        value={category}
-                        onChange={this.onChange}
-                    >
-                        {inventoryCategory}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT CATEGORY"
+                    value={category}
+                    onChange={this.onCategory}
+                    options={inventorycategories}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />

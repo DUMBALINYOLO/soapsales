@@ -7,6 +7,8 @@ import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
+import {Checkbox} from 'primereact/checkbox';
+import {Dropdown} from 'primereact/dropdown';
 import { addProcessproduct } from '../../actions/processproducts';
 import { getManufacturingProductTypeChoices } from '..//../actions/choices';
 import { getInventoryitems } from '..//../actions/inventoryitems';
@@ -17,33 +19,46 @@ import PropTypes from 'prop-types';
 export class ProcessproductForm extends Component{
     constructor(props){
         super(props);
-            this.state = {
-                name: '',
-                description: '',
-                type: '',
-                unit: '',
-                finished_goods: true,
-                inventory_product:'',
-                product_list: '',
-                types: [],
-                inventoryItems: [],
-                productList: [],
-                unitOfMeasure: []
+        this.state = {
+            name: '',
+            description: '',
+            type: null,
+            unit: null,
+            finished_goods: false,
+            inventory_product: null,
+            product_list: null,
+
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleFinished = this.handleFinished.bind(this);
+        this.onType = this.onType.bind(this);
+        this.onUnit = this.onUnit.bind(this);
+        this.onInventoryProduct = this.onInventoryProduct.bind(this);
+        this.onProductList = this.onProductList.bind(this);
     }
 
-    handleFinished(event) {
-      const target = event.target;
-      const value = target.name === 'finished_goods' ? target.checked : target.value;
-      const name = target.name;
-
+    handleFinished() {
       this.setState({
-        [name]: value
+        finished_goods: !this.state.checked
       });
     }
+
+    onType (e){
+      this.setState({type: e.value})
+    } 
+
+    onUnit (e){
+      this.setState({unit: e.value})
+    } 
+
+    onInventoryProduct (e){
+      this.setState({inventory_product: e.value})
+    } 
+
+    onProductList (e){
+      this.setState({product_list: e.value})
+    } 
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -111,34 +126,6 @@ export class ProcessproductForm extends Component{
         const {products} = this.props;
         const {unitmeasures} = this.props;
 
-        let types = manufacturingproducttypechoices.length > 0
-            && manufacturingproducttypechoices.map((item, index) => {
-                return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
-                )
-            }, this);
-
-        let inventoryItems = inventoryitems.length > 0
-            && inventoryitems.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-        let productList = products.length > 0
-            && products.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-        let unitOfMeasure = unitmeasures.length > 0
-            && unitmeasures.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Process Product </h2>
@@ -160,55 +147,65 @@ export class ProcessproductForm extends Component{
                     value={description}
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-12">
-                    <label>
-                        Finished Goods:
-                        <input
-                          name="finished_goods"
-                          type="checkbox"
-                          checked={this.state.finished_goods}
-                          onChange={this.handleFinished} />
-                     </label>
+                <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                  <label>FINISHED GOODS :</label>
+                  <Checkbox
+                    inputId="working"
+                    onChange={this.handleFinished}
+                    checked={this.state.finished_goods}
+                  /> 
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                    <label>TYPE</label>
-                    <select
-                        name="type"
-                        value={type}
-                        onChange={this.onChange}
-                    >
-                        {types}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT TYPE"
+                    value={type}
+                    onChange={this.onType}
+                    options={manufacturingproducttypechoices}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="value" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                    <label>UNIT</label>
-                    <select
-                        name="unit"
-                        value={unit}
-                        onChange={this.onChange}
-                    >
-                        {unitOfMeasure}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT UNIT"
+                    value={unit}
+                    onChange={this.onUnit}
+                    options={unitmeasures}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                    <label>INVENTORY PRODUCT</label>
-                    <select
-                        name="inventory_product"
-                        value={inventory_product}
-                        onChange={this.onChange}
-                    >
-                        {inventoryItems}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT INVENTORY PRODUCT"
+                    value={inventory_product}
+                    onChange={this.onInventoryProduct}
+                    options={inventoryitems}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                    <label>PRODUCT LIST</label>
-                    <select
-                        name="product_list"
-                        value={product_list}
-                        onChange={this.onChange}
-                    >
-                        {productList}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT PRODUCT LIST"
+                    value={product_list}
+                    onChange={this.onProductList}
+                    options={products}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-12">
                   <Button label="Submit" className="p-button-success p-button-rounded" />

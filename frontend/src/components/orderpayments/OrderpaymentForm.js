@@ -11,6 +11,7 @@ import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {Calendar} from "primereact/calendar";
 import {InputNumber} from 'primereact/inputnumber';
+import {Dropdown} from 'primereact/dropdown';
 
 
 class OrderPaymentForm extends Component{
@@ -20,18 +21,19 @@ class OrderPaymentForm extends Component{
                 date: '',
                 amount: '',
                 comments: '',
-                order: '',
-                orderList: [],
+                order: null,
         }
 
       this.onChange = this.onChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
-
+      this.onTypeChange = this.onTypeChange.bind(this);
     }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
-    
+    onTypeChange (e){
+      this.setState({order: e.value})
+    }
 
     onSubmit = (e) => {
       e.preventDefault();
@@ -80,21 +82,12 @@ class OrderPaymentForm extends Component{
         
         const { orders } = this.props;
 
-
-        let orderList = orders.length > 0
-          && orders.map((item, i) => {
-
-          return (
-            <option key={i} value={item.id}>{item.id} | {item.tracking_number}</option>
-          )
-        }, this);
-
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add An Account</h2>
               <form onSubmit={this.onSubmit}>
                 <div className="p-fluid p-formgrid p-grid">
-                  <div className="p-field p-col-12 p-md-12">
+                  <div className="p-field p-col-12 p-md-6">
                     <label>DATE</label>
                     <Calendar
                       showIcon={true}
@@ -106,7 +99,7 @@ class OrderPaymentForm extends Component{
                     />
                   </div>
 
-                  <div className="p-field p-col-12 p-md-12">
+                  <div className="p-field p-col-12 p-md-6">
                     <label>AMOUNT</label>
                     <InputNumber
                       name="amount"
@@ -131,17 +124,19 @@ class OrderPaymentForm extends Component{
                       value={comments}
                     />
                   </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>ORDER</label>
-                    <select
-                      name ='order'
+                  <div className="p-field p-col-12 p-md-12">
+                    <Dropdown 
+                      placeholder ="SELECT ORDER"
                       value={order}
-                      onChange={this.onChange}
-                    >
-                      {orderList}
-                    </select>
+                      onChange={this.onTypeChange}
+                      options={orders}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="tracking_number" 
+                      optionValue="id"
+                    />
                   </div>
-
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />
                   </div>

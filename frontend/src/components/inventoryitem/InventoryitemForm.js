@@ -16,36 +16,59 @@ import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {InputNumber} from 'primereact/inputnumber';
+import {Dropdown} from 'primereact/dropdown';
 
 export class InventoryitemForm extends Component{
-    constructor(props){
-        super(props);
-            this.state = {
-                name: '',
-                type: '',
-                category: '',
-                length: '',
-                width: '',
-                height: '',
-                description: '',
-                unit: '',
-                unit_purchase_price: '',
-                supplier: '',
-                minimum_order_level: '',
-                maximum_stock_level: '',
-                equipment_component: '',
-                product_component: '',
-                types: [],
-                categories: [],
-                unitList: [],
-                supplierList: [],
-                equipmentComponents: [],
-                productComponents: []
+  constructor(props){
+      super(props);
+      this.state = {
+          name: '',
+          type: null,
+          category: null,
+          length: '',
+          width: '',
+          height: '',
+          description: '',
+          unit: null,
+          unit_purchase_price: '',
+          supplier: null,
+          minimum_order_level: '',
+          maximum_stock_level: '',
+          equipment_component: null,
+          product_component: null,
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onType = this.onType.bind(this);
+        this.onCategory = this.onCategory.bind(this);
+        this.onUnit = this.onUnit.bind(this);
+        this.onSupplier = this.onSupplier.bind(this);
+        this.onEquipmentComponent = this.onEquipmentComponent.bind(this);
+        this.onProductComponent = this.onProductComponent.bind(this);
+    }
+    onType (e){
+      this.setState({type: e.value})
     }
 
+    onCategory (e){
+      this.setState({category: e.value})
+    }
+
+    onUnit (e){
+      this.setState({unit: e.value})
+    }
+
+    onSupplier (e){
+      this.setState({supplier: e.value})
+    }
+
+    onEquipmentComponent (e){
+      this.setState({equipment_component: e.value})
+    }
+
+    onProductComponent (e){
+      this.setState({product_component: e.value})
+    }
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = (e) => {
@@ -148,58 +171,7 @@ export class InventoryitemForm extends Component{
         const {unitmeasures} = this.props;
         const {suppliers} = this.props;
         const {productcomponents} = this.props;
-        const {equipmentcomponents} = this.props;
-
-
-        let types = inventorytypechoices.length > 0
-            && inventorytypechoices.map((item, index) => {
-                return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
-                )
-            }, this);
-
-
-        let categories = inventorycategories.length > 0
-            && inventorycategories.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-
-        let unitList = unitmeasures.length > 0
-            && unitmeasures.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);     
-
-        let supplierList = suppliers.length > 0
-            && suppliers.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-       
-
-        let productComponents = productcomponents.length > 0
-            && productcomponents.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.pricing_method} || {item.sku}</option>
-                )
-            }, this);
-
-        
-
-
-        let equipmentComponents = equipmentcomponents.length > 0
-            && equipmentcomponents.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
+        const {equipmentcomponents} = this.props;    
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -216,7 +188,17 @@ export class InventoryitemForm extends Component{
                     value={name}
                   />
                 </div>
-               <div className="p-field p-col-12 p-md-6">
+                <div className="p-field p-col-12 p-md-12">
+                  <label>Description</label>
+                  <InputTextarea
+                    className="form-control"
+                    type="text"
+                    name="description"
+                    onChange={this.onChange}
+                    value={description}
+                  />
+                </div>
+                <div className="p-field p-col-12 p-md-6">
                   <label>LENGTH</label>
                   <InputNumber
                     name="length"
@@ -248,7 +230,7 @@ export class InventoryitemForm extends Component{
 
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-12">
+                <div className="p-field p-col-12 p-md-6">
                   <label>HEIGHT</label>
                   <InputNumber
                     name="height"
@@ -261,20 +243,24 @@ export class InventoryitemForm extends Component{
                     incrementButtonIcon="pi pi-plus"
                     decrementButtonIcon="pi pi-minus"
                     step={1}
-
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-12">
-                  <label>Description</label>
-                  <InputTextarea
-                    className="form-control"
-                    type="text"
-                    name="description"
+                <div className="p-field p-col-12 p-md-6">
+                  <label>MAXIMUM STOCK LEVEL</label>
+                  <InputNumber
+                    name="maximum_stock_level"
                     onChange={this.onChange}
-                    value={description}
-                  />
-                </div>
+                    value={maximum_stock_level}
+                    showButtons
+                    buttonLayout="horizontal"
+                    decrementButtonClassName="p-button-danger"
+                    incrementButtonClassName="p-button-success"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    step={1}
 
+                  />
+                </div> 
                 <div className="p-field p-col-12 p-md-6">
                   <label>UNIT PURCHASE PRICE</label>
                   <InputNumber
@@ -306,85 +292,85 @@ export class InventoryitemForm extends Component{
                     step={1}
 
                   />
-                </div>
-
-                <div className="p-field p-col-12 p-md-12">
-                  <label>MAXIMUM STOCK LEVEL</label>
-                  <InputNumber
-                    name="maximum_stock_level"
-                    onChange={this.onChange}
-                    value={maximum_stock_level}
-                    showButtons
-                    buttonLayout="horizontal"
-                    decrementButtonClassName="p-button-danger"
-                    incrementButtonClassName="p-button-success"
-                    incrementButtonIcon="pi pi-plus"
-                    decrementButtonIcon="pi pi-minus"
-                    step={1}
-
+                </div> 
+                <div className="p-field p-col-12 p-md-6">
+                  <Dropdown 
+                    placeholder ="SELECT TYPE"
+                    value={type}
+                    onChange={this.onType}
+                    options={inventorytypechoices}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="value" 
+                    optionValue="id"
                   />
-                </div>  
-                <div className="p-field p-col-12 p-md-6">
-                  <label>TYPE</label>
-                    <select
-                        name="type"
-                        value={type}
-                        onChange={this.onChange}
-                    >
-                        {types}
-                    </select>
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <label>CATEGORY</label>
-                    <select
-                        name="category"
-                        value={category}
-                        onChange={this.onChange}
-                    >
-                        {categories}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT CATEGORY"
+                    value={category}
+                    onChange={this.onCategory}
+                    options={inventorycategories}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <label>UNIT</label>
-                    <select
-                        name="unit"
-                        value={unit}
-                        onChange={this.onChange}
-                    >
-                        {unitList}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT UNIT"
+                    value={unit}
+                    onChange={this.onUnit}
+                    options={unitmeasures}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <label>SUPPLIER</label>
-                    <select
-                        name="supplier"
-                        value={supplier}
-                        onChange={this.onChange}
-                    >
-                        {supplierList}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT SUPPLIER"
+                    value={supplier}
+                    onChange={this.onSupplier}
+                    options={suppliers}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <label>EQUIPMENT COMPONENT</label>
-                    <select
-                        name="equipment_component"
-                        value={equipment_component}
-                        onChange={this.onChange}
-                    >
-                        {equipmentComponents}
-                    </select>
+                  <Dropdown 
+                    placeholder ="SELECT EQUIPMENT COMPONENT"
+                    value={equipment_component}
+                    onChange={this.onEquipmentComponent}
+                    options={equipmentcomponents}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
-                 <div className="p-field p-col-12 p-md-6">
-                  <label>PRODUCT COMPONENT</label>
-                    <select
-                        name="product_component"
-                        value={product_component}
-                        onChange={this.onChange}
-                    >
-                        {productComponents}
-                    </select>
-                </div>
-                
+                <div className="p-field p-col-12 p-md-6">
+                  <Dropdown 
+                    placeholder ="SELECT PRODUCT COMPONENT"
+                    value={product_component}
+                    onChange={this.onProductComponent}
+                    options={productcomponents}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
+                </div>                
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />
                 </div>
