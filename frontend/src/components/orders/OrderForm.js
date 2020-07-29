@@ -8,8 +8,6 @@ import { connect } from 'react-redux';
 import {Dropdown} from 'primereact/dropdown';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
-import {Checkbox} from 'primereact/checkbox';
-import {RadioButton} from 'primereact/radiobutton';
 import {InputTextarea} from 'primereact/inputtextarea';
 import { getInventorycontrollers } from '..//../actions/inventorycontrollers';
 import { getSuppliers } from '..//../actions/suppliers';
@@ -23,32 +21,24 @@ import PropTypes from 'prop-types';
 import OrderItems from './OrderItems';
 
 
-
-
 class OrderForm extends Component {
   constructor(props){
     super(props);
     this.state = {
-      validated_by: '',
+      validated_by: null,
       expected_receipt_date: '',
       date: '',
       due: '',
-      supplier: '',
+      supplier: null,
       supplier_invoice_number: '',
       bill_to: '',
-      ship_to: '',
+      ship_to: null,
       tracking_number: '',
       notes: '',
-      status: '',
-      tax: '',
+      status: null,
+      tax: null,
       received_to_date: '',
-      issuing_inventory_controller: '',
-      vendors: [],
-      locations: [],
-      statuses: [],
-      employees: [],
-      taxList: [],
-      formData: {},
+      issuing_inventory_controller: null,
       lines: [{ index: Math.random(), item: "", quantity: '', unit: '', order_price: '', received: ''}],
   
     }
@@ -57,7 +47,37 @@ class OrderForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.addNewRow = this.addNewRow.bind(this);
     this.deleteRow = this.deleteRow.bind(this);
+    this.onValidatedBy = this.onValidatedBy.bind(this);
+    this.onSupplier = this.onSupplier.bind(this);
+    this.onShipTo = this.onShipTo.bind(this);
+    this.onStatus = this.onStatus.bind(this);
+    this.onTax = this.onTax.bind(this);
+    this.onIssuingInventoryController = this.onIssuingInventoryController.bind(this);
   }
+
+  onValidatedBy (e){
+      this.setState({validated_by: e.value})
+    }
+
+  onSupplier (e){
+      this.setState({supplier: e.value})
+    }
+
+  onShipTo (e){
+      this.setState({ship_to: e.value})
+    }
+
+  onStatus (e){
+      this.setState({status: e.value})
+    }
+
+  onTax (e){
+      this.setState({tax: e.value})
+    }
+
+  onIssuingInventoryController (e){
+      this.setState({issuing_inventory_controller: e.value})
+    }
 
   handleChange = (e) => {
     if (["item", "quantity", 'unit', 'order_price', 'received'].includes(e.target.name)) {
@@ -203,46 +223,7 @@ class OrderForm extends Component {
     const { warehouses } = this.props;
     const { inventorycontrollers } = this.props;
     const { inventoryorderstatuschoices } = this.props;
-    const { taxes } = this.props;
-
-
-
-    let vendors = suppliers.length > 0
-      && suppliers.map((item, i) => {
-      return (
-        <option key={i} value={item.id}>{item.name}</option>
-      )
-    }, this);
-
-    let locations = warehouses.length > 0
-      && warehouses.map((item, i) => {
-      return (
-        <option key={i} value={item.id}>{item.name}</option>
-      )
-    }, this);
-
-     let taxList = taxes.length > 0
-    && taxes.map((item, i) => {
-    return (
-      <option key={i} value={item.id}>{item.name}</option>
-    )
-    }, this);
-
-    let statuses = inventoryorderstatuschoices.length > 0
-      && inventoryorderstatuschoices.map((item, i) => {
-      return (
-        <option key={i} value={item.key}>{item.value}</option>
-      )
-    }, this);
-
-
-    let employees = inventorycontrollers.length > 0
-      && inventorycontrollers.map((item, i) => {
-      return (
-        <option key={i} value={item.id}>{item.employee}</option>
-      )
-    }, this);
- 
+    const { taxes } = this.props; 
 
     return (
       <div className="card card-body mt-4 mb-4">
@@ -312,7 +293,7 @@ class OrderForm extends Component {
                 value={bill_to}
               />
             </div>
-            <div className="p-field p-col-12 p-md-6">
+            <div className="p-field p-col-12 p-md-12">
               <label>Received to Date</label>
               <InputNumber
                 className="form-control"
@@ -340,66 +321,83 @@ class OrderForm extends Component {
               />
             </div>
             <div className="p-field p-col-12 p-md-6">
-              <label>STATUS</label>
-              <select
-                name ='status'
+              <Dropdown 
+                placeholder ="SELECT STATUS"
                 value={status}
-                onChange={this.onChange}
-              >
-                {statuses}
-              </select>
+                onChange={this.onStatus}
+                options={inventoryorderstatuschoices}
+                filter={true} 
+                filterBy="id,name" 
+                showClear={true}
+                optionLabel="value" 
+                optionValue="id"
+              />
             </div>
             <div className="p-field p-col-12 p-md-6">
-              <label>VALIDATED BY</label>
-              <select
-                name ='validated_by'
+              <Dropdown 
+                placeholder ="SELECT VALIDATED BY"
                 value={validated_by}
-                onChange={this.onChange}
-              >
-                {employees}
-              </select>
+                onChange={this.onValidatedBy}
+                options={inventorycontrollers}
+                filter={true} 
+                filterBy="id,name" 
+                showClear={true}
+                optionLabel="employee" 
+                optionValue="id"
+              />
             </div>
             <div className="p-field p-col-12 p-md-6">
-              <label>ISSUER</label>
-              <select
-                name ='issuing_inventory_controller'
+              <Dropdown 
+                placeholder ="SELECT ISSUER"
                 value={issuing_inventory_controller}
-                onChange={this.onChange}
-              >
-                {employees}
-              </select>
+                onChange={this.onIssuingInventoryController}
+                options={inventorycontrollers}
+                filter={true} 
+                filterBy="id,name" 
+                showClear={true}
+                optionLabel="employee" 
+                optionValue="id"
+              />
             </div>
             <div className="p-field p-col-12 p-md-6">
-              <label>WAREHOUSE</label>
-              <select
-                name ='ship_to'
+              <Dropdown 
+                placeholder ="SELECT SHIP TO"
                 value={ship_to}
-                onChange={this.onChange}
-              >
-                {locations}
-              </select>
+                onChange={this.onShipTo}
+                options={warehouses}
+                filter={true} 
+                filterBy="id,name" 
+                showClear={true}
+                optionLabel="name" 
+                optionValue="id"
+              />
             </div>
             <div className="p-field p-col-12 p-md-6">
-              <label>SUPPLIER</label>
-              <select
-                name ='supplier'
+              <Dropdown 
+                placeholder ="SELECT SUPPLIER"
                 value={supplier}
-                onChange={this.onChange}
-              >
-                {vendors}
-              </select>
+                onChange={this.onSupplier}
+                options={suppliers}
+                filter={true} 
+                filterBy="id,name" 
+                showClear={true}
+                optionLabel="name" 
+                optionValue="id"
+              />
             </div>
             <div className="p-field p-col-12 p-md-6">
-              <label>TAX</label>
-              <select
-                name ='tax'
+              <Dropdown 
+                placeholder ="SELECT TAX"
                 value={tax}
-                onChange={this.onChange}
-              >
-                {taxList}
-              </select>
+                onChange={this.onTax}
+                options={taxes}
+                filter={true} 
+                filterBy="id,name" 
+                showClear={true}
+                optionLabel="name" 
+                optionValue="id"
+              />
             </div>
-
             <div className="p-field p-col-12 p-md-6">
               <Button label="Submit" className="p-button-success p-button-rounded" />
             </div>

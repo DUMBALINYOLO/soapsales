@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addJournal } from '..//../actions/journals';
 import { getJournalEntryTypeChoices } from '..//../actions/choices';
+import { getTransactions } from '..//../actions/transactions';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -9,21 +10,32 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
+import {Dropdown} from 'primereact/dropdown';
+import {InputTextarea} from 'primereact/inputtextarea';
+import {Calendar} from "primereact/calendar";
 
 export class JournalForm extends Component{
     constructor(props){
         super(props);
             this.state = {
                 date: '',
-                entry_type: '',
+                entry_type: null,
                 description: '',
-                transactions: '',
-                entry: [],
+                transaction: null,
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onTransactions = this.onTransactions.bind(this);
+        this.onEntryType = this.onEntryType.bind(this);
     }
 
+    onTransactions (e){
+      this.setState({transaction: e.value})
+    } 
+
+    onEntryType (e){
+      this.setState({entry_type: e.value})
+    } 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = (e) => {
@@ -32,17 +44,24 @@ export class JournalForm extends Component{
           date,
           entry_type,
           description,
-          transactions,
+          transaction,
       } = this.state;
 
       const journal = {
           date,
           entry_type,
           description,
-          transactions,
+          transaction,
       };
 
       this.props.addJournal(journal);
+      this.setState({
+        date: '',
+        entry_type: '',
+        description: '',
+        transaction: '',
+      });
+      this.props.history.push('/journals');
 
     };
 
@@ -60,39 +79,46 @@ export class JournalForm extends Component{
             date,
             entry_type,
             description,
-            transactions,
+            transaction,
         } = this.state;
 
         const {journalentrytypechoices} = this.props;
-        console.log(journalentrytypechoices)
-
-        let entry = journalentrytypechoices.length > 0
-            && journalentrytypechoices.map((item, index) => {
-                return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
-                )
-            }, this);
+        const { transactions } = this.props
 
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Journal</h2>
               <form onSubmit={this.onSubmit}>
               <div className="p-fluid p-formgrid p-grid">
-                <div className="p-field p-col-12 p-md-12">
-                  <label>Transactions</label>
-                  <InputText
-                    className="form-control"
-                    type="number"
-                    name="transactions"
-                    onChange={this.onChange}
-                    value={transactions}
+                <div className="p-field p-col-12 p-md-6">
+                  <Dropdown 
+                    placeholder ="SELECT ENTRY TYPE"
+                    value={entry_type}
+                    onChange={this.onEntryType}
+                    options={journalentrytypechoices}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="value" 
+                    optionValue="id"
+                  />
+                </div>
+                <div className="p-field p-col-12 p-md-6">
+                  <Dropdown 
+                    placeholder ="SELECT TRANSACTIONS"
+                    value={transaction}
+                    onChange={this.onTransactions}
+                    options={transactions}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="affected_account" 
+                    optionValue="id"
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-12">
                   <label>Description</label>
                   <InputTextarea
-                    className="form-control"
-                    type="text"
                     name="description"
                     onChange={this.onChange}
                     value={description}
@@ -100,24 +126,15 @@ export class JournalForm extends Component{
                 </div>
                 <div className="p-field p-col-12 p-md-12">
                   <label>Date</label>
-                  <InputText
+                  <Calendar
+                    showIcon={true}
                     className="form-control"
-                    type="date"
                     name="date"
                     onChange={this.onChange}
                     value={date}
+                    dateFormat="yy-mm-dd"
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-4">
-                    <select
-                        name="entry_type"
-                        value={entry_type}
-                        onChange={this.onChange}
-                    >
-                        {entry}
-                    </select>
-                </div>
-
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />
                 </div>
@@ -130,6 +147,7 @@ export class JournalForm extends Component{
 
 const mapStateToProps = state =>({
     journalentrytypechoices: state.journalentrytypechoices.journalentrytypechoices,
+    transactions: state.transactions.transactions
 })
 
-export default connect(mapStateToProps, {getJournalEntryTypeChoices, addJournal })(JournalForm);
+export default connect(mapStateToProps, {getJournalEntryTypeChoices, getTransactions, addJournal })(JournalForm);

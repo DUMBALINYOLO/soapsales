@@ -20,15 +20,10 @@ import TaxForm from './components/taxes/TaxForm';
 //import TaxDetail from './components/taxes/TaxDetail';
 
 
-
-
 import Currencies from './components/currencies/Currencies';
 import CurrencyForm from './components/currencies/CurrencyForm';
 import CurrencyDetail from './components/currencies/CurrencyDetail';
 import UpdateCurrency from './components/currencies/CurrencyUpdate';
-
-
-
 
 import Bookkeepers from './components/bookkeepers/Bookkeepers';
 import BookkeeperForm from './components/bookkeepers/BookkeeperForm';
@@ -157,6 +152,7 @@ import PrivateRoute from "./components/common/PrivateRoute";
 
 import Journals from "./components/journals/Journals";
 import JournalDetail from "./components/journals/JournalDetail";
+import JournalForm from "./components/journals/JournalForm";
 
 import BillPayments from "./components/billpayment/Billpayments";
 import BillPaymentForm from "./components/billpayment/BillpaymentForm";
@@ -303,7 +299,10 @@ class App extends Component {
 
 							<Route exact path='/mali' component={Mali} />
 							<Route exact path='/table' component={Thebuli} />
+
 							<Route exact path='/journals' component={Journals} />
+							<Route exact path='/journals/create' component={JournalForm} />
+
 							<Route exact path='/tab' component={MainTab} />
 
 							<Route exact path='/processrates' component={ProcessRates} />
@@ -344,7 +343,7 @@ class App extends Component {
 
 							<Route exact path='/accounts' component={Accounts} />
 							<Route exact path='/account-detail/:id' component={AccountDetail} />
-							<Route exact path='/account-form' component={AccountForm} />
+							<Route exact path='/accounts/create' component={AccountForm} />
 
 							<Route exact path='/accountingConfig' component={AccountingConfig} />
 							<Route exact path='/accountingConfig-form' component={AccountingConfigForm} />
@@ -388,7 +387,7 @@ class App extends Component {
 							<Route exact path='/taxes/create' component={TaxForm} />
 
 							<Route exact path='/payments' component={Payments} />
-							<Route exact path='/payment-form' component={PaymentForm} />
+							<Route exact path='/payments/create' component={PaymentForm} />
 
 							<Route exact path='/salesreps' component={Salesrep} />
 							<Route exact path='/salesreps/create' component={SalesrepForm} />
@@ -405,11 +404,11 @@ class App extends Component {
 							<Route exact path='/processedproductcomponents/create' component={ProcessedproductcomponentForm} />
 
 							<Route exact path='/productcomponents' component={Productcomponents} />
-							<Route exact path='/productcomponent-form' component={ProductcomponentForm} />
+							<Route exact path='/productcomponents/create' component={ProductcomponentForm} />
 							<Route exact path='/productcomponent-detail/:id' component={ProductcomponentDetail} />
 
 							<Route exact path='/equipmentcomponents' component={EquipmentComponents} />
-							<Route exact path='/equipmentcomponent-form' component={EquipmentComponentForm} />
+							<Route exact path='/equipmentcomponents/create' component={EquipmentComponentForm} />
 							<Route exact path='/equipmentcomponent-detail/:id' component={EquipmentComponentDetail} />
 
 							<Route exact path='/processproducts' component={Processproducts} />

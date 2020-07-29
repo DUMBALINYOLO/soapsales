@@ -9,7 +9,6 @@ import {Dropdown} from 'primereact/dropdown';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {Checkbox} from 'primereact/checkbox';
-import {RadioButton} from 'primereact/radiobutton';
 import {InputTextarea} from 'primereact/inputtextarea';
 import { getInvoices } from '..//../actions/invoices';
 import { addCreditnote } from '..//../actions/creditnotes';
@@ -18,16 +17,13 @@ import PropTypes from 'prop-types';
 import CreditNoteLines from './CreditNoteLine';
 
 
-
-
 class CreditNoteForm extends Component {
   constructor(props){
     super(props);
     this.state = {
       date: '',
-      invoice: '',
+      invoice: null,
       comments: '',
-      amainvoices: [],
       lines: [{ index: Math.random(), line: "", quantity: '' }],
   
     }
@@ -36,8 +32,12 @@ class CreditNoteForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.addNewRow = this.addNewRow.bind(this);
     this.deleteRow = this.deleteRow.bind(this);
-
+    this.onTypeChange = this.onTypeChange.bind(this);
   }
+
+  onTypeChange (e){
+      this.setState({invoice: e.value})
+    }
 
   handleChange = (e) => {
     if (["line", "quantity"].includes(e.target.name)) {
@@ -148,6 +148,7 @@ class CreditNoteForm extends Component {
                 name="date"
                 onChange={this.onChange}
                 value={date}
+                dateFormat="yy-mm-dd"
               />
             </div>
             <div className="p-field p-col-12 p-md-12">
@@ -162,14 +163,17 @@ class CreditNoteForm extends Component {
               />
             </div>
             <div className="p-field p-col-12 p-md-6">
-              <label>INVOICE</label>
-              <select
-                name ='invoice'
+              <Dropdown 
+                placeholder ="SELECT INVOICE"
                 value={invoice}
-                onChange={this.onChange}
-              >
-                {amainvoices}
-              </select>
+                onChange={this.onTypeChange}
+                options={invoices}
+                filter={true} 
+                filterBy="id,name" 
+                showClear={true}
+                optionLabel="name" 
+                optionValue="id"
+              />
             </div>
             <div className="p-field p-col-12 p-md-6">
               <Button label="Submit" className="p-button-success p-button-rounded" />
@@ -203,4 +207,3 @@ const mapStateToProps = state =>({
 })
 
 export default connect(mapStateToProps, {getInvoices, addCreditnote})(CreditNoteForm);
-

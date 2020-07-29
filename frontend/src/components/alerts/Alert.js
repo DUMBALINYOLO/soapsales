@@ -54,10 +54,12 @@ export class Alerts extends Component {
       if (error.msg.terms) alert.error(`TERMS: ${error.msg.terms.join()}`);
       if (error.msg.comments) alert.error(`COMMENTS: ${error.msg.comments.join()}`);
       if (error.msg.ship_from) alert.error(`SHIP FROM: ${error.msg.ship_from.join()}`);
-      // if (error.msg.lines.line_type) alert.error(`LINE TYPE: ${error.msg.lines.line_type.join()}`);
-      // if (error.msg.lines.tax) alert.error(`Tax: ${error.msg.lines.tax.join()}`);
-      // if (error.msg.lines.product) alert.error(`Product: ${error.msg.lines.product.join()}`);
-      // if (error.msg.lines.discount) alert.error(`Discount: ${error.msg.lines.discount.join()}`);
+
+      if (error.msg.type) alert.error(`TYPE: ${error.msg.type.join()}`);
+      if (error.msg.unit) alert.error(`UNIT: ${error.msg.unit.join()}`);
+      if (error.msg.finished_goods) alert.error(`FINISHED GOODS: ${error.msg.finished_goods.join()}`);
+      if (error.msg.inventory_product) alert.error(`INVENTORY PRODUCT: ${error.msg.inventory_product.join()}`);
+      if (error.msg.product_list) alert.error(`PRODUCT LIST: ${error.msg.product_list.join()}`);
       if (error.msg.non_field_errors) alert.error(error.msg.non_field_errors.join());
     }
 

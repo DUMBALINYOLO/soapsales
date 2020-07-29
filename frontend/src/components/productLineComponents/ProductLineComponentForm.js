@@ -8,41 +8,35 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {InputNumber} from 'primereact/inputnumber';
-import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {Checkbox} from 'primereact/checkbox';
-import {RadioButton} from 'primereact/radiobutton';
 import {Dropdown} from 'primereact/dropdown';
-import {InputTextarea} from 'primereact/inputtextarea';
-import {Calendar} from "primereact/calendar"
 
 export class ProductLineComponentForm extends Component{
   constructor(props){
       super(props);
       this.state = {
-          product: '',
+          product: null,
           returned: false,
           unit_price: '',
           value: '',
           quantity: '',
-          productList:[],
       }
       this.onChange = this.onChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
       this.handleReturned = this.handleReturned.bind(this);
-
+      this.onTypeChange = this.onTypeChange.bind(this);
   }
 
+    onTypeChange (e){
+      this.setState({product: e.value})
+    } 
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
-    handleReturned(event) {
-      const target = event.target;
-      const value = target.name === 'returned' ? target.checked : target.value;
-      const name = target.name;
-
+    handleReturned() {
       this.setState({
-        [name]: value
+        returned: !this.state.checked
       });
     }
 
@@ -92,25 +86,15 @@ export class ProductLineComponentForm extends Component{
           quantity
         } = this.state;
 
-        
-
         const { processedproducts } = this.props;
-
-
-        let productList = processedproducts.length > 0
-            && processedproducts.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.product}</option>
-                )
-            }, this);
 
         
         return (
             <div className="card card-body mt-4 mb-4">
-              <h2>Add Asset</h2>
+              <h2>Add Product Line Component</h2>
               <form onSubmit={this.onSubmit}>
                 <div className="p-fluid p-formgrid p-grid">
-                  <div className="p-field p-col-12 p-md-12">
+                  <div className="p-field p-col-12 p-md-6">
                     <label>UNIT PRICE</label>
                     <InputNumber
                       name="unit_price"
@@ -155,25 +139,26 @@ export class ProductLineComponentForm extends Component{
                       step={1}
                     />
                   </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>
-                        RETURNED:
-                        <input
-                          name="returned"
-                          type="checkbox"
-                          checked={this.state.returned}
-                          onChange={this.handleReturned} />
-                    </label>
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>RETURNED :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.handleReturned}
+                      checked={this.state.returned}
+                    /> 
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                      <label>PRODUCT</label>
-                      <select
-                          name="product"
-                          value={product}
-                          onChange={this.onChange}
-                      >
-                          {productList}
-                      </select>
+                    <Dropdown 
+                      placeholder ="SELECT PRODUCT"
+                      value={product}
+                      onChange={this.onTypeChange}
+                      options={processedproducts}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="product" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

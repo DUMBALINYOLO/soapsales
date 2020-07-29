@@ -28,6 +28,7 @@ class AccountingSettings(SingletonModel):
         super().save(*args, **kwargs)
 
 
+
 class Bookkeeper(SoftDeletionModel):
     '''
     mutable
@@ -42,7 +43,7 @@ class Bookkeeper(SoftDeletionModel):
 
 
     def __str__(self):
-        return f'{self.employee.first_name} {self.employee.last_name} {self.employee.id}'
+        return self.employee.__str__()
 
 
 class Tax(SoftDeletionModel):

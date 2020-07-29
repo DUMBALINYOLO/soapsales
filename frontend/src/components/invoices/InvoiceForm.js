@@ -14,31 +14,26 @@ import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {Checkbox} from 'primereact/checkbox';
 import {Calendar} from "primereact/calendar";
-import {RadioButton} from 'primereact/radiobutton';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {InputNumber} from 'primereact/inputnumber';
 import InvoiceLines from './Lines';
 import PropTypes from 'prop-types';
+import {Dropdown} from 'primereact/dropdown';
 
 export class InvoiceForm extends Component{
     constructor(props){
         super(props);
         this.state = {
-            status: '',
-            customer: '',
-            customerOptions: [],
+            status: null,
+            customer: null,
             purchase_order_number: '',
-            invoice_validated_by: '',
-            sales_person: '',
-            salesrepOptions: [],
-            choices: [],
-            invoiceValidators: [],
-            locations: [],
+            invoice_validated_by: null,
+            sales_person: null,
             due: '',
             terms: '',
             comments: '',
-            ship_from: '',
-            draft: true,
+            ship_from: null,
+            draft: false,
             lines: [{ index: Math.random(), product: "", tax: "", discount: "", line_type: '' }],
 
         }
@@ -48,15 +43,36 @@ export class InvoiceForm extends Component{
         this.addNewRow = this.addNewRow.bind(this);
         this.deleteRow = this.deleteRow.bind(this);
         this.handleDraft = this.handleDraft.bind(this);
+        this.onStatus = this.onStatus.bind(this);
+        this.onCustomer = this.onCustomer.bind(this);
+        this.onInvoiceValidator = this.onInvoiceValidator.bind(this);
+        this.onSalesPerson = this.onSalesPerson.bind(this);
+        this.onShipFrom = this.onShipFrom.bind(this);
     }
 
-    handleDraft(event) {
-      const target = event.target;
-      const value = target.name === 'draft' ? target.checked : target.value;
-      const name = target.name;
+    onStatus (e){
+      this.setState({type: e.value})
+    }
 
+    onCustomer (e){
+      this.setState({category: e.value})
+    }
+
+    onInvoiceValidator (e){
+      this.setState({unit: e.value})
+    }
+
+    onSalesPerson (e){
+      this.setState({supplier: e.value})
+    }
+
+    onShipFrom (e){
+      this.setState({equipment_component: e.value})
+    }
+
+    handleDraft() {
       this.setState({
-        [name]: value
+        draft: !this.state.checked
       });
     }
 
@@ -137,7 +153,7 @@ export class InvoiceForm extends Component{
           draft: true,
 
         });
-
+        this.props.history.push('/invoices');
     };
 
     static propTypes = {
@@ -179,45 +195,6 @@ export class InvoiceForm extends Component{
         const { warehouses} = this.props;
         const { employees } = this.props;
 
-        console.log(customers)
-
-
-        let customerOptions = customers.length > 0
-          && customers.map((item, i) => {
-          return (
-            <option key={i} value={item.id}>{item.name}</option>
-          )
-        }, this);
-
-
-        let invoiceValidators = employees.length > 0
-          && employees.map((item, i) => {
-          return (
-            <option key={i} value={item.id}>{item.username}</option>
-          )
-        }, this);
-
-
-        let salesrepOptions = salesreps.length > 0
-          && salesreps.map((item, i) => {
-          return (
-            <option key={i} value={item.id}>{item.employee}</option>
-          )
-        }, this);
-
-        let locations = warehouses.length > 0
-          && warehouses.map((item, i) => {
-          return (
-            <option key={i} value={item.id}>{item.name}</option>
-          )
-        }, this);
-
-        let choices = invoicesalechoices.length > 0
-          && invoicesalechoices.map((item, i) => {
-          return (
-            <option key={i} value={item.key}>{item.value}</option>
-          )
-        }, this);
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -251,7 +228,7 @@ export class InvoiceForm extends Component{
                     dateFormat="yy-mm-dd"
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-6">
+                <div className="p-field p-col-12 p-md-12">
                   <label>Terms</label>
                   <InputText
                     className="form-control"
@@ -272,67 +249,78 @@ export class InvoiceForm extends Component{
                     value={comments}
                   />
                 </div>
-
                 <div className="p-field p-col-12 p-md-6">
-                  Invoice Validated By
-                  <select
-                    name ='invoice_validated_by'
+                  <Dropdown 
+                    placeholder ="SELECT INVOICE VALIDATED BY"
                     value={invoice_validated_by}
-                    onChange={this.onChange}
-                  >
-                    {invoiceValidators}
-                  </select>
+                    onChange={this.onInvoiceValidator}
+                    options={employees}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="username" 
+                    optionValue="id"
+                  />
                 </div>
-
                 <div className="p-field p-col-12 p-md-6">
-                  Customer
-                  <select
-                    name ='customer'
+                  <Dropdown 
+                    placeholder ="SELECT CUSTOMER"
                     value={customer}
-                    onChange={this.onChange}
-                  >
-                    {customerOptions}
-                  </select>
+                    onChange={this.onCustomer}
+                    options={customers}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  Sales Person
-                  <select
-                    name ='sales_person'
+                  <Dropdown 
+                    placeholder ="SELECT SALES PERSON"
                     value={sales_person}
-                    onChange={this.onChange}
-                  >
-                    {salesrepOptions}
-                  </select>
+                    onChange={this.onSalesPerson}
+                    options={salesreps}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="employee" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  Warehouses
-                  <select
-                    name ='ship_from'
+                  <Dropdown 
+                    placeholder ="SELECT SHIP FROM"
                     value={ship_from}
-                    onChange={this.onChange}
-                  >
-                    {locations}
-                  </select>
-                </div>
-                 <div className="p-field p-col-12 p-md-6">
-                  Status
-                  <select
-                    name ='status'
-                    value={status}
-                    onChange={this.onChange}
-                  >
-                    {choices}
-                  </select>
+                    onChange={this.onShipFrom}
+                    options={warehouses}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <label>
-                    Draft:
-                    <input
-                      name="draft"
-                      type="checkbox"
-                      checked={this.state.draft}
-                      onChange={this.handleDraft} />
-                  </label>
+                  <Dropdown 
+                    placeholder ="SELECT STATUS"
+                    value={status}
+                    onChange={this.onStatus}
+                    options={invoicesalechoices}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="value" 
+                    optionValue="id"
+                  />
+                </div>
+                <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                  <label>DRAFT :</label>
+                  <Checkbox
+                    inputId="working"
+                    onChange={this.handleDraft}
+                    checked={this.state.draft}
+                  /> 
                 </div>
                 <div className="p-field p-col-12 p-md-12">
                   <Button label="Submit" className="p-button-success p-button-rounded" />

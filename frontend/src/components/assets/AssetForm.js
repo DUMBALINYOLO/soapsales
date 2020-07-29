@@ -19,23 +19,43 @@ import {InputTextarea} from 'primereact/inputtextarea';
 import {Calendar} from "primereact/calendar"
 
 export class AssetForm extends Component{
-    state = {
+    constructor(props){
+      super(props);
+      this.state = {
         name: '',
         description: '',
-        category: '',
+        category: null,
         initial_value: '',
         depreciation_period: '',
         init_date: '',
-        depreciation_method: '',
+        depreciation_method: null,
         salvage_value: '',
-        credit_account: '',
-        created_by: '',
-        depreciations: [],
-        categories: [],
-        debitAccounts: [],
-        assetCreators:[],
+        credit_account: null,
+        created_by: null,
+      }
+      this.onChange = this.onChange.bind(this);
+      this.onSubmit = this.onSubmit.bind(this);
+      this.onCategory = this.onCategory.bind(this);
+      this.onDepreciationMethod = this.onDepreciationMethod.bind(this);
+      this.onCreditAccount = this.onCreditAccount.bind(this);
+      this.onCreatedBy = this.onCreatedBy.bind(this);
     }
 
+    onCategory (e){
+      this.setState({category: e.value})
+    } 
+
+    onDepreciationMethod (e){
+      this.setState({depreciation_period: e.value})
+    } 
+
+    onCreditAccount (e){
+      this.setState({credit_account: e.value})
+    } 
+
+    onCreatedBy (e){
+      this.setState({created_by: e.value})
+    }     
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -115,38 +135,6 @@ export class AssetForm extends Component{
         const { accounts } = this.props;
         const { employees } = this.props;
 
-
-        let debitAccounts = accounts.length > 0
-            && accounts.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-        let assetCreators = employees.length > 0
-            && employees.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.username}| {item.employee_number} </option>
-                )
-            }, this);
-
-       
-
-        let depreciations = assetsdepreciationmethodchoices.length > 0
-            && assetsdepreciationmethodchoices.map((item, index) => {
-                return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
-                )
-            }, this);
-
-
-        let categories = assettypeschoices.length > 0
-            && assettypeschoices.map((item, index) => {
-                return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
-                )
-            }, this);
-
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Asset</h2>
@@ -217,7 +205,7 @@ export class AssetForm extends Component{
                     />
                   </div>
 
-                  <div className="p-field p-col-12 p-md-6">
+                  <div className="p-field p-col-12 p-md-12">
                     <label>SALVAGE VALUE</label>
                     <InputNumber
                       name="salvage_value"
@@ -234,44 +222,56 @@ export class AssetForm extends Component{
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                      <label>Depreciation Method</label>
-                      <select
-                          name="depreciation_method"
-                          value={depreciation_method}
-                          onChange={this.onChange}
-                      >
-                          {depreciations}
-                      </select>
+                    <Dropdown 
+                      placeholder ="SELECT DEPRECIATION METHOD"
+                      value={depreciation_method}
+                      onChange={this.onDepreciationMethod}
+                      options={assetsdepreciationmethodchoices}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="value" 
+                      optionValue="key"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                      <label>Asset Category</label>
-                      <select
-                          name="category"
-                          value={category}
-                          onChange={this.onChange}
-                      >
-                          {categories}
-                      </select>
+                    <Dropdown 
+                      placeholder ="SELECT ASSET CATEGORY"
+                      value={category}
+                      onChange={this.onCategory}
+                      options={assettypeschoices}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="value" 
+                      optionValue="key"
+                    />
                   </div>
-                  <div className="p-field p-col-12 p-md-4">
-                      <label>CREDIT ACCOUNT</label>
-                      <select
-                          name="credit_account"
-                          value={credit_account}
-                          onChange={this.onChange}
-                      >
-                          {debitAccounts}
-                      </select>
+                  <div className="p-field p-col-12 p-md-6">
+                    <Dropdown 
+                      placeholder ="SELECT CREDIT ACCOUNT"
+                      value={credit_account}
+                      onChange={this.onCreditAccount}
+                      options={accounts}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="name" 
+                      optionValue="id"
+                    />
                   </div>
-                  <div className="p-field p-col-12 p-md-4">
-                      <label>Created By</label>
-                      <select
-                          name="created_by"
-                          value={created_by}
-                          onChange={this.onChange}
-                      >
-                          {assetCreators}
-                      </select>
+                  <div className="p-field p-col-12 p-md-6">
+                    <Dropdown 
+                      placeholder ="SELECT CREATED BY"
+                      value={created_by}
+                      onChange={this.onCreatedBy}
+                      options={employees}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="employee_number" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

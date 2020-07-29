@@ -8,43 +8,41 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {Button} from 'primereact/button';
+import {Checkbox} from 'primereact/checkbox';
+import {Dropdown} from 'primereact/dropdown';
+
 
 export class SalesRepForm extends Component{
     constructor(props){
         super(props);
         this.state = {
-            employee: '',
-            can_reverse_invoices: true,
-            can_offer_discounts: true,
-            listOfEmployees: [],
+            employee: null,
+            can_reverse_invoices: false,
+            can_offer_discounts: false,
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onTypeChange = this.onTypeChange.bind(this);
         this.handleCanOfferDiscounts = this.handleCanOfferDiscounts.bind(this);
         this.handleCanReverseInvoices = this.handleCanReverseInvoices.bind(this);
 
     }
 
-    handleCanOfferDiscounts(event) {
-      const target = event.target;
-      const value = target.name === 'can_offer_discounts' ? target.checked : target.value;
-      const name = target.name;
-
-      this.setState({
-        [name]: value
-      });
+    onTypeChange (e){
+      this.setState({employee: e.value})
     }
 
-    handleCanReverseInvoices(event) {
-      const target = event.target;
-      const value = target.name === 'can_reverse_invoices' ? target.checked : target.value;
-      const name = target.name;
+    handleCanOfferDiscounts() {
+          this.setState({
+            can_offer_discounts: !this.state.checked
+          });
+        }
 
-      this.setState({
-        [name]: value
-      });
-    }
-
+    handleCanReverseInvoices() {
+          this.setState({
+            can_reverse_invoices: !this.state.checked
+          });
+        }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -92,50 +90,39 @@ export class SalesRepForm extends Component{
         } = this.state;
         const { employees } = this.props;
 
-        let listOfEmployees = employees.length > 0
-          && employees.map((item, i) => {
-          return (
-            <option key={i} value={item.id}>{item.username}</option>
-          )
-        }, this);
-
-
-
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>ADD A SALES REPRESENTATIVE </h2>
               <form onSubmit={this.onSubmit}>
                 <div className="p-fluid p-formgrid p-grid">
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>
-                        CAN REVERSE INVOICES ?:
-                        <input
-                          name="can_reverse_invoices"
-                          type="checkbox"
-                          checked={can_reverse_invoices}
-                          onChange={this.handleCanReverseInvoices} />
-                    </label>
-                  </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>
-                        CAN OFFER DISCOUNTS:
-                        <input
-                          name="can_offer_discounts"
-                          type="checkbox"
-                          checked={can_offer_discounts}
-                          onChange={this.handleCanOfferDiscounts} />
-                    </label>
-                  </div>
-                  
                   <div className="p-field p-col-12 p-md-12">
-                    Employee
-                    <select
-                      name ='employee'
+                    <Dropdown 
+                      placeholder ="SELECT EMPLOYEE"
                       value={employee}
-                      onChange={this.onChange}
-                    >
-                      {listOfEmployees}
-                    </select>
+                      onChange={this.onTypeChange}
+                      options={employees}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="username" 
+                      optionValue="id"
+                    />
+                  </div>
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>CAN REVERSE INVOICES :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.handleCanReverseInvoices}
+                      checked={this.state.can_reverse_invoices}
+                    /> 
+                  </div>
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>CAN OFFER DISCOUNTS :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.handleCanOfferDiscounts}
+                      checked={this.state.can_offer_discounts}
+                    /> 
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

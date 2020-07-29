@@ -12,22 +12,31 @@ import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {Calendar} from "primereact/calendar"
+import {Dropdown} from 'primereact/dropdown';
+
 
 export class WarehouseForm extends Component{
-    state = {
-        name: '',
-        address: '',
-        description: '',
-        inventory_controller: '',
-        length: '',
-        width: '',
-        height: '',
-        last_inventory_check_date: '',
-        employees: [],
+    constructor(props){
+        super(props);
+        this.state = {
+            name: '',
+            address: '',
+            description: '',
+            inventory_controller: null,
+            length: '',
+            width: '',
+            height: '',
+            last_inventory_check_date: '',
+        }
 
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onTypeChange = this.onTypeChange.bind(this);
     }
 
-
+    onTypeChange (e){
+      this.setState({inventory_controller: e.value})
+    } 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = (e) => {
@@ -91,14 +100,6 @@ export class WarehouseForm extends Component{
         } = this.state;
 
         const { inventorycontrollers } = this.props;
-
-        let employees = inventorycontrollers.length > 0
-          && inventorycontrollers.map((item, i) => {
-          return (
-            <option key={i} value={item.id}>{item.employee}</option>
-          )
-        }, this);
-
 
 
         return (
@@ -190,15 +191,18 @@ export class WarehouseForm extends Component{
                       dateFormat="yy-mm-dd"
                     />
                   </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>INVENTORY CONTROLLER</label>
-                    <select
-                      name ='inventory_controller'
+                  <div className="p-field p-col-12 p-md-12">
+                    <Dropdown 
+                      placeholder ="SELECT INVENTORY CONTROLLER"
                       value={inventory_controller}
-                      onChange={this.onChange}
-                    >
-                      {employees}
-                    </select>
+                      onChange={this.onTypeChange}
+                      options={inventorycontrollers}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="employee" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

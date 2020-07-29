@@ -8,30 +8,39 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import {InputText} from 'primereact/inputtext';
 import {Calendar} from "primereact/calendar";
 import {Button} from 'primereact/button';
-import {InputTextarea} from 'primereact/inputtextarea';
-
+import {Dropdown} from 'primereact/dropdown';
 import PropTypes from 'prop-types';
 
 export class ProductionorderForm extends Component{
     constructor(props){
         super(props);
         this.state = {
-            customer: '',
-            process: '',
-            product: '',
+            customer: null,
+            process: null,
+            product: null,
             due: '',
             date: '',
-            customerList: [],
-            inventoryItem: [],
-            processList: []
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onCustomer = this.onCustomer.bind(this);
+        this.onProcess = this.onProcess.bind(this);
+        this.onProduct = this.onProduct.bind(this);
     }
 
+    onCustomer (e){
+      this.setState({customer: e.value})
+    } 
+
+    onProcess (e){
+      this.setState({process: e.value})
+    } 
+
+    onProduct (e){
+      this.setState({product: e.value})
+    } 
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -71,27 +80,6 @@ export class ProductionorderForm extends Component{
         const { processes } = this.props;
         const { inventoryitems } = this.props;
 
-        let customerList = customers.length > 0
-            && customers.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-        let processList = processes.length > 0
-            && processes.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-        let inventoryItems = inventoryitems.length > 0
-            && inventoryitems.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Production Order</h2>
@@ -119,35 +107,44 @@ export class ProductionorderForm extends Component{
                       dateFormat="yy-mm-dd"
                     />
                 </div>
-                <div className="p-field p-col-12 p-md-4">
-                    <label>CUSTOMER</label>
-                    <select
-                      name="customer"
-                      value={customer}
-                      onChange={this.onChange}
-                    >
-                      {customerList}
-                    </select>
+                <div className="p-field p-col-12 p-md-6">
+                  <Dropdown 
+                    placeholder ="SELECT CUSTOMER"
+                    value={customer}
+                    onChange={this.onCustomer}
+                    options={customer}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
-                <div className="p-field p-col-12 p-md-4">
-                    <label>PROCESS</label>
-                    <select
-                      name="process"
-                      value={process}
-                      onChange={this.onChange}
-                    >
-                      {processList}
-                    </select>
+                <div className="p-field p-col-12 p-md-6">
+                  <Dropdown 
+                    placeholder ="SELECT PROCESS"
+                    value={process}
+                    onChange={this.onProcess}
+                    options={processes}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
-                <div className="p-field p-col-12 p-md-4">
-                    <label>PRODUCT</label>
-                    <select
-                      name="product"
-                      value={product}
-                      onChange={this.onChange}
-                    >
-                      {inventoryItems}
-                    </select>
+                <div className="p-field p-col-12 p-md-6">
+                  <Dropdown 
+                    placeholder ="SELECT PRODUCT"
+                    value={product}
+                    onChange={this.onProduct}
+                    options={inventoryitems}
+                    filter={true} 
+                    filterBy="id,name" 
+                    showClear={true}
+                    optionLabel="name" 
+                    optionValue="id"
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />

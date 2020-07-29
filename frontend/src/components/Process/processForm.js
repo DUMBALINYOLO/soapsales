@@ -15,6 +15,7 @@ import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {InputNumber} from 'primereact/inputnumber';
+import {Dropdown} from 'primereact/dropdown';
 
 
 
@@ -22,26 +23,49 @@ export class ProcessForm extends Component{
   constructor(props){
     super(props);
     this.state = {
-        parent_process: '',
-        process_equipment: '',
+        parent_process: null,
+        process_equipment: null,
         name: '',
         description: '',
-        bill_of_materials: '',
-        type: '',
+        bill_of_materials: null,
+        type: null,
         duration: '',
-        rate: '',
-        product_list: '',
-        productList: [],
-        types: [],
-        parentProcesses: [],
-        billsOfMaterials: [],
-        rates: [],
-        processMachineGroups:  [],
+        rate: null,
+        product_list: null,
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onParentProcess = this.onParentProcess.bind(this);
+    this.onProcessEquipment = this.onProcessEquipment.bind(this);
+    this.onBillOfMaterials = this.onBillOfMaterials.bind(this);
+    this.onType = this.onType.bind(this);
+    this.onRate = this.onRate.bind(this);
+    this.onProductList = this.onProductList.bind(this);
   }
 
+    onParentProcess (e){
+      this.setState({parent_process: e.value})
+    }
+
+    onProcessEquipment (e){
+      this.setState({process_equipment: e.value})
+    }
+
+    onBillOfMaterials (e){
+      this.setState({bill_of_materials: e.value})
+    }
+
+    onType (e){
+      this.setState({type: e.value})
+    }
+
+    onRate (e){
+      this.setState({rate: e.value})
+    }
+
+    onProductList (e){
+      this.setState({product_list: e.value})
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -124,56 +148,8 @@ export class ProcessForm extends Component{
         const  { processes } = this.props;
         const  { billmaterials } = this.props;
         const  { manufacturingprocesschoices } = this.props;
-        console.log(manufacturingprocesschoices)
         const  { processrates } = this.props;
         const  { processgroups } = this.props;
-
-       let productList = products.length > 0
-          && products.map((item, index) => {
-              return (
-                  <option key={item.id } value={item.id}>{item.name}</option>
-              )
-          }, this);
-
-        let processMachineGroups = processgroups.length > 0
-          && processgroups.map((item, index) => {
-              return (
-                  <option key={item.id } value={item.id}>{item.name}</option>
-              )
-          }, this);
-
-        let rates = processrates.length > 0
-          && processrates.map((item, index) => {
-              return (
-                  <option key={item.id } value={item.id}>{item.unit_time}|| {item.id}</option>
-              )
-          }, this);
-
-        let parentProcesses = processes.length > 0
-          && processes.map((item, index) => {
-              return (
-                  <option key={item.id } value={item.id}>{item.name}</option>
-              )
-          }, this);
-
-        let billsOfMaterials = billmaterials.length > 0
-          && billmaterials.map((item, index) => {
-              return (
-                  <option key={item.id } value={item.id}>{item.name}</option>
-              )
-          }, this);
-
-
-        let types = manufacturingprocesschoices.length > 0
-          && manufacturingprocesschoices.map((item, index) => {
-              return (
-                  <option key={item.key } value={item.key}>{item.value}</option>
-              )
-          }, this);
-
-
-
-
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -217,64 +193,82 @@ export class ProcessForm extends Component{
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                      <label>Parent Process</label>
-                      <select
-                          name="parent_process"
-                          value={parent_process}
-                          onChange={this.onChange}
-                      >
-                          {parentProcesses}
-                      </select>
+                    <Dropdown 
+                      placeholder ="SELECT PARENT PROCESS"
+                      value={parent_process}
+                      onChange={this.onParentProcess}
+                      options={processes}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="name" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                      <label>Process Equipment</label>
-                      <select
-                          name="process_equipment"
-                          value={process_equipment}
-                          onChange={this.onChange}
-                      >
-                          {processMachineGroups}
-                      </select>
+                    <Dropdown 
+                      placeholder ="SELECT PROCESS EQUIPMENT"
+                      value={process_equipment}
+                      onChange={this.onProcessEquipment}
+                      options={processgroups}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="name" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                      <label>BILL OF MATERIALS</label>
-                      <select
-                          name="bill_of_materials"
-                          value={bill_of_materials}
-                          onChange={this.onChange}
-                      >
-                          {billsOfMaterials}
-                      </select>
+                    <Dropdown 
+                      placeholder ="SELECT BILL OF MATERIALS"
+                      value={bill_of_materials}
+                      onChange={this.onBillOfMaterials}
+                      options={billmaterials}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="name" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                      <label>TYPE</label>
-                      <select
-                          name="type"
-                          value={type}
-                          onChange={this.onChange}
-                      >
-                          {types}
-                      </select>
+                    <Dropdown 
+                      placeholder ="SELECT TYPES"
+                      value={type}
+                      onChange={this.onType}
+                      options={manufacturingprocesschoices}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="value" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                      <label>RATE</label>
-                      <select
-                          name="rate"
-                          value={rate}
-                          onChange={this.onChange}
-                      >
-                          {rates}
-                      </select>
+                    <Dropdown 
+                      placeholder ="SELECT RATE"
+                      value={rate}
+                      onChange={this.onRate}
+                      options={processrates}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="unit_time" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                      <label>PRODUCT LIST</label>
-                      <select
-                          name="product_list"
-                          value={product_list}
-                          onChange={this.onChange}
-                      >
-                          {productList}
-                      </select>
+                    <Dropdown 
+                      placeholder ="SELECT PRODUCT LIST"
+                      value={product_list}
+                      onChange={this.onProductList}
+                      options={products}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="name" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

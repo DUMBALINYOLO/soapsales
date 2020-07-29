@@ -9,23 +9,30 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
+import {Dropdown} from 'primereact/dropdown';
 
 export class AccountTypeForm extends Component{
     constructor(props){
         super(props);
             this.state = {
-                category: '',
-                classification: '',
+                category: null,
+                classification: null,
                 name: '',
                 order: '',
-                categories: [],
-                classifications: [],
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onCategory = this.onCategory.bind(this);
+        this.onClassifcation = this.onClassifcation.bind(this);
     }
 
+    onCategory (e){
+      this.setState({category: e.value})
+    } 
 
+    onClassifcation (e){
+      this.setState({classification: e.value})
+    } 
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -77,28 +84,8 @@ export class AccountTypeForm extends Component{
         } = this.state;
 
         const {categorychoices} = this.props;
-        console.log(categorychoices)
-
-        let categories = categorychoices.length > 0
-            && categorychoices.map((item, index) => {
-                return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
-                )
-            }, this);
 
         const {accounttypesclassificationchoices} = this.props;
-
-        console.log(accounttypesclassificationchoices)
-
-
-        let classifications = accounttypesclassificationchoices.length > 0
-            && accounttypesclassificationchoices.map((item, index) => {
-                return (
-                    <option key={item.key } value={item.key}>{item.value}</option>
-                )
-            }, this);
-
-
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -125,25 +112,32 @@ export class AccountTypeForm extends Component{
                     value={order}
                   />
                 </div>
-                <div className="p-field p-col-12 p-md-4">
-                    <select
-                        name="category"
-                        value={category}
-                        onChange={this.onChange}
-                    >
-                        {categories}
-                    </select>
+                <div className="p-field p-col-12 p-md-6">
+                    <Dropdown 
+                      placeholder ="SELECT CATEGORIES"
+                      value={category}
+                      onChange={this.onCategory}
+                      options={categorychoices}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="value" 
+                      optionValue="key"
+                    />
                 </div>
-                <div className="p-field p-col-12 p-md-4">
-                    <select
-                        name="classification"
-                        value={classification}
-                        onChange={this.onChange}
-                    >
-                        {classifications}
-                    </select>
+                <div className="p-field p-col-12 p-md-6">
+                    <Dropdown 
+                      placeholder ="SELECT CLASSIFICATIONS"
+                      value={classification}
+                      onChange={this.onClassifcation}
+                      options={accounttypesclassificationchoices}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="value" 
+                      optionValue="key"
+                    />
                 </div>
-
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />
                 </div>

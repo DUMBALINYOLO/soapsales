@@ -9,42 +9,40 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
+import {Checkbox} from 'primereact/checkbox';
+import {Dropdown} from 'primereact/dropdown';
 
 export class InventorycontrollerForm extends Component{
     constructor(props){
         super(props);
             this.state = {
-                employee: '',
-                can_authorize_equipment_requisitions: true,
-                can_authorize_consumables_requisitions: true,
-                listOfEmployees: [],
+                employee: null,
+                can_authorize_equipment_requisitions: false,
+                can_authorize_consumables_requisitions: false,
         }
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleEquipment = this.handleEquipment.bind(this);
         this.handleConsumables = this.handleConsumables.bind(this);
+        this.onTypeChange = this.onTypeChange.bind(this);
     }
 
-    handleEquipment(event) {
-      const target = event.target;
-      const value = target.name === 'can_authorize_equipment_requisitions' ? target.checked : target.value;
-      const name = target.name;
-
+    handleEquipment() {
       this.setState({
-        [name]: value
+        can_authorize_equipment_requisitions: !this.state.checked
       });
     }
 
-    handleConsumables(event) {
-      const target = event.target;
-      const value = target.name === 'can_authorize_consumables_requisitions' ? target.checked : target.value;
-      const name = target.name;
-
+    handleConsumables() {
       this.setState({
-        [name]: value
+        can_authorize_consumables_requisitions: !this.state.checked
       });
     }
+
+    onTypeChange (e){
+      this.setState({employee: e.value})
+    } 
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -92,47 +90,39 @@ export class InventorycontrollerForm extends Component{
 
         const { employees } = this.props;
 
-        let listOfEmployees = employees.length > 0
-          && employees.map((item, i) => {
-          return (
-            <option key={i} value={item.id}>{item.username}</option>
-          )
-        }, this);
-
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Inventory Controller</h2>
               <form onSubmit={this.onSubmit}>
-              <div className="p-fluid p-formgrid p-grid">
-                <div className="p-field p-col-12 p-md-6">
-                  <label>
-                      Can Authorize Equipment Requisitions:
-                      <input
-                        name="can_authorize_equipment_requisitions"
-                        type="checkbox"
-                        checked={this.state.can_authorize_equipment_requisitions}
-                        onChange={this.handleEquipment} />
-                    </label>
-                  </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>
-                        Can Authorize Consumables Requisitions:
-                        <input
-                          name="can_authorize_consumables_requisitions"
-                          type="checkbox"
-                          checked={this.state.can_authorize_consumables_requisitions}
-                          onChange={this.handleConsumables} />
-                    </label>
-                  </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    Employee
-                    <select
-                      name ='employee'
+                <div className="p-fluid p-formgrid p-grid">
+                  <div className="p-field p-col-12 p-md-12">
+                    <Dropdown 
+                      placeholder ="SELECT EMPLOYEE"
                       value={employee}
-                      onChange={this.onChange}
-                    >
-                      {listOfEmployees}
-                    </select>
+                      onChange={this.onTypeChange}
+                      options={employees}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="username" 
+                      optionValue="id"
+                    />
+                  </div>
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>CAN AUTHORIZE EQUIPMENT REQUISITIONS :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.handleEquipment}
+                      checked={this.state.can_authorize_equipment_requisitions}
+                    /> 
+                  </div>
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>CAN AUTHORIZE CONSUMABLE REQUISITIONS :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.handleConsumables}
+                      checked={this.state.can_authorize_consumables_requisitions}
+                    /> 
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

@@ -73,5 +73,3 @@ const mapStateToProps = state =>({
 })
 
 export default connect(mapStateToProps, {getInvoicelines} ) (CreditNoteLines);
-
-

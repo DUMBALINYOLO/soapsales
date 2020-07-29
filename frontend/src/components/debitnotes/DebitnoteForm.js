@@ -27,8 +27,7 @@ class DebitNoteForm extends Component {
     this.state = {
       date: '',
       comments: '',
-      order: '',
-      amaorders: [],
+      order: null,
       formData: {},
       lines: [{ index: Math.random(), item: "", quantity: '' }],
 
@@ -38,6 +37,11 @@ class DebitNoteForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.addNewRow = this.addNewRow.bind(this);
     this.deleteRow = this.deleteRow.bind(this);
+    this.onTypeChange = this.onTypeChange.bind(this);
+  }
+
+  onTypeChange (e){
+    this.setState({order: e.value})
   }
 
   handleChange = (e) => {
@@ -141,7 +145,7 @@ class DebitNoteForm extends Component {
 
     return (
       <div className="card card-body mt-4 mb-4">
-        <h2>Add An Account</h2>
+        <h2>Add Debit Notes</h2>
         <form onSubmit={this.onSubmit} onChange={this.handleChange}>
           <div className="p-fluid p-formgrid p-grid">
             <div className="p-field p-col-12 p-md-12">
@@ -167,14 +171,17 @@ class DebitNoteForm extends Component {
               />
             </div>
             <div className="p-field p-col-12 p-md-6">
-              <label>ORDERS</label>
-              <select
-                name ='order'
+              <Dropdown 
+                placeholder ="SELECT ACCOUNT TYPE"
                 value={order}
-                onChange={this.onChange}
-              >
-                {amaorders}
-              </select>
+                onChange={this.onTypeChange}
+                options={orders}
+                filter={true} 
+                filterBy="id,name" 
+                showClear={true}
+                optionLabel="tracking_number" 
+                optionValue="id"
+              />
             </div>
             <div className="p-field p-col-12 p-md-6">
               <Button label="Submit" className="p-button-success p-button-rounded" />

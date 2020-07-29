@@ -10,6 +10,7 @@ import { getProcessRateUnitTimeChoices } from '..//../actions/choices';
 import { getUnitmeasures } from '..//../actions/unitmeasure';
 import {InputNumber} from 'primereact/inputnumber';
 import {Button} from 'primereact/button';
+import {Dropdown} from 'primereact/dropdown';
 
 
 
@@ -18,21 +19,25 @@ class ProcessRateForm extends Component{
     constructor(props){
         super(props);
         this.state = {
-            unit: '',
-            unit_time: '',
+            unit: null,
+            unit_time: null,
             quantity: '',
-            unitOfMeasures: [],
-            choices: []
-
       }
 
       this.onChange = this.onChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
+      this.onUnit = this.onUnit.bind(this);
+      this.onUnitTime = this.onUnitTime.bind(this);
     }
 
+    onUnit (e){
+      this.setState({unit: e.value})
+    }
+
+    onUnitTime (e){
+      this.setState({unit_time: e.value})
+    }
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-
-
 
     onSubmit = (e) => {
       e.preventDefault();
@@ -79,12 +84,6 @@ class ProcessRateForm extends Component{
         const {unitmeasures} = this.props;
         const {processrateunittimechoices} = this.props;
 
-        let unitOfMeasures = unitmeasures.length > 0
-            && unitmeasures.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
 
         let choices = processrateunittimechoices.length > 0
             && processrateunittimechoices.map((item, index) => {
@@ -99,7 +98,7 @@ class ProcessRateForm extends Component{
               <h2>ADD A PROCESS RATE</h2>
               <form onSubmit={this.onSubmit}>
                 <div className="p-fluid p-formgrid p-grid">
-                  <div className="p-field p-col-12 p-md-12">
+                  <div className="p-field p-col-12 p-md-6">
                     <label>QUANTITY</label>
                     <InputNumber
                       name="quantity"
@@ -114,25 +113,31 @@ class ProcessRateForm extends Component{
                       step={1}
                     />
                   </div>
-                  <div className="p-field p-col-12 p-md-4">
-                    <label>UNIT</label>
-                    <select
-                        name="unit"
-                        value={unit}
-                        onChange={this.onChange}
-                    >
-                        {unitOfMeasures}
-                    </select>
+                  <div className="p-field p-col-12 p-md-6">
+                    <Dropdown 
+                      placeholder ="SELECT UNIT"
+                      value={unit}
+                      onChange={this.onUnit}
+                      options={unitmeasures}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="name" 
+                      optionValue="id"
+                    />
                   </div>
-                  <div className="p-field p-col-12 p-md-4">
-                    <label>UNIT TIME</label>
-                    <select
-                        name="unit_time"
-                        value={unit_time}
-                        onChange={this.onChange}
-                    >
-                        {choices}
-                    </select>
+                  <div className="p-field p-col-12 p-md-6">
+                    <Dropdown 
+                      placeholder ="SELECT UNIT TIME"
+                      value={unit_time}
+                      onChange={this.onUnitTime}
+                      options={processrateunittimechoices}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="value" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

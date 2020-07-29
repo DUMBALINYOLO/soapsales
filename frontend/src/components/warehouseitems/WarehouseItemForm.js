@@ -12,25 +12,21 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {InputNumber} from 'primereact/inputnumber';
 import {Button} from 'primereact/button';
-
-
+import {Checkbox} from 'primereact/checkbox';
+import {Dropdown} from 'primereact/dropdown';
 
 export class WarehouseItemForm extends Component{
    constructor(props){
       super(props);
       this.state = {
-          is_inventory_item: true,
-          item: '',
-          is_manufactured_item: true,
-          processed_item: '',
+          is_inventory_item: false,
+          item: null,
+          is_manufactured_item: false,
+          processed_item: null,
           quantity: '',
-          warehouse: '',
-          location: '',
-          verified: true,
-          locations: [],
-          processedProducts: [],
-          inventoryItems: [],
-          wareHouses: []
+          warehouse: null,
+          location: null,
+          verified: false,
 
       }
       this.handleVerified = this.handleVerified.bind(this);
@@ -38,41 +34,45 @@ export class WarehouseItemForm extends Component{
       this.handleIsManufacturedItem = this.handleIsManufacturedItem.bind(this);
       this.onChange = this.onChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
+      this.onItems = this.onItems.bind(this);
+      this.onProcessedItem = this.onProcessedItem.bind(this);
+      this.onWarehouse = this.onWarehouse.bind(this);
+      this.onLocation = this.onLocation.bind(this);
   }
 
-    handleIsInventoryItem(event) {
-      const target = event.target;
-      const value = target.name === 'is_inventory_item' ? target.checked : target.value;
-      const name = target.name;
+    onItems (e){
+      this.setState({item: e.value})
+    }
 
+    onProcessedItem (e){
+      this.setState({processed_item: e.value})
+    }
+
+    onWarehouse (e){
+      this.setState({warehouse: e.value})
+    }
+
+    onLocation (e){
+      this.setState({location: e.value})
+    }
+
+    handleIsInventoryItem() {
       this.setState({
-        [name]: value
+        is_inventory_item: !this.state.checked
       });
     }
 
-    handleIsManufacturedItem(event) {
-      const target = event.target;
-      const value = target.name === 'is_manufactured_item' ? target.checked : target.value;
-      const name = target.name;
-
+    handleIsManufacturedItem() {
       this.setState({
-        [name]: value
+        is_manufactured_item: !this.state.checked
       });
     }
 
-    handleVerified(event) {
-      const target = event.target;
-      const value = target.name === 'verified' ? target.checked : target.value;
-      const name = target.name;
-
+    handleVerified() {
       this.setState({
-        [name]: value
+        verified: !this.state.checked
       });
     }
-
-
-
-
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -145,36 +145,6 @@ export class WarehouseItemForm extends Component{
         const { processedproducts } = this.props;
         const { storagemedias } = this.props;
 
-        let wareHouses = warehouses.length > 0
-          && warehouses.map((item, i) => {
-          return (
-            <option key={i} value={item.id}>{item.name}</option>
-          )
-        }, this);
-
-        let inventoryItems = inventoryitems.length > 0
-          && inventoryitems.map((item, i) => {
-          return (
-            <option key={i} value={item.id}>{item.name}</option>
-          )
-        }, this);
-
-        let locations = storagemedias.length > 0
-          && storagemedias.map((item, i) => {
-          return (
-            <option key={i} value={item.id}>{item.name}</option>
-          )
-        }, this);
-
-        let processedProducts = processedproducts.length > 0
-          && processedproducts.map((item, i) => {
-          return (
-            <option key={i} value={item.id}>{item.product}</option>
-          )
-        }, this);
-
-
-
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Asset</h2>
@@ -196,75 +166,80 @@ export class WarehouseItemForm extends Component{
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <label>
-                        Is Inventory Item ?:
-                        <input
-                          name="is_inventory_item"
-                          type="checkbox"
-                          checked={this.state.is_inventory_item}
-                          onChange={this.handleIsInventoryItem} />
-                      </label>
-                  </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>
-                        Is Manufactured Item ?:
-                        <input
-                          name="is_manufactured_item"
-                          type="checkbox"
-                          checked={this.state.is_manufactured_item}
-                          onChange={this.handleIsManufacturedItem} />
-                      </label>
-                  </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>
-                        Is Verified ?:
-                        <input
-                          name="verified"
-                          type="checkbox"
-                          checked={this.state.verified}
-                          onChange={this.handleVerified} />
-                      </label>
-                  </div>
-                  
-                  <div className="p-field p-col-12 p-md-6">
-                    <label> IF INVENTORY ITEM => </label>
-                    <select
-                      name ='item'
+                    <Dropdown 
+                      placeholder ="SELECT ITEM"
                       value={item}
-                      onChange={this.onChange}
-                    >
-                      {inventoryItems}
-                    </select>
+                      onChange={this.onItems}
+                      options={inventoryitems}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="name" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <label> IF MANUFACTURED ITEM => </label>
-                    <select
-                      name ='processed_item'
-                      value={processed_item}
-                      onChange={this.onChange}
-                    >
-                      {processedProducts}
-                    </select>
-                  </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label> WAREHOUSE </label>
-                    <select
-                      name ='warehouse'
-                      value={warehouse}
-                      onChange={this.onChange}
-                    >
-                      {wareHouses}
-                    </select>
-                  </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <label> STORAGE MEDIA | OPTIONAL </label>
-                    <select
-                      name ='location'
+                    <Dropdown 
+                      placeholder ="SELECT LOCATION"
                       value={location}
-                      onChange={this.onChange}
-                    >
-                      {locations}
-                    </select>
+                      onChange={this.onLocation}
+                      options={storagemedias}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="name" 
+                      optionValue="id"
+                    />
+                  </div>
+                  <div className="p-field p-col-12 p-md-6">
+                    <Dropdown 
+                      placeholder ="SELECT WAREHOUSE"
+                      value={warehouse}
+                      onChange={this.onWarehouse}
+                      options={warehouses}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="name" 
+                      optionValue="id"
+                    />
+                  </div>
+                  <div className="p-field p-col-12 p-md-6">
+                    <Dropdown 
+                      placeholder ="SELECT PROCESSED ITEM"
+                      value={processed_item}
+                      onChange={this.onProcessedItem}
+                      options={processedproducts}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="product" 
+                      optionValue="id"
+                    />
+                  </div>
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>IS INVENTORY ITEM :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.handleIsInventoryItem}
+                      checked={this.state.is_inventory_item}
+                    /> 
+                  </div>
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>IS MANUFACTURED ITEM :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.handleIsManufacturedItem}
+                      checked={this.state.is_manufactured_item}
+                    /> 
+                  </div>
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>IS VERIFIED :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.handleVerified}
+                      checked={this.state.verified}
+                    /> 
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

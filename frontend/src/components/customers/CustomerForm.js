@@ -9,8 +9,6 @@ import PropTypes from 'prop-types';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {Checkbox} from 'primereact/checkbox';
-import {RadioButton} from 'primereact/radiobutton';
-import {Dropdown} from 'primereact/dropdown';
 import {InputTextarea} from 'primereact/inputtextarea';
 
 
@@ -21,7 +19,7 @@ export class CustomerForm extends Component{
     super(props);
     this.state = {
         name: '',
-        is_organization: true,
+        is_organization: false,
         billing_address: '',
         banking_details: '',
         website: '',
@@ -34,13 +32,9 @@ export class CustomerForm extends Component{
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-    handleIsOrganization(event) {
-      const target = event.target;
-      const value = target.name === 'is_organization' ? target.checked : target.value;
-      const name = target.name;
-
+    handleIsOrganization() {
       this.setState({
-        [name]: value
+        is_organization: !this.state.checked
       });
     }
 
@@ -166,15 +160,13 @@ export class CustomerForm extends Component{
                       value={phone}
                     />
                   </div>
-                  <div className="p-field p-col-12 p-md-12">
-                    <label>
-                        Is Organization:
-                        <input
-                          name="is_organization"
-                          type="checkbox"
-                          checked={this.state.is_organization}
-                          onChange={this.handleIsOrganization} />
-                      </label>
+                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                    <label>IS ORGANIZATION :</label>
+                    <Checkbox
+                      inputId="working"
+                      onChange={this.handleIsOrganization}
+                      checked={this.state.is_organization}
+                    />                        
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

@@ -13,7 +13,7 @@ import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {Calendar} from "primereact/calendar";
 import {InputNumber} from 'primereact/inputnumber';
-
+import {Dropdown} from 'primereact/dropdown';
 
 
 class BillPaymentForm extends Component{
@@ -21,23 +21,28 @@ class BillPaymentForm extends Component{
         super(props);
         this.state = {
             date: '',
-            account: '',
-            bill: '',
+            account: null,
+            bill: null,
             amount: '',
             memo: '',
-            billList: [],
-            accountList: []
 
       }
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
+        this.onAccount = this.onAccount.bind(this);
+        this.onBill = this.onBill.bind(this);
     }
 
-    onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+    onAccount (e){
+      this.setState({aacount: e.value})
+    } 
 
-    
+    onBill (e){
+      this.setState({bill: e.value})
+    } 
+
+    onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = (e) => {
       e.preventDefault();
@@ -97,21 +102,6 @@ class BillPaymentForm extends Component{
         const {accounts} = this.props;
         const {bills} = this.props;
 
-
-        let accountList = accounts.length > 0
-            && accounts.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-        let billList = bills.length > 0
-            && bills.map((item, index) => {
-                return (
-                    <option key={item.id } value={item.id}>{item.reference}|{item.vendor}</option>
-                )
-            }, this);
-
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add An Account</h2>
@@ -156,24 +146,30 @@ class BillPaymentForm extends Component{
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <label>ACCOUNT</label>
-                    <select
-                        name="account"
-                        value={account}
-                        onChange={this.onChange}
-                    >
-                        {accountList}
-                    </select>
+                    <Dropdown 
+                      placeholder ="SELECT ACCOUNT"
+                      value={account}
+                      onChange={this.onAccount}
+                      options={accounts}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="name" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <label>BILL</label>
-                    <select
-                        name="bill"
-                        value={bill}
-                        onChange={this.onChange}
-                    >
-                        {billList}
-                    </select>
+                    <Dropdown 
+                      placeholder ="SELECT BILL"
+                      value={bill}
+                      onChange={this.onBill}
+                      options={bills}
+                      filter={true} 
+                      filterBy="id,name" 
+                      showClear={true}
+                      optionLabel="vendor" 
+                      optionValue="id"
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

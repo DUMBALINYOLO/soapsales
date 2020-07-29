@@ -23,13 +23,9 @@ export class UnitmeasureForm extends Component{
         this.handleDerived = this.handleDerived.bind(this);
 
     }
-    handleDerived(event) {
-      const target = event.target;
-      const value = target.name === 'is_derived' ? target.checked : target.value;
-      const name = target.name;
-
+    handleDerived() {
       this.setState({
-        [name]: value
+        is_derived: !this.state.checked
       });
     }
 
@@ -84,15 +80,14 @@ export class UnitmeasureForm extends Component{
                     value={eval_string}
                   />
                 </div>
-                <label>
-                    Is Derived:
-                    <input
-                      name="is_derived"
-                      type="checkbox"
-                      checked={this.state.is_derived}
-                      onChange={this.handleDerived} />
-                  </label>
-
+                <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                  <label>IS DERIVED :</label>
+                  <Checkbox
+                    inputId="working"
+                    onChange={this.handleDerived}
+                    checked={this.state.is_derived}
+                  /> 
+                </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />
                   </div>
