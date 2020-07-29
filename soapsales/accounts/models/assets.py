@@ -38,29 +38,23 @@ class Asset(models.Model):
     salvage_value = models.DecimalField(max_digits=16, decimal_places=2)
     created_by = models.ForeignKey('employees.Employee', default=1, on_delete=models.SET_NULL, null=True)
     entry = models.ForeignKey("accounts.JournalEntry", null=True, on_delete=models.SET_NULL)
+    reference_number = models.CharField(max_length=255, null=True, default=None)
 
 
 
     def save(self, *args, **kwargs):
         if self.entry is None:
             self.create_entry()
+        if not self.reference_number:
+           prefix = 'ASSET:{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().reference_number[-4:]
+              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.reference_number = prefix+'{0:04d}'.format(1)
         super(Asset, self).save(*args, **kwargs)
 
-
-    def create_asset_account(self):
-        n_assets = Asset.objects.all().count() + 1
-        self.credit_account = Account.objects.create(
-                name= "Asset: %s" % self.name,
-                initial_balance =0,
-                order  = 2,
-                id= 3100 + n_assets,
-                is_active = True,
-                is_contra = False,
-                description = 'Account which represents credit extended to an Asset',
-            )
-
-    def __str__(self):
-        return self.name
 
     def create_entry(self):
         '''debits the debit account and credits the appropriate asset account'''
@@ -107,9 +101,9 @@ class Asset(models.Model):
     def daily_depreciation(self):
         return self.annual_depreciation / D(365.0)
 
-    # def depreciation_for_month(self, month, year):
-    #     month_length = monthrange(year, month)[1]
-    #     return month_length * self.daily_depreciation
+    def depreciation_for_month(self, month, year):
+        month_length = monthrange(year, month)[1]
+        return month_length * self.daily_depreciation
 
     @property
     def total_depreciation(self):

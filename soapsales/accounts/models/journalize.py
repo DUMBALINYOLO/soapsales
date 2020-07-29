@@ -1,10 +1,11 @@
 
 from __future__ import unicode_literals
 from django.db import models
+from django.utils import timezone
 from employees.models import User
 from .accounts import Account
-from .enums import JournalEntryTypes
 from basedata.const import JOURNAL_ENTRY_TYPES_CHOICES
+from .enums import *
 
 
 class TransactionManager(models.Manager):
@@ -22,9 +23,24 @@ class Transaction(models.Model):
     value = models.DecimalField(max_digits=20, decimal_places=2)
     is_debit = models.BooleanField()
     date = models.DateTimeField(auto_now_add=True)
+    reference_number = models.CharField(max_length=255, null=True, default=None)
+
+
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+           prefix = 'TRN{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().reference_number[-4:]
+              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.reference_number = prefix+'{0:04d}'.format(1)
+        super(Transaction, self).save(*args, **kwargs)
 
     def get_value(self):
         return self.value * 1 if (self.is_debit == True) else self.value * -1
+
+
 
     def __str__(self):
         is_debit = "DEBIT" if (self.is_debit == True) else "CREDIT"
@@ -43,15 +59,15 @@ MANAGEMENT_JOURNAL_ENTRY_TYPES = [
     JournalEntryTypes.REVERSING
 ]
 
-class JournalEntryManager(models.Manager):
-    def get_by_natural_key(self, date_created, creator_username):
-        return self.get(date_created=date_created, creator__username=creator_username)
+# class JournalEntryManager(models.Manager):
+#     def get_by_natural_key(self, date_created, creator_username):
+#         return self.get(date_created=date_created, creator__username=creator_username)
 
 class JournalEntry(models.Model):
     class Meta:
         ordering = ['-date', '-date_created']
 
-    objects = JournalEntryManager()
+    # objects = JournalEntryManager()
 
     entry_type = models.SmallIntegerField(choices=JOURNAL_ENTRY_TYPES_CHOICES, default=0, blank=True, null=True)
 
@@ -66,6 +82,7 @@ class JournalEntry(models.Model):
                             on_delete=models.SET_NULL,
                             null=True
                         )
+    reference_number = models.CharField(max_length=255, null=True, default=None)
 
     def is_valid(self):
         balance = 0
@@ -106,23 +123,20 @@ class JournalEntry(models.Model):
     def __str__(self):
         return "Journal Entry {0:03d}".format(self.pk)
 
-    def natural_key(self):
-        return (self.date_created,) + self.creator.natural_key()
+
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+           prefix = 'JEY{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().reference_number[-4:]
+              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.reference_number = prefix+'{0:04d}'.format(1)
+        super(JournalEntry, self).save(*args, **kwargs)
 
 
 
-def get_upload_path(receipt, filename):
-    return 'journal_{0}/{1}'.format(receipt.journal_entry.pk, filename)
-
-class Receipt(models.Model):
-    journal_entry = models.ForeignKey(JournalEntry, related_name="receipts", on_delete=models.CASCADE)
-    file = models.FileField(upload_to=get_upload_path, verbose_name="Receipt File")
-    original_filename = models.CharField(max_length=256)
-
-    def __str__(self):
-        return "Receipt #{0:} for [{1:}]".format(
-            self.pk, self.journal_entry
-        )
 
 
 

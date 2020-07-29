@@ -8,6 +8,7 @@ class StringSerializer(serializers.StringRelatedField):
         return value
 
 
+
 class BillLineSerializer(serializers.ModelSerializer):
     class Meta:
         model = BillLine

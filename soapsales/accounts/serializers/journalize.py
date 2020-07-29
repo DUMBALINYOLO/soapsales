@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from accounts.models import JournalEntry, Transaction, Receipt
+from accounts.models import JournalEntry, Transaction
 from .accounts import RetrieveAccountSerializer
 # from users.serializers import UserSerializer
 from accounts.utils import format_currency

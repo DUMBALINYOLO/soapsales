@@ -2,7 +2,7 @@ from rest_framework import viewsets, permissions
 from invoicing.models import (
 							Invoice,
 							InvoiceLine,
-							ProductLineComponent,
+							# ProductLineComponent,
 						)
 from invoicing.serializers import (
 								QuotationListSerializer,
@@ -11,9 +11,9 @@ from invoicing.serializers import (
 								InvoiceListSerializer,
 								InvoiceCreateSerializer,
 								InvoiceDetailSerializer,
-								ProductLineComponentListSerializer,
-								ProductLineComponentCreateSerializer,
-								ProductLineComponentDetailSerializer,
+								# ProductLineComponentListSerializer,
+								# ProductLineComponentCreateSerializer,
+								# ProductLineComponentDetailSerializer,
 								InvoiceLineListSerializer,
 							)
 
@@ -54,15 +54,15 @@ class InvoiceLineViewSet(viewsets.ModelViewSet):
 
 
 
-class ProductLineComponentViewSet(viewsets.ModelViewSet):
-	queryset = ProductLineComponent.objects.all()
-	# permission_classes = [
- #        permissions.IsAuthenticated,
- #    ]
+# class ProductLineComponentViewSet(viewsets.ModelViewSet):
+# 	queryset = ProductLineComponent.objects.all()
+# 	# permission_classes = [
+#  #        permissions.IsAuthenticated,
+#  #    ]
 
-	def get_serializer_class(self):
-		if self.action == 'list':
-		    return ProductLineComponentListSerializer
-		elif self.action == 'create':
-			return ProductLineComponentCreateSerializer
-		return ProductLineComponentDetailSerializer
+# 	def get_serializer_class(self):
+# 		if self.action == 'list':
+# 		    return ProductLineComponentListSerializer
+# 		elif self.action == 'create':
+# 			return ProductLineComponentCreateSerializer
+# 		return ProductLineComponentDetailSerializer

@@ -209,7 +209,7 @@ class WareHouseItem(models.Model):
                     )
     is_manufactured_item = models.BooleanField(default=False)
     processed_item = models.ForeignKey(
-                        'stock.ProcessedProduct',
+                        'manufacture.ProcessProduct',
                         null=True,
                         on_delete=models.SET_NULL
                     )

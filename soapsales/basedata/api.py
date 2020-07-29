@@ -30,7 +30,26 @@ from .const import (
 				BILL_OF_MATERIALS_LINE_CHOICES,
 				PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES,
 				MANUFACTURING_PROCESS_CHOICES,
-
+				NATURE_OF_EMPLOYMENT_CHOICES,
+				EMPLOYEE_CONTRACT_TERMINATION_REASONS,
+				EMPLOYEE_CATEGORY_CHOICES,
+				EMPLOYEE_LEAVE_CATEGORIES,
+				EMPLOYEE_LEAVE_STATUS_CHOICES,
+				EMPLOYEE_LUNCH_CHOICES,
+				EMPLOYEE_PAY_FREQUENCIES,
+				EMPLOYEE_DEDUCTION_METHODS,
+				EMPLOYEE_PAYROLL_DATE_CHOICES,
+				EMPLOYEE_PAYSLIP_STATUS_CHOICES,
+				EMPLOYEE_TIMESHEET_MONTH_CHOICES,
+				EMPLOYEE_YEAR_CHOICES, 
+				EMPLOYEE_PAYROLL_TAX_CHOICES,
+				EVENT_REMINDER_CHOICES,
+				EVENT_TIME_CHOICES,
+				EVENT_ICON_CHOICES,
+				EVENT_REPEAT_CHOICES,
+				EVENT_PARTICIPANT_TYPES_CHOICES,
+				EVENT_PRIORITY_CHOICES,
+				MANUFACTURING_SHIFT_TIME_CHOICES,
 			)
 
 
@@ -42,6 +61,284 @@ class NoteViewSet(viewsets.ModelViewSet):
 class OrganizationViewSet(viewsets.ModelViewSet):
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
+
+
+class ManufacturingShiftTimeChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(MANUFACTURING_SHIFT_TIME_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EventPriorityChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EVENT_PRIORITY_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+
+class EventParticipantTypesChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EVENT_PARTICIPANT_TYPES_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EventReminderChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EVENT_REMINDER_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EventTimeChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EVENT_TIME_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EventIconChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EVENT_ICON_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EventRepeatChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EVENT_REPEAT_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+
+
+class EmployeePayrollTaxChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_PAYROLL_TAX_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class NatureOfEmploymentChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(NATURE_OF_EMPLOYMENT_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EmploymentContractTerminationReasonsAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_CONTRACT_TERMINATION_REASONS)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EmployeeCategoryChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_CATEGORY_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EmployeeLeaveCategoryChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_LEAVE_CATEGORIES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+
+class EmployeeLeaveStatusChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_LEAVE_STATUS_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EmployeeLunchChoicesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_LUNCH_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EmployeePayFrequenciesAPIView(views.APIView):
+
+
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_PAY_FREQUENCIES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+
+class EmployeeDeductionMethodsAPIView(views.APIView):
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_DEDUCTION_METHODS)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+
+
+class EmployeePayrollDateChoicesAPIView(views.APIView):
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_PAYROLL_DATE_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+
+class EmployeePayslipStatusChoicesAPIView(views.APIView):
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_PAYSLIP_STATUS_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EmployeeTimesheetMonthChoicesAPIView(views.APIView):
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_TIMESHEET_MONTH_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
+
+
+class EmployeeYearChoicesAPIView(views.APIView):
+	def get(self, request, format=None):
+
+		my_choices = []
+		choice_dict = dict(EMPLOYEE_YEAR_CHOICES)
+		for key, value in choice_dict.items():
+
+			itered_dict = {"key": key, "value": value}
+			my_choices.append(itered_dict)
+		return Response(my_choices, status=status.HTTP_200_OK)
 
 
 
@@ -325,11 +622,3 @@ class ManufacturingProcessChoicesAPIView(views.APIView):
 			itered_dict = {"key": key, "value": value}
 			my_choices.append(itered_dict)
 		return Response(my_choices, status=status.HTTP_200_OK)
-
-
-
-
-
-
-
-

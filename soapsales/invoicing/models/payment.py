@@ -1,9 +1,11 @@
 from django.db import models
 
-from accounts.models import Account, JournalEntry
+import accounts
 from decimal import Decimal as D
 from basedata.models import SoftDeletionModel
 from .receipt import CustomerReceipt
+import random
+from django.utils import timezone
 from basedata.const import CUSTOMER_PAYMENT_METHODS_CHOICES
 
 class Payment(SoftDeletionModel):
@@ -29,7 +31,7 @@ class Payment(SoftDeletionModel):
         max_length=32,
         choices=CUSTOMER_PAYMENT_METHODS_CHOICES,
         default='transfer')
-    reference_number = models.AutoField(primary_key=True)
+    reference_number = models.CharField(max_length=255, null=True, default=None) 
     sales_rep = models.ForeignKey("invoicing.SalesRepresentative",
         on_delete=models.SET_NULL, null=True,)
     comments = models.TextField(default="Thank you for your business")
@@ -50,7 +52,18 @@ class Payment(SoftDeletionModel):
             self.create_entry()
         if self.receipt is None:
             self.create_create_customer_receipt()
+        if not self.reference_number:
+           prefix = 'PAYM{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().reference_number[-4:]
+              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.reference_number = prefix+'{0:04d}'.format(1)
         super(Payment, self).save(*args, **kwargs)
+
+
+
 
 
     def __str__(self):
@@ -68,7 +81,7 @@ class Payment(SoftDeletionModel):
         '''payment entries credit the customer account and debits the cash book'''
         if self.entry:
             return
-        j = JournalEntry.objects.create(
+        j = accounts.models.JournalEntry.objects.create(
                 memo= f'Journal entry for payment #{self.pk} from invoice #{self.invoice.invoice_number}.',
                 date=self.date,
                 creator = self.sales_rep.employee,
@@ -81,7 +94,7 @@ class Payment(SoftDeletionModel):
         j.simple_entry(
             self.amount,
             self.invoice.customer.account,
-            Account.objects.get(name='CASH-IN-CHECKING-ACCOUNT-NUMBER-ONE'),#cash in checking account
+            accounts.models.Account.objects.get(name='CASH-IN-CHECKING-ACCOUNT-NUMBER-ONE'),#cash in checking account
         )
         #change invoice status if  fully paid
         if self.invoice.total_due <= 0:

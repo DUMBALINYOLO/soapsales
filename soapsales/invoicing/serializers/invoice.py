@@ -2,7 +2,6 @@ from rest_framework import serializers
 from invoicing.models import (
 							Invoice,
 							InvoiceLine,
-							ProductLineComponent,
 						)
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 
@@ -175,38 +174,38 @@ class InvoiceDetailSerializer(serializers.ModelSerializer):
 		]
 
 
-class ProductLineComponentListSerializer(serializers.ModelSerializer):
-	product = StringSerializer()
+# class ProductLineComponentListSerializer(serializers.ModelSerializer):
+# 	product = StringSerializer()
 
 
 
-	class Meta:
-		model = ProductLineComponent
-		fields = ['id', 'product', 'unit_price', 'value', 'quantity']
+# 	class Meta:
+# 		model = ProductLineComponent
+# 		fields = ['id', 'product', 'unit_price', 'value', 'quantity']
 
 
 
-class ProductLineComponentCreateSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = ProductLineComponent
-		fields = [
-			'product', 
-			'unit_price', 
-			'value', 
-			'quantity'
-		]
+# class ProductLineComponentCreateSerializer(serializers.ModelSerializer):
+# 	class Meta:
+# 		model = ProductLineComponent
+# 		fields = [
+# 			'product', 
+# 			'unit_price', 
+# 			'value', 
+# 			'quantity'
+# 		]
 
 
-class ProductLineComponentDetailSerializer(serializers.ModelSerializer):
-	product = StringSerializer()
+# class ProductLineComponentDetailSerializer(serializers.ModelSerializer):
+# 	product = StringSerializer()
 
-	class Meta:
-		model = ProductLineComponent
-		fields = [
-			'id',
-			'product', 
-			'unit_price', 
-			'value', 
-			'quantity',
-			'returned_value',
-		]
+# 	class Meta:
+# 		model = ProductLineComponent
+# 		fields = [
+# 			'id',
+# 			'product', 
+# 			'unit_price', 
+# 			'value', 
+# 			'quantity',
+# 			'returned_value',
+# 		]

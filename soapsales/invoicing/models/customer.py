@@ -3,13 +3,16 @@ from decimal import Decimal as D
 
 from django.db import models
 from django.db.models import Q
-
+import uuid
+import random
+from django.utils import timezone
 import inventory
-from accounts.models import Account
+# from accounts.models import Account
 
 from invoicing.models.invoice import Invoice
 from invoicing.models.payment import Payment
 from basedata.models import  SoftDeletionModel
+
 
 class Customer(SoftDeletionModel):
     '''
@@ -17,8 +20,11 @@ class Customer(SoftDeletionModel):
         sold. Customers are typically businesses and the fields reflect that
         likelihood. Individuals however can also be represented.
         Customers can have accounts if store credit is extended to them.
+
     '''
+    
     name = models.CharField(max_length=230, blank=True)
+    customer_number = models.CharField(max_length=255, null=True, default=None)  
     is_organization = models.BooleanField(default=False)
     is_individual = models.BooleanField(default=False)
     billing_address = models.TextField(default= "", blank=True)
@@ -39,6 +45,7 @@ class Customer(SoftDeletionModel):
         return self.name
 
     def create_customer_account(self):
+        from accounts.models import Account
         n_customers = Customer.objects.all().count() 
         self.account = Account.objects.create(
                 name= "Customer: %s" % self.name,
@@ -53,7 +60,18 @@ class Customer(SoftDeletionModel):
     def save(self, *args, **kwargs):
         if self.account is None:
             self.create_customer_account()
+        if not self.customer_number:
+           prefix = 'CUS{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(customer_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().customer_number[-4:]
+              self.customer_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.customer_number = prefix+'{0:04d}'.format(1)
         super(Customer, self).save(*args, **kwargs)
+
+
+
 
     @property
     def credit_invoices(self):

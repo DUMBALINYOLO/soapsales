@@ -8,14 +8,14 @@ from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 
-from accounts.models import Account, JournalEntry, Tax
+# from accounts.models import JournalEntry, Tax
 from invoicing import models as inv_models
 from basedata.models import SoftDeletionModel
 import inventory
 from invoicing.models.credit_note import CreditNoteLine
 from django.shortcuts import reverse
-from inventory.models import InventoryController
-from stock.models  import ProcessedProduct
+# from inventory.models import InventoryController
+from manufacture.models  import ProcessProduct
 from .config import SalesConfig
 from basedata.const import (
         INVOICE_SALE_STATUS_CHOICES,
@@ -74,8 +74,7 @@ class Invoice(SoftDeletionModel):
    # reversal is handled in credit notes
 
     status = models.CharField(max_length=16, choices=INVOICE_SALE_STATUS_CHOICES)
-    invoice_number = models.PositiveIntegerField(null=True)
-    quotation_number = models.PositiveIntegerField(null=True)
+    reference_number = models.CharField(max_length=255, null=True, default=None)  
     quotation_date = models.DateField(blank=True, null=True)
     quotation_valid= models.DateField(blank=True, null=True)
     invoice_validated_by = models.ForeignKey('employees.Employee',
@@ -109,30 +108,6 @@ class Invoice(SoftDeletionModel):
 
 
 
-    def add_line(self, data):
-        '''Takes a dictionary that represents the invoice line and create
-        the appropriate objects to match the provided data'''
-        tax_id = data['tax'].split('-')[0]
-        tax = Tax.objects.get(pk=tax_id)
-        discount = D(data['discount'])
-        if data['type'] == 'product':
-            pk = data['selected'].split('-')[0]
-            product = ProcessedProduct.objects.get(pk=pk)
-            component = ProductLineComponent.objects.create(
-                product=product,
-                quantity=data['quantity'],
-                unit_price= data['unitPrice']
-
-            )
-            line = self.lines.create(
-                line_type=1,#product
-                product=component,
-                tax=tax,
-                discount=discount
-            )
-
-
-
     def update_inventory(self):
         '''Removes inventory from the warehouse'''
         #called in views.py
@@ -141,6 +116,7 @@ class Invoice(SoftDeletionModel):
             self.ship_from.decrement_processed_item(line.product.product, line.quantity) #comming for you
 
     def verify_inventory(self):
+        from inventory.models import InventoryController
         '''Iterates over all the invoice lines and appends checks that indicate
             shortages. returns a list of these checks'''
         shortages = []
@@ -177,6 +153,7 @@ class Invoice(SoftDeletionModel):
         if TODAY > self.due:
             return (TODAY - self.due).days
         return 0
+
 
     @property
     def total(self):
@@ -230,25 +207,8 @@ class Invoice(SoftDeletionModel):
             self.quotation_valid >= datetime.date.today()
 
 
-    def set_quote_invoice_number(self):
-        '''This method is called when the invoice is created to follow the numbering sequence stored in the sales config '''
-        config = SalesConfig.objects.first()
-        if self.is_quotation:
-            if self.quotation_number is None:
-                self.quotation_number = config.next_quotation_number
-                config.next_quotation_number += 1
-                config.save()
-                self.save()
-        elif self.status != 'draft':
-            if self.invoice_number is None:
-                self.invoice_number = config.next_invoice_number
-                config.next_invoice_number += 1
-                config.save()
-                self.save()
-        else:
-            return
-
     def create_entry(self):
+        from accounts.models import Account, JournalEntry
         '''Makes the necessary inputs into the accounting system after a
             transaction. It debits the customer account and credits the sales
             account as well as crediting the tax account'''
@@ -268,7 +228,6 @@ class Invoice(SoftDeletionModel):
             j.credit(self.tax_amount, Account.objects.get(name='SALES-TAX-ACCOUNT-NUMBER-ONE'))#sales tax
 
         self.entry = j
-        self.save()
         return j
 
     def _line_total(self, line_type):
@@ -324,6 +283,9 @@ class Invoice(SoftDeletionModel):
             for line in self.lines.all() ])
 
 
+        #0775663168
+
+
     @property
     def expense_only(self):
         # '''Checks if an invoice consists only of expense lines'''
@@ -331,10 +293,18 @@ class Invoice(SoftDeletionModel):
             for line in self.lines.all() ])
 
     def save(self, *args, **kwargs):
-        # '''Makes sure that every invoice and quotation is numbered.
-        # Also makes sure that each service has a valid work order request'''
-        super().save(*args, **kwargs)
-        self.set_quote_invoice_number()
+        if self.entry is None:
+            self.create_entry()
+        if not self.reference_number:
+           prefix = 'INV{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().reference_number[-4:]
+              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.reference_number = prefix+'{0:04d}'.format(1)
+        super(Invoice, self).save(*args, **kwargs)
+
 
 
 class InvoiceLine(models.Model):
@@ -347,15 +317,27 @@ class InvoiceLine(models.Model):
                             related_name= 'lines'
 
                         )
-    product = models.OneToOneField('invoicing.ProductLineComponent',
+    product = models.OneToOneField('SalesProduct',
         on_delete=models.SET_NULL,
         null=True, )
     line_type = models.PositiveSmallIntegerField(choices=INVOCE_LINE_CHOICES)
     tax = models.ForeignKey('accounts.Tax', on_delete=models.SET_NULL,
         null=True)
     discount =models.DecimalField(max_digits=16, decimal_places=2, default=0.0)
+    reference_number = models.CharField(max_length=255, null=True, default=None)
 
     #what it is sold for
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+           prefix = 'REC{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().reference_number[-4:]
+              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.reference_number = prefix+'{0:04d}'.format(1)
+        super(CustomerReceipt, self).save(*args, **kwargs)
+
 
     @property
     def type_string(self):
@@ -384,16 +366,7 @@ class InvoiceLine(models.Model):
 
 
     def __str__(self):
-        if not self.component:
-            return "<INVALID INVOICE LINE>"
-
-        if self.line_type == 1:
-            return '[PRODUCT] {} x {} @ ${:0.2f}{}'.format(
-                self.component.quantity,
-                self.name,
-                self.unit_price,
-                self.component.product.unit
-            )
+        return f'{self.reference_number} {self.invoice.customer}'
 
 
 
@@ -434,12 +407,12 @@ class InvoiceLine(models.Model):
             raise attrerr
         raise AttributeError(f"{type(self)} has no attribute '{name}'")
 
-class ProductLineComponent(models.Model):
-    product = models.ForeignKey('stock.ProcessedProduct', null=True,
+class SalesProduct(models.Model):
+    product = models.ForeignKey('manufacture.ProcessProduct', null=True,
         on_delete=models.SET_NULL)
     returned = models.BooleanField(default=False)
-    unit_price = models.DecimalField(max_digits=16,
-        decimal_places=2,
+    unit_price = models.DecimalField(max_digits=16, 
+        decimal_places=2, 
         default=0.0)
 
     # value is calculated once when the invoice is generated to prevent
@@ -450,11 +423,12 @@ class ProductLineComponent(models.Model):
         max_digits=16,
         decimal_places=2,
         default=0.0)
+    reference_number = models.CharField(max_length=255, null=True, default=None)
 
     @property
     def nominal_price(self):
         '''The price of the line without discount and taxes'''
-        return self.quantity * self.unit_price
+        return self.quantity * self.product.unit_sales_price
 
     @property
     def line(self):
@@ -476,12 +450,8 @@ class ProductLineComponent(models.Model):
         return str(self.product)
 
 
-    def _return(self, quantity):
-        self.returned = True
-        #Must increment inventory here !! Important
-        # increment inventory here. Can be scrapped later or just kept in
-        # inventory if ok
-        self.invoiceline.invoice.ship_from.add_item(self.product, quantity)
+    def set_value(self):
+        self.value = self.product.unit_sales_price * D(self.quantity)
         self.save()
 
 
@@ -494,6 +464,7 @@ class ProductLineComponent(models.Model):
         else: return 0
 
         return invoiced_unit_price * D(self.returned_quantity)
+
 
     def check_inventory(self):
         '''Checks the shipping warehouse for the required quantity of inventory
@@ -521,9 +492,19 @@ class ProductLineComponent(models.Model):
         pass
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
         if self.returned_quantity > 0:
             self.returned = True
-        if self.unit_price == D(0.0) and self.product.product_component.unit_sales_price != 0:
-            self.unit_price = self.product.product_component.unit_sales_price
-            self.save()
+        if self.value == D(0.0):
+            self.set_value() 
+        if not self.reference_number:
+           prefix = 'SAP{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().reference_number[-4:]
+              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.reference_number = prefix+'{0:04d}'.format(1)
+        super(SalesProduct, self).save(*args, **kwargs)
+
+
+

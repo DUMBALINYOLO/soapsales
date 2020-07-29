@@ -5,8 +5,10 @@ import datetime
 from decimal import Decimal as D
 
 from django.db import models
+import uuid
 from django.db.models import Q
-
+import random
+from django.utils import timezone
 from .inventory import InventoryItem
 from .inventory_management import StockReceipt
 from .order import Order
@@ -26,6 +28,7 @@ class Supplier(models.Model):
     business_address = models.TextField(blank=True)
     website = models.CharField(max_length=255, blank=True)
     bp_number = models.CharField(max_length=64, blank=True)
+    supplier_number = models.CharField(max_length=255, null=True, default=None) 
     email=models.CharField(max_length=128, blank=True)
     phone = models.CharField(max_length=32, blank=True)
     contact_person = models.CharField(max_length=230, blank=True)
@@ -76,7 +79,7 @@ class Supplier(models.Model):
         n_suppliers = Supplier.objects.all().count() 
         #will overwrite if error occurs
         self.account = Account.objects.create(
-            name= "Vendor: %s" % self.name,
+            name= "VEN: %s" % self.name,
             id = (2100 + n_suppliers + 2 ) * 10, # the + 1 for the default supplier
             initial_balance = 0,
             order  = 2,
@@ -88,6 +91,14 @@ class Supplier(models.Model):
     def save(self, *args, **kwargs):
         if self.account is None:
             self.create_account()
+        if not self.supplier_number:
+           prefix = 'VENDOR{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(supplier_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().supplier_number[-4:]
+              self.supplier_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.supplier_number = prefix+'{0:04d}'.format(1)
         super(Supplier, self).save(*args, **kwargs)
 
 

@@ -5,14 +5,15 @@ from django.shortcuts import get_object_or_404
 
 
 from manufacture.serializers import (
-            ProcessMachineSerializer,
-            ProcessMachineGroupSerializer,
-            ProcessMachineGroupCreateSerializer,
-            ProcessMachineCreateSerializer,
+            ProcessMachineGroupListSerializer,
+            ProcessMachineGroupCreateUpdateSerializer,
+            ProcessMachineGroupDetailSerializer,
+            ProcessMachineSerializer
         )
 from manufacture.serializers import (
-            ProcessMachine,
-            ProcessMachineGroup
+            ProcessMachineGroup,
+            ProcessMachine
+
         )
 
 from rest_framework.viewsets import ModelViewSet
@@ -24,25 +25,26 @@ from inventory.models import UnitOfMeasure
 
 class ProcessMachineViewset(ModelViewSet):
     queryset = ProcessMachine.objects.all() # call prefetch related in the Model Manager
+    serializer_class = ProcessMachineSerializer
     # permission_classes = [
     #     permissions.IsAuthenticated,
     # ]
 
-    def get_serializer_class(self):
-        if self.action in ['create', 'put']:
-            return ProcessMachineCreateSerializer
-        return ProcessMachineSerializer
+
 
 
 
 class ProcessMachineGroupViewset(ModelViewSet):
     queryset = ProcessMachineGroup.objects.all() # call prefetch related in the Model Manager
-    serializer_class = ProcessMachineGroupSerializer
     # permission_classes = [
     #     permissions.IsAuthenticated,
     # ]
 
     def get_serializer_class(self):
         if self.action in ['create', 'put']:
-            return ProcessMachineGroupCreateSerializer
-        return ProcessMachineGroupSerializer
+            return ProcessMachineGroupCreateUpdateSerializer
+        elif self.action == 'retrieve':
+            return ProcessMachineGroupDetailSerializer
+        return ProcessMachineGroupListSerializer
+
+        

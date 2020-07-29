@@ -1,6 +1,7 @@
 
 from __future__ import unicode_literals
 from django.db import models
+from django.utils import timezone
 from accounts.utils import format_currency
 from .enums import AccountCategories, AccountClassifications
 from basedata.const import (
@@ -59,6 +60,19 @@ class Account(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='date Created')
     is_active = models.BooleanField(default=False, verbose_name="active?")
     is_contra = models.BooleanField(default=False, verbose_name="contra?")
+    account_number = models.CharField(max_length=255, null=True, default=None)
+
+
+    def save(self, *args, **kwargs):
+        if not self.account_number:
+           prefix = 'ACN{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(account_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().account_number[-4:]
+              self.account_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.account_number = prefix+'{0:04d}'.format(1)
+        super(Account, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

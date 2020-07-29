@@ -29,7 +29,7 @@ export const deleteProcessproduct = (id) => dispatch => {
 
 // Add
 export const addProcessproduct = (processproduct) => dispatch => {
-    axios.post(processproductURL)
+    axios.post(processproductURL, processproduct)
         .then(res => {
             dispatch({
                 type: ADD_PROCESSPRODUCT,

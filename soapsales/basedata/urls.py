@@ -23,6 +23,28 @@ from .api import (
             BillOfMaterialsLineChoicesAPIView,
             ProcessedProductsStockStatusChoicesAPIView,
             ManufacturingProcessChoicesAPIView,
+            NatureOfEmploymentChoicesAPIView,
+            ##start
+            EmployeeYearChoicesAPIView,
+            EmployeeTimesheetMonthChoicesAPIView,
+            EmployeePayslipStatusChoicesAPIView,
+            EmployeePayrollDateChoicesAPIView,
+            EmployeeDeductionMethodsAPIView,
+            EmployeePayFrequenciesAPIView,
+            EmployeeLunchChoicesAPIView,
+            EmployeeLeaveStatusChoicesAPIView,
+            EmployeeLeaveCategoryChoicesAPIView,
+            EmployeeCategoryChoicesAPIView,
+            EmploymentContractTerminationReasonsAPIView,
+            EmployeePayrollTaxChoicesAPIView,
+            EventPriorityChoicesAPIView,
+            EventParticipantTypesChoicesAPIView,
+            EventReminderChoicesAPIView,
+            EventTimeChoicesAPIView,
+            EventIconChoicesAPIView,
+            EventRepeatChoicesAPIView,
+            ManufacturingShiftTimeChoicesAPIView,
+
 
         )
 
@@ -33,11 +55,35 @@ router.register(r'notes', NoteViewSet )
 router.register(r'organization-config', OrganizationViewSet)
 
 
+
 urlpatterns = [
     path('account-types-category-choices/', AccountTypesCategoryChoicesAPIView.as_view(), name='account-types-category-choices'),
     path('account-types-classification-choices/', AccountTypesClassificationChoicesAPIView.as_view(), name='account-types-classification-choices'),
     path('assets-depriciation-method-choices/', AssetsDepreciationMethodChoicesAPIView.as_view(), name='assets-depriciation-method-choices'),
     path('asset-types-choices/', AssetTypesChoicesAPIView.as_view(), name='asset-types-choices'),
+    #make redux state from here
+    path('manufactring-shift-time-choices/', ManufacturingShiftTimeChoicesAPIView.as_view(), name='manufactring-shift-time-choices'),
+    path('event-priority-choices/', EventPriorityChoicesAPIView.as_view(), name='event-priority-choices'),
+    path('event-participant-types-choices/', EventParticipantTypesChoicesAPIView.as_view(), name='event-participant-types-choices'),
+    path('event-reminder-choices/', EventReminderChoicesAPIView.as_view(), name='event-reminder-choices'),
+    path('event-time-choices/', EventTimeChoicesAPIView.as_view(), name='event-time-choices'),
+    path('event-icon-choices/', EventIconChoicesAPIView.as_view(), name='event-icon-choices'),
+    path('event-repeat-choices/', EventRepeatChoicesAPIView.as_view(), name='event-repeat-choices'),
+    path('employee-payroll-tax-choices/', EmployeePayrollTaxChoicesAPIView.as_view(), name='employee-payroll-tax-choices'),
+    path('nature-of-employment-choices/', NatureOfEmploymentChoicesAPIView.as_view(), name='asset-types-choices'),
+    path('employee-year-choices/', EmployeeYearChoicesAPIView.as_view(), name='employee-year-choices'),
+    path('employee-timesheet-month-choices/', EmployeeTimesheetMonthChoicesAPIView.as_view(), name='employee-timesheet-month-choices'),
+    path('employee-payslip-status-choices/', EmployeePayslipStatusChoicesAPIView.as_view(), name='employee-payslip-status-choices'),
+    path('employee-payroll-date-choices/', EmployeePayrollDateChoicesAPIView.as_view(), name='employee-year-choices'),
+    path('employee-deduction-methods/', EmployeeDeductionMethodsAPIView.as_view(), name='employee-deduction-methods'),
+    path('employee-pay-frequencies/', EmployeePayFrequenciesAPIView.as_view(), name='employee-pay-frequencies'),
+    path('employee-lunch-choices/', EmployeeLunchChoicesAPIView.as_view(), name='employee-lunch-choices'),
+    path('employee-leave-status-choices/', EmployeeLeaveStatusChoicesAPIView.as_view(), name='employee-leave-status-choices'),
+    path('employee-leave-category-choices/', EmployeeLeaveCategoryChoicesAPIView.as_view(), name='employee-leave-category-choices'),
+    path('employee-category-choices/', EmployeeCategoryChoicesAPIView.as_view(), name='employee-category-choices'),
+    path('employment-contract-termination-reasons/', EmploymentContractTerminationReasonsAPIView.as_view(), name='employment-contract-termination-reasons'),
+
+    # it ends here
     path('accounting-periods-choices/', AccountingPeriodsChoicesAPIView.as_view(), name='accounting-periods-choices'),
     path('journal-entry-types-choices/', JournalEntryTypesChoicesAPIView.as_view(), name='journal-entry-types-choices'),
     path('employees-gender-choices/', EmployeesGenderChoicesAPIView.as_view(), name='employees-gender-choices'),

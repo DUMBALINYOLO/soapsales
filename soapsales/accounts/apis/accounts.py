@@ -91,18 +91,18 @@ class AccountViewSet(viewsets.ModelViewSet):
             "ratio" : 0
         }
 
-        accounts = Account.objects.filter(is_active=True, account_type__classification=AccountClassifications.CURRENT,
+        accounts = Account.objects.filter(is_active=True, account_type__classification=1,
                                           account_type__category__in=[
-                                              AccountCategories.ASSET,
-                                              AccountCategories.LIABILITY
+                                              0,
+                                              1
                                           ])
         total_assets = 0
         total_liabilities = 0
 
         for account in accounts:
-            if account.account_type.category == AccountCategories.ASSET:
+            if account.account_type.category == 0:
                 total_assets += account.get_balance()
-            elif account.account_type.category == AccountCategories.LIABILITY:
+            elif account.account_type.category == 1:
                 total_liabilities += account.get_balance()
 
         cr["ratio"] = 0
@@ -127,18 +127,18 @@ class AccountViewSet(viewsets.ModelViewSet):
         net_profit = 0
         total_assets = 0
         accounts = Account.objects.filter(is_active=True, account_type__category__in=[
-            AccountCategories.ASSET,
-            AccountCategories.REVENUE,
-            AccountCategories.EXPENSE
+            0,
+            3,
+            4,
         ])
 
         for account in accounts:
             account_balance = account.get_balance()
-            if account.account_type.category == AccountCategories.ASSET:
+            if account.account_type.category == 0:
                 total_assets += account_balance
-            elif account.account_type.category == AccountCategories.REVENUE:
+            elif account.account_type.category == 3:
                 net_profit += account_balance
-            elif account.account_type.category == AccountCategories.EXPENSE:
+            elif account.account_type.category == 4:
                 net_profit -= account_balance
 
         output = 0
@@ -166,18 +166,18 @@ class AccountViewSet(viewsets.ModelViewSet):
         net_profit = 0
         total_equity = 0
         accounts = Account.objects.filter(is_active=True, account_type__category__in=[
-            AccountCategories.EQUITY,
-            AccountCategories.REVENUE,
-            AccountCategories.EXPENSE
+            2,
+            3,
+            4
         ])
 
         for account in accounts:
             account_balance = account.get_balance()
-            if account.account_type.category == AccountCategories.EQUITY:
+            if account.account_type.category == 2:
                 total_equity += account_balance
-            elif account.account_type.category == AccountCategories.REVENUE:
+            elif account.account_type.category == 3:
                 net_profit += account_balance
-            elif account.account_type.category == AccountCategories.EXPENSE:
+            elif account.account_type.category == 4:
                 net_profit -= account_balance
 
         output = 0
@@ -205,16 +205,16 @@ class AccountViewSet(viewsets.ModelViewSet):
         net_profit = 0
         total_sales = 0
         accounts = Account.objects.filter(is_active=True, account_type__category__in=[
-            AccountCategories.REVENUE,
-            AccountCategories.EXPENSE
+            3,
+            4
         ])
 
         for account in accounts:
             account_balance = account.get_balance()
-            if account.account_type.category == AccountCategories.REVENUE: # TODO: make sure it is correct to use all revenues for this
+            if account.account_type.category == 3: # TODO: make sure it is correct to use all revenues for this
                 total_sales += account_balance
                 net_profit += account_balance
-            elif account.account_type.category == AccountCategories.EXPENSE:
+            elif account.account_type.category == 4:
                 net_profit -= account_balance
 
         output = 0
@@ -242,15 +242,15 @@ class AccountViewSet(viewsets.ModelViewSet):
         total_assets = 0
         total_sales = 0
         accounts = Account.objects.filter(is_active=True, account_type__category__in=[
-            AccountCategories.ASSET,
-            AccountCategories.REVENUE
+            0,
+            3
         ])
 
         for account in accounts:
             account_balance = account.get_balance()
-            if account.account_type.category == AccountCategories.ASSET:
+            if account.account_type.category == 0:
                 total_assets += account_balance
-            elif account.account_type.category == AccountCategories.REVENUE:  # TODO: make sure it is correct to use all revenues for this
+            elif account.account_type.category == 3:  # TODO: make sure it is correct to use all revenues for this
                 total_sales += account_balance
 
         output = 0
@@ -278,20 +278,20 @@ class AccountViewSet(viewsets.ModelViewSet):
         total_assets = 0
         total_liabilities = 0
         total_inventory = 0
-        accounts = Account.objects.filter(is_active=True, account_type__classification=AccountClassifications.CURRENT,
+        accounts = Account.objects.filter(is_active=True, account_type__classification=1,
                                           account_type__category__in=[
-                                              AccountCategories.ASSET,
-                                              AccountCategories.LIABILITY
+                                              0,
+                                              1
                                           ])
 
         for account in accounts:
             account_balance = account.get_balance()
-            if account.account_type.category == AccountCategories.ASSET:
+            if account.account_type.category == 0:
                 total_assets += account_balance
                 if account.account_type.name == "Inventories":
                     total_inventory += account_balance
 
-            elif account.account_type.category == AccountCategories.LIABILITY:
+            elif account.account_type.category == 1:
                 total_liabilities += account_balance
 
         output = 0
@@ -347,8 +347,8 @@ class AccountViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def income_statement(self, request):
         accounts = Account.objects.filter(is_active=True, account_type__category__in=[
-            AccountCategories.REVENUE,
-            AccountCategories.EXPENSE
+            3,
+            4
         ])
 
         expenses = []
@@ -367,10 +367,10 @@ class AccountViewSet(viewsets.ModelViewSet):
                     'is_debit': account.is_debit()
                 }
 
-                if account.account_type.category == AccountCategories.REVENUE:
+                if account.account_type.category == 3:
                     revenues.append(account_summary)
                     revenues_total += account_balance
-                elif account.account_type.category == AccountCategories.EXPENSE:
+                elif account.account_type.category == 4:
                     expenses.append(account_summary)
                     expenses_total += account_balance
 
@@ -386,9 +386,9 @@ class AccountViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def retained_earnings(self, request):
         accounts = Account.objects.filter(is_active=True, account_type__category__in=[
-            AccountCategories.EQUITY,
-            AccountCategories.REVENUE,
-            AccountCategories.EXPENSE
+            2,
+            3,
+            4
         ])
 
         retained_earnings_beginning = 0
@@ -398,7 +398,7 @@ class AccountViewSet(viewsets.ModelViewSet):
         for account in accounts:
             account_balance = account.get_balance()
 
-            if account.account_type.category == AccountCategories.EQUITY:
+            if account.account_type.category == 2:
                 if account.name == 'Retained Earnings':
                     retained_earnings_beginning = account_balance
                 elif 'Drawing' in account.name:
@@ -407,9 +407,9 @@ class AccountViewSet(viewsets.ModelViewSet):
                         # or account.name == 'Paid in Capital from Sale of Treasury Stock':
                     # NOTE: We are only accounting for business owner equity here, not shareholders equity.
                     dividends_total += account_balance
-            elif account.account_type.category == AccountCategories.REVENUE:
+            elif account.account_type.category == 3:
                 net_profit += account_balance
-            elif account.account_type.category == AccountCategories.EXPENSE:
+            elif account.account_type.category == 4:
                 net_profit -= account_balance
 
         return Response({
@@ -453,30 +453,30 @@ class AccountViewSet(viewsets.ModelViewSet):
                     'account_name': account.name,
                     'balance': format_currency(account_balance),
                 }
-                if account.account_type.category == AccountCategories.ASSET:
-                    if account.account_type.classification == AccountClassifications.CURRENT:
+                if account.account_type.category == 0:
+                    if account.account_type.classification == 1:
                         current_assets.append(account_summary)
                         current_assets_total += account_balance
                     else:
                         noncurrent_assets.append(account_summary)
                         noncurrent_assets_total += account_balance
 
-                elif account.account_type.category == AccountCategories.LIABILITY:
-                    if account.account_type.classification == AccountClassifications.CURRENT:
+                elif account.account_type.category == 2:
+                    if account.account_type.classification == 1:
                         current_liabilities.append(account_summary)
                         current_liabilities_total += account_balance
                     else:
                         noncurrent_liabilities.append(account_summary)
                         noncurrent_liabilities_total += account_balance
 
-                elif account.account_type.category == AccountCategories.EQUITY:
+                elif account.account_type.category == 2:
                     equity.append(account_summary)
                     equity_total += account_balance
 
-                elif account.account_type.category == AccountCategories.REVENUE:
+                elif account.account_type.category == 3:
                     revenues_total += account_balance
 
-                elif account.account_type.category == AccountCategories.EXPENSE:
+                elif account.account_type.category == 4:
                     expenses_total += account_balance
 
         #Part of Cheaty Method
@@ -514,9 +514,9 @@ class AccountViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'], permission_classes=[LAAccountsClosingPermission])
     def close_accounts(self, request):
         accounts = Account.objects.filter(is_active=True, account_type__category__in=[
-            AccountCategories.EQUITY,
-            AccountCategories.REVENUE,
-            AccountCategories.EXPENSE
+            2,
+            3,
+            4
         ])
 
         income_value = 0
@@ -537,7 +537,7 @@ class AccountViewSet(viewsets.ModelViewSet):
             closer = Transaction(affected_account=account, journal_entry=closing_journal, is_debit=not account.is_debit(),
                                  value=abs(balance))
 
-            if account.account_type.category == AccountCategories.REVENUE or account.account_type.category == AccountCategories.EXPENSE:
+            if account.account_type.category == 3 or account.account_type.category == 4:
                 has_income_adjustment = True
 
                 if closer.is_debit:
@@ -547,7 +547,7 @@ class AccountViewSet(viewsets.ModelViewSet):
 
                 income_value += closer.get_value()
 
-            elif account.account_type.category == AccountCategories.EQUITY and "Drawing" in account.name:
+            elif account.account_type.category == 2 and "Drawing" in account.name:
                 # NOTE: We are only accounting for business owner equity here, not shareholders equity.
                 try:
                     equity_adjuster = Account.objects.get_by_natural_key(account.name.replace("Drawing", "Capital"))

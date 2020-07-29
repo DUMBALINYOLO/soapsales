@@ -3,7 +3,7 @@ from functools import reduce
 from django.db import models
 from decimal import Decimal as D
 
-from accounts.models import Account, JournalEntry
+# from accounts.models import Account, JournalEntry
 from django.shortcuts import reverse
 
 
@@ -32,9 +32,20 @@ class CreditNote(models.Model):
     comments = models.TextField()#never allow blank comments
     entry = models.ForeignKey("accounts.JournalEntry", null=True,
         on_delete=models.SET_NULL)
+    reference_number = models.CharField(max_length=255, null=True, default=None)
 
+
+   
 
     def save(self, *args, **kwargs):
+        if not self.reference_number:
+           prefix = 'CNOTE-{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().reference_number[-4:]
+              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.reference_number = prefix+'{0:04d}'.format(1)
         if self.entry is None:
             self.create_entry()
         super(CreditNote, self).save(*args, **kwargs)
@@ -70,6 +81,7 @@ class CreditNote(models.Model):
         return self.tax_credit
 
     def create_entry(self):
+        from accounts.models import Account, JournalEntry
         j = JournalEntry.objects.create(
             memo=f"Journal entry for credit note #{self.pk}. From Invoice #{self.invoice.invoice_number}",
             date=self.date,

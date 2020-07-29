@@ -21,6 +21,7 @@ class Bill(models.Model):
         on_delete=models.SET_NULL,
         blank=True,
         null=True)
+    bill_number = models.CharField(max_length=255, null=True, default=None)
 
     def __str__(self):
         return f'{self.vendor} {self.reference}'
@@ -28,6 +29,14 @@ class Bill(models.Model):
     def save(self, *args, **kwargs):
         if self.entry is None:
             self.create_entry()
+        if not self.bill_number:
+           prefix = 'BNO{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(bill_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().bill_number[-4:]
+              self.bill_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.bill_number = prefix+'{0:04d}'.format(1)
         super(Bill, self).save(*args, **kwargs)
 
     @property

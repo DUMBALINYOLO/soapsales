@@ -53,10 +53,13 @@ INSTALLED_APPS = [
     'basedata',
     'employees',
     'accounts',
-    'stock',
     'corsheaders',
+    'reversion',
+    'event',
 ]
 
+
+AUTH_USER_MODEL = 'employees.User'
 
 
 MIDDLEWARE =[

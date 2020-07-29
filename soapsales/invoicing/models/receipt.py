@@ -1,6 +1,6 @@
 from django.db import models
 from basedata.models import SoftDeletionModel
-import uuid
+from django.utils import timezone
 
 
 
@@ -32,7 +32,7 @@ class CustomerReceipt(SoftDeletionModel):
                             related_name = 'receipts',
                             on_delete=models.SET_NULL,
                         )
-    receipt_number = models.UUIDField(default=uuid.uuid4, unique=True)
+    receipt_number = models.CharField(max_length=255, null=True, default=None) 
     created_date = models.DateTimeField(auto_now_add=True, db_index=True)
     comment = models.CharField(max_length=511, null=True, blank=True, default='')
     payment_method = models.CharField(max_length=500)
@@ -44,6 +44,18 @@ class CustomerReceipt(SoftDeletionModel):
 
     def __str__(self):
         return "Receipt #" + str(self.receipt_number)
+
+
+    def save(self, *args, **kwargs):
+        if not self.receipt_number:
+           prefix = 'REC{}'.format(timezone.now().strftime('%y%m%d'))
+           prev_instances = self.__class__.objects.filter(receipt_number__contains=prefix)
+           if prev_instances.exists():
+              last_instance_id = prev_instances.last().receipt_number[-4:]
+              self.receipt_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
+           else:
+               self.receipt_number = prefix+'{0:04d}'.format(1)
+        super(CustomerReceipt, self).save(*args, **kwargs)
 
 
 
