@@ -2,7 +2,7 @@ asgiref==3.2.7
 Babel==2.8.0
 cffi==1.14.0
 cryptography==2.9.2
-Django==3.0.7
+Django==3.0.12
 django-cors-headers==3.4.0
 django-extra-fields==2.0.5
 django-filter==2.3.0
