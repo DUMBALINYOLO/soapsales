@@ -1,5 +1,5 @@
 asgiref==3.2.7
-Babel==2.8.0
+Babel==2.9.1
 cffi==1.14.0
 cryptography==2.9.2
 Django==3.0.7
